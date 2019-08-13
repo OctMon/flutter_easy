@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../utils/global_utils.dart';
 import '../utils/color_utils.dart';
-import '../utils/font_utils.dart';
 
 abstract class PlatformWidget<M extends Widget, C extends Widget>
     extends StatelessWidget {
@@ -35,7 +34,9 @@ class BaseApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           textTheme: TextTheme(
             title: TextStyle(
-                fontSize: fontAutoSize17, color: colorWithAppBarTint, fontWeight: FontWeight.w500),
+                fontSize: 17,
+                color: colorWithAppBarTint,
+                fontWeight: FontWeight.w500),
           ),
         ),
       ),
@@ -105,7 +106,9 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   AppBar buildMaterialWidget(BuildContext context) {
     return AppBar(
       leading: _buildLeading(
-          context: context, leading: leading, tintColor: tintColor ?? colorWithAppBarTint),
+          context: context,
+          leading: leading,
+          tintColor: tintColor ?? colorWithAppBarTint),
       title: title,
       actions: actions == null ? [] : actions,
       elevation: elevation,
@@ -117,7 +120,9 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
     Widget leading = _buildLeading(
-        context: context, leading: this.leading, tintColor: tintColor ?? colorWithAppBarTint);
+        context: context,
+        leading: this.leading,
+        tintColor: tintColor ?? colorWithAppBarTint);
 
     return PreferredSize(
       preferredSize: Size.fromHeight(44),
@@ -162,7 +167,9 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   SliverAppBar buildMaterialWidget(BuildContext context) {
     return SliverAppBar(
       leading: _buildLeading(
-          context: context, leading: this.leading, tintColor: tintColor ?? colorWithAppBarTint),
+          context: context,
+          leading: this.leading,
+          tintColor: tintColor ?? colorWithAppBarTint),
       title: title,
       actions: actions == null ? [] : actions,
       elevation: elevation,
@@ -180,7 +187,9 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
       preferredSize: Size.fromHeight(44),
       child: SliverAppBar(
         leading: _buildLeading(
-            context: context, leading: this.leading, tintColor: tintColor ?? colorWithAppBarTint),
+            context: context,
+            leading: this.leading,
+            tintColor: tintColor ?? colorWithAppBarTint),
         title: title,
         actions: actions == null ? [] : actions,
         elevation: elevation,
@@ -361,4 +370,15 @@ class BaseDialogAction extends StatelessWidget {
       child: child,
     );
   }
+}
+
+Future<T> showBaseDialog<T>({
+  @required BuildContext context,
+  bool barrierDismissible = false,
+  WidgetBuilder builder,
+}) {
+  return showDialog(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: builder);
 }
