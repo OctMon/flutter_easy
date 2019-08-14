@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:convert/convert.dart' as convert;
 import 'package:crypto/crypto.dart' as crypto;
 
@@ -9,3 +10,16 @@ String md5(String data) {
   // 这里其实就是 digest.toString()
   return convert.hex.encode(digest.bytes);
 }
+
+/// base64加密字符串
+String base64EncodeString(String data) => base64Encode(utf8.encode(data));
+
+/// base64加密二进制
+String base64Encode(List<int> input) => base64.encode(input);
+
+/// base64解密字符串
+String base64DecodeString(String data) =>
+    String.fromCharCodes(base64Decode(data));
+
+/// base64解密字符串
+Uint8List base64Decode(String encoded) => base64.decode(encoded);

@@ -1,6 +1,6 @@
-import 'dart:convert' as convert;
-
 import 'package:flutter/material.dart';
+
+import 'package:flutter_easy/utils/crypto_utils.dart';
 
 class Base64Image extends StatelessWidget {
   ///
@@ -18,14 +18,12 @@ class Base64Image extends StatelessWidget {
   const Base64Image({Key key, this.base64, this.width, this.height, this.fit})
       : super(key: key);
 
-  static String encode(List<int> input) => convert.base64.encode(input);
-
   @override
   Widget build(BuildContext context) {
-    String decode = base64.contains(',') ? base64.split(',')[1] : base64;
+    String encoded = base64.contains(',') ? base64.split(',')[1] : base64;
     try {
       return Image.memory(
-        convert.base64.decode(decode),
+        base64Decode(encoded),
         height: width,
         width: height,
         fit: fit,
