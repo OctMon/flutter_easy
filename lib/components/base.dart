@@ -259,7 +259,7 @@ class BaseButton extends StatelessWidget {
 class BaseGradientButton extends StatelessWidget {
   final double width;
   final double height;
-  final EdgeInsetsGeometry contentPadding;
+  final EdgeInsetsGeometry padding;
   final Widget icon;
   final Widget title;
   final double borderRadius;
@@ -271,14 +271,14 @@ class BaseGradientButton extends StatelessWidget {
       {Key key,
       this.width = double.infinity,
       this.height = 44,
-      this.contentPadding,
+      this.padding,
       this.icon,
       this.title,
       this.borderRadius = 22,
       this.gradient =
           const LinearGradient(colors: [Color(0xFFFF6597), Color(0xFFFF4040)]),
       this.disableGradient =
-          const LinearGradient(colors: [Color(0XFFE3E3E3), Color(0XFFD3D3D3)]),
+          const LinearGradient(colors: [Color(0xFFE3E3E3), Color(0xFFD3D3D3)]),
       this.onPressed})
       : super(key: key);
 
@@ -293,11 +293,76 @@ class BaseGradientButton extends StatelessWidget {
       children.add(title);
     }
     return Container(
-      padding: contentPadding,
+      padding: padding,
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius),
           gradient: onPressed != null ? gradient : disableGradient,
+        ),
+        child: Container(
+          width: width,
+          height: height,
+          child: FlatButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius)),
+            splashColor: Colors.transparent,
+            child: Center(
+              child: Container(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: children),
+              ),
+            ),
+            onPressed: onPressed,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BaseBackgroundButton extends StatelessWidget {
+  final double width;
+  final double height;
+  final EdgeInsetsGeometry padding;
+  final Widget icon;
+  final Widget title;
+  final double borderRadius;
+  final Color color;
+  final Color disableColor;
+  final VoidCallback onPressed;
+
+  const BaseBackgroundButton(
+      {Key key,
+      this.width = double.infinity,
+      this.height = 44,
+      this.padding,
+      this.icon,
+      this.title,
+      this.borderRadius = 22,
+      this.color,
+      this.disableColor,
+      this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> children = [];
+    if (icon != null) {
+      children.add(icon);
+      children.add(SizedBox(width: 10));
+    }
+    if (title != null) {
+      children.add(title);
+    }
+    return Container(
+      padding: padding,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderRadius),
+          color: onPressed != null
+              ? (color ?? colorWithTint)
+              : (disableColor ?? Colors.grey),
         ),
         child: Container(
           width: width,
