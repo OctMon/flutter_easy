@@ -2,6 +2,7 @@ library flutter_easy;
 
 export 'utils/global_utils.dart';
 export 'utils/json_utils.dart';
+export 'utils/date_utils.dart';
 export 'utils/preferences_utils.dart';
 export 'utils/crypto_utils.dart';
 export 'utils/uuid_utils.dart';
