@@ -1,12 +1,40 @@
 /// 获取当前时间戳
-int get timestamp => DateTime.now().millisecondsSinceEpoch ~/ 1000;
+int get timestamp => timestampBy(DateTime.now());
 
-/// 时间戳转换为yyyy年MM月dd日
-String timestampToYYYYMMdd(int timestamp, {bool isUtc = false}) {
+/// 获取指定时间戳
+int timestampBy(DateTime dateTime) => dateTime.millisecondsSinceEpoch ~/ 1000;
+
+/// 时间戳转yyyy年MM月dd日 HH时mm分ss秒
+// ignore: non_constant_identifier_names
+String timestampToZh_yyyy_MM_dd_HH_mm_ss(int timestamp, {bool isUtc = false}) {
   DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
-  return '${dateTime.year}年${dateTime.month.toString().length > 1 ? dateTime.month : '0${dateTime.month}'}月${dateTime.day.toString().length > 1 ? dateTime.day : '0${dateTime.day}'}日';
+  return '${dateTime.year}年${_fixedZero2(dateTime.month)}月${_fixedZero2(dateTime.day)}日 ${_fixedZero2(dateTime.hour)}时${_fixedZero2(dateTime.minute)}分${_fixedZero2(dateTime.second)}秒';
 }
 
-/// 时间戳转换为DateTime
+/// 时间戳转yyyy年MM月dd日 HH时mm分
+// ignore: non_constant_identifier_names
+String timestampToZh_yyyy_MM_dd_HH_mm(int timestamp, {bool isUtc = false}) {
+  DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
+  return '${dateTime.year}年${_fixedZero2(dateTime.month)}月${_fixedZero2(dateTime.day)}日 ${_fixedZero2(dateTime.hour)}时${_fixedZero2(dateTime.minute)}分';
+}
+
+/// 时间戳转yyyy年MM月dd日
+// ignore: non_constant_identifier_names
+String timestampToZh_yyyy_MM_dd(int timestamp, {bool isUtc = false}) {
+  DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
+  return '${dateTime.year}年${_fixedZero2(dateTime.month)}月${_fixedZero2(dateTime.day)}日';
+}
+
+/// 时间戳转yyyy年MM月
+// ignore: non_constant_identifier_names
+String timestampToZh_yyyy_MM(int timestamp, {bool isUtc = false}) {
+  DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
+  return '${dateTime.year}年${_fixedZero2(dateTime.month)}月';
+}
+
+/// 时间戳转DateTime
 DateTime timestampToDateTime(int timestamp, {bool isUtc = false}) =>
     DateTime.fromMillisecondsSinceEpoch(timestamp * 1000, isUtc: isUtc);
+
+/// 不足两位前面补0
+String _fixedZero2(int digits) => '$digits'.length > 1 ? '$digits' : '0$digits';
