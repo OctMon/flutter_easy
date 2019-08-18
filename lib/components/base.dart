@@ -39,6 +39,11 @@ class BaseApp extends StatelessWidget {
                 fontWeight: FontWeight.w500),
           ),
         ),
+        textTheme: TextTheme(
+          button: TextStyle(
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
       onGenerateRoute: onGenerateRoute,
     );
