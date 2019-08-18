@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 export 'package:fluro/fluro.dart' show TransitionType;
 
+abstract class RouterProvider {
+  void initRouter(Router router);
+}
+
 ///
 /// 路由跳转封装
 ///
