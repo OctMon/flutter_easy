@@ -151,6 +151,8 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   final Color tintColor;
   final Color backgroundColor;
   final Brightness brightness;
+  final bool centerTitle;
+  final bool floating;
   final bool pinned;
   final double expandedHeight;
   final Widget flexibleSpace;
@@ -163,7 +165,9 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
     this.tintColor,
     this.backgroundColor,
     this.brightness = Brightness.light,
-    this.pinned,
+    this.centerTitle,
+    this.floating = false,
+    this.pinned = false,
     this.expandedHeight,
     this.flexibleSpace,
   });
@@ -200,6 +204,8 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
         elevation: elevation,
         backgroundColor: backgroundColor ?? colorWithAppBarBackground,
         brightness: brightness,
+        centerTitle: centerTitle,
+        floating: floating,
         pinned: pinned,
         expandedHeight: expandedHeight,
         flexibleSpace: flexibleSpace,
