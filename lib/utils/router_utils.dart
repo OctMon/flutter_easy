@@ -7,17 +7,27 @@ abstract class RouterProvider {
   void initRouter(Router router);
 }
 
+class RouterUtils {
+  /// 指定登录方法
+  static Future<dynamic> Function(BuildContext context) setPushToLogin;
+
+  /// 指定登录状态
+  static bool Function() setIsLogin;
+}
+
 ///
 /// 路由跳转封装
 ///
 /// path: 跳到指定路由
 /// name: 将name到path之间的页面全部pop
 /// parameter: Map参数
+/// needLogin: 是否检测用户登录状态 需要[setPushToLogin]指定登录方法 [setIsLogin]指定登录状态
 /// replace: true->替换页面 当新的页面进入后，之前的页面将执行dispose方法
 /// clearStack: true->指定页面加入到路由中，然后将其他所有的页面全部pop
 ///
 Future pushNamed(BuildContext context, String path,
     {Map<String, String> parameter,
+    dynamic Function(bool) needLogin,
     bool replace = false,
     bool clearStack = false,
     TransitionType transition = TransitionType.native,
@@ -25,6 +35,11 @@ Future pushNamed(BuildContext context, String path,
       milliseconds: 250,
     ),
     RouteTransitionsBuilder transitionBuilder}) {
+  if (needLogin != null && !RouterUtils.setIsLogin()) {
+    return RouterUtils.setPushToLogin(context).then((success) {
+      needLogin(success);
+    });
+  }
   return Router.appRouter.navigateTo(
     context,
     path + _encodeQueryComponent(parameter),

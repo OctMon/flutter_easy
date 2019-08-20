@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package_info_utils.dart';
+import 'router_utils.dart';
 
 class GlobalUtils {
   /// 上下文
@@ -17,7 +18,9 @@ class GlobalUtils {
   /// context: 上下文
   ///
   static void setContext(BuildContext context,
-      {double width = 375,
+      {Future<dynamic> Function(BuildContext context) pushToLogin,
+      dynamic Function() isLogin,
+      double width = 375,
       double height = 667,
       bool allowFontScaling = false}) {
     PackageInfoUtils.init();
@@ -27,6 +30,8 @@ class GlobalUtils {
       width: width,
       height: height,
     )..init(context);
+    RouterUtils.setPushToLogin = pushToLogin;
+    RouterUtils.setIsLogin = isLogin;
   }
 }
 
