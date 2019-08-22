@@ -19,10 +19,6 @@ dependencies:
   fluro: ^1.5.1
   # https://github.com/theyakka/fluro
 
-  # BlocBuilder is a Flutter widget which requires a Bloc and a builder f
-  flutter_bloc: ^0.20.1
-  # https://github.com/felangel/bloc/tree/master/packages/flutter_bloc
-
   # Generate RFC4122(v1,v4,v5) UUIDs
   uuid: ^2.0.2
   # https://github.com/Daegalus/dart-uuid
