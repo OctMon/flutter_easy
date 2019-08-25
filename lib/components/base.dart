@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:oktoast/oktoast.dart';
+
 import '../utils/global_utils.dart';
 import '../utils/color_utils.dart';
 
@@ -26,26 +28,28 @@ class BaseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        platform: TargetPlatform.iOS,
-        primarySwatch: Colors.grey,
-        splashColor: Colors.transparent,
-        appBarTheme: AppBarTheme(
+    return OKToast(
+      child: MaterialApp(
+        theme: ThemeData(
+          platform: TargetPlatform.iOS,
+          primarySwatch: Colors.grey,
+          splashColor: Colors.transparent,
+          appBarTheme: AppBarTheme(
+            textTheme: TextTheme(
+              title: TextStyle(
+                  fontSize: 17,
+                  color: colorWithAppBarTint,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
           textTheme: TextTheme(
-            title: TextStyle(
-                fontSize: 17,
-                color: colorWithAppBarTint,
-                fontWeight: FontWeight.w500),
+            button: TextStyle(
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
-        textTheme: TextTheme(
-          button: TextStyle(
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+        onGenerateRoute: onGenerateRoute,
       ),
-      onGenerateRoute: onGenerateRoute,
     );
   }
 }
