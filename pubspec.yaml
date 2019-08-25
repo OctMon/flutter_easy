@@ -43,10 +43,6 @@ dependencies:
   cached_network_image: ^1.1.1
   # https://github.com/renefloor/flutter_cached_network_image
 
-  # Flutter plugin that allows you to display multi image picker on iOS and Android.
-  multi_image_picker: ^4.4.1
-  # https://sh1d0w.github.io/multi_image_picker/#/
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

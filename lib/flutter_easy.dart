@@ -16,7 +16,6 @@ export 'utils/logger_utils.dart';
 export 'utils/router_utils.dart';
 export 'utils/valid_utils.dart';
 export 'utils/package_info_utils.dart';
-export 'utils/image_picker_utils.dart';
 
 export 'components/base.dart';
 export 'components/loading_view.dart';

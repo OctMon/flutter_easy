@@ -130,13 +130,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.10"
-  multi_image_picker:
-    dependency: "direct main"
-    description:
-      name: multi_image_picker
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "4.4.1"
   oktoast:
     dependency: "direct main"
     description:
@@ -270,4 +263,4 @@ packages:
     version: "2.0.8"
 sdks:
   dart: ">=2.2.2 <3.0.0"
-  flutter: ">=1.7.8 <2.0.0"
+  flutter: ">=1.5.0 <2.0.0"
