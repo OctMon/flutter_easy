@@ -15,10 +15,6 @@ dependencies:
   session: ^0.3.5
   # https://github.com/OctMon/session
 
-  # The brightest, hippest, coolest router for Flutter.
-  fluro: ^1.5.1
-  # https://github.com/theyakka/fluro
-
   # Generate RFC4122(v1,v4,v5) UUIDs
   uuid: ^2.0.2
   # https://github.com/Daegalus/dart-uuid

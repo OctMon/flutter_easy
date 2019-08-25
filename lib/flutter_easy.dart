@@ -13,7 +13,6 @@ export 'utils/font_utils.dart';
 export 'utils/distance_utils.dart';
 export 'utils/screen_utils.dart';
 export 'utils/logger_utils.dart';
-export 'utils/router_utils.dart';
 export 'utils/valid_utils.dart';
 export 'utils/package_info_utils.dart';
 
