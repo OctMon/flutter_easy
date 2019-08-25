@@ -1,6 +1,6 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 0.0.1
+version: 0.1.0
 author: OctMon <octmon@qq.com>
 homepage: https://github.com/OctMon/flutter_easy
 
@@ -24,7 +24,7 @@ dependencies:
   # https://github.com/OpenFlutter/flutter_oktoast
 
   # A flutter plugin for adapting screen and font size.Let your UI display a reasonable layout on different screen sizes!
-  flutter_screenutil: ^0.5.3
+  flutter_screenutil: ^0.6.0
   # https://github.com/OpenFlutter/flutter_screenutil
 
   # Plugin that allow Flutter to read value from persistent storage or save value to persistent storage base on MMKV framework
