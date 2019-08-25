@@ -22,9 +22,10 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
 }
 
 class BaseApp extends StatelessWidget {
+  final Widget home;
   final RouteFactory onGenerateRoute;
 
-  BaseApp({this.onGenerateRoute});
+  BaseApp({this.home, this.onGenerateRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,7 @@ class BaseApp extends StatelessWidget {
             ),
           ),
         ),
+        home: home,
         onGenerateRoute: onGenerateRoute,
       ),
     );
