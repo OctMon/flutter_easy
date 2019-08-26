@@ -27,7 +27,7 @@ class PlaceholderView extends StatelessWidget {
           SizedBox(height: distanceWith15),
           Text(
             title,
-            style: TextStyle(color: Colors.black38, fontSize: fontAutoSize14),
+            style: TextStyle(color: Colors.black38, fontSize: fontAutoSize(14)),
           ),
         ],
       ),

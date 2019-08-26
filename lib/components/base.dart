@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easy/flutter_easy.dart';
 
 import 'package:oktoast/oktoast.dart';
 
@@ -35,19 +36,6 @@ class BaseApp extends StatelessWidget {
           platform: TargetPlatform.iOS,
           primarySwatch: Colors.grey,
           splashColor: Colors.transparent,
-          appBarTheme: AppBarTheme(
-            textTheme: TextTheme(
-              title: TextStyle(
-                  fontSize: 17,
-                  color: colorWithAppBarTint,
-                  fontWeight: FontWeight.w500),
-            ),
-          ),
-          textTheme: TextTheme(
-            button: TextStyle(
-              fontWeight: FontWeight.w400,
-            ),
-          ),
         ),
         home: home,
         onGenerateRoute: onGenerateRoute,
@@ -120,7 +108,16 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
           context: context,
           leading: leading,
           tintColor: tintColor ?? colorWithAppBarTint),
-      title: title,
+      title: title != null
+          ? DefaultTextStyle(
+              style: TextStyle(
+                fontSize: fontAutoSize(17),
+                color: colorWithAppBarTint,
+                fontWeight: FontWeight.w500,
+              ),
+              child: title,
+            )
+          : null,
       actions: actions == null ? [] : actions,
       elevation: elevation,
       backgroundColor: backgroundColor ?? colorWithAppBarBackground,
@@ -139,7 +136,16 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
       preferredSize: Size.fromHeight(44),
       child: AppBar(
         leading: leading,
-        title: title,
+        title: title != null
+            ? DefaultTextStyle(
+                style: TextStyle(
+                  fontSize: fontAutoSize(17),
+                  color: colorWithAppBarTint,
+                  fontWeight: FontWeight.w500,
+                ),
+                child: title,
+              )
+            : null,
         actions: actions == null ? [] : actions,
         elevation: elevation,
         backgroundColor: backgroundColor ?? colorWithAppBarBackground,
@@ -185,7 +191,16 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
           context: context,
           leading: this.leading,
           tintColor: tintColor ?? colorWithAppBarTint),
-      title: title,
+      title: title != null
+          ? DefaultTextStyle(
+              style: TextStyle(
+                fontSize: fontAutoSize(17),
+                color: colorWithAppBarTint,
+                fontWeight: FontWeight.w500,
+              ),
+              child: title,
+            )
+          : null,
       actions: actions == null ? [] : actions,
       elevation: elevation,
       backgroundColor: backgroundColor ?? colorWithAppBarBackground,
@@ -205,7 +220,16 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
             context: context,
             leading: this.leading,
             tintColor: tintColor ?? colorWithAppBarTint),
-        title: title,
+        title: title != null
+            ? DefaultTextStyle(
+                style: TextStyle(
+                  fontSize: fontAutoSize(17),
+                  color: colorWithAppBarTint,
+                  fontWeight: FontWeight.w500,
+                ),
+                child: title,
+              )
+            : null,
         actions: actions == null ? [] : actions,
         elevation: elevation,
         backgroundColor: backgroundColor ?? colorWithAppBarBackground,

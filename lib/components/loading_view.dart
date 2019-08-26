@@ -11,7 +11,8 @@ class LoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all((message == null) ? distanceWith30 : distanceWith15),
+      padding:
+          EdgeInsets.all((message == null) ? distanceWith30 : distanceWith15),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: _buildChildren(),
@@ -29,7 +30,7 @@ class LoadingView extends StatelessWidget {
           maxLines: 2,
           style: TextStyle(
             color: Colors.white,
-            fontSize: fontAutoSize10,
+            fontSize: fontAutoSize(10),
           ),
         ),
       ));
