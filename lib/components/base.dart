@@ -277,6 +277,35 @@ class BaseScaffold extends StatelessWidget {
   }
 }
 
+class BaseInkWell extends StatelessWidget {
+  final EdgeInsetsGeometry padding;
+  final Color color;
+  @required
+  final Widget child;
+  @required
+  final VoidCallback onPressed;
+
+  BaseInkWell({this.padding, this.color, this.child, this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      padding: padding,
+      color: color,
+      child: DefaultTextStyle(
+        style: TextStyle(
+          fontSize: fontAutoSize(15),
+          color: colorWithHex3,
+          fontWeight: FontWeight.w400,
+        ),
+        child: child,
+      ),
+      onPressed: onPressed,
+    );
+  }
+}
+
 class BaseButton extends StatelessWidget {
   @required
   final EdgeInsetsGeometry padding;
