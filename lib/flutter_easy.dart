@@ -21,3 +21,4 @@ export 'components/loading_view.dart';
 export 'components/web_image.dart';
 export 'components/placeholder_view.dart';
 export 'components/base64_image.dart';
+export 'components/keep_alive.dart';
