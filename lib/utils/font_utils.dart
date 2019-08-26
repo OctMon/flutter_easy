@@ -52,6 +52,6 @@ fontAutoSize(double fontSize) {
 }
 
 /// 传入字体大小，根据系统的“字体大小”辅助选项来进行缩放(如果某个地方不遵循全局的allowFontScaling设置)
-fontAllowFontScalingSize(double fontSize) {
+fontAutoSizeAllowScaling(double fontSize) {
   return ScreenUtil(allowFontScaling: true).setSp(fontSize);
 }
