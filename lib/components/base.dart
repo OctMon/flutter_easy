@@ -112,7 +112,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
       title: title != null
           ? DefaultTextStyle(
               style: TextStyle(
-                fontSize: fontAutoSize(17),
+                fontSize: 17,
                 color: colorWithAppBarTint,
                 fontWeight: FontWeight.w500,
               ),
@@ -140,7 +140,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
         title: title != null
             ? DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: fontAutoSize(17),
+                  fontSize: 17,
                   color: colorWithAppBarTint,
                   fontWeight: FontWeight.w500,
                 ),
@@ -195,7 +195,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
       title: title != null
           ? DefaultTextStyle(
               style: TextStyle(
-                fontSize: fontAutoSize(17),
+                fontSize: 17,
                 color: colorWithAppBarTint,
                 fontWeight: FontWeight.w500,
               ),
@@ -224,7 +224,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
         title: title != null
             ? DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: fontAutoSize(17),
+                  fontSize: 17,
                   color: colorWithAppBarTint,
                   fontWeight: FontWeight.w500,
                 ),
@@ -278,6 +278,100 @@ class BaseScaffold extends StatelessWidget {
   }
 }
 
+class BaseText extends StatelessWidget {
+  final String data;
+  final InlineSpan textSpan;
+  final TextStyle style;
+  final StrutStyle strutStyle;
+  final TextAlign textAlign;
+  final TextDirection textDirection;
+  final Locale locale;
+  final bool softWrap;
+  final TextOverflow overflow;
+  final double textScaleFactor;
+  final int maxLines;
+  final String semanticsLabel;
+  final TextWidthBasis textWidthBasis;
+
+  const BaseText(
+    this.data, {
+    Key key,
+    this.style,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaleFactor = 1.0,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
+  })  : assert(
+          data != null,
+          'A non-null String must be provided to a Text widget.',
+        ),
+        textSpan = null,
+        super(key: key);
+
+  const BaseText.rich(
+    this.textSpan, {
+    Key key,
+    this.style,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaleFactor = 1.0,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
+  })  : assert(
+          textSpan != null,
+          'A non-null TextSpan must be provided to a Text.rich widget.',
+        ),
+        data = null,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (data == null && textSpan != null) {
+      return Text.rich(
+        textSpan,
+        key: key,
+        style: style,
+        strutStyle: strutStyle,
+        textAlign: textAlign,
+        textDirection: textDirection,
+        locale: locale,
+        softWrap: softWrap,
+        overflow: overflow,
+        textScaleFactor: textScaleFactor,
+        maxLines: maxLines,
+        semanticsLabel: semanticsLabel,
+        textWidthBasis: textWidthBasis,
+      );
+    }
+    return Text(
+      data,
+      key: key,
+      style: style,
+      strutStyle: strutStyle,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      semanticsLabel: semanticsLabel,
+      textWidthBasis: textWidthBasis,
+    );
+  }
+}
+
 class BaseInkWell extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final Color color;
@@ -296,7 +390,7 @@ class BaseInkWell extends StatelessWidget {
       color: color,
       child: DefaultTextStyle(
         style: TextStyle(
-          fontSize: fontAutoSize(15),
+          fontSize: 15,
           color: colorWithHex3,
           fontWeight: FontWeight.w400,
         ),
@@ -559,55 +653,58 @@ class BaseTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const Color underlineBorderColor = Colors.transparent;
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      autofocus: false,
-      focusNode: focusNode,
-      cursorColor: colorWithTint,
-      style: TextStyle(
-        color: colorWithHex3,
-        fontSize: fontAutoSize(14),
-      ),
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      inputFormatters: inputFormatters,
-      decoration: InputDecoration(
-        contentPadding: contentPadding,
-        suffixIcon: suffixIcon,
-        hintText: hintText,
-        hintStyle: TextStyle(
-          fontSize: fontAutoSize(14),
-          color: colorWithHex9,
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: TextField(
+        controller: controller,
+        obscureText: obscureText,
+        autofocus: false,
+        focusNode: focusNode,
+        cursorColor: colorWithTint,
+        style: TextStyle(
+          color: colorWithHex3,
+          fontSize: 14,
         ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: underlineBorderColor,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
+        inputFormatters: inputFormatters,
+        decoration: InputDecoration(
+          contentPadding: contentPadding,
+          suffixIcon: suffixIcon,
+          hintText: hintText,
+          hintStyle: TextStyle(
+            fontSize: 14,
+            color: colorWithHex9,
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              width: 0.5,
+              color: underlineBorderColor,
+            ),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              width: 0.5,
+              color: underlineBorderColor,
+            ),
           ),
         ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: underlineBorderColor,
-          ),
-        ),
+        maxLength: maxLength,
+        buildCounter: ((
+          BuildContext context, {
+          // 当前字数长度
+          @required int currentLength,
+          // 最大字数长度
+          @required int maxLength,
+          // 当前输入框是否有焦点
+          @required bool isFocused,
+        }) {
+          // 自定义的显示格式
+          return null;
+        }),
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
       ),
-      maxLength: maxLength,
-      buildCounter: ((
-        BuildContext context, {
-        // 当前字数长度
-        @required int currentLength,
-        // 最大字数长度
-        @required int maxLength,
-        // 当前输入框是否有焦点
-        @required bool isFocused,
-      }) {
-        // 自定义的显示格式
-        return null;
-      }),
-      onChanged: onChanged,
-      onSubmitted: onSubmitted,
     );
   }
 }

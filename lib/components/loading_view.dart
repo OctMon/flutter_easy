@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easy/components/base.dart';
 
 import '../utils/distance_utils.dart';
 import '../utils/font_utils.dart';
@@ -25,12 +26,12 @@ class LoadingView extends StatelessWidget {
     if (message != null && message.isNotEmpty) {
       list.add(Padding(
         padding: const EdgeInsets.only(top: distanceWith8),
-        child: Text(
+        child: BaseText(
           message,
           maxLines: 2,
           style: TextStyle(
             color: Colors.white,
-            fontSize: fontAutoSize(10),
+            fontSize: 10,
           ),
         ),
       ));

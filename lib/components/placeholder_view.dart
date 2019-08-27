@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easy/components/base.dart';
 
 import '../utils/distance_utils.dart';
 import '../utils/global_utils.dart';
@@ -25,9 +26,12 @@ class PlaceholderView extends StatelessWidget {
             height: distanceWith100,
           ),
           SizedBox(height: distanceWith15),
-          Text(
+          BaseText(
             title,
-            style: TextStyle(color: Colors.black38, fontSize: fontAutoSize(14)),
+            style: TextStyle(
+              color: Colors.black38,
+              fontSize: 14,
+            ),
           ),
         ],
       ),
