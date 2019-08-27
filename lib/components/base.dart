@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'package:oktoast/oktoast.dart';
@@ -452,6 +453,92 @@ class BaseBackgroundButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class BaseTextField extends StatelessWidget {
+  final EdgeInsetsGeometry contentPadding;
+  final TextEditingController controller;
+  final bool obscureText;
+  final int maxLength;
+  final String hintText;
+  final FocusNode focusNode;
+  final TextInputType keyboardType;
+  final TextInputAction textInputAction;
+  final List<TextInputFormatter> inputFormatters;
+  final Widget suffixIcon;
+  final ValueChanged<String> onChanged;
+  final ValueChanged<String> onSubmitted;
+
+  const BaseTextField(
+      {Key key,
+      this.contentPadding,
+      this.controller,
+      this.obscureText = false,
+      this.maxLength,
+      this.hintText,
+      this.focusNode,
+      this.keyboardType,
+      this.textInputAction,
+      this.inputFormatters,
+      this.suffixIcon,
+      this.onChanged,
+      this.onSubmitted})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const Color underlineBorderColor = Colors.transparent;
+    return TextField(
+      controller: controller,
+      obscureText: obscureText,
+      autofocus: false,
+      focusNode: focusNode,
+      cursorColor: colorWithTint,
+      style: TextStyle(
+        color: colorWithHex3,
+        fontSize: fontAutoSize(14),
+      ),
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      inputFormatters: inputFormatters,
+      decoration: InputDecoration(
+        contentPadding: contentPadding,
+        suffixIcon: suffixIcon,
+        hintText: hintText,
+        hintStyle: TextStyle(
+          fontSize: fontAutoSize(14),
+          color: colorWithHex9,
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.5,
+            color: underlineBorderColor,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.5,
+            color: underlineBorderColor,
+          ),
+        ),
+      ),
+      maxLength: maxLength,
+      buildCounter: ((
+        BuildContext context, {
+        // 当前字数长度
+        @required int currentLength,
+        // 最大字数长度
+        @required int maxLength,
+        // 当前输入框是否有焦点
+        @required bool isFocused,
+      }) {
+        // 自定义的显示格式
+        return null;
+      }),
+      onChanged: onChanged,
+      onSubmitted: onSubmitted,
     );
   }
 }
