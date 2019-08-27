@@ -457,6 +457,75 @@ class BaseBackgroundButton extends StatelessWidget {
   }
 }
 
+class BaseOutlineButton extends StatelessWidget {
+  final double width;
+  final double height;
+  final EdgeInsetsGeometry padding;
+  final Widget icon;
+  final Widget title;
+  final double borderWidth;
+  final double borderRadius;
+  final Color borderColor;
+  final Color highlightedBorderColor;
+  final Color disabledBorderColor;
+  final VoidCallback onPressed;
+
+  const BaseOutlineButton(
+      {Key key,
+      this.width = double.infinity,
+      this.height = 44,
+      this.padding,
+      this.icon,
+      this.title,
+      this.borderWidth = 1,
+      this.borderRadius = 22,
+      this.borderColor,
+      this.highlightedBorderColor,
+      this.disabledBorderColor,
+      this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> children = [];
+    if (icon != null) {
+      children.add(icon);
+      children.add(SizedBox(width: 10));
+    }
+    if (title != null) {
+      children.add(title);
+    }
+    return Container(
+      padding: padding,
+      child: Container(
+        width: width,
+        height: height,
+        child: OutlineButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          borderSide: BorderSide(
+            color: borderColor ?? colorWithTint,
+            width: borderWidth,
+          ),
+          highlightedBorderColor: highlightedBorderColor,
+          disabledBorderColor: disabledBorderColor,
+          splashColor: Colors.transparent,
+          child: Center(
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: children,
+              ),
+            ),
+          ),
+          onPressed: onPressed,
+        ),
+      ),
+    );
+  }
+}
+
 class BaseTextField extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
   final TextEditingController controller;
