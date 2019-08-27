@@ -67,7 +67,7 @@ Widget _buildLeading({BuildContext context, Widget leading, Color tintColor}) {
                   Navigator.maybePop(context);
                 },
               )
-            : CupertinoNavigationBarBackButton(
+            : BackButton(
                 color: tintColor,
               );
       } else {
