@@ -384,19 +384,22 @@ class BaseInkWell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      padding: padding,
-      color: color,
-      child: DefaultTextStyle(
-        style: TextStyle(
-          fontSize: 15,
-          color: colorWithHex3,
-          fontWeight: FontWeight.w400,
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      child: FlatButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        padding: padding,
+        color: color,
+        child: DefaultTextStyle(
+          style: TextStyle(
+            fontSize: 15,
+            color: colorWithHex3,
+            fontWeight: FontWeight.w400,
+          ),
+          child: child,
         ),
-        child: child,
+        onPressed: onPressed,
       ),
-      onPressed: onPressed,
     );
   }
 }
