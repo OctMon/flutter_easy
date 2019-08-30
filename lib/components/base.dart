@@ -374,31 +374,47 @@ class BaseText extends StatelessWidget {
 
 class BaseInkWell extends StatelessWidget {
   final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry margin;
   final Color color;
+  final double borderRadius;
+  final Decoration decoration;
   @required
   final Widget child;
   @required
   final VoidCallback onPressed;
 
-  BaseInkWell({this.padding, this.color, this.child, this.onPressed});
+  BaseInkWell(
+      {this.margin = EdgeInsets.zero,
+      this.padding = EdgeInsets.zero,
+      this.color,
+      this.borderRadius = 0,
+      this.decoration,
+      this.child,
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-        padding: padding,
-        color: color,
-        child: DefaultTextStyle(
-          style: TextStyle(
-            fontSize: 15,
-            color: colorWithHex3,
-            fontWeight: FontWeight.w400,
+      child: Container(
+        margin: margin,
+        decoration: decoration,
+        child: FlatButton(
+          padding: padding,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
-          child: child,
+          color: color,
+          child: DefaultTextStyle(
+            style: TextStyle(
+              fontSize: 15,
+              color: colorWithHex3,
+              fontWeight: FontWeight.w400,
+            ),
+            child: child,
+          ),
+          onPressed: onPressed,
         ),
-        onPressed: onPressed,
       ),
     );
   }
