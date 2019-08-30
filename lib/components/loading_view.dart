@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/components/base.dart';
 
 import '../utils/distance_utils.dart';
-import '../utils/font_utils.dart';
 
 class LoadingView extends StatelessWidget {
   final String message;

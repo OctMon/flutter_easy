@@ -16,7 +16,7 @@ double get screenBottomBarHeightDp => ScreenUtil.bottomBarHeight;
 
 /// 根据设计稿的设备宽度适配
 /// 高度也根据这个来做适配可以保证不变形
-screenAutoWidth(double width) {
+adaptWidth(double width) {
   return ScreenUtil.getInstance().setWidth(width);
 }
 
@@ -24,6 +24,6 @@ screenAutoWidth(double width) {
 /// 当发现设计稿中的一屏显示的与当前样式效果不符合时,
 /// 或者形状有差异时,高度适配建议使用此方法
 /// 高度适配主要针对想根据设计稿的一屏展示一样的效果
-screenAutoHeight(double height) {
+adaptHeight(double height) {
   return ScreenUtil.getInstance().setHeight(height);
 }

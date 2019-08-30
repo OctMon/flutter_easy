@@ -3,7 +3,6 @@ import 'package:flutter_easy/components/base.dart';
 
 import '../utils/distance_utils.dart';
 import '../utils/global_utils.dart';
-import '../utils/font_utils.dart';
 
 class PlaceholderView extends StatelessWidget {
   final String title;
