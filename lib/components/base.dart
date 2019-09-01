@@ -67,13 +67,18 @@ Widget _buildLeading({BuildContext context, Widget leading, Color tintColor}) {
                   Navigator.maybePop(context);
                 },
               )
-            : BackButton(
-                color: tintColor,
+            : BaseButton(
+                padding: EdgeInsets.zero,
+                child: Icon(Icons.arrow_back_ios, color: tintColor),
+                onPressed: () {
+                  Navigator.maybePop(context);
+                },
               );
       } else {
         _leading = IconButton(
-          icon:
-              useCloseButton ? const Icon(Icons.close) : const BackButtonIcon(),
+          icon: useCloseButton
+              ? const Icon(Icons.close)
+              : Icon(Icons.arrow_back_ios, color: tintColor),
           color: tintColor ?? colorWithAppBarTint,
           onPressed: () => Navigator.maybePop(context),
         );
