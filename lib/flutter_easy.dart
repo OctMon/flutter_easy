@@ -1,20 +1,20 @@
 library flutter_easy;
 
-export 'utils/global_utils.dart';
-export 'utils/json_utils.dart';
-export 'utils/date_utils.dart';
-export 'utils/preferences_utils.dart';
-export 'utils/crypto_utils.dart';
-export 'utils/uuid_utils.dart';
-export 'utils/loading_utils.dart';
-export 'utils/toast_utils.dart';
-export 'utils/color_utils.dart';
-export 'utils/font_utils.dart';
-export 'utils/distance_utils.dart';
-export 'utils/screen_utils.dart';
-export 'utils/logger_utils.dart';
-export 'utils/valid_utils.dart';
-export 'utils/package_info_utils.dart';
+export 'utils/global_util.dart';
+export 'utils/json_util.dart';
+export 'utils/date_util.dart';
+export 'utils/preferences_util.dart';
+export 'utils/crypto_util.dart';
+export 'utils/uuid_util.dart';
+export 'utils/loading_util.dart';
+export 'utils/toast_util.dart';
+export 'utils/color_util.dart';
+export 'utils/font_util.dart';
+export 'utils/distance_util.dart';
+export 'utils/screen_util.dart';
+export 'utils/logger_util.dart';
+export 'utils/valid_util.dart';
+export 'utils/package_info_util.dart';
 
 export 'routes/routes.dart';
 

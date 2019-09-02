@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/components/base.dart';
 
-import '../utils/distance_utils.dart';
-import '../utils/global_utils.dart';
+import '../utils/distance_util.dart';
+import '../utils/global_util.dart';
 
 class PlaceholderView extends StatelessWidget {
   final String title;

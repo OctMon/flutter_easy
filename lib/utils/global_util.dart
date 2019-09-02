@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package_info_utils.dart';
+import 'package_info_util.dart';
 
-class GlobalUtils {
+class GlobalUtil {
   /// 上下文
   static BuildContext context;
 
@@ -15,7 +15,7 @@ class GlobalUtils {
   /// 指定登录状态
   static bool Function() isLogin;
 
-  GlobalUtils._();
+  GlobalUtil._();
 
   ///
   /// 设置全局上下文
@@ -28,10 +28,10 @@ class GlobalUtils {
       double width = 375,
       double height = 667,
       bool allowFontScaling = false}) {
-    GlobalUtils.pushToLogin = pushToLogin;
-    GlobalUtils.isLogin = isLogin;
-    PackageInfoUtils.init();
-    GlobalUtils.context = context;
+    GlobalUtil.pushToLogin = pushToLogin;
+    GlobalUtil.isLogin = isLogin;
+    PackageInfoUtil.init();
+    GlobalUtil.context = context;
     // 在使用之前请设置好设计稿的宽度和高度，传入设计稿的宽度和高度(单位px) 一定在MaterialApp的home中的页面设置(即入口文件，只需设置一次),以保证在每次使用之前设置好了适配尺寸:
     ScreenUtil.instance = ScreenUtil(
       width: width,

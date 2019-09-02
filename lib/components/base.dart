@@ -5,8 +5,8 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 import 'package:oktoast/oktoast.dart';
 
-import '../utils/global_utils.dart';
-import '../utils/color_utils.dart';
+import '../utils/global_util.dart';
+import '../utils/color_util.dart';
 
 abstract class PlatformWidget<M extends Widget, C extends Widget>
     extends StatelessWidget {

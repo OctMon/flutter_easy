@@ -1,7 +1,7 @@
 import 'package:package_info/package_info.dart';
 
-class PackageInfoUtils {
-  PackageInfoUtils._();
+class PackageInfoUtil {
+  PackageInfoUtil._();
 
   /// 初始化设备信息
   static void init() {

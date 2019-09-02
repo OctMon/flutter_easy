@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'global_utils.dart';
+import 'global_util.dart';
 
 import '../components/loading_view.dart';
 
@@ -13,7 +13,7 @@ void showLoading({BuildContext context, String message}) {
   }
   _loadingStatus = true;
   showDialog(
-    context: context ?? GlobalUtils.context,
+    context: context ?? GlobalUtil.context,
     barrierDismissible: false,
     builder: (context) {
       return Material(
@@ -37,6 +37,6 @@ void showLoading({BuildContext context, String message}) {
 void dismissLoading({BuildContext context}) {
   if (_loadingStatus) {
     _loadingStatus = false;
-    Navigator.of(context ?? GlobalUtils.context, rootNavigator: true).pop();
+    Navigator.of(context ?? GlobalUtil.context, rootNavigator: true).pop();
   }
 }

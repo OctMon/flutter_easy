@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:session/session.dart';
 
-import '../utils/loading_utils.dart';
-import '../utils/logger_utils.dart';
+import '../utils/loading_util.dart';
+import '../utils/logger_util.dart';
 
 export 'package:session/session.dart';
 
