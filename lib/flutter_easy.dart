@@ -16,6 +16,8 @@ export 'utils/logger_utils.dart';
 export 'utils/valid_utils.dart';
 export 'utils/package_info_utils.dart';
 
+export 'routes/routes.dart';
+
 export 'components/base.dart';
 export 'components/loading_view.dart';
 export 'components/web_image.dart';
