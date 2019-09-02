@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:session/session.dart';
 
 import '../utils/loading_utils.dart';
@@ -21,7 +22,7 @@ Session _session;
 /// data: 请求参数
 /// queryParameters: URL携带请求参数
 /// validResult: 是否检验返回结果
-/// needShowLoading: 是否展示Loading加载中
+/// context: 不为null时展示Loading
 ///
 Future<Result> get<T>(
     {String baseUrl,
@@ -29,14 +30,14 @@ Future<Result> get<T>(
     Map data,
     Map<String, dynamic> queryParameters,
     bool validResult = true,
-    bool needShowLoading = false}) async {
+    BuildContext context}) async {
   return request<T>(baseUrl,
       path: path,
       data: data,
       queryParameters: queryParameters,
       options: Options(method: 'get'),
       validResult: validResult,
-      needShowLoading: needShowLoading);
+      context: context);
 }
 
 ///
@@ -47,20 +48,20 @@ Future<Result> get<T>(
 /// path: 请求路径
 /// data: 请求参数
 /// validResult: 是否检验返回结果
-/// needShowLoading: 是否展示Loading加载中
+/// context: 不为null时展示Loading
 ///
 Future<Result> post<T>(
     {String baseUrl,
     String path = '',
     Map data,
     bool validResult = true,
-    bool needShowLoading = false}) async {
+    BuildContext context}) async {
   return request<T>(baseUrl,
       path: path,
       data: data,
       options: Options(method: 'post'),
       validResult: validResult,
-      needShowLoading: needShowLoading);
+      context: context);
 }
 
 ///
@@ -71,7 +72,7 @@ Future<Result> post<T>(
 /// path: 请求路径
 /// data: 请求参数
 /// validResult: 是否检验返回结果
-/// needShowLoading: 是否展示Loading加载中
+/// context: 不为null时展示Loading
 ///
 Future<Result> request<T>(String baseUrl,
     {String path = '',
@@ -79,12 +80,12 @@ Future<Result> request<T>(String baseUrl,
     Map<String, dynamic> queryParameters,
     Options options,
     bool validResult = true,
-    bool needShowLoading = false}) async {
+    BuildContext context}) async {
   // Loading is show
   bool alreadyShowLoading = false;
-  if (needShowLoading) {
+  if (context != null) {
     try {
-      showLoading();
+      showLoading(context: context);
       alreadyShowLoading = true;
     } catch (e) {
       log('showLoading(); error:', e.toString());
@@ -111,7 +112,7 @@ Future<Result> request<T>(String baseUrl,
       data: data, queryParameters: queryParameters, options: options);
   if (alreadyShowLoading) {
     // Dismiss loading
-    dismissLoading();
+    dismissLoading(context: context);
   }
   return result;
 }
