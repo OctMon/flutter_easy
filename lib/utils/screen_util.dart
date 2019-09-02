@@ -1,18 +1,18 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-bool get isIPhoneX => ScreenUtil.bottomBarHeight > 0;
+bool isIPhoneX = ScreenUtil.bottomBarHeight > 0;
 
 /// 当前设备宽度 dp
-double get screenWidthDp => ScreenUtil.screenWidthDp;
+double screenWidthDp = ScreenUtil.screenWidthDp;
 
 /// 当前设备高度 dp
-double get screenHeightDp => ScreenUtil.screenHeightDp;
+double screenHeightDp = ScreenUtil.screenHeightDp;
 
 /// 状态栏高度 dp 刘海屏会更高
-double get screenStatusBarHeightDp => ScreenUtil.statusBarHeight;
+double screenStatusBarHeightDp = ScreenUtil.statusBarHeight;
 
 /// 底部安全区距离 dp
-double get screenBottomBarHeightDp => ScreenUtil.bottomBarHeight;
+double screenBottomBarHeightDp = ScreenUtil.bottomBarHeight;
 
 /// 根据设计稿的设备宽度适配
 /// 高度也根据这个来做适配可以保证不变形

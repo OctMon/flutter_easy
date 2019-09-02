@@ -42,9 +42,9 @@ class GlobalUtil {
 
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
 
-bool get isIOS => Platform.isIOS;
+bool isIOS = Platform.isIOS;
 
-bool get isAndroid => Platform.isAndroid;
+bool isAndroid = Platform.isAndroid;
 
 /// 获取图片路径
 String assetsImagesPath(String name, {String format = "png"}) =>
