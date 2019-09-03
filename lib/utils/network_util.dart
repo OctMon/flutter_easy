@@ -7,7 +7,7 @@ import '../utils/logger_util.dart';
 
 export 'package:session/session.dart';
 
-setSession(Session session) {
+init(Session session) {
   _session = session;
 }
 
