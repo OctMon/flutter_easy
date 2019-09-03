@@ -740,7 +740,7 @@ class BaseAlertDialog extends StatelessWidget {
 
   const BaseAlertDialog({
     Key key,
-    this.title = const Text('温馨提示'),
+    this.title = const BaseText('温馨提示'),
     this.content,
     this.actions = const <Widget>[],
   })  : assert(actions != null),
