@@ -22,7 +22,8 @@ Session _session;
 /// data: 请求参数
 /// queryParameters: URL携带请求参数
 /// validResult: 是否检验返回结果
-/// context: 不为null时展示Loading
+/// context: 上下文
+/// autoLoading: 展示Loading
 ///
 Future<Result> get<T>(
     {String baseUrl,
@@ -30,14 +31,16 @@ Future<Result> get<T>(
     Map data,
     Map<String, dynamic> queryParameters,
     bool validResult = true,
-    BuildContext context}) async {
+    BuildContext context,
+    bool autoLoading = false}) async {
   return request<T>(baseUrl,
       path: path,
       data: data,
       queryParameters: queryParameters,
       options: Options(method: 'get'),
       validResult: validResult,
-      context: context);
+      context: context,
+      autoLoading: autoLoading);
 }
 
 ///
@@ -48,20 +51,23 @@ Future<Result> get<T>(
 /// path: 请求路径
 /// data: 请求参数
 /// validResult: 是否检验返回结果
-/// context: 不为null时展示Loading
+/// context: 上下文
+/// autoLoading: 展示Loading
 ///
 Future<Result> post<T>(
     {String baseUrl,
     String path = '',
     Map data,
     bool validResult = true,
-    BuildContext context}) async {
+    BuildContext context,
+    bool autoLoading = false}) async {
   return request<T>(baseUrl,
       path: path,
       data: data,
       options: Options(method: 'post'),
       validResult: validResult,
-      context: context);
+      context: context,
+      autoLoading: autoLoading);
 }
 
 ///
@@ -72,7 +78,8 @@ Future<Result> post<T>(
 /// path: 请求路径
 /// data: 请求参数
 /// validResult: 是否检验返回结果
-/// context: 不为null时展示Loading
+/// context: 上下文
+/// autoLoading: 展示Loading
 ///
 Future<Result> request<T>(String baseUrl,
     {String path = '',
@@ -80,10 +87,11 @@ Future<Result> request<T>(String baseUrl,
     Map<String, dynamic> queryParameters,
     Options options,
     bool validResult = true,
-    BuildContext context}) async {
+    BuildContext context,
+    bool autoLoading = false}) async {
   // Loading is show
   bool alreadyShowLoading = false;
-  if (context != null) {
+  if (autoLoading && context != null) {
     try {
       showLoading(context);
       alreadyShowLoading = true;
@@ -110,7 +118,7 @@ Future<Result> request<T>(String baseUrl,
       onResult: validResult ? _session.onResult : null);
   Result result = await session.request(path,
       data: data, queryParameters: queryParameters, options: options);
-  if (alreadyShowLoading) {
+  if (autoLoading && alreadyShowLoading) {
     // Dismiss loading
     dismissLoading(context);
   }
