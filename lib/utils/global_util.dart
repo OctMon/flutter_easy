@@ -15,11 +15,15 @@ class GlobalUtil {
   GlobalUtil._();
 
   ///
-  /// 设置全局上下文
+  /// 初始化
   ///
   /// context: 上下文
+  /// pushToLogin: 指定登录方法 [(context) => [navigateToLogin(context)]
+  /// isLogin: 指定登录状态 [() => Account.isLogin]
+  /// width: 在使用之前请设置好设计稿的宽度
+  /// height: 在使用之前请设置好设计稿的高度
   ///
-  static void setContext(BuildContext context,
+  static void init(BuildContext context,
       {Future<dynamic> Function(BuildContext context) pushToLogin,
       dynamic Function() isLogin,
       double width = 375,
