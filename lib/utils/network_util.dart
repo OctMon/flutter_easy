@@ -85,7 +85,7 @@ Future<Result> request<T>(String baseUrl,
   bool alreadyShowLoading = false;
   if (context != null) {
     try {
-      showLoading(context: context);
+      showLoading(context);
       alreadyShowLoading = true;
     } catch (e) {
       log('showLoading(); error:', e.toString());
@@ -112,7 +112,7 @@ Future<Result> request<T>(String baseUrl,
       data: data, queryParameters: queryParameters, options: options);
   if (alreadyShowLoading) {
     // Dismiss loading
-    dismissLoading(context: context);
+    dismissLoading(context);
   }
   return result;
 }

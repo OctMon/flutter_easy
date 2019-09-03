@@ -6,14 +6,14 @@ import '../components/loading_view.dart';
 
 bool _loadingStatus = false;
 
-void showLoading({BuildContext context, String message}) {
+void showLoading(BuildContext context, {String message}) {
   // 已有弹窗，则不再显示弹窗
   if (_loadingStatus) {
     return;
   }
   _loadingStatus = true;
   showDialog(
-    context: context ?? GlobalUtil.context,
+    context: context,
     barrierDismissible: false,
     builder: (context) {
       return Material(
@@ -34,9 +34,9 @@ void showLoading({BuildContext context, String message}) {
   );
 }
 
-void dismissLoading({BuildContext context}) {
+void dismissLoading(BuildContext context) {
   if (_loadingStatus) {
     _loadingStatus = false;
-    Navigator.of(context ?? GlobalUtil.context, rootNavigator: true).pop();
+    Navigator.of(context, rootNavigator: true).pop();
   }
 }

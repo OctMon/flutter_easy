@@ -6,9 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package_info_util.dart';
 
 class GlobalUtil {
-  /// 上下文
-  static BuildContext context;
-
   /// 指定登录方法
   static Future<dynamic> Function(BuildContext context) pushToLogin;
 
@@ -31,7 +28,6 @@ class GlobalUtil {
     GlobalUtil.pushToLogin = pushToLogin;
     GlobalUtil.isLogin = isLogin;
     PackageInfoUtil.init();
-    GlobalUtil.context = context;
     // 在使用之前请设置好设计稿的宽度和高度，传入设计稿的宽度和高度(单位px) 一定在MaterialApp的home中的页面设置(即入口文件，只需设置一次),以保证在每次使用之前设置好了适配尺寸:
     ScreenUtil.instance = ScreenUtil(
       width: width,
