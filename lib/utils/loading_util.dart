@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'global_util.dart';
-
 import '../components/loading_view.dart';
 
 bool _loadingStatus = false;
