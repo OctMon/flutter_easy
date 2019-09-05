@@ -10,7 +10,6 @@ export 'utils/loading_util.dart';
 export 'utils/toast_util.dart';
 export 'utils/color_util.dart';
 export 'utils/font_util.dart';
-export 'utils/distance_util.dart';
 export 'utils/screen_util.dart';
 export 'utils/logger_util.dart';
 export 'utils/valid_util.dart';
