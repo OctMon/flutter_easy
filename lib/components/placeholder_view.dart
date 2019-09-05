@@ -21,15 +21,15 @@ class PlaceholderView extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: distanceWith150,
+        height: 150,
         child: Column(
           children: <Widget>[
             Image.asset(
               assetsImagesPath(image),
-              width: distanceWith100,
-              height: distanceWith100,
+              width: 100,
+              height: 100,
             ),
-            SizedBox(height: distanceWith15),
+            SizedBox(height: 15),
             BaseText(
               title,
               style: TextStyle(
