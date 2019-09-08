@@ -789,7 +789,7 @@ Future<T> showBaseDialog<T>({
   bool barrierDismissible = false,
   WidgetBuilder builder,
 }) {
-  return showDialog(
+  return showDialog<T>(
       context: context,
       barrierDismissible: barrierDismissible,
       builder: builder);
