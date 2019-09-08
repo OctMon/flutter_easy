@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -45,6 +46,14 @@ const bool isProduction = const bool.fromEnvironment("dart.vm.product");
 bool isIOS = Platform.isIOS;
 
 bool isAndroid = Platform.isAndroid;
+
+/// 将文本内容复制到剪贴板
+Future<void> setClipboard(String text) =>
+    Clipboard.setData(ClipboardData(text: text));
+
+/// 获取剪贴板内容
+Future<String> getClipboard() =>
+    Clipboard.getData(Clipboard.kTextPlain).then((data) => data.text);
 
 /// 获取图片路径
 String assetsImagesPath(String name, {String format = "png"}) =>
