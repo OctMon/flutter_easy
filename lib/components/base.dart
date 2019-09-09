@@ -647,6 +647,7 @@ class BaseOutlineButton extends StatelessWidget {
 class BaseTextField extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
   final TextEditingController controller;
+  final Color underlineBorderColor;
   final bool obscureText;
   final int maxLength;
   final String hintText;
@@ -662,6 +663,7 @@ class BaseTextField extends StatelessWidget {
       {Key key,
       this.contentPadding,
       this.controller,
+      this.underlineBorderColor = Colors.transparent,
       this.obscureText = false,
       this.maxLength,
       this.hintText,
@@ -676,7 +678,6 @@ class BaseTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color underlineBorderColor = Colors.transparent;
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
       child: TextField(
