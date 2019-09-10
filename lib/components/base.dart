@@ -89,6 +89,7 @@ Widget _buildLeading({BuildContext context, Widget leading, Color tintColor}) {
 }
 
 class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
+  final bool automaticallyImplyLeading;
   final Widget title;
   final Widget leading;
   final List<Widget> actions;
@@ -98,6 +99,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final Brightness brightness;
 
   BaseAppBar({
+    this.automaticallyImplyLeading = true,
     this.title,
     this.leading,
     this.actions,
@@ -110,10 +112,13 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   @override
   AppBar buildMaterialWidget(BuildContext context) {
     return AppBar(
-      leading: _buildLeading(
-          context: context,
-          leading: leading,
-          tintColor: tintColor ?? colorWithAppBarTint),
+      automaticallyImplyLeading: automaticallyImplyLeading,
+      leading: automaticallyImplyLeading
+          ? _buildLeading(
+              context: context,
+              leading: leading,
+              tintColor: tintColor ?? colorWithAppBarTint)
+          : null,
       title: title != null
           ? DefaultTextStyle(
               style: TextStyle(
@@ -133,15 +138,16 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
 
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
-    Widget leading = _buildLeading(
-        context: context,
-        leading: this.leading,
-        tintColor: tintColor ?? colorWithAppBarTint);
-
     return PreferredSize(
       preferredSize: Size.fromHeight(44),
       child: AppBar(
-        leading: leading,
+        automaticallyImplyLeading: automaticallyImplyLeading,
+        leading: automaticallyImplyLeading
+            ? _buildLeading(
+                context: context,
+                leading: leading,
+                tintColor: tintColor ?? colorWithAppBarTint)
+            : null,
         title: title != null
             ? DefaultTextStyle(
                 style: TextStyle(
