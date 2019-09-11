@@ -654,6 +654,7 @@ class BaseTextField extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
   final TextEditingController controller;
   final Color underlineBorderColor;
+  final bool readOnly;
   final bool obscureText;
   final int maxLength;
   final String hintText;
@@ -664,6 +665,7 @@ class BaseTextField extends StatelessWidget {
   final Widget suffixIcon;
   final ValueChanged<String> onChanged;
   final ValueChanged<String> onSubmitted;
+  final GestureTapCallback onTap;
 
   const BaseTextField(
       {Key key,
@@ -671,6 +673,7 @@ class BaseTextField extends StatelessWidget {
       this.controller,
       this.underlineBorderColor = Colors.transparent,
       this.obscureText = false,
+      this.readOnly = false,
       this.maxLength,
       this.hintText,
       this.focusNode,
@@ -679,7 +682,8 @@ class BaseTextField extends StatelessWidget {
       this.inputFormatters,
       this.suffixIcon,
       this.onChanged,
-      this.onSubmitted})
+      this.onSubmitted,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -688,6 +692,7 @@ class BaseTextField extends StatelessWidget {
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
       child: TextField(
         controller: controller,
+        readOnly: readOnly,
         obscureText: obscureText,
         autofocus: false,
         focusNode: focusNode,
@@ -735,6 +740,7 @@ class BaseTextField extends StatelessWidget {
         }),
         onChanged: onChanged,
         onSubmitted: onSubmitted,
+        onTap: onTap,
       ),
     );
   }
