@@ -56,5 +56,9 @@ Future<String> getClipboard() =>
     Clipboard.getData(Clipboard.kTextPlain).then((data) => data.text);
 
 /// 获取图片路径
+String assetsImagesPathWebP(String name) =>
+    assetsImagesPath(name, format: 'webp');
+
+/// 获取图片路径
 String assetsImagesPath(String name, {String format = "png"}) =>
     "assets/images/$name.$format";
