@@ -807,3 +807,71 @@ Future<T> showBaseDialog<T>({
       barrierDismissible: barrierDismissible,
       builder: builder);
 }
+
+class BaseActionSheet extends StatelessWidget {
+  final Widget title;
+  final Widget message;
+  final List<Widget> actions;
+  final Widget cancelButton;
+
+  const BaseActionSheet({
+    Key key,
+    this.title,
+    this.message,
+    this.actions = const <Widget>[],
+    this.cancelButton,
+  })  : assert(
+            actions != null ||
+                title != null ||
+                message != null ||
+                cancelButton != null,
+            'An action sheet must have a non-null value for at least one of the following arguments: '
+            'actions, title, message, or cancelButton'),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoActionSheet(
+      key: key,
+      title: title,
+      message: message,
+      actions: actions,
+      cancelButton: cancelButton,
+    );
+  }
+}
+
+class BaseActionSheetAction extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  final bool isDefaultAction;
+
+  final bool isDestructiveAction;
+
+  final Widget child;
+
+  const BaseActionSheetAction({
+    @required this.onPressed,
+    this.isDefaultAction = false,
+    this.isDestructiveAction = false,
+    @required this.child,
+  })  : assert(child != null),
+        assert(onPressed != null);
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoActionSheetAction(
+      onPressed: onPressed,
+      child: child,
+      isDefaultAction: isDefaultAction,
+      isDestructiveAction: isDestructiveAction,
+    );
+  }
+}
+
+Future<T> showBaseModalBottomSheet<T>({
+  @required BuildContext context,
+  WidgetBuilder builder,
+}) {
+  return showCupertinoModalPopup(context: context, builder: builder);
+}
