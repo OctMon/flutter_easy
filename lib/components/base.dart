@@ -652,6 +652,8 @@ class BaseOutlineButton extends StatelessWidget {
 
 class BaseTextField extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
+  final double height;
+  final int maxLines;
   final TextEditingController controller;
   final TextStyle style;
   final TextStyle hintStyle;
@@ -671,7 +673,9 @@ class BaseTextField extends StatelessWidget {
 
   const BaseTextField(
       {Key key,
-      this.contentPadding,
+      this.contentPadding = EdgeInsets.zero,
+      this.height = 34,
+      this.maxLines = 1,
       this.style = const TextStyle(
         color: colorWithHex3,
         fontSize: 14,
@@ -700,51 +704,56 @@ class BaseTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-      child: TextField(
-        controller: controller,
-        readOnly: readOnly,
-        obscureText: obscureText,
-        autofocus: false,
-        focusNode: focusNode,
-        cursorColor: colorWithTint,
-        style: style,
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        inputFormatters: inputFormatters,
-        decoration: InputDecoration(
-          contentPadding: contentPadding,
-          suffixIcon: suffixIcon,
-          hintText: hintText,
-          hintStyle: hintStyle,
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              width: 0.5,
-              color: underlineBorderColor,
+      child: Container(
+        height: height,
+        alignment: Alignment.bottomLeft,
+        child: TextField(
+          controller: controller,
+          maxLines: maxLines,
+          readOnly: readOnly,
+          obscureText: obscureText,
+          autofocus: false,
+          focusNode: focusNode,
+          cursorColor: colorWithTint,
+          style: style,
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          inputFormatters: inputFormatters,
+          decoration: InputDecoration(
+            contentPadding: contentPadding,
+            suffixIcon: suffixIcon,
+            hintText: hintText,
+            hintStyle: hintStyle,
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                width: 0.5,
+                color: underlineBorderColor,
+              ),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                width: 0.5,
+                color: underlineBorderColor,
+              ),
             ),
           ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              width: 0.5,
-              color: underlineBorderColor,
-            ),
-          ),
+          maxLength: maxLength,
+          buildCounter: ((
+            BuildContext context, {
+            // 当前字数长度
+            @required int currentLength,
+            // 最大字数长度
+            @required int maxLength,
+            // 当前输入框是否有焦点
+            @required bool isFocused,
+          }) {
+            // 自定义的显示格式
+            return null;
+          }),
+          onChanged: onChanged,
+          onSubmitted: onSubmitted,
+          onTap: onTap,
         ),
-        maxLength: maxLength,
-        buildCounter: ((
-          BuildContext context, {
-          // 当前字数长度
-          @required int currentLength,
-          // 最大字数长度
-          @required int maxLength,
-          // 当前输入框是否有焦点
-          @required bool isFocused,
-        }) {
-          // 自定义的显示格式
-          return null;
-        }),
-        onChanged: onChanged,
-        onSubmitted: onSubmitted,
-        onTap: onTap,
       ),
     );
   }
