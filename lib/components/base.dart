@@ -653,6 +653,8 @@ class BaseOutlineButton extends StatelessWidget {
 class BaseTextField extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
   final TextEditingController controller;
+  final TextStyle style;
+  final TextStyle hintStyle;
   final Color underlineBorderColor;
   final bool readOnly;
   final bool obscureText;
@@ -670,6 +672,14 @@ class BaseTextField extends StatelessWidget {
   const BaseTextField(
       {Key key,
       this.contentPadding,
+      this.style = const TextStyle(
+        color: colorWithHex3,
+        fontSize: 14,
+      ),
+      this.hintStyle = const TextStyle(
+        fontSize: 14,
+        color: colorWithHex9,
+      ),
       this.controller,
       this.underlineBorderColor = Colors.transparent,
       this.obscureText = false,
@@ -697,10 +707,7 @@ class BaseTextField extends StatelessWidget {
         autofocus: false,
         focusNode: focusNode,
         cursorColor: colorWithTint,
-        style: TextStyle(
-          color: colorWithHex3,
-          fontSize: 14,
-        ),
+        style: style,
         keyboardType: keyboardType,
         textInputAction: textInputAction,
         inputFormatters: inputFormatters,
@@ -708,10 +715,7 @@ class BaseTextField extends StatelessWidget {
           contentPadding: contentPadding,
           suffixIcon: suffixIcon,
           hintText: hintText,
-          hintStyle: TextStyle(
-            fontSize: 14,
-            color: colorWithHex9,
-          ),
+          hintStyle: hintStyle,
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               width: 0.5,
