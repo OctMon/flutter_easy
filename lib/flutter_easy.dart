@@ -14,6 +14,7 @@ export 'utils/screen_util.dart';
 export 'utils/logger_util.dart';
 export 'utils/valid_util.dart';
 export 'utils/package_info_util.dart';
+export 'utils/picker_util.dart';
 
 export 'routes/routes.dart';
 

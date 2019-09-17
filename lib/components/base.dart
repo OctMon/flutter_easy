@@ -26,8 +26,14 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
 class BaseApp extends StatelessWidget {
   final Widget home;
   final RouteFactory onGenerateRoute;
+  final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
+  final Iterable<Locale> supportedLocales;
 
-  BaseApp({this.home, this.onGenerateRoute});
+  BaseApp(
+      {this.home,
+      this.onGenerateRoute,
+      this.localizationsDelegates,
+      this.supportedLocales = const <Locale>[Locale('en', 'US')]});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +46,8 @@ class BaseApp extends StatelessWidget {
         ),
         home: home,
         onGenerateRoute: onGenerateRoute,
+        localizationsDelegates: localizationsDelegates,
+        supportedLocales: supportedLocales,
       ),
     );
   }
