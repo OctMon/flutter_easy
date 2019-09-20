@@ -1,3 +1,3 @@
 import 'package:uuid/uuid.dart';
 
-get uuidV1 => Uuid().v1();
+getUuidV1() => Uuid().v1();
