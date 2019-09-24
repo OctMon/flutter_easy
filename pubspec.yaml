@@ -23,10 +23,6 @@ dependencies:
   oktoast: ^2.2.0
   # https://github.com/OpenFlutter/flutter_oktoast
 
-  # A flutter plugin for adapting screen and font size.Let your UI display a reasonable layout on different screen sizes!
-  flutter_screenutil: ^0.6.0
-  # https://github.com/OpenFlutter/flutter_screenutil
-
   # Plugin that allow Flutter to read value from persistent storage or save value to persistent storage base on MMKV framework
   mmkv_flutter: ^1.0.10
   # https://github.com/OpenFlutter/mmkv_flutter

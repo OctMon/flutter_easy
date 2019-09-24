@@ -2,9 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package_info_util.dart';
+import 'adapt_util.dart';
 
 class GlobalUtil {
   /// 指定登录方法
@@ -21,23 +20,14 @@ class GlobalUtil {
   /// context: 上下文
   /// pushToLogin: 指定登录方法 [(context) => [navigateToLogin(context)]
   /// isLogin: 指定登录状态 [() => Account.isLogin]
-  /// width: 在使用之前请设置好设计稿的宽度
-  /// height: 在使用之前请设置好设计稿的高度
   ///
   static void init(BuildContext context,
       {Future<dynamic> Function(BuildContext context) pushToLogin,
       dynamic Function() isLogin,
-      double width = 375,
-      double height = 667,
       bool allowFontScaling = false}) {
     GlobalUtil.pushToLogin = pushToLogin;
     GlobalUtil.isLogin = isLogin;
     PackageInfoUtil.init();
-    // 在使用之前请设置好设计稿的宽度和高度，传入设计稿的宽度和高度(单位px) 一定在MaterialApp的home中的页面设置(即入口文件，只需设置一次),以保证在每次使用之前设置好了适配尺寸:
-    ScreenUtil.instance = ScreenUtil(
-      width: width,
-      height: height,
-    )..init(context);
   }
 }
 
