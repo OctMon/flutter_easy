@@ -3,19 +3,24 @@ import 'package:package_info/package_info.dart';
 class PackageInfoUtil {
   PackageInfoUtil._();
 
-  /// 初始化设备信息
+  static PackageInfo packageInfo;
+
+  /// 初始化应用信息
   static void init() {
-    _packageInfo.then((info) {
-      appName = info.appName;
-      appVersion = info.version;
+    PackageInfo.fromPlatform().then((info) {
+      packageInfo = info;
     });
   }
 }
 
-Future<PackageInfo> _packageInfo = PackageInfo.fromPlatform();
-
 /// The app name. `CFBundleDisplayName` on iOS, `application/label` on Android.
-String appName;
+final String appName = PackageInfoUtil.packageInfo.appName;
 
-/// The package version. `CFBundleShortVersionString` on iOS, `versionName` on Android.
-String appVersion;
+/// The app package name. `bundleIdentifier` on iOS, `getPackageName` on Android.
+final String appPackageName = PackageInfoUtil.packageInfo.packageName;
+
+/// The app package version. `CFBundleShortVersionString` on iOS, `versionName` on Android.
+final String appVersion = PackageInfoUtil.packageInfo.version;
+
+/// The app build number. `CFBundleVersion` on iOS, `versionCode` on Android.
+final String appBuildNumber = PackageInfoUtil.packageInfo.buildNumber;
