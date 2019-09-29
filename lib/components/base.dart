@@ -682,15 +682,17 @@ class BaseTextField extends StatelessWidget {
   const BaseTextField(
       {Key key,
       this.contentPadding = EdgeInsets.zero,
-      this.height = 34,
+      this.height,
       this.maxLines = 1,
       this.style = const TextStyle(
-        color: colorWithHex3,
         fontSize: 14,
+        color: colorWithHex3,
+        textBaseline: TextBaseline.alphabetic,
       ),
       this.hintStyle = const TextStyle(
         fontSize: 14,
         color: colorWithHex9,
+        textBaseline: TextBaseline.alphabetic,
       ),
       this.controller,
       this.underlineBorderColor = Colors.transparent,
@@ -713,8 +715,9 @@ class BaseTextField extends StatelessWidget {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
       child: Container(
-        height: height,
-        alignment: Alignment.bottomLeft,
+        padding: EdgeInsets.only(top: 6),
+        height: height ?? 34,
+        alignment: Alignment.centerLeft,
         child: TextField(
           controller: controller,
           maxLines: maxLines,
