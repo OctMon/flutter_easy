@@ -1,7 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_easy/flutter_easy.dart';
+import '../utils/global_util.dart';
 
 ///
 /// 路由跳转封装
