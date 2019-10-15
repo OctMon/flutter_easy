@@ -467,6 +467,7 @@ class BaseGradientButton extends StatelessWidget {
   final Widget title;
   final double borderRadius;
   final Gradient gradient;
+  final List<BoxShadow> boxShadow;
   final Gradient disableGradient;
   final VoidCallback onPressed;
 
@@ -482,6 +483,7 @@ class BaseGradientButton extends StatelessWidget {
           const LinearGradient(colors: [Color(0xFFFF6597), Color(0xFFFF4040)]),
       this.disableGradient =
           const LinearGradient(colors: [Color(0xFFE3E3E3), Color(0xFFD3D3D3)]),
+      this.boxShadow,
       this.onPressed})
       : super(key: key);
 
@@ -497,27 +499,26 @@ class BaseGradientButton extends StatelessWidget {
     }
     return Container(
       padding: padding,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
-          gradient: onPressed != null ? gradient : disableGradient,
-        ),
-        child: Container(
-          width: width,
-          height: height,
-          child: FlatButton(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius)),
-            splashColor: Colors.transparent,
-            child: Center(
-              child: Container(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: children),
-              ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderRadius),
+        gradient: onPressed != null ? gradient : disableGradient,
+        boxShadow: boxShadow,
+      ),
+      child: Container(
+        width: width,
+        height: height,
+        child: FlatButton(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius)),
+          splashColor: Colors.transparent,
+          child: Center(
+            child: Container(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: children),
             ),
-            onPressed: onPressed,
           ),
+          onPressed: onPressed,
         ),
       ),
     );
