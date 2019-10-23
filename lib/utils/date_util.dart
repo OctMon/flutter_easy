@@ -37,4 +37,4 @@ DateTime timestampToDateTime(int timestamp, {bool isUtc = false}) =>
     DateTime.fromMillisecondsSinceEpoch(timestamp * 1000, isUtc: isUtc);
 
 /// 不足两位前面补0
-String _fixedZero2(int digits) => '$digits'.length > 1 ? '$digits' : '0$digits';
+String _fixedZero2(int digits) => '$digits'.padLeft(2, '0');
