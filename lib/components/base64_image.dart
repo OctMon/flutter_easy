@@ -24,8 +24,8 @@ class Base64Image extends StatelessWidget {
     try {
       return Image.memory(
         base64Decode(encoded),
-        height: width,
-        width: height,
+        width: width,
+        height: height,
         fit: fit,
         gaplessPlayback: true, // 防止重绘
       );
