@@ -33,7 +33,8 @@ Future<Result> get<T>(
     bool validResult = true,
     BuildContext context,
     bool autoLoading = false}) async {
-  return request<T>(baseUrl,
+  return request<T>(
+      baseUrl: baseUrl,
       path: path,
       data: data,
       queryParameters: queryParameters,
@@ -61,7 +62,8 @@ Future<Result> post<T>(
     bool validResult = true,
     BuildContext context,
     bool autoLoading = false}) async {
-  return request<T>(baseUrl,
+  return request<T>(
+      baseUrl: baseUrl,
       path: path,
       data: data,
       options: Options(method: 'post'),
@@ -81,8 +83,9 @@ Future<Result> post<T>(
 /// context: 上下文
 /// autoLoading: 展示Loading
 ///
-Future<Result> request<T>(String baseUrl,
-    {String path = '',
+Future<Result> request<T>(
+    {String baseUrl,
+    String path = '',
     Map data,
     Map<String, dynamic> queryParameters,
     Options options,
@@ -101,7 +104,8 @@ Future<Result> request<T>(String baseUrl,
   }
   Session session = Session(
       config: Config(
-          baseUrl: _session.config.baseUrl ?? baseUrl,
+          baseUrl:
+              baseUrl?.isNotEmpty == true ? baseUrl : _session.config.baseUrl,
           proxy: _session.config.proxy,
           connectTimeout: _session.config.connectTimeout,
           receiveTimeout: _session.config.receiveTimeout,
