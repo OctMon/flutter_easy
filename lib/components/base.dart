@@ -391,6 +391,38 @@ class BaseText extends StatelessWidget {
   }
 }
 
+class BaseTitle extends StatelessWidget {
+  final String title;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final Color color;
+  final int maxLines;
+  final double height;
+
+  const BaseTitle(this.title,
+      {Key key,
+      this.fontSize = 14,
+      this.fontWeight,
+      this.color,
+      this.maxLines,
+      this.height})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseText(
+      title,
+      style: TextStyle(
+        fontSize: fontSize,
+        color: color ?? colorWithTitle,
+        fontWeight: fontWeight,
+        height: height,
+      ),
+      maxLines: maxLines,
+    );
+  }
+}
+
 class BaseInkWell extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
