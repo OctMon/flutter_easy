@@ -10,9 +10,13 @@ export 'package:session/session.dart';
 typedef _ResultCallBack = Result Function<T>(
     Result result, bool validResult, BuildContext context);
 
-init(Session session, {_ResultCallBack onResult}) {
-  _session = session;
-  _onResult = onResult;
+class NetworkUtil {
+  NetworkUtil._();
+
+  static init(Session session, {_ResultCallBack onResult}) {
+    _session = session;
+    _onResult = onResult;
+  }
 }
 
 Session _session;

@@ -11,6 +11,7 @@ export 'utils/toast_util.dart';
 export 'utils/color_util.dart';
 export 'utils/adapt_util.dart';
 export 'utils/logger_util.dart';
+export 'utils/network_util.dart';
 export 'utils/valid_util.dart';
 export 'utils/package_info_util.dart';
 export 'utils/picker_util.dart';
