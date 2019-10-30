@@ -7,11 +7,17 @@ import '../utils/logger_util.dart';
 
 export 'package:session/session.dart';
 
-init(Session session) {
+typedef _ResultCallBack = Result Function<T>(
+    Result result, bool validResult, BuildContext context);
+
+init(Session session, {_ResultCallBack onResult}) {
   _session = session;
+  _onResult = onResult;
 }
 
 Session _session;
+
+_ResultCallBack _onResult;
 
 ///
 /// 发送请求并解析远程服务器返回的result对应的实体类型
@@ -122,5 +128,7 @@ Future<Result> request<T>(String baseUrl,
     // Dismiss loading
     dismissLoading(context);
   }
-  return result;
+  return _onResult != null
+      ? _onResult<T>(result, validResult, context)
+      : result;
 }
