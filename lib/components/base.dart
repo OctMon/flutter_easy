@@ -393,6 +393,7 @@ class BaseText extends StatelessWidget {
 
 class BaseTitle extends StatelessWidget {
   final String title;
+  final TextAlign textAlign;
   final double fontSize;
   final FontWeight fontWeight;
   final Color color;
@@ -401,6 +402,7 @@ class BaseTitle extends StatelessWidget {
 
   const BaseTitle(this.title,
       {Key key,
+      this.textAlign,
       this.fontSize = 14,
       this.fontWeight,
       this.color,
@@ -412,6 +414,7 @@ class BaseTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseText(
       title,
+      textAlign: textAlign,
       style: TextStyle(
         fontSize: fontSize,
         color: color ?? colorWithTitle,
