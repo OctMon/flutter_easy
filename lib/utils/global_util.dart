@@ -32,6 +32,21 @@ class GlobalUtil {
 
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
 
+final bool isDebug = _isDebug();
+
+bool _debugFlag = false;
+
+/// is app run a debug mode.
+bool _isDebug() {
+  /// Assert statements have no effect in production code;
+  /// they’re for development only. Flutter enables asserts in debug mode.
+  assert(() {
+    _debugFlag = true;
+    return _debugFlag;
+  }());
+  return _debugFlag;
+}
+
 bool isIOS = Platform.isIOS;
 
 bool isAndroid = Platform.isAndroid;
