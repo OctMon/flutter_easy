@@ -32,7 +32,7 @@ dependencies:
   # https://github.com/flutter/plugins/tree/master/packages/package_info
 
   # A Flutter plugin for launching a URL in the mobile platform. Supports iOS and Android.
-  url_launcher: ^5.1.6
+  url_launcher: ^5.2.5
   # https://github.com/flutter/plugins/tree/master/packages/url_launcher
 
   # A flutter library to show images from the internet and keep them in the cache directory.
