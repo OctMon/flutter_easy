@@ -117,6 +117,7 @@ Future<Result> request<T>(
           baseUrl:
               baseUrl?.isNotEmpty == true ? baseUrl : _session.config.baseUrl,
           proxy: _session.config.proxy,
+          badCertificateCallback: _session.config.badCertificateCallback,
           connectTimeout: _session.config.connectTimeout,
           receiveTimeout: _session.config.receiveTimeout,
           code: _session.config.code,

@@ -171,7 +171,7 @@ packages:
       name: session
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.5"
+    version: "0.3.6"
   sky_engine:
     dependency: transitive
     description: flutter
