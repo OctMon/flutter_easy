@@ -8,6 +8,25 @@ import 'package:oktoast/oktoast.dart';
 import '../utils/global_util.dart';
 import '../utils/color_util.dart';
 
+class BaseKeyValue {
+  String key;
+  String value;
+
+  BaseKeyValue({this.key, this.value});
+
+  BaseKeyValue.fromJson(Map<String, dynamic> json) {
+    key = json['key'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['key'] = this.key;
+    data['value'] = this.value;
+    return data;
+  }
+}
+
 abstract class PlatformWidget<M extends Widget, C extends Widget>
     extends StatelessWidget {
   M buildMaterialWidget(BuildContext context);
