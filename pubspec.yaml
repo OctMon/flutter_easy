@@ -11,29 +11,53 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # ===============================================================================
   # Network request result
+  # pub: https://pub.dev/packages/session
+  # git: https://github.com/OctMon/session
+  # ———————————————————————————————————————————————————————————————————————————————
   session: ^0.3.6
-  # https://github.com/OctMon/session
+  # ===============================================================================
 
+  # ===============================================================================
   # Generate RFC4122(v1,v4,v5) UUIDs
+  # pub: https://pub.dev/packages/uuid
+  # git: https://github.com/Daegalus/dart-uuid
+  # ———————————————————————————————————————————————————————————————————————————————
   uuid: ^2.0.2
-  # https://github.com/Daegalus/dart-uuid
+  # ===============================================================================
 
-  # a pure flutter toast library
+  # ===============================================================================
+  # a pure flutter toast library You can completely customize the style of toast.
+  # pub: https://pub.dev/packages/oktoast
+  # git: https://github.com/OpenFlutter/flutter_oktoast
+  # ———————————————————————————————————————————————————————————————————————————————
   oktoast: ^2.2.0
-  # https://github.com/OpenFlutter/flutter_oktoast
+  # ===============================================================================
 
-  # Plugin that allow Flutter to read value from persistent storage or save value to persistent storage base on MMKV framework
+  # ===============================================================================
+  # get or set persistent storage value based on MMKV framework.
+  # pub: https://pub.dev/packages/mmkv_flutter
+  # git: https://github.com/OpenFlutter/mmkv_flutter
+  # ———————————————————————————————————————————————————————————————————————————————
   mmkv_flutter: ^1.0.10
-  # https://github.com/OpenFlutter/mmkv_flutter
+  # ===============================================================================
 
+  # ===============================================================================
   # This Flutter plugin provides an API for querying information about an application package.
-  package_info: ^0.4.0+6
-  # https://github.com/flutter/plugins/tree/master/packages/package_info
+  # pub: https://pub.dev/packages/package_info
+  # git: https://github.com/flutter/plugins/tree/master/packages/package_info
+  # ———————————————————————————————————————————————————————————————————————————————
+  package_info: ^0.4.0+10
+  # ===============================================================================
 
+  # ===============================================================================
   # A Flutter plugin for launching a URL in the mobile platform. Supports iOS and Android.
+  # pub: https://pub.dev/packages/url_launcher
+  # git: https://github.com/flutter/plugins/tree/master/packages/url_launcher
+  # ———————————————————————————————————————————————————————————————————————————————
   url_launcher: ^5.2.5
-  # https://github.com/flutter/plugins/tree/master/packages/url_launcher
+  # ===============================================================================
 
   # ===============================================================================
   # Download, cache and show images in a flutter app
