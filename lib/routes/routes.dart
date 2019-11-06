@@ -3,6 +3,8 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import '../utils/global_util.dart';
 
+String routesLoginNamed = 'login';
+
 ///
 /// 路由跳转封装
 ///
@@ -21,4 +23,9 @@ Future pushNamed(
         .then((success) => needLogin(success ?? false));
   }
   return Navigator.of(context).pushNamed(routeName, arguments: arguments);
+}
+
+Future<bool> pushNamedToLogin(BuildContext context) async {
+  bool success = await pushNamed(context, routesLoginNamed) ?? false;
+  return success;
 }
