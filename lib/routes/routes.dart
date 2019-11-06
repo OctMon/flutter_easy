@@ -19,7 +19,7 @@ Future pushNamed(
   dynamic Function(bool) needLogin,
 }) {
   if (needLogin != null && !GlobalUtil.isLogin()) {
-    return GlobalUtil.pushToLogin(context)
+    return pushNamedToLogin(context)
         .then((success) => needLogin(success ?? false));
   }
   return Navigator.of(context).pushNamed(routeName, arguments: arguments);

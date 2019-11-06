@@ -5,9 +5,6 @@ import 'package:flutter/services.dart';
 import 'package_info_util.dart';
 
 class GlobalUtil {
-  /// 指定登录方法
-  static Future<dynamic> Function(BuildContext context) pushToLogin;
-
   /// 指定登录状态
   static bool Function() isLogin;
 
@@ -21,10 +18,7 @@ class GlobalUtil {
   /// isLogin: 指定登录状态 [() => Account.isLogin]
   ///
   static void init(BuildContext context,
-      {Future<dynamic> Function(BuildContext context) pushToLogin,
-      dynamic Function() isLogin,
-      bool allowFontScaling = false}) {
-    GlobalUtil.pushToLogin = pushToLogin;
+      {dynamic Function() isLogin, bool allowFontScaling = false}) {
     GlobalUtil.isLogin = isLogin;
     PackageInfoUtil.init();
   }
