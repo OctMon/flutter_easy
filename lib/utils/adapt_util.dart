@@ -73,3 +73,8 @@ adaptDp(number) {
 adaptPx(number) {
   return AdaptUtil.px(number);
 }
+
+/// 根据设备适配1px像素大小
+adaptOnePx() {
+  return 1 / AdaptUtil.devicePixelRatio();
+}
