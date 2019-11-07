@@ -18,6 +18,14 @@ String timestampToZh_yyyy_MM_dd_HH_mm(int timestamp, {bool isUtc = false}) {
   return '${dateTime.year}年${_fixedZero2(dateTime.month)}月${_fixedZero2(dateTime.day)}日 ${_fixedZero2(dateTime.hour)}时${_fixedZero2(dateTime.minute)}分';
 }
 
+/// 时间戳转HH:mm
+// ignore: non_constant_identifier_names
+String timestampTo_HH_mm(int timestamp,
+    {String unit = ':', bool isUtc = false}) {
+  DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
+  return '${_fixedZero2(dateTime.hour)}:${_fixedZero2(dateTime.minute)}';
+}
+
 /// 时间戳转yyyy年MM月dd日
 // ignore: non_constant_identifier_names
 String timestampToZh_yyyy_MM_dd(int timestamp, {bool isUtc = false}) {
