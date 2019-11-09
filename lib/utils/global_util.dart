@@ -17,10 +17,9 @@ class GlobalUtil {
   /// pushToLogin: 指定登录方法 [(context) => [navigateToLogin(context)]
   /// isLogin: 指定登录状态 [() => Account.isLogin]
   ///
-  static void init(BuildContext context,
-      {dynamic Function() isLogin, bool allowFontScaling = false}) {
+  static Future init({dynamic Function() isLogin}) {
     GlobalUtil.isLogin = isLogin;
-    PackageInfoUtil.init();
+    return PackageInfoUtil.init();
   }
 }
 

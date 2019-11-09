@@ -6,10 +6,9 @@ class PackageInfoUtil {
   static PackageInfo packageInfo;
 
   /// 初始化应用信息
-  static void init() {
-    PackageInfo.fromPlatform().then((info) {
-      packageInfo = info;
-    });
+  static Future init() async {
+    packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo;
   }
 }
 
