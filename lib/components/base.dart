@@ -10,6 +10,14 @@ import '../utils/color_util.dart';
 
 export 'base_refresh.dart';
 
+abstract class BaseState<T> {
+  String get message;
+  set message(String message);
+
+  T get data;
+  set data(T data);
+}
+
 class BaseKeyValue {
   String key;
   String value;
