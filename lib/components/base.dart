@@ -12,10 +12,26 @@ export 'base_refresh.dart';
 
 abstract class BaseState<T> {
   String get message;
+
   set message(String message);
 
   T get data;
+
   set data(T data);
+}
+
+abstract class BaseRefreshState<C, T> extends BaseState<T> {
+  C get refreshController;
+
+  set refreshController(C controller);
+
+  int get page;
+
+  set page(int page);
+
+  bool get loadMore;
+
+  set loadMore(bool loadMore);
 }
 
 class BaseKeyValue {
