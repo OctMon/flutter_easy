@@ -740,52 +740,50 @@ class BaseOutlineButton extends StatelessWidget {
 }
 
 class BaseTextField extends StatelessWidget {
-  final EdgeInsetsGeometry contentPadding;
-  final double height;
   final int maxLines;
   final TextEditingController controller;
   final TextStyle style;
-  final TextStyle hintStyle;
-  final Color underlineBorderColor;
+  final TextStyle placeholderStyle;
   final bool readOnly;
   final bool obscureText;
   final int maxLength;
-  final String hintText;
+  final String placeholder;
   final FocusNode focusNode;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final List<TextInputFormatter> inputFormatters;
-  final Widget suffixIcon;
+  final Widget prefix;
+  final Widget suffix;
+  final BoxDecoration decoration;
   final ValueChanged<String> onChanged;
   final ValueChanged<String> onSubmitted;
   final GestureTapCallback onTap;
 
   const BaseTextField(
       {Key key,
-      this.contentPadding = EdgeInsets.zero,
-      this.height,
       this.maxLines = 1,
       this.style = const TextStyle(
         fontSize: 14,
         color: colorWithHex3,
         textBaseline: TextBaseline.alphabetic,
       ),
-      this.hintStyle = const TextStyle(
+      this.placeholderStyle = const TextStyle(
         fontSize: 14,
         color: colorWithHex9,
         textBaseline: TextBaseline.alphabetic,
       ),
       this.controller,
-      this.underlineBorderColor = Colors.transparent,
       this.obscureText = false,
       this.readOnly = false,
       this.maxLength,
-      this.hintText,
+      this.placeholder,
       this.focusNode,
       this.keyboardType,
       this.textInputAction,
       this.inputFormatters,
-      this.suffixIcon,
+      this.prefix,
+      this.suffix,
+      this.decoration,
       this.onChanged,
       this.onSubmitted,
       this.onTap})
@@ -795,57 +793,28 @@ class BaseTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-      child: Container(
-        padding: EdgeInsets.only(top: 6),
-        height: height ?? 34,
-        alignment: Alignment.centerLeft,
-        child: TextField(
-          controller: controller,
-          maxLines: maxLines,
-          readOnly: readOnly,
-          obscureText: obscureText,
-          autofocus: false,
-          focusNode: focusNode,
-          cursorColor: colorWithTint,
-          style: style,
-          keyboardType: keyboardType,
-          textInputAction: textInputAction,
-          inputFormatters: inputFormatters,
-          decoration: InputDecoration(
-            contentPadding: contentPadding,
-            suffixIcon: suffixIcon,
-            hintText: hintText,
-            hintStyle: hintStyle,
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                width: 0.5,
-                color: underlineBorderColor,
-              ),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                width: 0.5,
-                color: underlineBorderColor,
-              ),
-            ),
-          ),
-          maxLength: maxLength,
-          buildCounter: ((
-            BuildContext context, {
-            // 当前字数长度
-            @required int currentLength,
-            // 最大字数长度
-            @required int maxLength,
-            // 当前输入框是否有焦点
-            @required bool isFocused,
-          }) {
-            // 自定义的显示格式
-            return null;
-          }),
-          onChanged: onChanged,
-          onSubmitted: onSubmitted,
-          onTap: onTap,
-        ),
+      child: CupertinoTextField(
+        controller: controller,
+        maxLines: maxLines,
+        readOnly: readOnly,
+        obscureText: obscureText,
+        autofocus: false,
+        focusNode: focusNode,
+        cursorColor: colorWithTint,
+        style: style,
+        clearButtonMode: OverlayVisibilityMode.editing,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
+        inputFormatters: inputFormatters,
+        placeholder: placeholder,
+        placeholderStyle: placeholderStyle,
+        prefix: prefix,
+        suffix: suffix,
+        decoration: decoration,
+        maxLength: maxLength,
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
+        onTap: onTap,
       ),
     );
   }
