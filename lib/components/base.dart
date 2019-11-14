@@ -751,6 +751,7 @@ class BaseTextField extends StatelessWidget {
   final FocusNode focusNode;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
+  final OverlayVisibilityMode clearButtonMode;
   final List<TextInputFormatter> inputFormatters;
   final Widget prefix;
   final Widget suffix;
@@ -780,6 +781,7 @@ class BaseTextField extends StatelessWidget {
       this.focusNode,
       this.keyboardType,
       this.textInputAction,
+      this.clearButtonMode = OverlayVisibilityMode.editing,
       this.inputFormatters,
       this.prefix,
       this.suffix,
@@ -802,7 +804,7 @@ class BaseTextField extends StatelessWidget {
         focusNode: focusNode,
         cursorColor: colorWithTint,
         style: style,
-        clearButtonMode: OverlayVisibilityMode.editing,
+        clearButtonMode: clearButtonMode,
         keyboardType: keyboardType,
         textInputAction: textInputAction,
         inputFormatters: inputFormatters,
