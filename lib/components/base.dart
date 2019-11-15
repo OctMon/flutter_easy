@@ -444,6 +444,7 @@ class BaseTitle extends StatelessWidget {
   final Color color;
   final int maxLines;
   final double height;
+  final TextOverflow overflow;
 
   const BaseTitle(this.title,
       {Key key,
@@ -452,7 +453,8 @@ class BaseTitle extends StatelessWidget {
       this.fontWeight,
       this.color,
       this.maxLines,
-      this.height})
+      this.height,
+      this.overflow})
       : super(key: key);
 
   @override
@@ -467,6 +469,7 @@ class BaseTitle extends StatelessWidget {
         height: height,
       ),
       maxLines: maxLines,
+      overflow: overflow,
     );
   }
 }
