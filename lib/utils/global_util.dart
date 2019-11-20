@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 
-import 'package_info_util.dart';
-
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
 
 final bool isDebug = _isDebug();

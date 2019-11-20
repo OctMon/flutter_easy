@@ -1,7 +1,6 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import '../utils/global_util.dart';
 
 /// 指定登录路由
 String routesLoginNamed = 'login';
