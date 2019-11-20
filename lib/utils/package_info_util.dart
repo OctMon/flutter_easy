@@ -6,7 +6,7 @@ class PackageInfoUtil {
   static PackageInfo packageInfo;
 
   /// 初始化应用信息
-  static Future init() async {
+  static Future<PackageInfo> init() async {
     packageInfo = await PackageInfo.fromPlatform();
     return packageInfo;
   }

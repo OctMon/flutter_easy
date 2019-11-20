@@ -3,25 +3,6 @@ import 'package:flutter/services.dart';
 
 import 'package_info_util.dart';
 
-class GlobalUtil {
-  /// 指定登录状态
-  static bool Function() isLogin;
-
-  GlobalUtil._();
-
-  ///
-  /// 初始化
-  ///
-  /// context: 上下文
-  /// pushToLogin: 指定登录方法 [(context) => [navigateToLogin(context)]
-  /// isLogin: 指定登录状态 [() => Account.isLogin]
-  ///
-  static Future init({dynamic Function() isLogin}) {
-    GlobalUtil.isLogin = isLogin;
-    return PackageInfoUtil.init();
-  }
-}
-
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
 
 final bool isDebug = _isDebug();

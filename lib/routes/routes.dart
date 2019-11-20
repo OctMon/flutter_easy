@@ -3,7 +3,11 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import '../utils/global_util.dart';
 
+/// 指定登录路由
 String routesLoginNamed = 'login';
+
+/// 指定登录状态
+bool Function() routesIsLogin;
 
 ///
 /// 路由跳转封装
@@ -18,7 +22,7 @@ Future pushNamed(
   Object arguments,
   dynamic Function(bool) needLogin,
 }) {
-  if (needLogin != null && !GlobalUtil.isLogin()) {
+  if (needLogin != null && !routesIsLogin()) {
     return pushNamedToLogin(context)
         .then((success) => needLogin(success ?? false));
   }
