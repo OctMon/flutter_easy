@@ -743,6 +743,11 @@ class BaseOutlineButton extends StatelessWidget {
 }
 
 class BaseTextField extends StatelessWidget {
+  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry padding;
+  final double height;
+  final double borderRadius;
+  final Color backgroundColor;
   final int maxLines;
   final TextEditingController controller;
   final TextStyle style;
@@ -765,17 +770,14 @@ class BaseTextField extends StatelessWidget {
 
   const BaseTextField(
       {Key key,
+      this.margin,
+      this.padding,
+      this.height,
+      this.borderRadius,
+      this.backgroundColor,
       this.maxLines = 1,
-      this.style = const TextStyle(
-        fontSize: 14,
-        color: colorWithHex3,
-        textBaseline: TextBaseline.alphabetic,
-      ),
-      this.placeholderStyle = const TextStyle(
-        fontSize: 14,
-        color: colorWithHex9,
-        textBaseline: TextBaseline.alphabetic,
-      ),
+      this.style,
+      this.placeholderStyle,
       this.controller,
       this.obscureText = false,
       this.readOnly = false,
@@ -796,30 +798,52 @@ class BaseTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-      child: CupertinoTextField(
-        controller: controller,
-        maxLines: maxLines,
-        readOnly: readOnly,
-        obscureText: obscureText,
-        autofocus: false,
-        focusNode: focusNode,
-        cursorColor: colorWithTint,
-        style: style,
-        clearButtonMode: clearButtonMode,
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        inputFormatters: inputFormatters,
-        placeholder: placeholder,
-        placeholderStyle: placeholderStyle,
-        prefix: prefix,
-        suffix: suffix,
-        decoration: decoration,
-        maxLength: maxLength,
-        onChanged: onChanged,
-        onSubmitted: onSubmitted,
-        onTap: onTap,
+    return Container(
+      margin: margin,
+      padding: padding,
+      height: height ?? adaptDp(40),
+      decoration: BoxDecoration(
+        color: backgroundColor ?? Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(borderRadius ?? adaptDp(5)),
+      ),
+      child: MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+        child: CupertinoTextField(
+          controller: controller,
+          maxLines: maxLines,
+          readOnly: readOnly,
+          obscureText: obscureText,
+          autofocus: false,
+          focusNode: focusNode,
+          cursorColor: colorWithTint,
+          style: style ??
+              TextStyle(
+                fontSize: adaptDp(14),
+                color: colorWithHex3,
+                textBaseline: TextBaseline.alphabetic,
+              ),
+          clearButtonMode:
+              readOnly ? OverlayVisibilityMode.never : clearButtonMode,
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          inputFormatters: inputFormatters,
+          placeholder: placeholder,
+          placeholderStyle: placeholderStyle ??
+              TextStyle(
+                fontSize: adaptDp(14),
+                color: (readOnly && placeholder.isEmpty)
+                    ? colorWithHex3
+                    : Color(0xFFC1C0C8),
+                textBaseline: TextBaseline.alphabetic,
+              ),
+          prefix: prefix,
+          suffix: suffix,
+          decoration: decoration,
+          maxLength: maxLength,
+          onChanged: onChanged,
+          onSubmitted: onSubmitted,
+          onTap: onTap,
+        ),
       ),
     );
   }
