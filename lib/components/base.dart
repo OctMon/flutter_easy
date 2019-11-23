@@ -849,14 +849,16 @@ class BaseTextField extends StatelessWidget {
   }
 }
 
-class BaseAlertDialog extends StatelessWidget {
+class BaseAlertDialog extends Dialog {
+  final bool barrierDismissible;
   final Widget title;
   final Widget content;
   final List<Widget> actions;
 
   const BaseAlertDialog({
     Key key,
-    this.title = const BaseText('温馨提示'),
+    this.barrierDismissible = false,
+    this.title = const BaseText('提示'),
     this.content,
     this.actions = const <Widget>[],
   })  : assert(actions != null),
@@ -864,11 +866,59 @@ class BaseAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoAlertDialog(
-      key: key,
-      title: title,
-      content: content,
-      actions: actions,
+    return GestureDetector(
+      onTap: barrierDismissible ? () => Navigator.of(context).pop() : null,
+      child: new Material(
+        type: MaterialType.transparency,
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Container(
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+              ),
+              margin: const EdgeInsets.all(38.0),
+              child: new Column(
+                children: <Widget>[
+                  new Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 34.0, 20.0, 20.0),
+                    child: Center(
+                      child: DefaultTextStyle(
+                        style: TextStyle(
+                          fontSize: adaptDp(16),
+                          fontWeight: FontWeight.bold,
+                          color: colorWithHex3,
+                        ),
+                        child: title,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: DefaultTextStyle(
+                      style: TextStyle(
+                        fontSize: adaptDp(14),
+                        color: colorWithHex3,
+                      ),
+                      child: content,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 24, 20, 34),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: actions,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
@@ -902,13 +952,9 @@ class BaseDialogAction extends StatelessWidget {
 
 Future<T> showBaseDialog<T>({
   @required BuildContext context,
-  bool barrierDismissible = false,
   WidgetBuilder builder,
 }) {
-  return showDialog<T>(
-      context: context,
-      barrierDismissible: barrierDismissible,
-      builder: builder);
+  return showDialog<T>(context: context, builder: builder);
 }
 
 class BaseActionSheet extends StatelessWidget {
