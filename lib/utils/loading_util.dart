@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/base_animation_image.dart';
 import '../components/loading_view.dart';
 
 bool _loadingStatus = false;
@@ -19,12 +20,12 @@ void showLoading(BuildContext context, {String message}) {
         child: Center(
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: baseDefaultAnimationImage != null ? Colors.transparent : Colors.white,
               borderRadius: BorderRadius.circular(5),
             ),
-            child: LoadingView(
-              message: message,
-            ),
+            child: (baseDefaultAnimationImage != null && message == null)
+                ? baseDefaultAnimationImage
+                : LoadingView(message: message),
           ),
         ),
       );
