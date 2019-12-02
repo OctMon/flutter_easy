@@ -1,7 +1,7 @@
 import 'global_util.dart';
 
 void log(String tag, Object value) {
-  if (!isProduction) {
+  if (isDebug) {
     print("$tag => $value");
   }
 }
