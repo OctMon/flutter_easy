@@ -853,6 +853,7 @@ class BaseAlertDialog extends Dialog {
   final bool barrierDismissible;
   final EdgeInsets margin;
   final EdgeInsets titlePadding;
+  final EdgeInsets contentPadding;
   final EdgeInsets actionPadding;
   final MainAxisAlignment actionsAxisAlignment;
   final Widget title;
@@ -864,6 +865,7 @@ class BaseAlertDialog extends Dialog {
     this.barrierDismissible = false,
     this.margin = const EdgeInsets.all(38.0),
     this.titlePadding = const EdgeInsets.fromLTRB(20.0, 34.0, 20.0, 20.0),
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 20.0),
     this.actionPadding = const EdgeInsets.fromLTRB(20, 24, 20, 34),
     this.actionsAxisAlignment = MainAxisAlignment.spaceAround,
     this.title = const BaseText('提示'),
@@ -904,8 +906,8 @@ class BaseAlertDialog extends Dialog {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  Container(
+                    padding: contentPadding,
                     child: DefaultTextStyle(
                       style: TextStyle(
                         fontSize: adaptDp(14),
