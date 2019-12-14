@@ -851,6 +851,10 @@ class BaseTextField extends StatelessWidget {
 
 class BaseAlertDialog extends Dialog {
   final bool barrierDismissible;
+  final EdgeInsets margin;
+  final EdgeInsets titlePadding;
+  final EdgeInsets actionPadding;
+  final MainAxisAlignment actionsAxisAlignment;
   final Widget title;
   final Widget content;
   final List<Widget> actions;
@@ -858,6 +862,10 @@ class BaseAlertDialog extends Dialog {
   const BaseAlertDialog({
     Key key,
     this.barrierDismissible = false,
+    this.margin = const EdgeInsets.all(38.0),
+    this.titlePadding = const EdgeInsets.fromLTRB(20.0, 34.0, 20.0, 20.0),
+    this.actionPadding = const EdgeInsets.fromLTRB(20, 24, 20, 34),
+    this.actionsAxisAlignment = MainAxisAlignment.spaceAround,
     this.title = const BaseText('提示'),
     this.content,
     this.actions = const <Widget>[],
@@ -880,11 +888,11 @@ class BaseAlertDialog extends Dialog {
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
               ),
-              margin: const EdgeInsets.all(38.0),
+              margin: margin,
               child: new Column(
                 children: <Widget>[
-                  new Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 34.0, 20.0, 20.0),
+                  new Container(
+                    padding: titlePadding,
                     child: Center(
                       child: DefaultTextStyle(
                         style: TextStyle(
@@ -906,10 +914,10 @@ class BaseAlertDialog extends Dialog {
                       child: content,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 24, 20, 34),
+                  Container(
+                    padding: actionPadding,
                     child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: actionsAxisAlignment,
                       children: actions,
                     ),
                   )
