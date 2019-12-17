@@ -758,6 +758,7 @@ class BaseTextField extends StatelessWidget {
   final String placeholder;
   final FocusNode focusNode;
   final TextInputType keyboardType;
+  final TextAlign textAlign;
   final TextInputAction textInputAction;
   final OverlayVisibilityMode clearButtonMode;
   final List<TextInputFormatter> inputFormatters;
@@ -785,6 +786,7 @@ class BaseTextField extends StatelessWidget {
       this.placeholder,
       this.focusNode,
       this.keyboardType,
+      this.textAlign = TextAlign.start,
       this.textInputAction,
       this.clearButtonMode = OverlayVisibilityMode.editing,
       this.inputFormatters,
@@ -825,6 +827,7 @@ class BaseTextField extends StatelessWidget {
           clearButtonMode:
               readOnly ? OverlayVisibilityMode.never : clearButtonMode,
           keyboardType: keyboardType,
+          textAlign: textAlign,
           textInputAction: textInputAction,
           inputFormatters: inputFormatters,
           placeholder: placeholder,
