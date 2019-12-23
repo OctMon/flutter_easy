@@ -460,7 +460,7 @@ class BaseTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseText(
-      title,
+      title ?? 'text is null',
       textAlign: textAlign,
       style: TextStyle(
         fontSize: fontSize,
