@@ -170,13 +170,19 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
           ? _buildLeading(
               context: context,
               leading: leading,
-              tintColor: tintColor ?? colorWithAppBarTint)
+              tintColor: tintColor ??
+                  (brightness == Brightness.light
+                      ? colorWithAppBarTint
+                      : colorWithAppBarDartTint))
           : null,
       title: title != null
           ? DefaultTextStyle(
               style: TextStyle(
                 fontSize: 17,
-                color: colorWithAppBarTint,
+                color: tintColor ??
+                    (brightness == Brightness.light
+                        ? colorWithAppBarTint
+                        : colorWithAppBarDartTint),
                 fontWeight: FontWeight.w500,
               ),
               child: title,
@@ -184,7 +190,10 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
           : null,
       actions: actions == null ? [] : actions,
       elevation: elevation,
-      backgroundColor: backgroundColor ?? colorWithAppBarBackground,
+      backgroundColor: backgroundColor ??
+          (brightness == Brightness.light
+              ? colorWithAppBarBackground
+              : colorWithAppBarDarkBackground),
       brightness: brightness,
     );
   }
@@ -199,13 +208,19 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
             ? _buildLeading(
                 context: context,
                 leading: leading,
-                tintColor: tintColor ?? colorWithAppBarTint)
+                tintColor: tintColor ??
+                    (brightness == Brightness.light
+                        ? colorWithAppBarTint
+                        : colorWithAppBarDartTint))
             : null,
         title: title != null
             ? DefaultTextStyle(
                 style: TextStyle(
                   fontSize: 17,
-                  color: colorWithAppBarTint,
+                  color: tintColor ??
+                      (brightness == Brightness.light
+                          ? colorWithAppBarTint
+                          : colorWithAppBarDartTint),
                   fontWeight: FontWeight.w500,
                 ),
                 child: title,
@@ -213,7 +228,10 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
             : null,
         actions: actions == null ? [] : actions,
         elevation: elevation,
-        backgroundColor: backgroundColor ?? colorWithAppBarBackground,
+        backgroundColor: backgroundColor ??
+            (brightness == Brightness.light
+                ? colorWithAppBarBackground
+                : colorWithAppBarDarkBackground),
         brightness: brightness,
       ),
     );
@@ -255,12 +273,18 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
       leading: _buildLeading(
           context: context,
           leading: this.leading,
-          tintColor: tintColor ?? colorWithAppBarTint),
+          tintColor: tintColor ??
+              (brightness == Brightness.light
+                  ? colorWithAppBarTint
+                  : colorWithAppBarDartTint)),
       title: title != null
           ? DefaultTextStyle(
               style: TextStyle(
                 fontSize: 17,
-                color: colorWithAppBarTint,
+                color: tintColor ??
+                    (brightness == Brightness.light
+                        ? colorWithAppBarTint
+                        : colorWithAppBarDartTint),
                 fontWeight: FontWeight.w500,
               ),
               child: title,
@@ -268,7 +292,9 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
           : null,
       actions: actions == null ? [] : actions,
       elevation: elevation,
-      backgroundColor: backgroundColor ?? colorWithAppBarBackground,
+      backgroundColor: backgroundColor ?? brightness == Brightness.light
+          ? colorWithAppBarBackground
+          : colorWithAppBarDarkBackground,
       brightness: brightness,
       pinned: pinned,
       expandedHeight: expandedHeight,
@@ -284,12 +310,18 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
         leading: _buildLeading(
             context: context,
             leading: this.leading,
-            tintColor: tintColor ?? colorWithAppBarTint),
+            tintColor: tintColor ??
+                (brightness == Brightness.light
+                    ? colorWithAppBarTint
+                    : colorWithAppBarDartTint)),
         title: title != null
             ? DefaultTextStyle(
                 style: TextStyle(
                   fontSize: 17,
-                  color: colorWithAppBarTint,
+                  color: tintColor ??
+                      (brightness == Brightness.light
+                          ? colorWithAppBarTint
+                          : colorWithAppBarDartTint),
                   fontWeight: FontWeight.w500,
                 ),
                 child: title,
@@ -297,7 +329,10 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
             : null,
         actions: actions == null ? [] : actions,
         elevation: elevation,
-        backgroundColor: backgroundColor ?? colorWithAppBarBackground,
+        backgroundColor: backgroundColor ??
+            (brightness == Brightness.light
+                ? colorWithAppBarBackground
+                : colorWithAppBarDarkBackground),
         brightness: brightness,
         centerTitle: centerTitle,
         floating: floating,

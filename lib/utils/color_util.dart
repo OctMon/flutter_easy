@@ -4,9 +4,13 @@ var colorWithTint = Color(0xFFFF4040);
 
 var colorWithAppBarTint = colorWithHex3;
 
+var colorWithAppBarDartTint = Colors.white;
+
 var colorWithTitle = colorWithHex3;
 
 var colorWithAppBarBackground = Colors.white;
+
+var colorWithAppBarDarkBackground = colorWithTint;
 
 var colorWithScaffoldBackground = Colors.white;
 
