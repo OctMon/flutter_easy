@@ -68,17 +68,40 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
   }
 }
 
-class BaseApp extends StatelessWidget {
+class BaseApp extends StatefulWidget {
   final Widget home;
   final RouteFactory onGenerateRoute;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final Iterable<Locale> supportedLocales;
+  final Future<void> Function() initCallback;
 
   BaseApp(
       {this.home,
       this.onGenerateRoute,
       this.localizationsDelegates,
-      this.supportedLocales = const <Locale>[Locale('en', 'US')]});
+      this.supportedLocales = const <Locale>[Locale('en', 'US')],
+      this.initCallback});
+
+  @override
+  _BaseAppState createState() => _BaseAppState();
+}
+
+class _BaseAppState extends State<BaseApp> {
+  bool init = false;
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () async {
+      await PackageInfoUtil.init();
+      if (widget.initCallback != null) {
+        await widget.initCallback();
+      }
+      setState(() {
+        init = true;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +112,17 @@ class BaseApp extends StatelessWidget {
           primarySwatch: Colors.grey,
           splashColor: Colors.transparent,
         ),
-        home: home,
-        onGenerateRoute: onGenerateRoute,
-        localizationsDelegates: localizationsDelegates,
-        supportedLocales: supportedLocales,
+        home: init
+            ? widget.home
+            : Container(
+                color: Colors.white,
+                child: Center(
+                  child: LoadingView(),
+                ),
+              ),
+        onGenerateRoute: widget.onGenerateRoute,
+        localizationsDelegates: widget.localizationsDelegates,
+        supportedLocales: widget.supportedLocales,
       ),
     );
   }
