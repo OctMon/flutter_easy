@@ -73,6 +73,7 @@ class BaseApp extends StatefulWidget {
   final RouteFactory onGenerateRoute;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final Iterable<Locale> supportedLocales;
+  final Widget initView;
   final Future<void> Function() initCallback;
 
   BaseApp(
@@ -80,6 +81,7 @@ class BaseApp extends StatefulWidget {
       this.onGenerateRoute,
       this.localizationsDelegates,
       this.supportedLocales = const <Locale>[Locale('en', 'US')],
+      this.initView,
       this.initCallback});
 
   @override
@@ -114,12 +116,13 @@ class _BaseAppState extends State<BaseApp> {
         ),
         home: init
             ? widget.home
-            : Container(
-                color: Colors.white,
-                child: Center(
-                  child: LoadingView(),
-                ),
-              ),
+            : (widget.initView ??
+                Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: LoadingView(),
+                  ),
+                )),
         onGenerateRoute: widget.onGenerateRoute,
         localizationsDelegates: widget.localizationsDelegates,
         supportedLocales: widget.supportedLocales,
