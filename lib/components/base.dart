@@ -192,11 +192,12 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
     this.elevation = 0,
     this.tintColor,
     this.backgroundColor,
-    this.brightness = Brightness.light,
+    this.brightness,
   });
 
   @override
   AppBar buildMaterialWidget(BuildContext context) {
+    Brightness brightness = this.brightness ?? colorWithBrightness;
     return AppBar(
       automaticallyImplyLeading: automaticallyImplyLeading,
       leading: automaticallyImplyLeading
@@ -233,6 +234,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
 
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
+    Brightness brightness = this.brightness ?? colorWithBrightness;
     return PreferredSize(
       preferredSize: Size.fromHeight(44),
       child: AppBar(
@@ -292,7 +294,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
     this.elevation = 0,
     this.tintColor,
     this.backgroundColor,
-    this.brightness = Brightness.light,
+    this.brightness,
     this.centerTitle,
     this.floating = false,
     this.pinned = false,
@@ -302,6 +304,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 
   @override
   SliverAppBar buildMaterialWidget(BuildContext context) {
+    Brightness brightness = this.brightness ?? colorWithBrightness;
     return SliverAppBar(
       leading: _buildLeading(
           context: context,
@@ -337,6 +340,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
+    Brightness brightness = this.brightness ?? colorWithBrightness;
     return PreferredSize(
       preferredSize: Size.fromHeight(44),
       child: SliverAppBar(
