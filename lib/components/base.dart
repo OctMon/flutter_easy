@@ -53,6 +53,22 @@ class BaseKeyValue {
   }
 }
 
+createEasyApp(
+    {Widget initView,
+    Future<void> Function() initCallback,
+    @required void Function() completionCallback}) {
+  runApp(initView ?? BaseApp(home: Scaffold(backgroundColor: Colors.white)));
+  PackageInfoUtil.init().then((_) {
+    if (initCallback != null) {
+      initCallback().then((_) {
+        completionCallback();
+      });
+    } else {
+      completionCallback();
+    }
+  });
+}
+
 abstract class PlatformWidget<M extends Widget, C extends Widget>
     extends StatelessWidget {
   M buildMaterialWidget(BuildContext context);
@@ -73,38 +89,19 @@ class BaseApp extends StatefulWidget {
   final RouteFactory onGenerateRoute;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final Iterable<Locale> supportedLocales;
-  final Widget initView;
-  final Future<void> Function() initCallback;
 
-  BaseApp(
-      {this.home,
-      this.onGenerateRoute,
-      this.localizationsDelegates,
-      this.supportedLocales = const <Locale>[Locale('en', 'US')],
-      this.initView,
-      this.initCallback});
+  BaseApp({
+    this.home,
+    this.onGenerateRoute,
+    this.localizationsDelegates,
+    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+  });
 
   @override
   _BaseAppState createState() => _BaseAppState();
 }
 
 class _BaseAppState extends State<BaseApp> {
-  bool init = false;
-
-  @override
-  void initState() {
-    Future.delayed(Duration.zero, () async {
-      await PackageInfoUtil.init();
-      if (widget.initCallback != null) {
-        await widget.initCallback();
-      }
-      setState(() {
-        init = true;
-      });
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return OKToast(
@@ -114,15 +111,7 @@ class _BaseAppState extends State<BaseApp> {
           primarySwatch: Colors.grey,
           splashColor: Colors.transparent,
         ),
-        home: init
-            ? widget.home
-            : (widget.initView ??
-                Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: LoadingView(),
-                  ),
-                )),
+        home: widget.home,
         onGenerateRoute: widget.onGenerateRoute,
         localizationsDelegates: widget.localizationsDelegates,
         supportedLocales: widget.supportedLocales,
