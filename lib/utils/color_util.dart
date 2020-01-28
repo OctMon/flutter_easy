@@ -16,6 +16,8 @@ var colorWithAppBarDarkBackground = colorWithTint;
 
 var colorWithScaffoldBackground = Colors.white;
 
+var colorWithDivider = Color(0xFFEFEFF4);
+
 const colorWithHex3 = Color(0xFF333333);
 
 const colorWithHex6 = Color(0xFF666666);
