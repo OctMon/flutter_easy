@@ -59,6 +59,11 @@ class Lunar {
         (day >= 10 ? day.toString() : "0$day");
   }
 
+  /// 星期几
+  String get weekString {
+    return _weekList[_dateTime.weekday - 1];
+  }
+
   /// 公历节日
   String get solarFestival {
     String text = _getDateString(_dateTime.month, _dateTime.day);
@@ -167,6 +172,15 @@ class Lunar {
     "酉",
     "戌",
     "亥"
+  ];
+  static List<String> _weekList = [
+    "星期一",
+    "星期二",
+    "星期三",
+    "星期四",
+    "星期五",
+    "星期六",
+    "星期日",
   ];
 
   /// 用来表示1900年到2099年间农历年份的相关信息，共24位bit的16进制表示，其中：
