@@ -525,7 +525,7 @@ class LunarSolarConverter {
   }
 
   static Lunar solarToLunar(Solar solar) {
-    Lunar lunar = Lunar();
+    Lunar lunar = Lunar(solar.dateTime);
     int index = solar.solarYear - _solar_1_1[0];
     int data =
         (solar.solarYear << 9) | (solar.solarMonth << 5) | (solar.solarDay);
