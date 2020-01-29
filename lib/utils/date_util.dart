@@ -1,3 +1,5 @@
+import '../utils/lunar/lunar_solar_converter.dart';
+
 /// 获取当前时间戳
 int get timestamp => timestampBy(DateTime.now());
 
@@ -54,3 +56,10 @@ DateTime timestampToDateTime(int timestamp, {bool isUtc = false}) =>
 
 /// 不足两位前面补0
 String _fixedZero2(int digits) => '$digits'.padLeft(2, '0');
+
+/// 公历转农历
+Lunar lunarSolarConverter(DateTime date) {
+  Solar solar =
+      Solar(solarYear: date.year, solarMonth: date.month, solarDay: date.day);
+  return LunarSolarConverter.solarToLunar(solar);
+}
