@@ -1,7 +1,8 @@
+import '../components/base.dart';
 import '../utils/lunar/lunar_solar_converter.dart';
 
 /// 获取当前时间戳
-int get timestamp => timestampBy(DateTime.now());
+int timestampNow() => timestampBy(DateTime.now());
 
 /// 获取指定时间戳
 int timestampBy(DateTime dateTime) => dateTime.millisecondsSinceEpoch ~/ 1000;
@@ -62,4 +63,108 @@ Lunar lunarSolarConverter(DateTime date) {
   Solar solar =
       Solar(solarYear: date.year, solarMonth: date.month, solarDay: date.day);
   return LunarSolarConverter.solarToLunar(solar);
+}
+
+/// 标志	星座	拉丁名称	出生日期（公历）	别名
+/// ♈
+/// 白羊座
+/// Aries
+/// 3月21日~4月19日
+/// 牡羊座
+/// ♉
+/// 金牛座
+/// Taurus
+/// 4月20日～5月20日
+/// 金牛座
+/// ♊
+/// 双子座
+/// Gemini
+/// 5月21日～6月21日
+/// 双子座
+/// ♋
+/// 巨蟹座
+/// Cancer
+/// 6月22日～7月22日
+/// 巨蟹座
+/// ♌
+/// 狮子座
+/// Leo
+/// 7月23日～8月22日
+/// 狮子座
+/// ♍
+/// 处女座
+/// Virgo
+/// 8月23日～9月22日
+/// 室女座
+/// ♎
+/// 天秤座
+/// Libra
+/// 9月23日～10月23日
+/// 天平座
+/// ♏
+/// 天蝎座
+/// Scorpio
+/// 10月24日～11月22日
+/// 天蝎座
+/// ♐
+/// 射手座
+/// Sagittarius
+/// 11月23日～12月21日
+/// 人马座
+/// ♑
+/// 摩羯座
+/// Capricorn
+/// 12月22日～1月19日
+/// 山羊座
+/// ♒
+/// 水瓶座
+/// Aquarius
+/// 1月20日～2月18日
+/// 宝瓶座
+/// ♓
+/// 双鱼座
+/// Pisces
+/// 2月19日～3月20日
+/// 双鱼座
+BaseKeyValue twelveConstellationBy(DateTime dateTime) {
+  if (dateTime.month == 3 && dateTime.day >= 21 ||
+      dateTime.month == 4 && dateTime.day <= 19) {
+    return BaseKeyValue(key: "Aries", value: "白羊座");
+  } else if (dateTime.month == 4 && dateTime.day >= 20 ||
+      dateTime.month == 5 && dateTime.day <= 20) {
+    return BaseKeyValue(key: "Taurus", value: "金牛座");
+  } else if (dateTime.month == 5 && dateTime.day >= 21 ||
+      dateTime.month == 6 && dateTime.day <= 21) {
+    return BaseKeyValue(key: "Gemini", value: "双子座");
+  } else if (dateTime.month == 6 && dateTime.day >= 22 ||
+      dateTime.month == 7 && dateTime.day <= 22) {
+    return BaseKeyValue(key: "Cancer", value: "巨蟹座");
+  } else if (dateTime.month == 7 && dateTime.day >= 23 ||
+      dateTime.month == 8 && dateTime.day <= 22) {
+    return BaseKeyValue(key: "Leo", value: "狮子座");
+  } else if (dateTime.month == 8 && dateTime.day >= 23 ||
+      dateTime.month == 9 && dateTime.day <= 22) {
+    return BaseKeyValue(key: "Virgo", value: "处女座");
+  } else if (dateTime.month == 9 && dateTime.day >= 23 ||
+      dateTime.month == 10 && dateTime.day <= 23) {
+    return BaseKeyValue(key: "Libra", value: "天秤座");
+  } else if (dateTime.month == 10 && dateTime.day >= 24 ||
+      dateTime.month == 11 && dateTime.day <= 22) {
+    return BaseKeyValue(key: "Scorpio", value: "天蝎座");
+  } else if (dateTime.month == 11 && dateTime.day >= 23 ||
+      dateTime.month == 12 && dateTime.day <= 21) {
+    return BaseKeyValue(key: "Sagittarius", value: "射手座");
+  } else if (dateTime.month == 12 && dateTime.day >= 22 ||
+      dateTime.month == 1 && dateTime.day <= 19) {
+    return BaseKeyValue(key: "Capricorn", value: "摩羯座");
+  } else if (dateTime.month == 1 && dateTime.day >= 20 ||
+      dateTime.month == 2 && dateTime.day <= 18) {
+    return BaseKeyValue(key: "Aquarius", value: "水瓶座");
+  } else {
+    return BaseKeyValue(key: "Pisces", value: "双鱼座");
+  }
+}
+
+BaseKeyValue twelveConstellationNow() {
+  return twelveConstellationBy(DateTime.now());
 }
