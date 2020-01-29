@@ -129,39 +129,39 @@ Lunar lunarSolarConverter(DateTime date) {
 BaseKeyValue twelveConstellationBy(DateTime dateTime) {
   if (dateTime.month == 3 && dateTime.day >= 21 ||
       dateTime.month == 4 && dateTime.day <= 19) {
-    return BaseKeyValue(key: "Aries", value: "白羊座");
+    return BaseKeyValue(key: "aries", value: "白羊座");
   } else if (dateTime.month == 4 && dateTime.day >= 20 ||
       dateTime.month == 5 && dateTime.day <= 20) {
-    return BaseKeyValue(key: "Taurus", value: "金牛座");
+    return BaseKeyValue(key: "taurus", value: "金牛座");
   } else if (dateTime.month == 5 && dateTime.day >= 21 ||
       dateTime.month == 6 && dateTime.day <= 21) {
-    return BaseKeyValue(key: "Gemini", value: "双子座");
+    return BaseKeyValue(key: "gemini", value: "双子座");
   } else if (dateTime.month == 6 && dateTime.day >= 22 ||
       dateTime.month == 7 && dateTime.day <= 22) {
-    return BaseKeyValue(key: "Cancer", value: "巨蟹座");
+    return BaseKeyValue(key: "cancer", value: "巨蟹座");
   } else if (dateTime.month == 7 && dateTime.day >= 23 ||
       dateTime.month == 8 && dateTime.day <= 22) {
-    return BaseKeyValue(key: "Leo", value: "狮子座");
+    return BaseKeyValue(key: "leo", value: "狮子座");
   } else if (dateTime.month == 8 && dateTime.day >= 23 ||
       dateTime.month == 9 && dateTime.day <= 22) {
-    return BaseKeyValue(key: "Virgo", value: "处女座");
+    return BaseKeyValue(key: "virgo", value: "处女座");
   } else if (dateTime.month == 9 && dateTime.day >= 23 ||
       dateTime.month == 10 && dateTime.day <= 23) {
-    return BaseKeyValue(key: "Libra", value: "天秤座");
+    return BaseKeyValue(key: "libra", value: "天秤座");
   } else if (dateTime.month == 10 && dateTime.day >= 24 ||
       dateTime.month == 11 && dateTime.day <= 22) {
-    return BaseKeyValue(key: "Scorpio", value: "天蝎座");
+    return BaseKeyValue(key: "scorpio", value: "天蝎座");
   } else if (dateTime.month == 11 && dateTime.day >= 23 ||
       dateTime.month == 12 && dateTime.day <= 21) {
-    return BaseKeyValue(key: "Sagittarius", value: "射手座");
+    return BaseKeyValue(key: "sagittarius", value: "射手座");
   } else if (dateTime.month == 12 && dateTime.day >= 22 ||
       dateTime.month == 1 && dateTime.day <= 19) {
-    return BaseKeyValue(key: "Capricorn", value: "摩羯座");
+    return BaseKeyValue(key: "capricorn", value: "摩羯座");
   } else if (dateTime.month == 1 && dateTime.day >= 20 ||
       dateTime.month == 2 && dateTime.day <= 18) {
-    return BaseKeyValue(key: "Aquarius", value: "水瓶座");
+    return BaseKeyValue(key: "aquarius", value: "水瓶座");
   } else {
-    return BaseKeyValue(key: "Pisces", value: "双鱼座");
+    return BaseKeyValue(key: "pisces", value: "双鱼座");
   }
 }
 
