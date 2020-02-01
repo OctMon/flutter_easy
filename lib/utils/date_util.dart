@@ -12,6 +12,13 @@ String timestampToNormal_yyyy_MM_dd_HH_mm_ss(int timestamp,
   return '${dateTime.year}-${_fixedZero2(dateTime.month)}-${_fixedZero2(dateTime.day)} ${_fixedZero2(dateTime.hour)}:${_fixedZero2(dateTime.minute)}:${_fixedZero2(dateTime.second)}';
 }
 
+/// 时间戳转yyyy-MM-dd
+// ignore: non_constant_identifier_names
+String timestampToNormal_yyyy_MM_dd(int timestamp, {bool isUtc = false}) {
+  DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
+  return '${dateTime.year}-${_fixedZero2(dateTime.month)}-${_fixedZero2(dateTime.day)}';
+}
+
 /// 时间戳转yyyy年MM月dd日 HH时mm分ss秒
 // ignore: non_constant_identifier_names
 String timestampToZh_yyyy_MM_dd_HH_mm_ss(int timestamp, {bool isUtc = false}) {
