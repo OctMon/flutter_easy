@@ -1,6 +1,7 @@
 library flutter_easy;
 
 export 'utils/global_util.dart';
+export 'utils/string_util.dart';
 export 'utils/json_util.dart';
 export 'utils/date_util.dart';
 export 'utils/preferences_util.dart';
