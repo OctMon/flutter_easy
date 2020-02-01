@@ -53,6 +53,22 @@ class BaseKeyValue {
   }
 }
 
+createEasyApp(
+    {Widget initView,
+    Future<void> Function() initCallback,
+    @required void Function() completionCallback}) {
+  runApp(initView ?? BaseApp(home: Scaffold(backgroundColor: Colors.white)));
+  PackageInfoUtil.init().then((_) {
+    if (initCallback != null) {
+      initCallback().then((_) {
+        completionCallback();
+      });
+    } else {
+      completionCallback();
+    }
+  });
+}
+
 abstract class PlatformWidget<M extends Widget, C extends Widget>
     extends StatelessWidget {
   M buildMaterialWidget(BuildContext context);
@@ -68,18 +84,24 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
   }
 }
 
-class BaseApp extends StatelessWidget {
+class BaseApp extends StatefulWidget {
   final Widget home;
   final RouteFactory onGenerateRoute;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final Iterable<Locale> supportedLocales;
 
-  BaseApp(
-      {this.home,
-      this.onGenerateRoute,
-      this.localizationsDelegates,
-      this.supportedLocales = const <Locale>[Locale('en', 'US')]});
+  BaseApp({
+    this.home,
+    this.onGenerateRoute,
+    this.localizationsDelegates,
+    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+  });
 
+  @override
+  _BaseAppState createState() => _BaseAppState();
+}
+
+class _BaseAppState extends State<BaseApp> {
   @override
   Widget build(BuildContext context) {
     return OKToast(
@@ -89,10 +111,10 @@ class BaseApp extends StatelessWidget {
           primarySwatch: Colors.grey,
           splashColor: Colors.transparent,
         ),
-        home: home,
-        onGenerateRoute: onGenerateRoute,
-        localizationsDelegates: localizationsDelegates,
-        supportedLocales: supportedLocales,
+        home: widget.home,
+        onGenerateRoute: widget.onGenerateRoute,
+        localizationsDelegates: widget.localizationsDelegates,
+        supportedLocales: widget.supportedLocales,
       ),
     );
   }
@@ -159,11 +181,12 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
     this.elevation = 0,
     this.tintColor,
     this.backgroundColor,
-    this.brightness = Brightness.light,
+    this.brightness,
   });
 
   @override
   AppBar buildMaterialWidget(BuildContext context) {
+    Brightness brightness = this.brightness ?? colorWithBrightness;
     return AppBar(
       automaticallyImplyLeading: automaticallyImplyLeading,
       leading: automaticallyImplyLeading
@@ -200,6 +223,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
 
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
+    Brightness brightness = this.brightness ?? colorWithBrightness;
     return PreferredSize(
       preferredSize: Size.fromHeight(44),
       child: AppBar(
@@ -259,7 +283,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
     this.elevation = 0,
     this.tintColor,
     this.backgroundColor,
-    this.brightness = Brightness.light,
+    this.brightness,
     this.centerTitle,
     this.floating = false,
     this.pinned = false,
@@ -269,6 +293,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 
   @override
   SliverAppBar buildMaterialWidget(BuildContext context) {
+    Brightness brightness = this.brightness ?? colorWithBrightness;
     return SliverAppBar(
       leading: _buildLeading(
           context: context,
@@ -304,6 +329,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
+    Brightness brightness = this.brightness ?? colorWithBrightness;
     return PreferredSize(
       preferredSize: Size.fromHeight(44),
       child: SliverAppBar(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+var colorWithBrightness = Brightness.light;
+
 var colorWithTint = Color(0xFFFF4040);
 
 var colorWithAppBarTint = colorWithHex3;
@@ -13,6 +15,8 @@ var colorWithAppBarBackground = Colors.white;
 var colorWithAppBarDarkBackground = colorWithTint;
 
 var colorWithScaffoldBackground = Colors.white;
+
+var colorWithDivider = Color(0xFFEFEFF4);
 
 const colorWithHex3 = Color(0xFF333333);
 
