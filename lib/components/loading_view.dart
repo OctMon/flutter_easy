@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/components/base.dart';
 
+import 'base_animation_image.dart';
+
 class LoadingView extends StatelessWidget {
   final String message;
 
@@ -8,9 +10,11 @@ class LoadingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (baseDefaultAnimationImage != null) {
+      return baseDefaultAnimationImage;
+    }
     return Padding(
-      padding:
-          EdgeInsets.all((message == null) ? 30 : 15),
+      padding: EdgeInsets.all((message == null) ? 30 : 15),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: _buildChildren(),
