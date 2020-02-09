@@ -59,6 +59,9 @@ double screenHeightDp = AdaptUtil.screenHeightDp();
 /// 状态栏高度 dp 刘海屏会更高
 double screenStatusBarHeightDp = AdaptUtil.screenStatusBarHeightDp();
 
+/// 导航栏高度 dp
+double screenToolbarHeightDp = 44;
+
 /// 底部安全区距离 dp
 double screenBottomBarHeightDp = AdaptUtil.screenBottomBarHeightDp();
 

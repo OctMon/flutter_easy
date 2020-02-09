@@ -120,7 +120,11 @@ class _BaseAppState extends State<BaseApp> {
   }
 }
 
-Widget _buildLeading({BuildContext context, Widget leading, Color tintColor}) {
+Widget _buildLeading(
+    {BuildContext context,
+    Widget leading,
+    VoidCallback leadingOnPressed,
+    Color tintColor}) {
   final ModalRoute<dynamic> parentRoute = ModalRoute.of(context);
 
   final bool canPop = parentRoute?.canPop ?? false;
@@ -145,9 +149,8 @@ Widget _buildLeading({BuildContext context, Widget leading, Color tintColor}) {
             : BaseButton(
                 padding: EdgeInsets.zero,
                 child: Icon(Icons.arrow_back_ios, color: tintColor),
-                onPressed: () {
-                  Navigator.maybePop(context);
-                },
+                onPressed:
+                    leadingOnPressed ?? () => Navigator.maybePop(context),
               );
       } else {
         _leading = IconButton(
@@ -155,7 +158,7 @@ Widget _buildLeading({BuildContext context, Widget leading, Color tintColor}) {
               ? const Icon(Icons.close)
               : Icon(Icons.arrow_back_ios, color: tintColor),
           color: tintColor ?? colorWithAppBarTint,
-          onPressed: () => Navigator.maybePop(context),
+          onPressed: leadingOnPressed ?? () => Navigator.maybePop(context),
         );
       }
     }
@@ -167,6 +170,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final bool automaticallyImplyLeading;
   final Widget title;
   final Widget leading;
+  final VoidCallback leadingOnPressed;
   final List<Widget> actions;
   final double elevation;
   final Color tintColor;
@@ -177,6 +181,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
     this.automaticallyImplyLeading = true,
     this.title,
     this.leading,
+    this.leadingOnPressed,
     this.actions,
     this.elevation = 0,
     this.tintColor,
@@ -193,6 +198,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
           ? _buildLeading(
               context: context,
               leading: leading,
+              leadingOnPressed: leadingOnPressed,
               tintColor: tintColor ??
                   (brightness == Brightness.light
                       ? colorWithAppBarTint
@@ -225,13 +231,14 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   PreferredSize buildCupertinoWidget(BuildContext context) {
     Brightness brightness = this.brightness ?? colorWithBrightness;
     return PreferredSize(
-      preferredSize: Size.fromHeight(44),
+      preferredSize: Size.fromHeight(screenToolbarHeightDp),
       child: AppBar(
         automaticallyImplyLeading: automaticallyImplyLeading,
         leading: automaticallyImplyLeading
             ? _buildLeading(
                 context: context,
                 leading: leading,
+                leadingOnPressed: leadingOnPressed,
                 tintColor: tintColor ??
                     (brightness == Brightness.light
                         ? colorWithAppBarTint
@@ -265,6 +272,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
 class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   final Widget title;
   final Widget leading;
+  final VoidCallback leadingOnPressed;
   final List<Widget> actions;
   final double elevation;
   final Color tintColor;
@@ -279,6 +287,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   BaseSliverAppBar({
     this.title,
     this.leading,
+    this.leadingOnPressed,
     this.actions,
     this.elevation = 0,
     this.tintColor,
@@ -298,6 +307,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
       leading: _buildLeading(
           context: context,
           leading: this.leading,
+          leadingOnPressed: leadingOnPressed,
           tintColor: tintColor ??
               (brightness == Brightness.light
                   ? colorWithAppBarTint
@@ -331,11 +341,12 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   PreferredSize buildCupertinoWidget(BuildContext context) {
     Brightness brightness = this.brightness ?? colorWithBrightness;
     return PreferredSize(
-      preferredSize: Size.fromHeight(44),
+      preferredSize: Size.fromHeight(screenToolbarHeightDp),
       child: SliverAppBar(
         leading: _buildLeading(
             context: context,
             leading: this.leading,
+            leadingOnPressed: leadingOnPressed,
             tintColor: tintColor ??
                 (brightness == Brightness.light
                     ? colorWithAppBarTint
