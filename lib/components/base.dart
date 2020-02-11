@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easy/flutter_easy.dart';
 
 import 'package:oktoast/oktoast.dart';
 
 import '../utils/global_util.dart';
 import '../utils/color_util.dart';
+import '../utils/adapt_util.dart';
+import '../utils/json_util.dart';
+import '../utils/package_info_util.dart';
 
 export 'base_refresh.dart';
 
@@ -37,19 +39,27 @@ abstract class BaseRefreshState<C, T> extends BaseState<T> {
 class BaseKeyValue {
   String key;
   String value;
+  dynamic extend;
 
-  BaseKeyValue({this.key, this.value});
+  BaseKeyValue({this.key, this.value, this.extend});
 
   BaseKeyValue.fromJson(Map<String, dynamic> json) {
     key = json['key'];
     value = json['value'];
+    extend = json['extend'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['key'] = this.key;
     data['value'] = this.value;
+    data['extend'] = this.extend;
     return data;
+  }
+
+  @override
+  String toString() {
+    return jsonEncode(toJson());
   }
 }
 
