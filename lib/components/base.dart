@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easy/flutter_easy.dart';
 
 import 'package:oktoast/oktoast.dart';
 
@@ -68,7 +69,11 @@ createEasyApp(
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
   runApp(initView ?? BaseApp(home: Scaffold(backgroundColor: Colors.white)));
-  PackageInfoUtil.init().then((_) {
+  Future.wait([
+    PackageInfoUtil.init(),
+    SharedPreferencesUtil.init(),
+  ]).then((e) {
+    log("init:", e);
     if (initCallback != null) {
       initCallback().then((_) {
         completionCallback();
@@ -77,6 +82,15 @@ createEasyApp(
       completionCallback();
     }
   });
+//  PackageInfoUtil.init().then((_) {
+//    if (initCallback != null) {
+//      initCallback().then((_) {
+//        completionCallback();
+//      });
+//    } else {
+//      completionCallback();
+//    }
+//  });
 }
 
 abstract class PlatformWidget<M extends Widget, C extends Widget>
