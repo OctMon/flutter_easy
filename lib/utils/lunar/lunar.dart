@@ -99,6 +99,11 @@ class Lunar {
     return festivalStr;
   }
 
+  /// 生肖
+  String get twelveSymbolicAnimalsYear {
+    return _twelveSymbolicAnimalsList[(lunarYear - 1900) % 12];
+  }
+
   bool isLeap;
 
   static List<String> _lunarMonthList = [
@@ -444,6 +449,22 @@ class Lunar {
     "0707七夕",
     "0815中秋",
     "0909重阳",
+  ];
+
+  /// 传统农历节日
+  static List<String> _twelveSymbolicAnimalsList = [
+    "鼠",
+    "牛",
+    "虎",
+    "兔",
+    "龙",
+    "蛇",
+    "马",
+    "羊",
+    "猴",
+    "鸡",
+    "狗",
+    "猪",
   ];
 
   Lunar(DateTime dateTime,
