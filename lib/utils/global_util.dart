@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/services.dart';
 
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
@@ -37,3 +38,6 @@ String assetsImagesPathWebP(String name) =>
 /// 获取图片路径
 String assetsImagesPath(String name, {String format = "png"}) =>
     "assets/images/$name.$format";
+
+/// 随机数(0-max)小于max
+int randomInt(int max) => Random().nextInt(max);
