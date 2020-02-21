@@ -82,16 +82,13 @@ createEasyApp(
       completionCallback();
     }
   });
-//  PackageInfoUtil.init().then((_) {
-//    if (initCallback != null) {
-//      initCallback().then((_) {
-//        completionCallback();
-//      });
-//    } else {
-//      completionCallback();
-//    }
-//  });
 }
+
+/// 默认返回按钮的样式
+/// initAppBarLeading = Icons.arrow_back;
+/// or
+//  initAppBarLeading = assetsImagesPath("icon_arrow_back");
+dynamic initAppBarLeading;
 
 abstract class PlatformWidget<M extends Widget, C extends Widget>
     extends StatelessWidget {
@@ -149,6 +146,18 @@ Widget _buildLeading(
     Widget leading,
     VoidCallback leadingOnPressed,
     Color tintColor}) {
+  Widget buildLeading() {
+    return initAppBarLeading is String
+        ? Image.asset(
+            initAppBarLeading,
+            width: 24,
+            color: tintColor,
+          )
+        : initAppBarLeading is IconData
+            ? Icon(initAppBarLeading, color: tintColor)
+            : Icon(Icons.arrow_back_ios, color: tintColor);
+  }
+
   final ModalRoute<dynamic> parentRoute = ModalRoute.of(context);
 
   final bool canPop = parentRoute?.canPop ?? false;
@@ -172,15 +181,13 @@ Widget _buildLeading(
               )
             : BaseButton(
                 padding: EdgeInsets.zero,
-                child: Icon(Icons.arrow_back_ios, color: tintColor),
+                child: buildLeading(),
                 onPressed:
                     leadingOnPressed ?? () => Navigator.maybePop(context),
               );
       } else {
         _leading = IconButton(
-          icon: useCloseButton
-              ? const Icon(Icons.close)
-              : Icon(Icons.arrow_back_ios, color: tintColor),
+          icon: useCloseButton ? const Icon(Icons.close) : buildLeading(),
           color: tintColor ?? colorWithAppBarTint,
           onPressed: leadingOnPressed ?? () => Navigator.maybePop(context),
         );
