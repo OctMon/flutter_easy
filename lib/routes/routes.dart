@@ -46,7 +46,7 @@ Future pushNamedAndRemoveUntil(BuildContext context, String routeName,
     {RoutePredicate predicate,
     Object arguments,
     dynamic Function(bool) needLogin}) {
-  return _pushNamed('pushReplacementNamed', context, routeName,
+  return _pushNamed('pushNamedAndRemoveUntil', context, routeName,
       predicate: predicate, arguments: arguments, needLogin: needLogin);
 }
 
