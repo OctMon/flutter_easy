@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
@@ -19,9 +20,11 @@ bool _isDebug() {
   return _debugFlag;
 }
 
-bool isIOS = Platform.isIOS;
+bool isIOS = kIsWeb ? Platform.isIOS : false;
 
-bool isAndroid = Platform.isAndroid;
+bool isAndroid = kIsWeb ? Platform.isAndroid : false;
+
+bool isWeb = kIsWeb;
 
 /// 将文本内容复制到剪贴板
 Future<void> setClipboard(String text) =>

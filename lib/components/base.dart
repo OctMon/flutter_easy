@@ -68,6 +68,10 @@ createEasyApp(
     {Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
+  if (isWeb) {
+    completionCallback();
+    return;
+  }
   runApp(initView ?? BaseApp(home: Scaffold(backgroundColor: Colors.white)));
   Future.wait([
     PackageInfoUtil.init(),
