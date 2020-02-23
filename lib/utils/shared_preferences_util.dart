@@ -15,8 +15,14 @@ class SharedPreferencesUtil {
 String getSharedPrefsString(String key) =>
     SharedPreferencesUtil.instance.getString(key);
 
+List<String> getSharedPrefsStringList(String key) =>
+    SharedPreferencesUtil.instance.getStringList(key);
+
 Future<bool> setSharedPrefsString(String key, String value) async =>
     SharedPreferencesUtil.instance.setString(key, value);
+
+Future<bool> setSharedPrefsStringList(String key, List<String> value) async =>
+    SharedPreferencesUtil.instance.setStringList(key, value);
 
 bool getSharedPrefsBool(String key) =>
     SharedPreferencesUtil.instance.getBool(key);
