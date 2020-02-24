@@ -20,9 +20,9 @@ bool _isDebug() {
   return _debugFlag;
 }
 
-bool isIOS = kIsWeb ? Platform.isIOS : false;
+bool isIOS = kIsWeb ? false : Platform.isIOS;
 
-bool isAndroid = kIsWeb ? Platform.isAndroid : false;
+bool isAndroid = kIsWeb ? false : Platform.isAndroid;
 
 bool isWeb = kIsWeb;
 
