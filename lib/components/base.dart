@@ -68,8 +68,18 @@ createEasyApp(
     {Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
+  void callback() {
+    if (initCallback != null) {
+      initCallback().then((_) {
+        completionCallback();
+      });
+    } else {
+      completionCallback();
+    }
+  }
+
   if (isWeb) {
-    completionCallback();
+    callback();
     return;
   }
   runApp(initView ?? BaseApp(home: Scaffold(backgroundColor: Colors.white)));
@@ -78,13 +88,7 @@ createEasyApp(
     SharedPreferencesUtil.init(),
   ]).then((e) {
     log("init:", e);
-    if (initCallback != null) {
-      initCallback().then((_) {
-        completionCallback();
-      });
-    } else {
-      completionCallback();
-    }
+    callback();
   });
 }
 
