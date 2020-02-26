@@ -5,6 +5,7 @@ export 'utils/string_util.dart';
 export 'utils/json_util.dart';
 export 'utils/date_util.dart';
 export 'utils/shared_preferences_util.dart';
+export 'utils/storage_util.dart';
 export 'utils/crypto_util.dart';
 export 'utils/uuid_util.dart';
 export 'utils/loading_util.dart';
