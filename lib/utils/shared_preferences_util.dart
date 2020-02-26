@@ -12,28 +12,28 @@ class SharedPreferencesUtil {
   }
 }
 
-@Deprecated("use getStoreString")
+@Deprecated("use getStorageString")
 String getSharedPrefsString(String key) =>
     SharedPreferencesUtil.instance.getString(key);
 
 List<String> getSharedPrefsStringList(String key) =>
     SharedPreferencesUtil.instance.getStringList(key);
 
-@Deprecated("use setStoreString")
+@Deprecated("use setStorageString")
 Future<bool> setSharedPrefsString(String key, String value) async =>
     SharedPreferencesUtil.instance.setString(key, value);
 
 Future<bool> setSharedPrefsStringList(String key, List<String> value) async =>
     SharedPreferencesUtil.instance.setStringList(key, value);
 
-@Deprecated("use getStoreBool")
+@Deprecated("use getStorageBool")
 bool getSharedPrefsBool(String key) =>
     SharedPreferencesUtil.instance.getBool(key);
 
-@Deprecated("use setStoreBool")
+@Deprecated("use setStorageBool")
 Future<bool> setSharedPrefsBool(String key, bool value) async =>
     SharedPreferencesUtil.instance.setBool(key, value);
 
-@Deprecated("use removeStore")
+@Deprecated("use removeStorage")
 Future<bool> removeSharedPrefs(String key) async =>
     SharedPreferencesUtil.instance.remove(key);

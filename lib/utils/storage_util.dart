@@ -5,17 +5,17 @@ import 'shared_preferences_util.dart';
 String _secret;
 
 class StorageUtil {
-  void setEncrypt(String secret) => _secret = secret;
+  static void setEncrypt(String secret) => _secret = secret;
 }
 
-Future<String> getStoreString(String key) async {
+Future<String> getStorageString(String key) async {
   String string = SharedPreferencesUtil.instance.getString(key);
-  return _secret == null
+  return _secret == null || string == null
       ? string
       : await FlutterDes.decryptFromBase64(string, _secret);
 }
 
-Future<bool> setStoreString(String key, String value) async {
+Future<bool> setStorageString(String key, String value) async {
   return SharedPreferencesUtil.instance.setString(
       key,
       _secret == null
@@ -23,18 +23,18 @@ Future<bool> setStoreString(String key, String value) async {
           : await FlutterDes.encryptToBase64(value, _secret));
 }
 
-Future<bool> getStoreBool(String key) async {
-  return await getStoreString(key) == "true";
+Future<bool> getStorageBool(String key) async {
+  return await getStorageString(key) == "true";
 }
 
-Future<bool> setStoreBool(String key, bool value) async {
-  return setStoreString(key, value ? "true" : "false");
+Future<bool> setStorageBool(String key, bool value) async {
+  return setStorageString(key, value ? "true" : "false");
 }
 
-Future<bool> removeStore(String key) async {
+Future<bool> removeStorage(String key) async {
   return SharedPreferencesUtil.instance.remove(key);
 }
 
-Future<bool> clearStore() async {
+Future<bool> clearStorage() async {
   return SharedPreferencesUtil.instance.clear();
 }
