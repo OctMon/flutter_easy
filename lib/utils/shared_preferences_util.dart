@@ -10,7 +10,7 @@ class SharedPreferencesUtil {
   static dynamic instance;
 
   /// 初始化首选项信息
-  static Future<SharedPreferences> init() async {
+  static Future<dynamic> init() async {
     if (isWeb) {
       instance = SharedPreferencesPlugin(); // TODO:运行web报错的时候注掉即可
     } else {
