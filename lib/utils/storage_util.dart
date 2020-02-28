@@ -1,4 +1,5 @@
 import 'package:flutter_des/flutter_des.dart';
+import 'package:flutter_easy/utils/global_util.dart';
 
 import 'shared_preferences_util.dart';
 
@@ -10,7 +11,7 @@ class StorageUtil {
 
 Future<String> getStorageString(String key) async {
   String string = SharedPreferencesUtil.instance.getString(key);
-  return _secret == null || string == null
+  return (isWeb || _secret == null || string == null)
       ? string
       : await FlutterDes.decryptFromBase64(string, _secret);
 }
@@ -18,7 +19,7 @@ Future<String> getStorageString(String key) async {
 Future<bool> setStorageString(String key, String value) async {
   return SharedPreferencesUtil.instance.setString(
       key,
-      _secret == null
+      (isWeb || _secret == null)
           ? value
           : await FlutterDes.encryptToBase64(value, _secret));
 }
