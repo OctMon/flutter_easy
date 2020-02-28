@@ -77,7 +77,7 @@ packages:
       name: dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.8"
+    version: "3.0.9"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -218,7 +218,7 @@ packages:
       name: session
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.1"
+    version: "0.5.0"
   shared_preferences:
     dependency: "direct main"
     description:
