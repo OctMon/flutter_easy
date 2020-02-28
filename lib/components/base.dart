@@ -79,6 +79,7 @@ createEasyApp(
   }
 
   if (isWeb) {
+    SharedPreferencesUtil.init();
     callback();
     return;
   }
