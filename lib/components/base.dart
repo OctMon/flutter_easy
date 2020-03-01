@@ -115,12 +115,14 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
 }
 
 class BaseApp extends StatefulWidget {
+  final String title;
   final Widget home;
   final RouteFactory onGenerateRoute;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final Iterable<Locale> supportedLocales;
 
   BaseApp({
+    this.title,
     this.home,
     this.onGenerateRoute,
     this.localizationsDelegates,
@@ -136,6 +138,7 @@ class _BaseAppState extends State<BaseApp> {
   Widget build(BuildContext context) {
     return OKToast(
       child: MaterialApp(
+        title: widget.title ?? (isWeb ? webAppName : ""),
         theme: ThemeData(
           platform: TargetPlatform.iOS,
           primarySwatch: Colors.grey,
