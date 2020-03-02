@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_easy/utils/global_util.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
@@ -29,6 +30,27 @@ class WebImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (imageUrl == null || imageUrl.isEmpty) {
       return placeholder;
+    }
+    if (isWeb) {
+      return Image.network(
+        imageUrl,
+        width: width,
+        height: height,
+        fit: fit,
+        loadingBuilder: (BuildContext context, Widget child,
+            ImageChunkEvent loadingProgress) {
+          if (loadingProgress == null) return child;
+          return placeholder;
+//          return Center(
+//            child: CircularProgressIndicator(
+//              value: loadingProgress.expectedTotalBytes != null
+//                  ? loadingProgress.cumulativeBytesLoaded /
+//                      loadingProgress.expectedTotalBytes
+//                  : null,
+//            ),
+//          );
+        },
+      );
     }
     return CachedNetworkImage(
       cacheManager: DefaultCacheManager(),
