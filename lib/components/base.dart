@@ -967,6 +967,26 @@ class BaseTextField extends StatelessWidget {
   }
 }
 
+class BaseGeneralAlertDialog extends StatelessWidget {
+  final Widget title;
+  final Widget content;
+  final List<Widget> actions;
+
+  const BaseGeneralAlertDialog(
+      {Key key, this.title, this.content, this.actions})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoAlertDialog(
+      key: key,
+      title: title ?? BaseText('提示'),
+      content: Container(margin: EdgeInsets.only(top: 10), child: content),
+      actions: actions,
+    );
+  }
+}
+
 class BaseAlertDialog extends Dialog {
   final bool barrierDismissible;
   final EdgeInsets margin;
@@ -1078,11 +1098,16 @@ class BaseDialogAction extends StatelessWidget {
   }
 }
 
+///  只针对[BaseGeneralAlertDialog]设置[barrierDismissible]有效
 Future<T> showBaseDialog<T>({
   @required BuildContext context,
+  bool barrierDismissible = false,
   WidgetBuilder builder,
 }) {
-  return showDialog<T>(context: context, builder: builder);
+  return showDialog<T>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: builder);
 }
 
 class BaseActionSheet extends StatelessWidget {
