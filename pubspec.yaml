@@ -32,7 +32,7 @@ dependencies:
   # pub: https://pub.dev/packages/oktoast
   # git: https://github.com/OpenFlutter/flutter_oktoast
   # ———————————————————————————————————————————————————————————————————————————————
-  oktoast: ^2.3.0
+  oktoast: ^2.3.1+1
   # ===============================================================================
 
   # ===============================================================================
@@ -42,14 +42,14 @@ dependencies:
   # 说明：包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储。
   # 数据异步保存到磁盘。 这两个平台都不能保证在返回后将写操作持久化到磁盘，并且该插件不得用于存储关键数据。
   # ===============================================================================
-  shared_preferences: ^0.5.6+1
+  shared_preferences: ^0.5.6+2
 
   # ===============================================================================
   # This Flutter plugin provides an API for querying information about an application package.
   # pub: https://pub.dev/packages/package_info
   # git: https://github.com/flutter/plugins/tree/master/packages/package_info
   # ———————————————————————————————————————————————————————————————————————————————
-  package_info: ^0.4.0+13
+  package_info: ^0.4.0+14
   # ===============================================================================
 
   # ===============================================================================
@@ -57,7 +57,7 @@ dependencies:
   # pub: https://pub.dev/packages/url_launcher
   # git: https://github.com/flutter/plugins/tree/master/packages/url_launcher
   # ———————————————————————————————————————————————————————————————————————————————
-  url_launcher: ^5.4.1
+  url_launcher: ^5.4.2
   # ===============================================================================
 
   # ===============================================================================
