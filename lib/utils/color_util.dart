@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 var colorWithBrightness = Brightness.light;
@@ -23,3 +25,10 @@ const colorWithHex3 = Color(0xFF333333);
 const colorWithHex6 = Color(0xFF666666);
 
 const colorWithHex9 = Color(0xFF999999);
+
+Color colorWithRandom() {
+  int red = Random.secure().nextInt(255);
+  int greed = Random.secure().nextInt(255);
+  int blue = Random.secure().nextInt(255);
+  return Color.fromARGB(255, red, greed, blue);
+}
