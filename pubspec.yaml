@@ -1,6 +1,6 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 0.2.0
+version: 0.2.1
 author: OctMon <octmon@qq.com>
 homepage: https://github.com/OctMon/flutter_easy
 
@@ -49,7 +49,7 @@ dependencies:
   # pub: https://pub.dev/packages/package_info
   # git: https://github.com/flutter/plugins/tree/master/packages/package_info
   # ———————————————————————————————————————————————————————————————————————————————
-  package_info: ^0.4.0+14
+  package_info: '>=0.4.0+14 <2.0.0'
   # ===============================================================================
 
   # ===============================================================================
