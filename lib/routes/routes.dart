@@ -63,6 +63,13 @@ Future popAndPushNamed(BuildContext context, String routeName,
       arguments: arguments, needLogin: needLogin);
 }
 
+///
+/// 路由跳转封装pop
+///
+bool pop<T extends Object>(BuildContext context, [T result]) {
+  return Navigator.of(context).pop(result);
+}
+
 Future _pushNamed(String type, BuildContext context, String routeName,
     {RoutePredicate predicate,
     Object arguments,

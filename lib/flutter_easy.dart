@@ -23,6 +23,7 @@ export 'routes/routes.dart';
 export 'components/base.dart';
 export 'components/loading_view.dart';
 export 'components/base_animation_image.dart';
+export 'components/base_progress_bar.dart';
 export 'components/web_image.dart';
 export 'components/placeholder_view.dart';
 export 'components/base64_image.dart';
