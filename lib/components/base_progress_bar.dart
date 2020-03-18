@@ -33,8 +33,10 @@ class BaseProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double aspectRatio = width != null && height != null && value != null
+        ? value * width / height
+        : value * (_kDeafultWidth / _kDeafultHeight);
     return Container(
-      width: width ?? _kDeafultWidth,
       height: height ?? _kDeafultHeight,
       child: Stack(
         children: <Widget>[
@@ -45,11 +47,8 @@ class BaseProgressBar extends StatelessWidget {
           ),
           Container(
             color: foregroundColor ?? colorWithTint,
-            child: new AspectRatio(
-              aspectRatio: width != null && height != null && value != null
-                  ? value * width / height
-                  : value * (_kDeafultWidth / _kDeafultHeight),
-            ),
+            child:
+                aspectRatio <= 0 ? null : AspectRatio(aspectRatio: aspectRatio),
           ),
         ],
       ),

@@ -6,6 +6,10 @@ var colorWithBrightness = Brightness.light;
 
 var colorWithTint = Color(0xFFFF4040);
 
+var colorWithPrimary1 = Color(0xFF00B247);
+
+var colorWithPrimary2 = Color(0xFF2B7CFF);
+
 var colorWithAppBarTint = colorWithHex3;
 
 var colorWithAppBarDartTint = Colors.white;
