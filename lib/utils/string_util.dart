@@ -29,3 +29,13 @@ String formatDigitPatternEnd(String text,
 /// 每隔n位 加逗号
 String formatDigitNum(Object num, {int digit: 3}) =>
     formatDigitPatternEnd(num?.toString(), digit: digit, pattern: ',');
+
+/// 保留n位小数
+String formatFractionDigitsAsFixed(double amount,
+    {int fractionDigits = 2, bool autoClearZero = false}) {
+  String fixed = amount.toStringAsFixed(fractionDigits);
+  if (autoClearZero) {
+    fixed = fixed.replaceAll(".00", "");
+  }
+  return fixed;
+}
