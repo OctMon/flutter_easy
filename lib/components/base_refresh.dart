@@ -6,7 +6,8 @@ import '../utils/color_util.dart';
 export 'package:flutter_easyrefresh/easy_refresh.dart'
     show EasyRefreshController;
 
-ClassicalHeader baseDefaultHeader = ClassicalHeader(
+/// 统一下拉刷新
+Header baseDefaultRefreshHeader = ClassicalHeader(
   enableInfiniteRefresh: false,
   refreshText: '下拉刷新',
   refreshReadyText: '释放刷新',
@@ -19,7 +20,8 @@ ClassicalHeader baseDefaultHeader = ClassicalHeader(
   infoColor: colorWithHex6,
 );
 
-ClassicalFooter baseDefaultFooter = ClassicalFooter(
+/// 统一上拉加载
+Footer baseDefaultRefreshFooter = ClassicalFooter(
   enableInfiniteLoad: true,
   loadText: '上拉加载更多',
   loadReadyText: '释放加载',
@@ -77,8 +79,8 @@ class BaseRefresh extends StatelessWidget {
     if (child != null) {
       return EasyRefresh(
         controller: controller,
-        header: header ?? (onRefresh != null ? baseDefaultHeader : null),
-        footer: footer ?? (onLoad != null ? baseDefaultFooter : null),
+        header: header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
+        footer: footer ?? (onLoad != null ? baseDefaultRefreshFooter : null),
         firstRefresh: firstRefresh,
         firstRefreshWidget: firstRefreshWidget,
         emptyWidget: emptyWidget,
@@ -89,8 +91,8 @@ class BaseRefresh extends StatelessWidget {
     }
     return EasyRefresh.custom(
       controller: controller,
-      header: header ?? (onRefresh != null ? baseDefaultHeader : null),
-      footer: footer ?? (onLoad != null ? baseDefaultFooter : null),
+      header: header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
+      footer: footer ?? (onLoad != null ? baseDefaultRefreshFooter : null),
       firstRefresh: firstRefresh,
       firstRefreshWidget: firstRefreshWidget,
       emptyWidget: emptyWidget,
