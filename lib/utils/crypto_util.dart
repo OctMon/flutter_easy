@@ -18,8 +18,7 @@ String base64EncodeString(String data) => base64Encode(utf8.encode(data));
 String base64Encode(List<int> input) => base64.encode(input);
 
 /// base64解密字符串
-String base64DecodeString(String data) =>
-    String.fromCharCodes(base64Decode(data));
+String base64DecodeString(String data) => utf8.decode(base64Decode(data));
 
 /// base64解密字符串
 Uint8List base64Decode(String encoded) => base64.decode(encoded);
