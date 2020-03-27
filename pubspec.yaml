@@ -74,7 +74,7 @@ dependencies:
   # GitHub：https://github.com/OctMon/flutter_des
   # 说明：Java，android，ios通过DES加密和解密获得相同的结果。
   # ===============================================================================
-  flutter_des: ^1.1.0
+  flutter_des: ^1.1.1
 
   # ===============================================================================
   # A widget provided to the flutter scroll component pull-refresh and push-load.
