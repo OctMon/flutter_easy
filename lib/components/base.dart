@@ -556,6 +556,7 @@ class BaseTitle extends StatelessWidget {
   final TextAlign textAlign;
   final double fontSize;
   final FontWeight fontWeight;
+  final String fontFamily;
   final Color color;
   final int maxLines;
   final double height;
@@ -566,6 +567,7 @@ class BaseTitle extends StatelessWidget {
       this.textAlign,
       this.fontSize = 14,
       this.fontWeight,
+      this.fontFamily,
       this.color,
       this.maxLines,
       this.height,
@@ -581,6 +583,7 @@ class BaseTitle extends StatelessWidget {
         fontSize: fontSize,
         color: color ?? colorWithTitle,
         fontWeight: fontWeight,
+        fontFamily: fontFamily,
         height: height,
       ),
       maxLines: maxLines,
