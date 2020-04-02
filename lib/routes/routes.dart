@@ -66,7 +66,7 @@ Future popAndPushNamed(BuildContext context, String routeName,
 ///
 /// 路由跳转封装pop
 ///
-bool pop<T extends Object>(BuildContext context, [T result]) {
+pop<T extends Object>(BuildContext context, [T result]) {
   return Navigator.of(context).pop(result);
 }
 
