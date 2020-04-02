@@ -145,6 +145,7 @@ class _BaseAppState extends State<BaseApp> {
           splashColor: Colors.transparent,
         ),
         home: widget.home,
+        debugShowCheckedModeBanner: false,
         onGenerateRoute: widget.onGenerateRoute,
         localizationsDelegates: widget.localizationsDelegates,
         supportedLocales: widget.supportedLocales,
