@@ -1,6 +1,6 @@
 import 'package:flutter_easy/utils/global_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shared_preferences_web/shared_preferences_web.dart'; // TODO:运行web报错的时候注掉即可
+//import 'package:shared_preferences_web/shared_preferences_web.dart'; // TODO:运行web报错的时候注掉即可
 
 class SharedPreferencesUtil {
   SharedPreferencesUtil._();
@@ -12,7 +12,7 @@ class SharedPreferencesUtil {
   /// 初始化首选项信息
   static Future<dynamic> init() async {
     if (isWeb) {
-      instance = SharedPreferencesPlugin(); // TODO:运行web报错的时候注掉即可
+//      instance = SharedPreferencesPlugin(); // TODO:运行web报错的时候注掉即可
     } else {
       instance = await SharedPreferences.getInstance();
     }
