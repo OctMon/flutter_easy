@@ -77,7 +77,25 @@ class BaseRefresh extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (child != null) {
-      return EasyRefresh(
+      return MediaQuery(
+        data: MediaQueryData(textScaleFactor: 1),
+        child: EasyRefresh(
+          controller: controller,
+          header:
+              header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
+          footer: footer ?? (onLoad != null ? baseDefaultRefreshFooter : null),
+          firstRefresh: firstRefresh,
+          firstRefreshWidget: firstRefreshWidget,
+          emptyWidget: emptyWidget,
+          onRefresh: onRefresh,
+          onLoad: onLoad,
+          child: child,
+        ),
+      );
+    }
+    return MediaQuery(
+      data: MediaQueryData(textScaleFactor: 1),
+      child: EasyRefresh.custom(
         controller: controller,
         header: header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
         footer: footer ?? (onLoad != null ? baseDefaultRefreshFooter : null),
@@ -86,19 +104,8 @@ class BaseRefresh extends StatelessWidget {
         emptyWidget: emptyWidget,
         onRefresh: onRefresh,
         onLoad: onLoad,
-        child: child,
-      );
-    }
-    return EasyRefresh.custom(
-      controller: controller,
-      header: header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
-      footer: footer ?? (onLoad != null ? baseDefaultRefreshFooter : null),
-      firstRefresh: firstRefresh,
-      firstRefreshWidget: firstRefreshWidget,
-      emptyWidget: emptyWidget,
-      onRefresh: onRefresh,
-      onLoad: onLoad,
-      slivers: slivers,
+        slivers: slivers,
+      ),
     );
   }
 }
