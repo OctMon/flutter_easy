@@ -371,9 +371,9 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
           : null,
       actions: actions == null ? [] : actions,
       elevation: elevation,
-      backgroundColor: backgroundColor ?? brightness == Brightness.light
+      backgroundColor: backgroundColor ?? (brightness == Brightness.light
           ? colorWithAppBarBackground
-          : colorWithAppBarDarkBackground,
+          : colorWithAppBarDarkBackground),
       brightness: brightness,
       pinned: pinned,
       expandedHeight: expandedHeight,
