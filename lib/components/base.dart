@@ -31,10 +31,6 @@ abstract class BaseRefreshState<C, T> extends BaseState<T> {
   int get page;
 
   set page(int page);
-
-  bool get loadMore;
-
-  set loadMore(bool loadMore);
 }
 
 class BaseKeyValue {
@@ -371,9 +367,10 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
           : null,
       actions: actions == null ? [] : actions,
       elevation: elevation,
-      backgroundColor: backgroundColor ?? (brightness == Brightness.light
-          ? colorWithAppBarBackground
-          : colorWithAppBarDarkBackground),
+      backgroundColor: backgroundColor ??
+          (brightness == Brightness.light
+              ? colorWithAppBarBackground
+              : colorWithAppBarDarkBackground),
       brightness: brightness,
       pinned: pinned,
       expandedHeight: expandedHeight,
