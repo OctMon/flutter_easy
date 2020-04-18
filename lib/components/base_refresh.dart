@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easy/components/base.dart';
+import 'package:flutter_easy/utils/adapt_util.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import '../utils/color_util.dart';
@@ -21,17 +23,51 @@ Header baseDefaultRefreshHeader = ClassicalHeader(
 );
 
 /// 统一上拉加载
-Footer baseDefaultRefreshFooter = ClassicalFooter(
+Footer baseDefaultRefreshFooter = CustomFooter(
   enableInfiniteLoad: true,
-  loadText: '上拉加载更多',
-  loadReadyText: '释放加载',
-  loadingText: '正在加载',
-  loadedText: '加载完成',
-  loadFailedText: '加载失败',
-  noMoreText: '没有更多',
-  infoText: '更新于 %T',
-  textColor: colorWithHex3,
-  infoColor: colorWithHex6,
+  enableHapticFeedback: true,
+  footerBuilder: (BuildContext context,
+      LoadMode loadState,
+      double pulledExtent,
+      double loadTriggerPullDistance,
+      double loadIndicatorExtent,
+      AxisDirection axisDirection,
+      bool float,
+      Duration completeDuration,
+      bool enableInfiniteLoad,
+      bool success,
+      bool noMore) {
+    if (noMore) {
+      return Container(
+        alignment: Alignment.center,
+        width: screenWidthDp,
+        height: 60,
+        child: BaseText("--没有更多了--"),
+      );
+    }
+    return ClassicalFooter(
+      enableInfiniteLoad: true,
+      loadText: '上拉加载更多',
+      loadReadyText: '释放加载',
+      loadingText: '正在加载',
+      loadedText: '加载完成',
+      loadFailedText: '加载失败',
+      infoText: '更新于 %T',
+      textColor: colorWithHex3,
+      infoColor: colorWithHex6,
+    ).contentBuilder(
+        context,
+        loadState,
+        pulledExtent,
+        loadTriggerPullDistance,
+        loadIndicatorExtent,
+        axisDirection,
+        float,
+        completeDuration,
+        enableInfiniteLoad,
+        success,
+        noMore);
+  },
 );
 
 class BaseRefresh extends StatelessWidget {
