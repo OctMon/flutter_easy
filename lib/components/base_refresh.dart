@@ -42,7 +42,10 @@ Footer baseDefaultRefreshFooter = CustomFooter(
         alignment: Alignment.center,
         width: screenWidthDp,
         height: 60,
-        child: BaseText("--没有更多了--"),
+        child: BaseText(
+          "--没有更多了--",
+          style: TextStyle(color: colorWithHex3),
+        ),
       );
     }
     return ClassicalFooter(
