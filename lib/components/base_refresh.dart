@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/components/base.dart';
-import 'package:flutter_easy/utils/adapt_util.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import '../utils/color_util.dart';
@@ -40,11 +39,9 @@ Footer baseDefaultRefreshFooter = CustomFooter(
     if (noMore) {
       return Container(
         alignment: Alignment.center,
-        width: screenWidthDp,
-        height: 60,
         child: BaseText(
-          "--没有更多了--",
-          style: TextStyle(color: colorWithHex3),
+          "-- 没有更多了 --",
+          style: TextStyle(color: colorWithHex9),
         ),
       );
     }
