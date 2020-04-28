@@ -21,6 +21,8 @@ Header baseDefaultRefreshHeader = ClassicalHeader(
   infoColor: colorWithHex6,
 );
 
+String baseDefaultRefreshFooterNoMoreText = "-- 没有更多了 --";
+
 /// 统一上拉加载
 Footer baseDefaultRefreshFooter = CustomFooter(
   enableInfiniteLoad: true,
@@ -40,7 +42,7 @@ Footer baseDefaultRefreshFooter = CustomFooter(
       return Container(
         alignment: Alignment.center,
         child: BaseText(
-          "-- 没有更多了 --",
+          baseDefaultRefreshFooterNoMoreText,
           style: TextStyle(color: colorWithHex9),
         ),
       );
