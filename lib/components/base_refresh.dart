@@ -74,6 +74,7 @@ Footer baseDefaultRefreshFooter = CustomFooter(
 
 class BaseRefresh extends StatelessWidget {
   final EasyRefreshController controller;
+  final ScrollController scrollController;
   final Header header;
   final bool firstRefresh;
   final Widget firstRefreshWidget;
@@ -87,6 +88,7 @@ class BaseRefresh extends StatelessWidget {
   const BaseRefresh(
       {Key key,
       this.controller,
+      this.scrollController,
       this.header,
       this.firstRefresh,
       this.firstRefreshWidget,
@@ -101,6 +103,7 @@ class BaseRefresh extends StatelessWidget {
   const BaseRefresh.custom(
       {Key key,
       this.controller,
+      this.scrollController,
       this.header,
       this.firstRefresh,
       this.firstRefreshWidget,
@@ -119,6 +122,7 @@ class BaseRefresh extends StatelessWidget {
         data: MediaQueryData(textScaleFactor: 1),
         child: EasyRefresh(
           controller: controller,
+          scrollController: scrollController,
           header:
               header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
           footer: footer ?? (onLoad != null ? baseDefaultRefreshFooter : null),
@@ -135,6 +139,7 @@ class BaseRefresh extends StatelessWidget {
       data: MediaQueryData(textScaleFactor: 1),
       child: EasyRefresh.custom(
         controller: controller,
+        scrollController: scrollController,
         header: header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
         footer: footer ?? (onLoad != null ? baseDefaultRefreshFooter : null),
         firstRefresh: firstRefresh,
