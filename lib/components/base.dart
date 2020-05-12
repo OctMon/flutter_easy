@@ -982,7 +982,10 @@ class BaseGeneralAlertDialog extends StatelessWidget {
     return CupertinoAlertDialog(
       key: key,
       title: title ?? BaseText('提示'),
-      content: Container(margin: EdgeInsets.only(top: 10), child: content),
+      content: DefaultTextStyle(
+        style: TextStyle(fontSize: adaptDp(15), color: colorWithHex3),
+        child: Container(margin: EdgeInsets.only(top: 10), child: content),
+      ),
       actions: actions,
     );
   }
@@ -1103,7 +1106,7 @@ class BaseDialogAction extends StatelessWidget {
 Future<T> showBaseDialog<T>({
   @required BuildContext context,
   bool barrierDismissible = false,
-  WidgetBuilder builder,
+  @required WidgetBuilder builder,
 }) {
   return showDialog<T>(
       context: context,
