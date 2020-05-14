@@ -4,8 +4,37 @@ import 'package:session/session.dart';
 
 import '../utils/loading_util.dart';
 import '../utils/logger_util.dart';
+import 'global_util.dart';
 
 export 'package:session/session.dart';
+
+/// URL环境
+enum BaseURLType { test, release }
+
+/// 上线环境
+const BaseURLType kBaseURLType =
+    isProduction ? BaseURLType.release : BaseURLType.test;
+
+/// 测试环境
+String kTestBaseURL;
+
+/// 生产环境
+String kReleaseBaseURL;
+
+/// 列表无数据
+String kEmptyList = "暂无内容";
+
+/// 分页时第一页的起始页值
+int kFirstPage = 1;
+
+/// 分页时每页数量
+int kLimitPage = 20;
+
+/// 页码数
+String kPageKey = 'page';
+
+/// 每页数量
+String kPageSizeKey = 'pagesize';
 
 typedef _ResultCallBack = Result Function<T>(
     Result result, bool validResult, BuildContext context);
