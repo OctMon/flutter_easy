@@ -968,6 +968,8 @@ class BaseTextField extends StatelessWidget {
   }
 }
 
+Widget baseGeneralAlertDialogTitle = BaseText('提示');
+
 class BaseGeneralAlertDialog extends StatelessWidget {
   final Widget title;
   final Widget content;
@@ -981,7 +983,7 @@ class BaseGeneralAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
       key: key,
-      title: title ?? BaseText('提示'),
+      title: title ?? baseGeneralAlertDialogTitle,
       content: DefaultTextStyle(
         style: TextStyle(fontSize: adaptDp(15), color: colorWithHex3),
         child: Container(margin: EdgeInsets.only(top: 10), child: content),
