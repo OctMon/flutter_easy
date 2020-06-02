@@ -28,6 +28,17 @@ dependencies:
   # ===============================================================================
 
   # ===============================================================================
+  # A set of high-level APIs over PointyCastle for two-way cryptography.
+  # pub: https://pub.dev/packages/encrypt
+  # git: https://github.com/leocavalcante/encrypt
+  # AES with PKCS7 padding
+  # RSA with PKCS1 and OAEP encoding
+  # Salsa20
+  # ———————————————————————————————————————————————————————————————————————————————
+  encrypt: ^4.0.2
+  # ===============================================================================
+
+  # ===============================================================================
   # a pure flutter toast library You can completely customize the style of toast.
   # pub: https://pub.dev/packages/oktoast
   # git: https://github.com/OpenFlutter/flutter_oktoast

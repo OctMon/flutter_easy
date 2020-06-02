@@ -1,8 +1,10 @@
 import 'dart:io';
-import 'package:flutter_des/flutter_des.dart';
+import 'package:encrypt/encrypt.dart';
+
+//import 'package:flutter_des/flutter_des.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'global_util.dart';
+//import 'global_util.dart';
 import 'logger_util.dart';
 import 'shared_preferences_util.dart';
 
@@ -12,19 +14,30 @@ class StorageUtil {
   static void setEncrypt(String secret) => _secret = secret;
 }
 
+final _encrypt = Encrypter(AES(Key.fromUtf8(_secret), mode: AESMode.ecb));
+final _iv = IV.fromLength(16);
+
 Future<String> getStorageString(String key) async {
   String string = await SharedPreferencesUtil.getSharedPrefsString(key);
-  return (isWeb || _secret == null || string == null)
-      ? string
-      : await FlutterDes.decryptFromBase64(string, _secret);
+  if (_secret == null || string == null) {
+    return string;
+  }
+//  if (isWeb) {
+  return _encrypt.decrypt(Encrypted.fromBase64(string), iv: _iv);
+//  }
+//  return await FlutterDes.decryptFromBase64(string, _secret);
 }
 
 Future<bool> setStorageString(String key, String value) async {
-  return SharedPreferencesUtil.setSharedPrefsString(
-      key,
-      (isWeb || _secret == null)
-          ? value
-          : await FlutterDes.encryptToBase64(value, _secret));
+  String string = value;
+  if (string != null) {
+//    if (isWeb) {
+    string = _encrypt.encrypt(value, iv: _iv).base64;
+//    } else {
+//      string = await FlutterDes.encryptToBase64(value, _secret);
+//    }
+  }
+  return SharedPreferencesUtil.setSharedPrefsString(key, string);
 }
 
 Future<bool> getStorageBool(String key) async {
