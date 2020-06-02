@@ -26,6 +26,8 @@ bool isAndroid = kIsWeb ? false : Platform.isAndroid;
 
 bool isWeb = kIsWeb;
 
+bool isPhone = isIOS || isAndroid;
+
 String webAppName = "";
 String webAppPackageName = "";
 String webAppVersion = "";

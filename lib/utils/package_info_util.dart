@@ -8,22 +8,25 @@ class PackageInfoUtil {
 
   /// 初始化应用信息
   static Future<PackageInfo> init() async {
-    packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo;
+    if (isPhone) {
+      packageInfo = await PackageInfo.fromPlatform();
+      return packageInfo;
+    }
   }
 }
 
 /// The app name. `CFBundleDisplayName` on iOS, `application/label` on Android.
-final String appName = isWeb ? webAppName : PackageInfoUtil.packageInfo.appName;
+final String appName =
+    isPhone ? PackageInfoUtil.packageInfo.appName : webAppName;
 
 /// The app package name. `bundleIdentifier` on iOS, `getPackageName` on Android.
 final String appPackageName =
-    isWeb ? webAppPackageName : PackageInfoUtil.packageInfo.packageName;
+    isPhone ? PackageInfoUtil.packageInfo.packageName : webAppPackageName;
 
 /// The app package version. `CFBundleShortVersionString` on iOS, `versionName` on Android.
 final String appVersion =
-    isWeb ? webAppVersion : PackageInfoUtil.packageInfo.version;
+    isPhone ? PackageInfoUtil.packageInfo.version : webAppVersion;
 
 /// The app build number. `CFBundleVersion` on iOS, `versionCode` on Android.
 final String appBuildNumber =
-    isWeb ? webAppBuildNumber : PackageInfoUtil.packageInfo.buildNumber;
+    isPhone ? PackageInfoUtil.packageInfo.buildNumber : webAppBuildNumber;
