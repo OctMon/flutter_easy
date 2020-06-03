@@ -66,6 +66,7 @@ createEasyApp(
     String appVersion,
     String appBuildNumber,
     bool usePackage = true,
+    sharedPreferencesWebInstance,
     Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
@@ -89,7 +90,8 @@ createEasyApp(
         appVersion: appVersion,
         appBuildNumber: appBuildNumber,
         usePackage: usePackage),
-    SharedPreferencesUtil.init(),
+    SharedPreferencesUtil.init(
+        sharedPreferencesWebInstance: sharedPreferencesWebInstance),
   ]).then((e) {
     log("init:", e);
     callback();
