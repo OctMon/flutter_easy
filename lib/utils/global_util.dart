@@ -28,11 +28,6 @@ bool isWeb = kIsWeb;
 
 bool isPhone = isIOS || isAndroid;
 
-String webAppName = "";
-String webAppPackageName = "";
-String webAppVersion = "";
-String webAppBuildNumber = "";
-
 /// 将文本内容复制到剪贴板
 Future<void> setClipboard(String text) =>
     Clipboard.setData(ClipboardData(text: text));

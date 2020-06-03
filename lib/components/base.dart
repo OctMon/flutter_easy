@@ -61,7 +61,12 @@ class BaseKeyValue {
 }
 
 createEasyApp(
-    {Widget initView,
+    {String appName,
+    String appPackageName,
+    String appVersion,
+    String appBuildNumber,
+    bool usePackage = true,
+    Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
   void callback() {
@@ -74,14 +79,16 @@ createEasyApp(
     }
   }
 
-  if (isWeb) {
-    SharedPreferencesUtil.init();
-    callback();
-    return;
-  }
-  runApp(initView ?? BaseApp(home: Scaffold(backgroundColor: Colors.white)));
+  runApp(initView ??
+      BaseApp(title: appName, home: Scaffold(backgroundColor: Colors.white)));
+
   Future.wait([
-    PackageInfoUtil.init(),
+    PackageInfoUtil.init(
+        appName: appName,
+        appPackageName: appPackageName,
+        appVersion: appVersion,
+        appBuildNumber: appBuildNumber,
+        usePackage: usePackage),
     SharedPreferencesUtil.init(),
   ]).then((e) {
     log("init:", e);
@@ -118,7 +125,7 @@ class BaseApp extends StatefulWidget {
   final Iterable<Locale> supportedLocales;
 
   BaseApp({
-    this.title,
+    this.title = "",
     this.home,
     this.onGenerateRoute,
     this.localizationsDelegates,
@@ -134,7 +141,7 @@ class _BaseAppState extends State<BaseApp> {
   Widget build(BuildContext context) {
     return OKToast(
       child: MaterialApp(
-        title: widget.title ?? (isWeb ? webAppName : ""),
+        title: widget.title,
         theme: ThemeData(
           platform: TargetPlatform.iOS,
           primarySwatch: Colors.grey,
