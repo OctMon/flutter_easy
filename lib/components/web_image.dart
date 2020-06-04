@@ -31,7 +31,7 @@ class WebImage extends StatelessWidget {
     if (imageUrl == null || imageUrl.isEmpty) {
       return placeholder;
     }
-    if (isWeb) {
+    if (!isPhone) {
       return Image.network(
         imageUrl,
         width: width,
