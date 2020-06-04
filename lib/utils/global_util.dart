@@ -26,6 +26,22 @@ bool isAndroid = kIsWeb ? false : Platform.isAndroid;
 
 bool isWeb = kIsWeb;
 
+// https://www.jianshu.com/p/40430596e3ab
+// 需要提前设置
+// userAgent = html.window.navigator.userAgent.toLowerCase();
+String userAgent;
+
+bool get isWebInIPhone =>
+    userAgent.contains("iphone") || userAgent.contains("ipod");
+
+bool get isWebInIPad => userAgent.contains("ipad");
+
+bool get isWebInIos => isWebInIPhone || isWebInIPad;
+
+bool get isWebInAndroid => userAgent.contains("android");
+
+bool get isWebInWeChat => userAgent.contains("Micro" + "Messenger");
+
 bool isPhone = isIOS || isAndroid;
 
 /// 将文本内容复制到剪贴板
