@@ -29,7 +29,7 @@ bool isWeb = kIsWeb;
 // https://www.jianshu.com/p/40430596e3ab
 // 需要提前设置
 // userAgent = html.window.navigator.userAgent.toLowerCase();
-String userAgent;
+String userAgent = "";
 
 bool get isWebInIPhone =>
     userAgent.contains("iphone") || userAgent.contains("ipod");
