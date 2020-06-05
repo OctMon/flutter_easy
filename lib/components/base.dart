@@ -802,13 +802,13 @@ class BaseOutlineButton extends StatelessWidget {
   final double width;
   final double height;
   final EdgeInsetsGeometry padding;
+  final Color backgroundColor;
   final Widget icon;
   final Widget title;
   final double borderWidth;
   final double borderRadius;
   final Color borderColor;
-  final Color highlightedBorderColor;
-  final Color disabledBorderColor;
+  final List<BoxShadow> boxShadow;
   final VoidCallback onPressed;
 
   const BaseOutlineButton(
@@ -816,13 +816,13 @@ class BaseOutlineButton extends StatelessWidget {
       this.width = double.infinity,
       this.height = 44,
       this.padding,
+      this.backgroundColor,
       this.icon,
       this.title,
       this.borderWidth = 1,
       this.borderRadius = 22,
       this.borderColor,
-      this.highlightedBorderColor,
-      this.disabledBorderColor,
+      this.boxShadow,
       this.onPressed})
       : super(key: key);
 
@@ -836,33 +836,29 @@ class BaseOutlineButton extends StatelessWidget {
     if (title != null) {
       children.add(title);
     }
-    return Container(
-      padding: padding,
+    return BaseButton(
+      padding: EdgeInsets.zero,
       child: Container(
         width: width,
         height: height,
-        child: OutlineButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(
+            adaptDp(borderRadius),
           ),
-          borderSide: BorderSide(
-            color: borderColor ?? colorWithTint,
-            width: borderWidth,
-          ),
-          highlightedBorderColor: highlightedBorderColor,
-          disabledBorderColor: disabledBorderColor,
-          splashColor: Colors.transparent,
-          child: Center(
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: children,
-              ),
+          border: Border.all(color: borderColor ?? colorWithTint),
+          boxShadow: boxShadow,
+        ),
+        child: Center(
+          child: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children,
             ),
           ),
-          onPressed: onPressed,
         ),
       ),
+      onPressed: onPressed,
     );
   }
 }
