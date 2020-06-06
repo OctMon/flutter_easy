@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
 
@@ -62,3 +63,24 @@ String assetsImagesPath(String name, {String format = "png"}) =>
 
 /// 随机数(0-max)小于max
 int randomInt(int max) => Random().nextInt(max);
+
+Future<bool> canLaunch(String urlString) => launch(urlString);
+
+Future<bool> onLaunch(
+  String urlString, {
+  bool forceSafariVC,
+  bool forceWebView,
+  bool enableJavaScript,
+  bool enableDomStorage,
+  bool universalLinksOnly,
+  Map<String, String> headers,
+  Brightness statusBarBrightness,
+}) =>
+    launch(urlString,
+        forceSafariVC: forceSafariVC,
+        forceWebView: forceWebView,
+        enableJavaScript: enableJavaScript,
+        enableDomStorage: enableDomStorage,
+        universalLinksOnly: universalLinksOnly,
+        headers: headers,
+        statusBarBrightness: statusBarBrightness);
