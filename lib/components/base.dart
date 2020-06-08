@@ -127,7 +127,7 @@ class BaseApp extends StatefulWidget {
   final Iterable<Locale> supportedLocales;
 
   BaseApp({
-    this.title = "",
+    this.title,
     this.home,
     this.onGenerateRoute,
     this.localizationsDelegates,
@@ -143,7 +143,7 @@ class _BaseAppState extends State<BaseApp> {
   Widget build(BuildContext context) {
     return OKToast(
       child: MaterialApp(
-        title: widget.title,
+        title: widget.title ?? "",
         theme: ThemeData(
           platform: TargetPlatform.iOS,
           primarySwatch: Colors.grey,
