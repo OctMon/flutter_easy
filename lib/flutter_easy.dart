@@ -22,6 +22,7 @@ export 'routes/routes.dart';
 
 export 'components/base.dart';
 export 'components/loading_view.dart';
+export 'components/base_launch.dart';
 export 'components/base_animation_image.dart';
 export 'components/base_progress_bar.dart';
 export 'components/base_animation_number_text.dart';
