@@ -13,7 +13,7 @@ import '../utils/package_info_util.dart';
 
 export 'base_refresh.dart';
 
-abstract class BaseState<T> {
+mixin BaseState<T> {
   String get message;
 
   set message(String message);
@@ -23,7 +23,7 @@ abstract class BaseState<T> {
   set data(T data);
 }
 
-abstract class BaseRefreshState<C, T> extends BaseState<T> {
+mixin BaseRefreshState<C, T> implements BaseState<T> {
   C get refreshController;
 
   set refreshController(C controller);
@@ -31,6 +31,39 @@ abstract class BaseRefreshState<C, T> extends BaseState<T> {
   int get page;
 
   set page(int page);
+
+  updateState(Result result) {
+    if (result != null) {
+      bool loadMore = false;
+      message = result.message;
+      dynamic _data = data ?? [];
+      dynamic _list = result.models?.toList() ?? [];
+      if (result.valid && _list.isNotEmpty) {
+        if (page > kFirstPage) {
+          _data.addAll(_list);
+        } else {
+          _data = _list;
+        }
+        page++;
+        data = _data;
+        loadMore = _list.length >= kLimitPage;
+      }
+
+      Future.delayed(Duration(milliseconds: 100), () {
+        // TODO: 延迟100ms执行，首次自动刷新，数据只有一页，finishLoad(noMore: true)不生效，但是下拉刷新却生效. #197
+        // https://github.com/xuelongqy/flutter_easyrefresh/issues/197
+        loadMore
+            ? (refreshController as EasyRefreshController)?.resetLoadState()
+            : (refreshController as EasyRefreshController)
+                ?.finishLoad(success: result.valid, noMore: true);
+      });
+    } else {
+      // 清空所有数据
+      message = null;
+      page = null;
+      data = null;
+    }
+  }
 }
 
 class BaseKeyValue {
