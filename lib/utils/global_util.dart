@@ -53,6 +53,9 @@ Future<void> setClipboard(String text) =>
 Future<String> getClipboard() =>
     Clipboard.getData(Clipboard.kTextPlain).then((data) => data.text);
 
+const kPathIcons = "icons/";
+const kPathOthers = "others/";
+
 /// 获取图片路径
 String assetsImagesPathWebP(String name) =>
     assetsImagesPath(name, format: 'webp');
