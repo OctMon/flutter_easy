@@ -21,6 +21,7 @@ export 'utils/picker_util.dart';
 export 'routes/routes.dart';
 
 export 'components/base.dart';
+export 'components/base_tab_page.dart';
 export 'components/loading_view.dart';
 export 'components/base_launch.dart';
 export 'components/base_animation_image.dart';
