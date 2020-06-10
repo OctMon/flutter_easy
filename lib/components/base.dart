@@ -13,6 +13,11 @@ import '../utils/package_info_util.dart';
 
 export 'base_refresh.dart';
 
+enum BaseAction {
+  updateState,
+  onRequestData,
+}
+
 mixin BaseState<T> {
   String get message;
 
@@ -32,7 +37,7 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
 
   set page(int page);
 
-  updateState(Result result) {
+  updateResult(Result result) {
     if (result != null) {
       bool loadMore = false;
       message = result.message;
