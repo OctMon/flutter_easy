@@ -95,6 +95,14 @@ dependencies:
   flutter_easyrefresh: ^2.1.1
   # ===============================================================================
 
+  # ===============================================================================
+  # 名称：无限轮播
+  # 来源：https://pub.flutter-io.cn/packages/flutter_swiper
+  # GitHub：https://github.com/best-flutter/flutter_swiper
+  # 说明：flutter最强大的swiper, 多种布局方式，无限轮播，Android和IOS双端适配.
+  # ===============================================================================
+  flutter_swiper: ^1.1.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
