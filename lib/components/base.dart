@@ -18,6 +18,8 @@ enum BaseAction {
   onRequestData,
 }
 
+T updateBaseState<T>(T state, action) => action?.payload;
+
 mixin BaseState<T> {
   String get message;
 
@@ -26,6 +28,13 @@ mixin BaseState<T> {
   T get data;
 
   set data(T data);
+
+  updateResult(Result result) {
+    message = result.message;
+    if (result != null && result.valid) {
+      data = result.model;
+    }
+  }
 }
 
 mixin BaseRefreshState<C, T> implements BaseState<T> {
@@ -37,6 +46,7 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
 
   set page(int page);
 
+  @override
   updateResult(Result result) {
     if (result != null) {
       bool loadMore = false;
