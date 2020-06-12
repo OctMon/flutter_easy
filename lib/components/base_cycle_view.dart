@@ -37,6 +37,8 @@ class BaseCycleView extends StatelessWidget {
   final List<Widget> items;
   final double width;
   final double height;
+  final Axis scrollDirection;
+  final ScrollPhysics physics;
   final bool showPagination;
   final SwiperOnTap onTap;
 
@@ -45,6 +47,8 @@ class BaseCycleView extends StatelessWidget {
       this.items,
       this.width,
       this.height,
+      this.scrollDirection = Axis.horizontal,
+      this.physics,
       this.showPagination = true,
       this.onTap})
       : super(key: key);
@@ -59,6 +63,8 @@ class BaseCycleView extends StatelessWidget {
         ),
       ),
       child: Swiper(
+        scrollDirection: scrollDirection,
+        physics: physics,
         loop: items.length > 1,
         autoplay: items.length > 1,
         itemCount: items.length,
