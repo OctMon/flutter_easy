@@ -37,10 +37,16 @@ class BaseCycleView extends StatelessWidget {
   final List<Widget> items;
   final double width;
   final double height;
+  final bool showPagination;
   final SwiperOnTap onTap;
 
   const BaseCycleView(
-      {Key key, this.items, this.width, this.height, this.onTap})
+      {Key key,
+      this.items,
+      this.width,
+      this.height,
+      this.showPagination = true,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -59,7 +65,7 @@ class BaseCycleView extends StatelessWidget {
         itemBuilder: (context, index) {
           return items[index];
         },
-        pagination: items.length > 1
+        pagination: (showPagination && items.length > 1)
             ? SwiperPagination(
                 margin: EdgeInsets.all(5),
                 alignment: Alignment.bottomRight,

@@ -67,6 +67,12 @@ String assetsImagesPath(String name, {String format = "png"}) =>
 /// 随机数(0-max)小于max
 int randomInt(int max) => Random().nextInt(max);
 
+String appStoreUrl(String appId) => "https://apps.apple.com/cn/app/id" + appId;
+
+String appStoreUserReviewsUrl(String appId) =>
+    "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&id=" +
+    appId;
+
 Future<bool> canLaunch(String urlString) => launch(urlString);
 
 Future<bool> onLaunch(
