@@ -6,15 +6,22 @@ class BaseBannerView extends StatelessWidget {
   final List<String> urls;
   final double width;
   final double height;
+  final int playDelay;
   final SwiperOnTap onTap;
 
   const BaseBannerView(
-      {Key key, @required this.urls, this.width, this.height, this.onTap})
+      {Key key,
+      @required this.urls,
+      this.width,
+      this.height,
+      this.playDelay,
+      this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BaseCycleView(
+      playDelay: playDelay,
       items: urls.map((url) {
         if (url.startsWith("http")) {
           return WebImage(
@@ -39,6 +46,7 @@ class BaseCycleView extends StatelessWidget {
   final double height;
   final Axis scrollDirection;
   final ScrollPhysics physics;
+  final int playDelay;
   final bool showPagination;
   final SwiperOnTap onTap;
 
@@ -49,6 +57,7 @@ class BaseCycleView extends StatelessWidget {
       this.height,
       this.scrollDirection = Axis.horizontal,
       this.physics,
+      this.playDelay,
       this.showPagination = true,
       this.onTap})
       : super(key: key);
@@ -67,6 +76,7 @@ class BaseCycleView extends StatelessWidget {
         physics: physics,
         loop: items.length > 1,
         autoplay: items.length > 1,
+        autoplayDelay: playDelay ?? 4000,
         itemCount: items.length,
         itemBuilder: (context, index) {
           return items[index];
