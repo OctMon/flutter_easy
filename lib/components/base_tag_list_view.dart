@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-class TagListView extends StatelessWidget {
+class BaseTagListView extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
   final double spacing;
   final double runSpacing;
@@ -10,7 +10,7 @@ class TagListView extends StatelessWidget {
   final double borderWidth;
   final List<Widget> children;
 
-  const TagListView(
+  const BaseTagListView(
       {Key key,
       this.contentPadding = const EdgeInsets.symmetric(horizontal: 3),
       this.spacing = 10.0,
