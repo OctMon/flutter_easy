@@ -47,21 +47,26 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
   set page(int page);
 
   @override
-  updateResult(Result result) {
+  updateResult(Result result, {String emptyTitle}) {
     if (result != null) {
       bool loadMore = false;
       message = result.message;
       dynamic _data = data ?? [];
       dynamic _list = result.models?.toList() ?? [];
-      if (result.valid && _list.isNotEmpty) {
-        if (page > kFirstPage) {
-          _data.addAll(_list);
-        } else {
-          _data = _list;
+      if (result.valid) {
+        if (_list.isNotEmpty) {
+          page ??= kFirstPage;
+          if (page > kFirstPage) {
+            _data.addAll(_list);
+          } else {
+            _data = _list;
+          }
+          page++;
+          data = _data;
+          loadMore = _list.length >= kLimitPage;
+        } else if (emptyTitle != null) {
+          message = emptyTitle;
         }
-        page++;
-        data = _data;
-        loadMore = _list.length >= kLimitPage;
       }
 
       Future.delayed(Duration(milliseconds: 100), () {
