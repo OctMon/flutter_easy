@@ -7,6 +7,7 @@ class BaseBannerView extends StatelessWidget {
   final double width;
   final double height;
   final int playDelay;
+  final bool showPagination;
   final SwiperOnTap onTap;
 
   const BaseBannerView(
@@ -15,13 +16,17 @@ class BaseBannerView extends StatelessWidget {
       this.width,
       this.height,
       this.playDelay,
+      this.showPagination = true,
       this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BaseCycleView(
+      width: width,
+      height: height,
       playDelay: playDelay,
+      showPagination: showPagination,
       items: urls.map((url) {
         if (url.startsWith("http")) {
           return WebImage(
@@ -36,6 +41,7 @@ class BaseBannerView extends StatelessWidget {
           );
         }
       }).toList(),
+      onTap: onTap,
     );
   }
 }
