@@ -24,53 +24,68 @@ Header baseDefaultRefreshHeader = ClassicalHeader(
 String baseDefaultRefreshFooterNoMoreText = "-- 没有更多了 --";
 
 /// 统一上拉加载
-Footer baseDefaultRefreshFooter = CustomFooter(
-  enableInfiniteLoad: true,
-  enableHapticFeedback: true,
-  footerBuilder: (BuildContext context,
-      LoadMode loadState,
-      double pulledExtent,
-      double loadTriggerPullDistance,
-      double loadIndicatorExtent,
-      AxisDirection axisDirection,
-      bool float,
-      Duration completeDuration,
-      bool enableInfiniteLoad,
-      bool success,
-      bool noMore) {
-    if (noMore) {
-      return Container(
-        alignment: Alignment.center,
-        child: BaseText(
-          baseDefaultRefreshFooterNoMoreText,
-          style: TextStyle(color: colorWithHex9),
-        ),
-      );
-    }
-    return ClassicalFooter(
-      enableInfiniteLoad: true,
-      loadText: '上拉加载更多',
-      loadReadyText: '释放加载',
-      loadingText: '正在加载',
-      loadedText: '加载完成',
-      loadFailedText: '加载失败',
-      infoText: '更新于 %T',
-      textColor: colorWithHex3,
-      infoColor: colorWithHex6,
-    ).contentBuilder(
-        context,
-        loadState,
-        pulledExtent,
-        loadTriggerPullDistance,
-        loadIndicatorExtent,
-        axisDirection,
-        float,
-        completeDuration,
-        enableInfiniteLoad,
-        success,
-        noMore);
-  },
-);
+Footer baseRefreshFooter(
+        {bool enableInfiniteLoad: true,
+        bool enableHapticFeedback: true,
+        String loadText: '上拉加载更多',
+        String loadReadyText: '释放加载',
+        String loadingText: '正在加载',
+        String loadedText: '加载完成',
+        String loadFailedText: '加载失败',
+        String noMoreText,
+        String infoText: '更新于 %T',
+        Color textColor: colorWithHex3,
+        Color infoColor: colorWithHex6}) =>
+    CustomFooter(
+      enableInfiniteLoad: enableInfiniteLoad,
+      enableHapticFeedback: enableHapticFeedback,
+      footerBuilder: (BuildContext context,
+          LoadMode loadState,
+          double pulledExtent,
+          double loadTriggerPullDistance,
+          double loadIndicatorExtent,
+          AxisDirection axisDirection,
+          bool float,
+          Duration completeDuration,
+          bool enableInfiniteLoad,
+          bool success,
+          bool noMore) {
+        if (noMore) {
+          return Container(
+            alignment: Alignment.center,
+            child: BaseText(
+              noMoreText ?? baseDefaultRefreshFooterNoMoreText,
+              style: TextStyle(color: colorWithHex9),
+            ),
+          );
+        }
+        return ClassicalFooter(
+          enableInfiniteLoad: true,
+          loadText: loadedText,
+          loadReadyText: loadReadyText,
+          loadingText: loadingText,
+          loadedText: loadedText,
+          loadFailedText: loadFailedText,
+          infoText: infoText,
+          textColor: textColor,
+          infoColor: infoColor,
+        ).contentBuilder(
+            context,
+            loadState,
+            pulledExtent,
+            loadTriggerPullDistance,
+            loadIndicatorExtent,
+            axisDirection,
+            float,
+            completeDuration,
+            enableInfiniteLoad,
+            success,
+            noMore);
+      },
+    );
+
+/// 统一上拉加载
+Footer baseDefaultRefreshFooter = baseRefreshFooter();
 
 class BaseRefresh extends StatelessWidget {
   final EasyRefreshController controller;
