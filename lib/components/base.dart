@@ -69,20 +69,28 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
         }
       }
 
-      Future.delayed(Duration(milliseconds: 100), () {
-        // TODO: 延迟100ms执行，首次自动刷新，数据只有一页，finishLoad(noMore: true)不生效，但是下拉刷新却生效. #197
-        // https://github.com/xuelongqy/flutter_easyrefresh/issues/197
-        loadMore
-            ? (refreshController as EasyRefreshController)?.resetLoadState()
-            : (refreshController as EasyRefreshController)
-                ?.finishLoad(success: result.valid, noMore: true);
-      });
+      loadMore
+          ? (refreshController as EasyRefreshController)?.resetLoadState()
+          : finishLoad(success: result.valid, noMore: true);
     } else {
       // 清空所有数据
       message = null;
       page = null;
       data = null;
     }
+  }
+
+  /// 完成加载
+  void finishLoad({
+    bool success,
+    bool noMore,
+  }) {
+    Future.delayed(Duration(milliseconds: 100), () {
+      // TODO: 延迟100ms执行，首次自动刷新，数据只有一页，finishLoad(noMore: true)不生效，但是下拉刷新却生效. #197
+      // https://github.com/xuelongqy/flutter_easyrefresh/issues/197
+      (refreshController as EasyRefreshController)
+          ?.finishLoad(success: success, noMore: noMore);
+    });
   }
 }
 
