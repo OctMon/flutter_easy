@@ -809,7 +809,7 @@ class BaseBackgroundButton extends StatelessWidget {
       {Key key,
       this.width = double.infinity,
       this.height = 44,
-      this.padding,
+      this.padding = EdgeInsets.zero,
       this.icon,
       this.title,
       this.borderRadius = 22,
@@ -829,7 +829,6 @@ class BaseBackgroundButton extends StatelessWidget {
       children.add(title);
     }
     return Container(
-      padding: padding,
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius),
@@ -841,6 +840,7 @@ class BaseBackgroundButton extends StatelessWidget {
           width: width,
           height: height,
           child: FlatButton(
+            padding: padding,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius)),
             splashColor: Colors.transparent,
