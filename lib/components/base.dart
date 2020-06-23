@@ -1254,11 +1254,8 @@ class BaseDivider extends StatelessWidget {
   /// 分割线的厚度
   final double thickness;
 
-  /// 起点缩进距离
-  final double indent;
-
-  /// 终点缩进距离
-  final double endIndent;
+  /// 缩进距离
+  final EdgeInsets margin;
 
   /// 分割线颜色
   final Color color;
@@ -1266,20 +1263,16 @@ class BaseDivider extends StatelessWidget {
   const BaseDivider({
     Key key,
     this.thickness,
-    this.indent,
-    this.endIndent,
+    this.margin,
     this.color,
   })  : assert(thickness == null || thickness >= 0.0),
-        assert(indent == null || indent >= 0.0),
-        assert(endIndent == null || endIndent >= 0.0),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: margin,
       height: thickness ?? 0.5,
-      margin:
-          EdgeInsetsDirectional.only(start: indent ?? 0, end: endIndent ?? 0),
       color: color ?? colorWithDivider,
     );
   }
