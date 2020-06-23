@@ -67,6 +67,9 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
         } else if (emptyTitle != null) {
           message = emptyTitle;
         }
+        if (result.model != null) {
+          data = result.model;
+        }
       }
 
       loadMore
