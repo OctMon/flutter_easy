@@ -47,7 +47,8 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
   set page(int page);
 
   @override
-  updateResult(Result result, {bool hasMore = false, String emptyTitle}) {
+  updateResult(Result result,
+      {bool hasMore = false, bool updateModel = false, String emptyTitle}) {
     if (result != null) {
       bool loadMore = false;
       message = result.message;
@@ -67,7 +68,7 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
         } else if (emptyTitle != null) {
           message = emptyTitle;
         }
-        if (result.model != null) {
+        if (updateModel && result.model != null) {
           data = result.model;
         }
       }
