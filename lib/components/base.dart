@@ -47,7 +47,7 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
   set page(int page);
 
   @override
-  updateResult(Result result, {String emptyTitle}) {
+  updateResult(Result result, {bool hasMore = false, String emptyTitle}) {
     if (result != null) {
       bool loadMore = false;
       message = result.message;
@@ -69,7 +69,7 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
         }
       }
 
-      loadMore
+      hasMore || loadMore
           ? (refreshController as EasyRefreshController)?.resetLoadState()
           : finishLoad(success: result.valid, noMore: true);
     } else {
