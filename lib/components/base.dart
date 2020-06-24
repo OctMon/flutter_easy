@@ -67,6 +67,9 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
         } else if (emptyTitle != null) {
           message = emptyTitle;
         }
+        if (result.model != null) {
+          data = result.model;
+        }
       }
 
       hasMore || loadMore
@@ -1248,4 +1251,32 @@ Future<T> showBaseModalBottomSheet<T>({
   WidgetBuilder builder,
 }) {
   return showCupertinoModalPopup(context: context, builder: builder);
+}
+
+class BaseDivider extends StatelessWidget {
+  /// 分割线的厚度
+  final double thickness;
+
+  /// 缩进距离
+  final EdgeInsets margin;
+
+  /// 分割线颜色
+  final Color color;
+
+  const BaseDivider({
+    Key key,
+    this.thickness,
+    this.margin,
+    this.color,
+  })  : assert(thickness == null || thickness >= 0.0),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: margin,
+      height: thickness ?? 0.5,
+      color: color ?? colorWithDivider,
+    );
+  }
 }
