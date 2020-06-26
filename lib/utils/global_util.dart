@@ -27,22 +27,22 @@ bool isAndroid = kIsWeb ? false : Platform.isAndroid;
 
 bool isWeb = kIsWeb;
 
-String get _userAgent => webUserAgent.toLowerCase();
+String get userAgent => webUserAgent.toLowerCase();
 // https://www.jianshu.com/p/40430596e3ab
 // 需要提前设置
 // userAgent = html.window.navigator.userAgent;
 String webUserAgent = "";
 
 bool get isWebInIPhone =>
-    _userAgent.contains("iphone") || _userAgent.contains("ipod");
+    userAgent.contains("iphone") || userAgent.contains("ipod");
 
-bool get isWebInIPad => _userAgent.contains("ipad");
+bool get isWebInIPad => userAgent.contains("ipad");
 
 bool get isWebInIos => isWebInIPhone || isWebInIPad;
 
-bool get isWebInAndroid => _userAgent.contains("android");
+bool get isWebInAndroid => userAgent.contains("android");
 
-bool get isWebInWeChat => _userAgent.contains("Micro" + "Messenger");
+bool get isWebInWeChat => userAgent.contains("Micro" + "Messenger");
 
 bool isPhone = isIOS || isAndroid;
 
