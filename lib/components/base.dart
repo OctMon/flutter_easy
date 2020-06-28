@@ -133,7 +133,7 @@ createEasyApp(
     String appBuildNumber,
     bool usePackage = true,
     sharedPreferencesWebInstance,
-    String webUserAgent,
+    String webUserAgent = "",
     Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
