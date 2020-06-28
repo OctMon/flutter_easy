@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../flutter_easy.dart';
+import 'web_image.dart';
 
 Widget _baseDefaultLaunchLocalWidget =
     FlutterLogo(style: FlutterLogoStyle.horizontal);
@@ -24,20 +24,29 @@ class BaseLaunchLocal extends StatelessWidget {
     if (child != null) {
       _baseDefaultLaunchLocalWidget = child;
     }
-    return Container(
-      color: color,
-      alignment: baseDefaultLaunchLocalImageAlignment,
-      padding: EdgeInsets.only(
-          top: baseDefaultLaunchLocalImageAlignment == Alignment.topCenter
-              ? screenHeightDp * baseDefaultLaunchLocalImagePadding
-              : 0,
-          bottom: baseDefaultLaunchLocalImageAlignment == Alignment.bottomCenter
-              ? screenHeightDp * baseDefaultLaunchLocalImagePadding
-              : 0),
-      child: Container(
-        width: screenWidthDp * baseDefaultLaunchLocalImageWidthScale,
-        child: _baseDefaultLaunchLocalWidget,
-      ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Container(
+          alignment: baseDefaultLaunchLocalImageAlignment,
+          padding: EdgeInsets.only(
+              top: baseDefaultLaunchLocalImageAlignment == Alignment.topCenter
+                  ? constraints.maxHeight * baseDefaultLaunchLocalImagePadding
+                  : 0,
+              bottom: baseDefaultLaunchLocalImageAlignment ==
+                      Alignment.bottomCenter
+                  ? constraints.maxHeight * baseDefaultLaunchLocalImagePadding
+                  : 0),
+          color: color,
+          child: Container(
+            width: constraints.maxWidth * baseDefaultLaunchLocalImageWidthScale,
+            height: baseDefaultLaunchLocalImageWidthScale == 1 &&
+                    baseDefaultLaunchLocalImagePadding == 0
+                ? constraints.maxHeight
+                : null,
+            child: _baseDefaultLaunchLocalWidget,
+          ),
+        );
+      },
     );
   }
 }
