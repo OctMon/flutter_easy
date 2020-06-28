@@ -148,8 +148,12 @@ createEasyApp(
     }
   }
 
-  runApp(initView ??
-      BaseApp(title: appName, home: Scaffold(backgroundColor: Colors.white)));
+  runApp(
+    BaseApp(
+      title: appName,
+      home: initView ?? Scaffold(backgroundColor: Colors.white),
+    ),
+  );
 
   Future.wait([
     PackageInfoUtil.init(
