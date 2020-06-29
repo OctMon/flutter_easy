@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'web_image.dart';
 
-Widget _baseDefaultLaunchLocalWidget =
+Widget baseDefaultLaunchLocalWidget =
     FlutterLogo(style: FlutterLogoStyle.horizontal);
 
 Alignment baseDefaultLaunchLocalImageAlignment = Alignment.bottomCenter;
@@ -22,7 +22,7 @@ class BaseLaunchLocal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (child != null) {
-      _baseDefaultLaunchLocalWidget = child;
+      baseDefaultLaunchLocalWidget = child;
     }
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -43,7 +43,7 @@ class BaseLaunchLocal extends StatelessWidget {
                     baseDefaultLaunchLocalImagePadding == 0
                 ? constraints.maxHeight
                 : null,
-            child: _baseDefaultLaunchLocalWidget,
+            child: baseDefaultLaunchLocalWidget,
           ),
         );
       },
