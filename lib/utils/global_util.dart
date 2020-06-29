@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' as urlLauncher;
 
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
 
@@ -74,7 +74,7 @@ String appStoreUserReviewsUrl(String appId) =>
     "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&id=" +
     appId;
 
-Future<bool> canLaunch(String urlString) => launch(urlString);
+Future<bool> canLaunch(String urlString) => urlLauncher.canLaunch(urlString);
 
 Future<bool> onLaunch(
   String urlString, {
@@ -86,7 +86,7 @@ Future<bool> onLaunch(
   Map<String, String> headers,
   Brightness statusBarBrightness,
 }) =>
-    launch(urlString,
+    urlLauncher.launch(urlString,
         forceSafariVC: forceSafariVC,
         forceWebView: forceWebView,
         enableJavaScript: enableJavaScript,
