@@ -11,6 +11,7 @@ import '../utils/color_util.dart';
 import '../utils/adapt_util.dart';
 import '../utils/json_util.dart';
 import '../utils/package_info_util.dart';
+import '../utils/network_util.dart' as network;
 
 export 'base_refresh.dart';
 
@@ -132,12 +133,14 @@ createEasyApp(
     String appVersion,
     String appBuildNumber,
     bool usePackage = true,
+    bool isSelectBaseURLTypeFlag = false,
     sharedPreferencesWebInstance,
     String webUserAgent = "",
     Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
   global.webUserAgent = webUserAgent;
+  network.isSelectBaseURLTypeFlag = isSelectBaseURLTypeFlag;
   void callback() {
     if (initCallback != null) {
       initCallback().then((_) {
@@ -166,7 +169,14 @@ createEasyApp(
         sharedPreferencesWebInstance: sharedPreferencesWebInstance),
   ]).then((e) {
     log("init:", e);
-    callback();
+    if (isSelectBaseURLTypeFlag) {
+      network.initSelectedBaseURLType().then((value) {
+        log("${network.kBaseURLType}", value);
+        callback();
+      });
+    } else {
+      callback();
+    }
   });
 }
 

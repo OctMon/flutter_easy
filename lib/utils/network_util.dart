@@ -2,18 +2,42 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:session/session.dart';
 
+import '../components/base.dart';
 import '../utils/loading_util.dart';
 import '../utils/logger_util.dart';
+import '../utils/crypto_util.dart';
 import 'global_util.dart';
+import 'shared_preferences_util.dart';
 
 export 'package:session/session.dart';
 
 /// URL环境
 enum BaseURLType { test, release }
 
+/// 存储当前环境的key
+String _baseURLTypeKey = md5("$BaseURLType");
+
+/// 当前环境
+String _baseURLTypeString;
+
+/// 开户环境切换，需要自己埋入口
+bool isSelectBaseURLTypeFlag = false;
+
 /// 上线环境
-const BaseURLType kBaseURLType =
-    isProduction ? BaseURLType.release : BaseURLType.test;
+BaseURLType get kBaseURLType {
+  if (isSelectBaseURLTypeFlag && _baseURLTypeString != null) {
+    if (_baseURLTypeString == "${BaseURLType.test}") {
+      return BaseURLType.test;
+    } else if (_baseURLTypeString == "${BaseURLType.release}") {
+      return BaseURLType.release;
+    }
+  }
+  if (isProduction) {
+    return BaseURLType.release;
+  } else {
+    return BaseURLType.test;
+  }
+}
 
 /// 测试环境
 String kTestBaseURL;
@@ -169,4 +193,66 @@ Future<Result> request<T>(
   return _onResult != null
       ? _onResult<T>(result, validResult, context)
       : result;
+}
+
+Future<String> initSelectedBaseURLType() async {
+  String urlType =
+      await SharedPreferencesUtil.getSharedPrefsString(_baseURLTypeKey);
+  if (urlType != null && urlType.isNotEmpty) {
+    _baseURLTypeString = urlType;
+  }
+  return urlType;
+}
+
+Future<bool> showSelectBaseURLTypeAlert({@required BuildContext context}) {
+  /// 保存选择的环境
+  Future<bool> save(BaseURLType urlType) {
+    _baseURLTypeString = "$urlType";
+    log(_baseURLTypeKey, _baseURLTypeString);
+    return SharedPreferencesUtil.setSharedPrefsString(
+        _baseURLTypeKey, _baseURLTypeString);
+  }
+
+  return showBaseDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext ctx) {
+      return BaseGeneralAlertDialog(
+        title: Text(_baseURLTypeString),
+        content: Text(
+          "${BaseURLType.test}" +
+              "=\n" +
+              kTestBaseURL +
+              "\n\n"
+                  "${BaseURLType.release}" +
+              "=\n" +
+              kReleaseBaseURL,
+        ),
+        actions: <Widget>[
+          BaseDialogAction(
+            isDestructiveAction: true,
+            child: Text("${BaseURLType.test}"),
+            onPressed: () async {
+              await save(BaseURLType.test);
+              Navigator.pop(ctx, true);
+            },
+          ),
+          BaseDialogAction(
+            isDefaultAction: true,
+            child: Text("${BaseURLType.release}"),
+            onPressed: () async {
+              await save(BaseURLType.release);
+              Navigator.pop(ctx, true);
+            },
+          ),
+          BaseDialogAction(
+            child: Text("取消"),
+            onPressed: () {
+              Navigator.pop(ctx, false);
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
