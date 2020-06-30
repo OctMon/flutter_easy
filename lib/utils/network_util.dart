@@ -218,7 +218,8 @@ Future<bool> showSelectBaseURLTypeAlert({@required BuildContext context}) {
     barrierDismissible: true,
     builder: (BuildContext ctx) {
       return BaseGeneralAlertDialog(
-        title: Text(_baseURLTypeString),
+        title: Text(
+            _baseURLTypeString == null ? "$kBaseURLType" : _baseURLTypeString),
         content: Text(
           "${BaseURLType.test}" +
               "=\n" +
