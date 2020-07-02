@@ -204,7 +204,12 @@ Future<String> initSelectedBaseURLType() async {
   return urlType;
 }
 
+/// 弹出切换环境菜单
 Future<bool> showSelectBaseURLTypeAlert({@required BuildContext context}) {
+  if (!isSelectBaseURLTypeFlag) {
+    return Future.value(false);
+  }
+
   /// 保存选择的环境
   Future<bool> save(BaseURLType urlType) {
     _baseURLTypeString = "$urlType";
