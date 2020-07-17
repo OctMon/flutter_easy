@@ -29,6 +29,7 @@ class BaseTabPage extends StatefulWidget {
   final int initialIndex;
   final bool isScrollable;
   final Color indicatorColor;
+  final TextStyle labelStyle;
   final List<Widget> tabs;
   final List<Widget> children;
 
@@ -37,6 +38,7 @@ class BaseTabPage extends StatefulWidget {
       this.initialIndex = 0,
       this.isScrollable = false,
       this.indicatorColor,
+      this.labelStyle = const TextStyle(fontWeight: FontWeight.normal),
       this.tabs,
       this.children})
       : super(key: key);
@@ -61,7 +63,7 @@ class _BaseTabPageState extends State<BaseTabPage> {
               indicatorSize: TabBarIndicatorSize.label,
               labelPadding: EdgeInsets.symmetric(horizontal: 6),
               labelColor: colorWithTint,
-              labelStyle: TextStyle(fontWeight: FontWeight.normal),
+              labelStyle: widget.labelStyle,
               unselectedLabelColor: colorWithHex3,
               tabs: widget.tabs,
             ),
