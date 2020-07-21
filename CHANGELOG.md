@@ -1,3 +1,7 @@
+## 0.3.0
+
+* support web.
+
 ## 0.2.0
 
 * fix bugs.
