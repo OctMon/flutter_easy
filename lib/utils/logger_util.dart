@@ -9,14 +9,7 @@ void log(String tag, Object value) {
   }
 }
 
-class _NothingFilter extends DevelopmentFilter {
-  @override
-  bool shouldLog(LogEvent event) {
-    return isDebug ? super.shouldLog(event) : _NothingFilter();
-  }
-}
-
 var logger = Logger(
-  filter: _NothingFilter(),
+  filter: DevelopmentFilter(),
   printer: PrettyPrinter(colors: false, printTime: true),
 );
