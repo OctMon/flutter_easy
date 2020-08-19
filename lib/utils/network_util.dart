@@ -162,7 +162,7 @@ Future<Result> request<T>(
       showLoading(context);
       alreadyShowLoading = true;
     } catch (e) {
-      log('showLoading(); error:', e.toString());
+      logger.e('showLoading()', e.toString());
     }
   }
   Session session = Session(
@@ -213,7 +213,7 @@ Future<bool> showSelectBaseURLTypeAlert({@required BuildContext context}) {
   /// 保存选择的环境
   Future<bool> save(BaseURLType urlType) {
     _baseURLTypeString = "$urlType";
-    log(_baseURLTypeKey, _baseURLTypeString);
+    logger.i(_baseURLTypeKey + _baseURLTypeString);
     return SharedPreferencesUtil.setSharedPrefsString(
         _baseURLTypeKey, _baseURLTypeString);
   }

@@ -73,7 +73,7 @@ Future<String> calcTemporaryDirectoryCacheSize() async {
       }
       return 0;
     } catch (err) {
-      log("err", err);
+      logger.e(err);
       return 0;
     }
   }
@@ -97,7 +97,7 @@ Future<String> calcTemporaryDirectoryCacheSize() async {
     double value = await getTotalSizeOfFilesInDir(tempDir);
     return convertSize(value);
   } catch (err) {
-    log("err", err);
+    logger.e(err);
   }
   return "";
 }
@@ -114,7 +114,7 @@ Future<bool> clearTemporaryDirectoryCache() async {
       await file.delete();
       return true;
     } catch (err) {
-      log("err", err);
+      logger.e(err);
       return false;
     }
   }
@@ -127,7 +127,7 @@ Future<bool> clearTemporaryDirectoryCache() async {
     });
     return false;
   } catch (err) {
-    log("err", err);
+    logger.e(err);
     return false;
   }
 }
