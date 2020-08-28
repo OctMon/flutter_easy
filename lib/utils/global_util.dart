@@ -23,6 +23,8 @@ bool _isDebug() {
 
 bool isIOS = kIsWeb ? false : Platform.isIOS;
 
+bool isMacOS = kIsWeb ? false : Platform.isMacOS;
+
 bool isAndroid = kIsWeb ? false : Platform.isAndroid;
 
 bool isWeb = kIsWeb;

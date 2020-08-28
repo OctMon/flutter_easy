@@ -24,7 +24,7 @@ class PackageInfoUtil {
     _appVersion = appVersion;
     _appBuildNumber = appBuildNumber;
     _usePackage = usePackage;
-    if (isPhone) {
+    if (isMacOS || isPhone) {
       packageInfo = await PackageInfo.fromPlatform();
       return packageInfo;
     }
@@ -33,19 +33,21 @@ class PackageInfoUtil {
 }
 
 /// The app name. `CFBundleDisplayName` on iOS, `application/label` on Android.
-final String appName =
-    (isPhone && _usePackage) ? PackageInfoUtil.packageInfo.appName : _appName;
+final String appName = ((isMacOS || isPhone) && _usePackage)
+    ? PackageInfoUtil.packageInfo.appName
+    : _appName;
 
 /// The app package name. `bundleIdentifier` on iOS, `getPackageName` on Android.
-final String appPackageName = (isPhone && _usePackage)
+final String appPackageName = ((isMacOS || isPhone) && _usePackage)
     ? PackageInfoUtil.packageInfo.packageName
     : _appPackageName;
 
 /// The app package version. `CFBundleShortVersionString` on iOS, `versionName` on Android.
-final String appVersion =
-    (isPhone && _usePackage) ? PackageInfoUtil.packageInfo.version : _appVersion;
+final String appVersion = ((isMacOS || isPhone) && _usePackage)
+    ? PackageInfoUtil.packageInfo.version
+    : _appVersion;
 
 /// The app build number. `CFBundleVersion` on iOS, `versionCode` on Android.
-final String appBuildNumber = (isPhone && _usePackage)
+final String appBuildNumber = ((isMacOS || isPhone) && _usePackage)
     ? PackageInfoUtil.packageInfo.buildNumber
     : _appBuildNumber;
