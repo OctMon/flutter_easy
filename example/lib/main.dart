@@ -53,8 +53,53 @@ class HomePage extends StatelessWidget {
       appBar: BaseAppBar(
         title: BaseText(appName),
       ),
-      body: Center(
-        child: BaseText('Running'),
+      body: Container(
+        margin: EdgeInsets.all(15),
+        child: Table(
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          columnWidths: {
+            0: FixedColumnWidth(adaptDp(130)),
+          },
+          border: TableBorder.all(
+            color: colorWithTint,
+            width: 1.0,
+            style: BorderStyle.solid,
+          ),
+          children: [
+            TableRow(
+              //第一行样式 添加背景色
+              decoration: BoxDecoration(
+                color: Colors.grey,
+              ),
+              children: [
+                Center(child: Text('code')),
+                Center(child: Text('value')),
+              ],
+            ),
+            TableRow(
+              children: [
+                Center(child: Text('appName')),
+                Center(child: Text('$appName')),
+              ],
+            ),
+            TableRow(
+              children: [
+                Center(child: Text('appPackageName')),
+                Center(child: Text('$appPackageName')),
+              ],
+            ),
+            TableRow(children: [
+              Center(child: Text('appBuildNumber')),
+              Center(child: Text('$appBuildNumber')),
+            ]),
+            TableRow(
+              children: [
+                Center(child: Text('appVersion')),
+                Center(child: Text('$appVersion')),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
