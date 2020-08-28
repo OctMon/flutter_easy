@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+// TODO:运行非web报错的时候注掉即可
+// import 'package:shared_preferences_web/shared_preferences_web.dart';
+// import 'dart:html' as html;
+
 void main() {
   createEasyApp(
+    // TODO:运行非web报错的时候注掉即可
+    // sharedPreferencesWebInstance: SharedPreferencesPlugin(),
+    // webUserAgent: html.window.navigator.userAgent.toLowerCase(),
     isSelectBaseURLTypeFlag: true,
     initCallback: initApp,
     completionCallback: () {
@@ -44,10 +51,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: const Text('flutter_easy example'),
+        title: BaseText(appName),
       ),
       body: Center(
-        child: Text('Running'),
+        child: BaseText('Running'),
       ),
     );
   }

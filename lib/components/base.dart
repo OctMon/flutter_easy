@@ -128,10 +128,10 @@ class BaseKeyValue {
 }
 
 createEasyApp(
-    {String appName,
-    String appPackageName,
-    String appVersion,
-    String appBuildNumber,
+    {String appName = "",
+    String appPackageName = "",
+    String appVersion = "",
+    String appBuildNumber = "",
     bool usePackage = true,
     bool isSelectBaseURLTypeFlag = false,
     sharedPreferencesWebInstance,
