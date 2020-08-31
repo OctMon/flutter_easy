@@ -54,7 +54,7 @@ Future<void> setClipboard(String text) =>
 
 /// 获取剪贴板内容
 Future<String> getClipboard() =>
-    Clipboard.getData(Clipboard.kTextPlain).then((data) => data.text);
+    Clipboard.getData(Clipboard.kTextPlain).then((data) => data?.text);
 
 const kPathIcons = "icons/";
 const kPathOthers = "others/";
