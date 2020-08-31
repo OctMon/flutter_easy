@@ -228,11 +228,11 @@ Future<bool> showSelectBaseURLTypeAlert({@required BuildContext context}) {
         content: Text(
           "${BaseURLType.test}" +
               "=\n" +
-              kTestBaseURL +
+              (kTestBaseURL ?? "unknown") +
               "\n\n"
                   "${BaseURLType.release}" +
               "=\n" +
-              kReleaseBaseURL,
+              (kReleaseBaseURL ?? "unknown"),
         ),
         actions: <Widget>[
           BaseDialogAction(
