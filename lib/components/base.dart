@@ -168,10 +168,10 @@ createEasyApp(
     SharedPreferencesUtil.init(
         sharedPreferencesWebInstance: sharedPreferencesWebInstance),
   ]).then((e) {
-    logger.i("init: $e");
+    logInfo("init: $e");
     if (isSelectBaseURLTypeFlag) {
       network.initSelectedBaseURLType().then((value) {
-        logger.i("network: ${network.kBaseURLType} => $value");
+        logInfo("network: ${network.kBaseURLType} => $value");
         callback();
       });
     } else {
