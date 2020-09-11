@@ -152,7 +152,7 @@ createEasyApp(
   }
 
   runApp(
-    BaseApp(
+    MaterialApp(
       title: appName,
       home: initView ?? Scaffold(backgroundColor: Colors.white),
     ),
@@ -201,7 +201,7 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
   }
 }
 
-class BaseApp extends StatefulWidget {
+class BaseApp extends StatelessWidget {
   final String title;
   final Widget home;
   final RouteFactory onGenerateRoute;
@@ -217,25 +217,20 @@ class BaseApp extends StatefulWidget {
   });
 
   @override
-  _BaseAppState createState() => _BaseAppState();
-}
-
-class _BaseAppState extends State<BaseApp> {
-  @override
   Widget build(BuildContext context) {
     return OKToast(
       child: MaterialApp(
-        title: widget.title ?? "",
+        title: title ?? "",
         theme: ThemeData(
           platform: TargetPlatform.iOS,
           primarySwatch: Colors.grey,
           splashColor: Colors.transparent,
         ),
-        home: widget.home,
+        home: home,
         debugShowCheckedModeBanner: false,
-        onGenerateRoute: widget.onGenerateRoute,
-        localizationsDelegates: widget.localizationsDelegates,
-        supportedLocales: widget.supportedLocales,
+        onGenerateRoute: onGenerateRoute,
+        localizationsDelegates: localizationsDelegates,
+        supportedLocales: supportedLocales,
       ),
     );
   }
