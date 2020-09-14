@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:logger/logger.dart';
 
@@ -38,6 +39,41 @@ void logError(dynamic message, [dynamic error, StackTrace stackTrace]) {
 /// Log a message at level [Level.wtf].
 void logWTF(dynamic message, [dynamic error, StackTrace stackTrace]) {
   isWeb ? log("wtf", message) : logger.wtf(message, error, stackTrace);
+}
+
+void logRequest(RequestOptions options) {
+  logVerbose(
+      options.data,
+      "Request ${options.uri}",
+      StackTrace.fromString('method: ${options.method}\n' +
+          'responseType: ${options.responseType?.toString()}\n' +
+          "followRedirects: ${options.followRedirects}\n" +
+          "connectTimeout: ${options.connectTimeout}\n" +
+          "receiveTimeout: ${options.receiveTimeout}\n" +
+          "extra: ${options.extra}\n" +
+          "headers: \n${options.headers}"));
+}
+
+void logResponse(Result result) {
+  if (result.error != null) {
+    logVerbose(
+        result.response?.toString(),
+        "Response ${result.response.request.uri}",
+        StackTrace.fromString('statusCode: ${result.response.statusCode}\n' +
+            "${result.error}: ${result.message}"));
+  } else {
+    logVerbose(
+        result.response?.toString(),
+        "Response ${result.response.request.uri}",
+        StackTrace.fromString('statusCode: ${result.response.statusCode}\n' +
+            (result.response.isRedirect == true
+                ? "redirect: ${result.response.realUri}\n"
+                : "") +
+            "connectTimeout: ${result.response.request.connectTimeout}\n" +
+            (result.response.headers != null
+                ? "headers: \n${result.response.headers}"
+                : "")));
+  }
 }
 
 var logger = Logger(
