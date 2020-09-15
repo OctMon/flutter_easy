@@ -155,6 +155,7 @@ createEasyApp(
     MaterialApp(
       title: appName,
       home: initView ?? Scaffold(backgroundColor: Colors.white),
+      debugShowCheckedModeBanner: false,
     ),
   );
 
@@ -218,19 +219,33 @@ class BaseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget _buildBannerUrlType({@required Widget child}) {
+      if (isSelectBaseURLTypeFlag) {
+        return Banner(
+          message:
+              "${network.kBaseURLType == network.BaseURLType.release ? "Release" : "Test"}",
+          location: BannerLocation.topEnd,
+          child: child,
+        );
+      }
+      return child;
+    }
+
     return OKToast(
-      child: MaterialApp(
-        title: title ?? "",
-        theme: ThemeData(
-          platform: TargetPlatform.iOS,
-          primarySwatch: Colors.grey,
-          splashColor: Colors.transparent,
+      child: _buildBannerUrlType(
+        child: MaterialApp(
+          title: title ?? "",
+          theme: ThemeData(
+            platform: TargetPlatform.iOS,
+            primarySwatch: Colors.grey,
+            splashColor: Colors.transparent,
+          ),
+          home: home,
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: onGenerateRoute,
+          localizationsDelegates: localizationsDelegates,
+          supportedLocales: supportedLocales,
         ),
-        home: home,
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: onGenerateRoute,
-        localizationsDelegates: localizationsDelegates,
-        supportedLocales: supportedLocales,
       ),
     );
   }
