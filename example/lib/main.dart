@@ -51,6 +51,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
+        leading: IconButton(
+          icon: Icon(Icons.developer_mode),
+          onPressed: () {
+            showSelectBaseURLTypeAlert(context: context);
+          },
+        ),
         title: BaseText(appName),
       ),
       body: SafeArea(

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'global_util.dart';
 
 class AdaptUtil {
   static MediaQueryData mediaQuery = MediaQueryData.fromWindow(window);
@@ -67,14 +68,17 @@ double screenBottomBarHeightDp = AdaptUtil.screenBottomBarHeightDp();
 
 bool isIPhoneX = screenBottomBarHeightDp > 0;
 
+bool _noAdapt =
+    isMacOS || (isWeb && !isWebInIos && !isWebInAndroid && !isWebInWeChat);
+
 /// 根据设计稿的比例适配dp保证不变形
 adaptDp(number) {
-  return AdaptUtil.dp(number);
+  return _noAdapt ? double.parse('$number') : AdaptUtil.dp(number);
 }
 
 /// 根据设计稿的比例适配像素保证不变形
 adaptPx(number) {
-  return AdaptUtil.px(number);
+  return _noAdapt ? double.parse('$number') : AdaptUtil.px(number);
 }
 
 /// 根据设备适配1px像素大小
