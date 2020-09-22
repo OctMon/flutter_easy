@@ -172,7 +172,7 @@ createEasyApp(
     logInfo("init: $e");
     if (isSelectBaseURLTypeFlag) {
       network.initSelectedBaseURLType().then((value) {
-        logInfo("network: ${network.kBaseURLType} => $value");
+        logInfo("network: $value");
         callback();
       });
     } else {

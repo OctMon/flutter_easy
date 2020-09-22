@@ -213,7 +213,7 @@ Future<bool> showSelectBaseURLTypeAlert({@required BuildContext context}) {
   /// 保存选择的环境
   Future<bool> save(BaseURLType urlType) {
     _baseURLTypeString = "$urlType";
-    logInfo(_baseURLTypeKey + _baseURLTypeString);
+    logInfo("$_baseURLTypeKey = " + _baseURLTypeString);
     return SharedPreferencesUtil.setSharedPrefsString(
         _baseURLTypeKey, _baseURLTypeString);
   }
