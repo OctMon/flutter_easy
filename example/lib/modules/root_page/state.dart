@@ -29,13 +29,13 @@ class RootState implements Cloneable<RootState> {
 RootState initState(Map<String, dynamic> args) {
   List<String> titles = [
     "首页",
-    "Container",
+    "图虫",
   ];
   return RootState()
     ..currentIndex = 0
     ..tabBodies = [
       Routes.routes.buildPage(Routes.home, null),
-      Container(),
+      Routes.routes.buildPage(Routes.tuChong, null),
     ]
     ..tabBarItems = List.generate(titles.length, (index) {
       return BottomNavigationBarItem(

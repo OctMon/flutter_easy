@@ -3,10 +3,12 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 import 'modules/home_page/page.dart';
 import 'modules/root_page/page.dart';
+import 'modules/tu_chong_page/page.dart';
 
 class Routes {
   static final String root = '/';
   static final String home = '/home';
+  static final String tuChong = '/tu_chong';
 
   Routes._();
 
@@ -15,6 +17,7 @@ class Routes {
     // routesLoginNamed: LoginPage(),
     Routes.root: RootPage(),
     Routes.home: HomePage(),
+    Routes.tuChong: TuChongPage(),
   };
 
   static final AbstractRoutes routes = PageRoutes(
@@ -58,7 +61,8 @@ EffectMiddleware<T> _pageAnalyticsMiddleware<T>({String tag = 'redux'}) {
     return (Effect<dynamic> effect) {
       return (Action action, Context<dynamic> ctx) {
         if (logic is Page<dynamic, dynamic> && action.type is Lifecycle) {
-          logDebug('${logic.runtimeType}', '${action.type}', StackTrace.fromString('${ctx.context}'));
+          logDebug('${logic.runtimeType}', '${action.type}',
+              StackTrace.fromString('${ctx.context}'));
         }
         return effect?.call(action, ctx);
       };
