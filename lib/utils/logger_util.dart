@@ -57,13 +57,13 @@ void logRequest(RequestOptions options) {
 void logResponse(Result result) {
   if (result.error != null) {
     logVerbose(
-        result.response?.toString(),
+        result.response?.data,
         "Response ${result.response.request.uri}",
         StackTrace.fromString('statusCode: ${result.response.statusCode}\n' +
             "${result.error}: ${result.message}"));
   } else {
     logVerbose(
-        result.response?.toString(),
+        result.response?.data,
         "Response ${result.response.request.uri}",
         StackTrace.fromString('statusCode: ${result.response.statusCode}\n' +
             (result.response.isRedirect == true
