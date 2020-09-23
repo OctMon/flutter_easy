@@ -1,19 +1,27 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/api/tuchong_api.dart';
-import 'package:flutter_easy_example/modules/tu_chong_page/model.dart';
+import 'package:flutter_easy_example/api/tu_chong/tu_chong_api.dart';
+import 'package:flutter_easy_example/api/tu_chong/tu_chong_model.dart';
 import 'action.dart';
 import 'state.dart';
 
 Effect<TuChongState> buildEffect() {
   return combineEffects(<Object, Effect<TuChongState>>{
-    Lifecycle.initState: _onAction,
-    TuChongAction.action: _onAction,
+    Lifecycle.initState: _initState,
+    BaseAction.onRequestData: _onRequestData,
   });
 }
 
-Future<void> _onAction(Action action, Context<TuChongState> ctx) async {
-  Result result = await getApi(path: "feed-app", queryParameters: {kPageKey: 1})
-    ..fillMap((json) => FeedModel.fromJson(json));
-  logDebug(result.models.length);
+void _initState(Action action, Context<TuChongState> ctx) {
+  _onRequestData(action, ctx);
+}
+
+Future<void> _onRequestData(Action action, Context<TuChongState> ctx) async {
+  ctx.state.page = action.payload;
+  Result result =
+      await getApi(path: kApiFeedApp, queryParameters: {"page": ctx.state.page})
+        ..fillMap((json) => TuChongModel.fromMap(json));
+
+  ctx.dispatch(TuChongActionCreator.updateState(
+      ctx.state.clone()..updateResult(result)));
 }

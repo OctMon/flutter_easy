@@ -13,6 +13,8 @@ Config _config(String baseURL) {
 //    proxy: 'PROXY localhost:8888',
       connectTimeout: 10,
       receiveTimeout: 10,
+      code: "result",
+      validCode: "SUCCESS",
       list: "feedList");
 }
 

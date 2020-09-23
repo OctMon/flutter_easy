@@ -15,5 +15,5 @@ Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
       items: state.tabBarItems,
       onTap: (index) => dispatch(RootActionCreator.updateCurrentIndex(index)),
     ),
-  );;
+  );
 }

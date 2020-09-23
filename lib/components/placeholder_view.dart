@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/components/base.dart';
 
 import '../utils/global_util.dart';
+import 'loading_view.dart';
 
 class PlaceholderView extends StatelessWidget {
   final String title;
@@ -17,6 +18,11 @@ class PlaceholderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (title == null || title.isEmpty) {
+      return Center(
+        child: LoadingView(),
+      );
+    }
     return GestureDetector(
       onTap: onTap,
       child: Container(
