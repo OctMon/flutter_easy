@@ -6,9 +6,12 @@ import 'components/state.dart';
 class TuChongState extends MutableSource
     with BaseRefreshState<EasyRefreshController, List<TuChongModel>>
     implements Cloneable<TuChongState> {
+  int postId;
+
   @override
   TuChongState clone() {
     return TuChongState()
+      ..postId = postId
       ..data = data
       ..message = message
       ..page = page

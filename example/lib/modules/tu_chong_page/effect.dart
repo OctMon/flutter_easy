@@ -18,10 +18,13 @@ void _initState(Action action, Context<TuChongState> ctx) {
 
 Future<void> _onRequestData(Action action, Context<TuChongState> ctx) async {
   ctx.state.page = action.payload;
-  Result result =
-      await getApi(path: kApiFeedApp, queryParameters: {"page": ctx.state.page})
-        ..fillMap((json) => TuChongModel.fromMap(json));
+  Result result = await getApi(path: kApiFeedApp, queryParameters: {
+    "page": ctx.state.page,
+    "pose_id": ctx.state.postId ?? 0
+  })
+    ..fillMap((json) => TuChongModel.fromMap(json));
 
-  ctx.dispatch(TuChongActionCreator.updateState(
-      ctx.state.clone()..updateResult(result)));
+  ctx.dispatch(TuChongActionCreator.updateState(ctx.state.clone()
+    ..postId = ((result.models as List<TuChongModel>)?.last?.postId)
+    ..updateResult(result, hasMore: true)));
 }

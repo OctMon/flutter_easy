@@ -22,6 +22,8 @@ Widget buildView(
             )
           : null,
       onRefresh: () async => dispatch(TuChongActionCreator.onRequestData(null)),
+      onLoad: () async =>
+          dispatch(TuChongActionCreator.onRequestData(state.page)),
       child: ListView.separated(
           itemBuilder: adapter.itemBuilder,
           itemCount: adapter.itemCount,
