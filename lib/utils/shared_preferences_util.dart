@@ -1,5 +1,6 @@
 import 'package:flutter_easy/utils/global_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_windows/shared_preferences_windows.dart';
 
 class SharedPreferencesUtil {
   SharedPreferencesUtil._();
@@ -15,6 +16,9 @@ class SharedPreferencesUtil {
   static Future<dynamic> init({sharedPreferencesWebInstance}) async {
     if (isWeb) {
       instance = sharedPreferencesWebInstance;
+    }
+    if (isWindows) {
+      instance = SharedPreferencesWindows.instance;
     } else {
       instance = await SharedPreferences.getInstance();
     }
@@ -22,19 +26,19 @@ class SharedPreferencesUtil {
   }
 
   static Future<String> getSharedPrefsString(String key) async {
-    return isWeb
+    return isWeb || isWindows
         ? await _all(key)
         : SharedPreferencesUtil.instance.getString(key);
   }
 
   static Future<List<String>> getSharedPrefsStringList(String key) async {
-    return isWeb
+    return isWeb || isWindows
         ? await _all(key)
         : SharedPreferencesUtil.instance.getStringList(key);
   }
 
   static Future<bool> setSharedPrefsString(String key, String value) async {
-    return isWeb
+    return isWeb || isWindows
         ? SharedPreferencesUtil.instance
             .setValue("String", _checkPrefix(key), value)
         : SharedPreferencesUtil.instance.setString(key, value);
@@ -42,27 +46,28 @@ class SharedPreferencesUtil {
 
   static Future<bool> setSharedPrefsStringList(
       String key, List<String> value) async {
-    return isWeb
+    return isWeb || isWindows
         ? SharedPreferencesUtil.instance
             .setValue("StringList", _checkPrefix(key), value)
         : SharedPreferencesUtil.instance.setStringList(key, value);
   }
 
   static Future<bool> getSharedPrefsBool(String key) async {
-    return isWeb
+    return isWeb || isWindows
         ? await _all(key)
         : SharedPreferencesUtil.instance.getBool(key);
   }
 
   static Future<bool> setSharedPrefsBool(String key, bool value) async {
-    return isWeb
+    return isWeb || isWindows
         ? SharedPreferencesUtil.instance
             .setValue("Bool", _checkPrefix(key), value)
         : SharedPreferencesUtil.instance.setBool(key, value);
   }
 
   static Future<bool> removeSharedPrefs(String key) =>
-      SharedPreferencesUtil.instance.remove(isWeb ? _checkPrefix(key) : key);
+      SharedPreferencesUtil.instance
+          .remove(isWeb || isWindows ? _checkPrefix(key) : key);
 
   static Future<bool> clearSharedPrefs() =>
       SharedPreferencesUtil.instance.clear();

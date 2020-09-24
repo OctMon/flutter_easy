@@ -25,6 +25,8 @@ bool isIOS = kIsWeb ? false : Platform.isIOS;
 
 bool isMacOS = kIsWeb ? false : Platform.isMacOS;
 
+bool isWindows = kIsWeb ? false : Platform.isWindows;
+
 bool isAndroid = kIsWeb ? false : Platform.isAndroid;
 
 bool isWeb = kIsWeb;
