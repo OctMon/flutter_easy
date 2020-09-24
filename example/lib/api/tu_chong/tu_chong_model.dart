@@ -252,8 +252,11 @@ class ImagesBean {
   String get imageURL =>
       "https://photo.tuchong.com/" + "$userId" + "/f/" + "$imgId" + ".jpg";
 
-  double get imageHeight {
-    return ((screenWidthDp - spacing * (crossAxisCount + 1)) / crossAxisCount) *
+  double imageHeightInWidth(double screenWidth) {
+    if (isSquare) {
+      return (screenWidth - spacing * 2) * height / width;
+    }
+    return ((screenWidth - spacing * (crossAxisCount + 1)) / crossAxisCount) *
         height /
         width;
   }

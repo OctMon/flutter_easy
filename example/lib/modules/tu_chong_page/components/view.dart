@@ -8,39 +8,72 @@ import 'state.dart';
 
 Widget buildView(
     TuChongTileState state, Dispatch dispatch, ViewService viewService) {
-  return Column(
-    children: [
-      Container(
-        margin: EdgeInsets.symmetric(vertical: ImagesBean.spacing),
-        padding: EdgeInsets.symmetric(vertical: 10),
-        width: screenWidthDp - ImagesBean.spacing * 2,
-        color: colorWithRandom(),
-        child: BaseTitle(
-          state.data.title,
-          textAlign: TextAlign.center,
-        ),
-      ),
-      StaggeredGridView.countBuilder(
-        padding: EdgeInsets.symmetric(horizontal: ImagesBean.spacing),
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        crossAxisCount: ImagesBean.crossAxisCount,
-        itemCount: state.data.images.length,
-        itemBuilder: (BuildContext context, int index) => WebImage(
-          state.data.images[index].imageURL,
-          placeholder: Container(
+  return LayoutBuilder(
+    builder: (BuildContext context, BoxConstraints constraints) {
+      return Column(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(vertical: ImagesBean.spacing),
+            padding: EdgeInsets.symmetric(vertical: 10),
+            width: constraints.maxWidth - ImagesBean.spacing * 2,
             color: colorWithRandom(),
+            child: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  width: 50,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: WebImage(state.data.site.icon)),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      BaseTitle(
+                        state.data.site.name,
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(width: 5),
+                      BaseTitle(
+                        state.data.site.description,
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(width: 5),
+                      BaseTitle(
+                        state.data.tags.join(","),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        staggeredTileBuilder: (int index) => new StaggeredTile.extent(
-            state.data.images[index].isSquare ? ImagesBean.crossAxisCount : 1,
-            state.data.images[index].isSquare
-                ? screenWidthDp - ImagesBean.spacing * 2
-                : state.data.images[index].imageHeight),
-        mainAxisSpacing: ImagesBean.spacing,
-        crossAxisSpacing: ImagesBean.spacing,
-      ),
-    ],
+          StaggeredGridView.countBuilder(
+            padding: EdgeInsets.symmetric(horizontal: ImagesBean.spacing),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisCount: ImagesBean.crossAxisCount,
+            itemCount: state.data.images.length,
+            itemBuilder: (BuildContext context, int index) => WebImage(
+              state.data.images[index].imageURL,
+              placeholder: Container(
+                color: colorWithRandom(),
+              ),
+              fit: BoxFit.contain,
+            ),
+            staggeredTileBuilder: (int index) => new StaggeredTile.extent(
+                state.data.images[index].isSquare
+                    ? ImagesBean.crossAxisCount
+                    : 1,
+                state.data.images[index]
+                    .imageHeightInWidth(constraints.maxWidth)),
+            mainAxisSpacing: ImagesBean.spacing,
+            crossAxisSpacing: ImagesBean.spacing,
+          ),
+        ],
+      );
+    },
   );
   // return Column(
   //   children: state.images.map((e) {

@@ -51,7 +51,7 @@ RootState initState(Map<String, dynamic> args) {
         ),
         activeIcon: Column(
           children: <Widget>[
-            Icon(Icons.home),
+            Icon(Icons.home, color: colorWithTint),
             BaseTitle(
               titles[index],
               fontSize: 12,
