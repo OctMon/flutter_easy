@@ -32,7 +32,7 @@ class TuChongState extends MutableSource
 
   @override
   Object getItemData(int index) {
-    return TuChongTileState()..images = data[index].images;
+    return TuChongTileState()..data = data[index];
   }
 
   @override

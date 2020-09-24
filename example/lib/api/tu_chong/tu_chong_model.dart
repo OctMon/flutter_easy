@@ -100,13 +100,11 @@ class TuChongModel {
     tuChongModelBean.content = map['content'];
     tuChongModelBean.title = map['title'];
     tuChongModelBean.imageCount = map['image_count'];
-    tuChongModelBean.images = List()..addAll(
-      (map['images'] as List ?? []).map((o) => ImagesBean.fromMap(o))
-    );
+    tuChongModelBean.images = List()
+      ..addAll((map['images'] as List ?? []).map((o) => ImagesBean.fromMap(o)));
     tuChongModelBean.titleImage = map['title_image'];
-    tuChongModelBean.tags = List()..addAll(
-      (map['tags'] as List ?? []).map((o) => o.toString())
-    );
+    tuChongModelBean.tags = List()
+      ..addAll((map['tags'] as List ?? []).map((o) => o.toString()));
     tuChongModelBean.favoriteListPrefix = map['favorite_list_prefix'];
     tuChongModelBean.rewardListPrefix = map['reward_list_prefix'];
     tuChongModelBean.commentListPrefix = map['comment_list_prefix'];
@@ -121,43 +119,43 @@ class TuChongModel {
   }
 
   Map toJson() => {
-    "post_id": postId,
-    "type": type,
-    "url": url,
-    "site_id": siteId,
-    "author_id": authorId,
-    "published_at": publishedAt,
-    "passed_time": passedTime,
-    "excerpt": excerpt,
-    "favorites": favorites,
-    "comments": comments,
-    "rewardable": rewardable,
-    "parent_comments": parentComments,
-    "rewards": rewards,
-    "views": views,
-    "collected": collected,
-    "shares": shares,
-    "recommend": recommend,
-    "delete": delete,
-    "update": update,
-    "content": content,
-    "title": title,
-    "image_count": imageCount,
-    "images": images,
-    "title_image": titleImage,
-    "tags": tags,
-    "event_tags": eventTags,
-    "favorite_list_prefix": favoriteListPrefix,
-    "reward_list_prefix": rewardListPrefix,
-    "comment_list_prefix": commentListPrefix,
-    "data_type": dataType,
-    "created_at": createdAt,
-    "sites": sites,
-    "site": site,
-    "recom_type": recomType,
-    "rqt_id": rqtId,
-    "is_favorite": isFavorite,
-  };
+        "post_id": postId,
+        "type": type,
+        "url": url,
+        "site_id": siteId,
+        "author_id": authorId,
+        "published_at": publishedAt,
+        "passed_time": passedTime,
+        "excerpt": excerpt,
+        "favorites": favorites,
+        "comments": comments,
+        "rewardable": rewardable,
+        "parent_comments": parentComments,
+        "rewards": rewards,
+        "views": views,
+        "collected": collected,
+        "shares": shares,
+        "recommend": recommend,
+        "delete": delete,
+        "update": update,
+        "content": content,
+        "title": title,
+        "image_count": imageCount,
+        "images": images,
+        "title_image": titleImage,
+        "tags": tags,
+        "event_tags": eventTags,
+        "favorite_list_prefix": favoriteListPrefix,
+        "reward_list_prefix": rewardListPrefix,
+        "comment_list_prefix": commentListPrefix,
+        "data_type": dataType,
+        "created_at": createdAt,
+        "sites": sites,
+        "site": site,
+        "recom_type": recomType,
+        "rqt_id": rqtId,
+        "is_favorite": isFavorite,
+      };
 }
 
 /// site_id : "3416599"
@@ -212,21 +210,21 @@ class SiteBean {
   }
 
   Map toJson() => {
-    "site_id": siteId,
-    "type": type,
-    "name": name,
-    "domain": domain,
-    "description": description,
-    "followers": followers,
-    "url": url,
-    "icon": icon,
-    "is_bind_everphoto": isBindEverphoto,
-    "has_everphoto_note": hasEverphotoNote,
-    "verified": verified,
-    "verifications": verifications,
-    "verification_list": verificationList,
-    "is_following": isFollowing,
-  };
+        "site_id": siteId,
+        "type": type,
+        "name": name,
+        "domain": domain,
+        "description": description,
+        "followers": followers,
+        "url": url,
+        "icon": icon,
+        "is_bind_everphoto": isBindEverphoto,
+        "has_everphoto_note": hasEverphotoNote,
+        "verified": verified,
+        "verifications": verifications,
+        "verification_list": verificationList,
+        "is_following": isFollowing,
+      };
 }
 
 /// img_id : 312529951
@@ -248,10 +246,20 @@ class ImagesBean {
   int height;
   String description;
 
+  static const int crossAxisCount = 2;
+  static const double spacing = 4;
+
   String get imageURL =>
       "https://photo.tuchong.com/" + "$userId" + "/f/" + "$imgId" + ".jpg";
+
   double get imageHeight {
-    return ((screenWidthDp - 4 * 3) / 2) * height / width;
+    return ((screenWidthDp - spacing * (crossAxisCount + 1)) / crossAxisCount) *
+        height /
+        width;
+  }
+
+  bool get isSquare {
+    return width >= height;
   }
 
   static ImagesBean fromMap(Map<String, dynamic> map) {
@@ -269,13 +277,13 @@ class ImagesBean {
   }
 
   Map toJson() => {
-    "img_id": imgId,
-    "img_id_str": imgIdStr,
-    "user_id": userId,
-    "title": title,
-    "excerpt": excerpt,
-    "width": width,
-    "height": height,
-    "description": description,
-  };
+        "img_id": imgId,
+        "img_id_str": imgIdStr,
+        "user_id": userId,
+        "title": title,
+        "excerpt": excerpt,
+        "width": width,
+        "height": height,
+        "description": description,
+      };
 }

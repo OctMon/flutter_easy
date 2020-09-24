@@ -24,12 +24,10 @@ Widget buildView(
       onRefresh: () async => dispatch(TuChongActionCreator.onRequestData(null)),
       onLoad: () async =>
           dispatch(TuChongActionCreator.onRequestData(state.page)),
-      child: ListView.separated(
-          itemBuilder: adapter.itemBuilder,
-          itemCount: adapter.itemCount,
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(height: 5);
-          }),
+      child: ListView.builder(
+        itemBuilder: adapter.itemBuilder,
+        itemCount: adapter.itemCount,
+      ),
     ),
   );
 }
