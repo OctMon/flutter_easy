@@ -26,5 +26,5 @@ Future<void> _onRequestData(Action action, Context<TuChongState> ctx) async {
 
   ctx.dispatch(TuChongActionCreator.updateState(ctx.state.clone()
     ..postId = ((result.models as List<TuChongModel>)?.last?.postId)
-    ..updateResult(result, hasMore: true)));
+    ..updateResult(result, hasMore: result.valid)));
 }

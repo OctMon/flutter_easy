@@ -145,7 +145,7 @@ packages:
       name: flutter_easyrefresh
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.5"
   flutter_page_indicator:
     dependency: transitive
     description:
