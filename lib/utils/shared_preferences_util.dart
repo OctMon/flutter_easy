@@ -14,10 +14,9 @@ class SharedPreferencesUtil {
   /// import 'package:shared_preferences_web/shared_preferences_web.dart'; // TODO:运行非web报错的时候注掉即可
   /// SharedPreferencesPlugin()
   static Future<dynamic> init({sharedPreferencesWebInstance}) async {
-    if (isWeb) {
+    if (sharedPreferencesWebInstance != null) {
       instance = sharedPreferencesWebInstance;
-    }
-    if (isWindows) {
+    } else if (isWindows) {
       instance = SharedPreferencesWindows.instance;
     } else {
       instance = await SharedPreferences.getInstance();
