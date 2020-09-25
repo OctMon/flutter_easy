@@ -70,7 +70,7 @@ dependencies:
   # pub: https://pub.dev/packages/package_info
   # git: https://github.com/flutter/plugins/tree/master/packages/package_info
   # ———————————————————————————————————————————————————————————————————————————————
-  package_info: ^0.4.1
+  package_info: ^0.4.3
   # ===============================================================================
 
   # ===============================================================================
