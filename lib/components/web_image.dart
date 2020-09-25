@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_easy/utils/global_util.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as p;
+
+// import 'package:path_provider/path_provider.dart';
+// import 'package:path/path.dart' as p;
 
 class WebImage extends StatelessWidget {
   final String imageUrl;
@@ -31,29 +31,8 @@ class WebImage extends StatelessWidget {
     if (imageUrl == null || imageUrl.isEmpty) {
       return placeholder;
     }
-    if (!isPhone) {
-      return Image.network(
-        imageUrl,
-        width: width,
-        height: height,
-        fit: fit,
-        loadingBuilder: (BuildContext context, Widget child,
-            ImageChunkEvent loadingProgress) {
-          if (loadingProgress == null) return child;
-          return placeholder;
-//          return Center(
-//            child: CircularProgressIndicator(
-//              value: loadingProgress.expectedTotalBytes != null
-//                  ? loadingProgress.cumulativeBytesLoaded /
-//                      loadingProgress.expectedTotalBytes
-//                  : null,
-//            ),
-//          );
-        },
-      );
-    }
     return CachedNetworkImage(
-      cacheManager: DefaultCacheManager(),
+      // cacheManager: DefaultCacheManager(),
       imageUrl: imageUrl,
       width: width,
       height: height,
@@ -64,7 +43,7 @@ class WebImage extends StatelessWidget {
   }
 }
 
-class DefaultCacheManager extends BaseCacheManager {
+/*class DefaultCacheManager extends BaseCacheManager {
   static const key = "cachedImageData";
 
   static DefaultCacheManager _instance;
@@ -85,4 +64,4 @@ class DefaultCacheManager extends BaseCacheManager {
     var directory = await getTemporaryDirectory();
     return p.join(directory.path, key);
   }
-}
+}*/
