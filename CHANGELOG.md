@@ -1,3 +1,7 @@
+## 0.4.0
+
+* support windows.
+
 ## 0.3.0
 
 * support web.

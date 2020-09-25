@@ -91,7 +91,7 @@ packages:
       name: dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.9"
+    version: "3.0.10"
   encrypt:
     dependency: "direct main"
     description:
@@ -360,7 +360,7 @@ packages:
     source: hosted
     version: "0.1.2+7"
   shared_preferences_windows:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences_windows
       url: "https://pub.flutter-io.cn"

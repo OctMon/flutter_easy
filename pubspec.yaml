@@ -1,6 +1,6 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 0.3.0
+version: 0.4.0
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
@@ -64,6 +64,7 @@ dependencies:
   # 数据异步保存到磁盘。 这两个平台都不能保证在返回后将写操作持久化到磁盘，并且该插件不得用于存储关键数据。
   # ===============================================================================
   shared_preferences: ^0.5.12
+  shared_preferences_windows: ^0.0.1+1
 
   # ===============================================================================
   # This Flutter plugin provides an API for querying information about an application package.
