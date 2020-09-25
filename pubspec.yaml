@@ -86,7 +86,7 @@ dependencies:
   # pub: https://pub.dartlang.org/packages/cached_network_image
   # git: https://github.com/renefloor/flutter_cached_network_image
   # ———————————————————————————————————————————————————————————————————————————————
-  cached_network_image: ^2.2.0+1
+  cached_network_image: ^2.3.2+1
   flutter_cache_manager: ^1.4.1
   path_provider: ^1.6.11
   path: ^1.6.4
@@ -102,7 +102,7 @@ dependencies:
 
   # ===============================================================================
   # 名称：无限轮播
-  # 来源：https://pub.flutter-io.cn/packages/flutter_swiper
+  # 来源：https://pub.dev/packages/flutter_swiper
   # GitHub：https://github.com/best-flutter/flutter_swiper
   # 说明：flutter最强大的swiper, 多种布局方式，无限轮播，Android和IOS双端适配.
   # ===============================================================================
