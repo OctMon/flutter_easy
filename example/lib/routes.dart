@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'modules/home_page/page.dart';
+import 'modules/photo_view_page/page.dart';
 import 'modules/root_page/page.dart';
 import 'modules/tu_chong_page/page.dart';
 
@@ -9,6 +10,7 @@ class Routes {
   static final String root = '/';
   static final String home = '/home';
   static final String tuChong = '/tu_chong';
+  static final String photoView = '/photo_view';
 
   Routes._();
 
@@ -18,6 +20,7 @@ class Routes {
     Routes.root: RootPage(),
     Routes.home: HomePage(),
     Routes.tuChong: TuChongPage(),
+    Routes.photoView: PhotoViewPage(),
   };
 
   static final AbstractRoutes routes = PageRoutes(

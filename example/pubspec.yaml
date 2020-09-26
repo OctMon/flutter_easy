@@ -47,6 +47,16 @@ dependencies:
   # ===============================================================================
   flutter_staggered_grid_view: ^0.3.2
 
+  # ===============================================================================
+  # 名称：A simple zoomable image
+  # 来源：https://pub.dev/packages/photo_view
+  # GitHub：https://github.com/fireslime/photo_view
+  # 说明： Easy to use yet very customizable zoomable image widget for Flutter,
+  # Photo View provides a gesture sensitive zoomable widget.
+  # Photo View is largely used to show interacive images and other stuff such as SVG.
+  # ===============================================================================
+  photo_view: ^0.10.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

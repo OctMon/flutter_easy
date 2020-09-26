@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/api/tu_chong/tu_chong_model.dart';
+import 'package:flutter_easy_example/routes.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'state.dart';
@@ -55,12 +56,19 @@ Widget buildView(
             physics: NeverScrollableScrollPhysics(),
             crossAxisCount: ImagesBean.crossAxisCount,
             itemCount: state.data.images.length,
-            itemBuilder: (BuildContext context, int index) => WebImage(
-              state.data.images[index].imageURL,
-              placeholder: Container(
-                color: colorWithRandom(),
+            itemBuilder: (BuildContext context, int index) => BaseButton(
+              padding: EdgeInsets.zero,
+              child: WebImage(
+                state.data.images[index].imageURL,
+                placeholder: Container(
+                  color: colorWithRandom(),
+                ),
+                fit: BoxFit.contain,
               ),
-              fit: BoxFit.contain,
+              onPressed: () {
+                pushNamed(context, Routes.photoView,
+                    arguments: {"data": state.data});
+              },
             ),
             staggeredTileBuilder: (int index) => new StaggeredTile.extent(
                 state.data.images[index].isSquare
