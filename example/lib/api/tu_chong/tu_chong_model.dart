@@ -1,5 +1,3 @@
-import 'package:flutter_easy/flutter_easy.dart';
-
 /// post_id : 70268574
 /// type : "multi-photo"
 /// url : "https://tuchong.com/3416599/70268574/"
