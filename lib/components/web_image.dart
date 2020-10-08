@@ -8,14 +8,11 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 ImageProvider<CachedNetworkImageProvider> webImageProvider(
     String url,
     {double scale = 1.0,
-    @Deprecated('ErrorListener is deprecated, use listeners on the imagestream')
-        ErrorListener errorListener,
     Map<String, String> headers,
     BaseCacheManager cacheManager,
     ImageRenderMethodForWeb imageRenderMethodForWeb}) {
   return CachedNetworkImageProvider(url,
       scale: scale,
-      errorListener: errorListener,
       headers: headers,
       cacheManager: cacheManager,
       imageRenderMethodForWeb: imageRenderMethodForWeb);
