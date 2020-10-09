@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/main.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {

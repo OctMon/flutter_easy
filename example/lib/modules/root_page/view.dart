@@ -11,6 +11,8 @@ Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
     body: IndexedStack(index: state.currentIndex, children: state.tabBodies),
     bottomNavigationBar: BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
+      selectedFontSize: 12,
+      selectedItemColor: colorWithTint,
       currentIndex: state.currentIndex,
       items: state.tabBarItems,
       onTap: (index) => dispatch(RootActionCreator.updateCurrentIndex(index)),

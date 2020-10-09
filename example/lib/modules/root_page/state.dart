@@ -31,6 +31,10 @@ RootState initState(Map<String, dynamic> args) {
     "首页",
     "图虫",
   ];
+  List<IconData> children = [
+    Icons.home,
+    Icons.photo,
+  ];
   return RootState()
     ..currentIndex = 0
     ..tabBodies = [
@@ -39,27 +43,13 @@ RootState initState(Map<String, dynamic> args) {
     ]
     ..tabBarItems = List.generate(titles.length, (index) {
       return BottomNavigationBarItem(
-        icon: Column(
-          children: <Widget>[
-            Icon(Icons.home),
-            BaseTitle(
-              titles[index],
-              fontSize: 12,
-              color: Color(0xFFAAAAAA),
-            )
-          ],
+        icon: Icon(children[index]),
+        activeIcon: Icon(
+          children[index],
+          color: colorWithTint,
         ),
-        activeIcon: Column(
-          children: <Widget>[
-            Icon(Icons.home, color: colorWithTint),
-            BaseTitle(
-              titles[index],
-              fontSize: 12,
-              color: colorWithTint,
-            )
-          ],
-        ),
-        title: Container(),
+        label: titles[index],
+        // title: Container(),
       );
     });
 }

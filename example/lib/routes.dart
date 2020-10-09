@@ -60,7 +60,7 @@ class Routes {
 
 /// 简单的 Effect AOP
 /// 只针对页面的生命周期进行打印
-EffectMiddleware<T> _pageAnalyticsMiddleware<T>({String tag = 'redux'}) {
+EffectMiddleware<T> _pageAnalyticsMiddleware<T>() {
   return (AbstractLogic<dynamic> logic, Store<T> store) {
     return (Effect<dynamic> effect) {
       return (Action action, Context<dynamic> ctx) {

@@ -4,7 +4,6 @@ import 'package:logger/logger.dart';
 
 import 'global_util.dart';
 
-@deprecated
 void log(String tag, Object value) {
   if (isDebug) {
     print("$tag => $value");

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(
