@@ -1,3 +1,7 @@
+## 1.0.0
+
+* supports both web and native platforms.
+
 ## 0.4.0
 
 * support windows.

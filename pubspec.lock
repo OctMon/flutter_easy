@@ -353,7 +353,7 @@ packages:
     source: hosted
     version: "1.0.4"
   shared_preferences_web:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences_web
       url: "https://pub.flutter-io.cn"
