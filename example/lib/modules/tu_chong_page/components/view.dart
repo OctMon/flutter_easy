@@ -67,7 +67,7 @@ Widget buildView(
               ),
               onPressed: () {
                 pushNamed(context, Routes.photoView,
-                    arguments: {"data": state.data});
+                    arguments: {"data": state.data}, needLogin: (success) {});
               },
             ),
             staggeredTileBuilder: (int index) => new StaggeredTile.extent(

@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'routes.dart';
+import 'store/user_store/store.dart';
 
 Future<void> initApp() async {
   // 存储沙盒中的密钥
   StorageUtil.setEncrypt("963K3REfb30szs1n");
   // 加载用户信息
-//  await UserStore.load();
+  await UserStore.load();
   // 获取登录状态
-//  routesIsLogin = () => UserStore.store.getState().isLogin;
+  routesIsLogin = () => UserStore.store.getState().isLogin;
 
   colorWithBrightness = Brightness.dark;
 }

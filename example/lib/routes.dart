@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'modules/home_page/page.dart';
+import 'modules/login_page/page.dart';
 import 'modules/photo_view_page/page.dart';
 import 'modules/root_page/page.dart';
 import 'modules/tu_chong_page/page.dart';
@@ -16,7 +17,7 @@ class Routes {
 
   static final Map<String, Page<Object, dynamic>> pages =
       <String, Page<Object, dynamic>>{
-    // routesLoginNamed: LoginPage(),
+    routesLoginNamed: LoginPage(),
     Routes.root: RootPage(),
     Routes.home: HomePage(),
     Routes.tuChong: TuChongPage(),
