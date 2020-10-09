@@ -6,7 +6,6 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:oktoast/oktoast.dart';
 
 import '../utils/global_util.dart';
-import '../utils/global_util.dart' as global;
 import '../utils/color_util.dart';
 import '../utils/adapt_util.dart';
 import '../utils/json_util.dart';
@@ -135,11 +134,9 @@ createEasyApp(
     bool usePackage = true,
     bool isSelectBaseURLTypeFlag = false,
     sharedPreferencesWebInstance,
-    String webUserAgent = "",
     Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
-  global.webUserAgent = webUserAgent;
   network.isSelectBaseURLTypeFlag = isSelectBaseURLTypeFlag;
   void callback() {
     if (initCallback != null) {
@@ -166,8 +163,7 @@ createEasyApp(
         appVersion: appVersion,
         appBuildNumber: appBuildNumber,
         usePackage: usePackage),
-    SharedPreferencesUtil.init(
-        sharedPreferencesWebInstance: sharedPreferencesWebInstance),
+    SharedPreferencesUtil.init(),
   ]).then((e) {
     logInfo("init: $e");
     if (isSelectBaseURLTypeFlag) {

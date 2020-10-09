@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
+import 'hw/hw_mp.dart' as mp;
 
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
 
@@ -32,10 +33,9 @@ bool isAndroid = kIsWeb ? false : Platform.isAndroid;
 bool isWeb = kIsWeb;
 
 String get userAgent => webUserAgent.toLowerCase();
-// https://www.jianshu.com/p/40430596e3ab
-// 需要提前设置
-// userAgent = html.window.navigator.userAgent;
-String webUserAgent = "";
+
+/// https://www.jianshu.com/p/40430596e3ab
+String get webUserAgent => mp.webUserAgent;
 
 bool get isWebInIPhone =>
     userAgent.contains("iphone") || userAgent.contains("ipod");

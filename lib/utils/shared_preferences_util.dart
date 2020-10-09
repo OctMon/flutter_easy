@@ -1,26 +1,18 @@
 import 'package:flutter_easy/utils/global_util.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shared_preferences_windows/shared_preferences_windows.dart';
+
+import 'hw/hw_mp.dart';
 
 class SharedPreferencesUtil {
   SharedPreferencesUtil._();
 
-  /// SharedPreferences
-  /// SharedPreferencesPlugin
   static dynamic instance;
 
   /// 初始化首选项信息
-  /// [sharedPreferencesWebInstance] web项目需要初始化
-  /// import 'package:shared_preferences_web/shared_preferences_web.dart'; // TODO:运行非web报错的时候注掉即可
-  /// SharedPreferencesPlugin()
-  static Future<dynamic> init({sharedPreferencesWebInstance}) async {
-    if (sharedPreferencesWebInstance != null) {
-      instance = sharedPreferencesWebInstance;
-    } else if (isWindows) {
-      instance = SharedPreferencesWindows.instance;
-    } else {
-      instance = await SharedPreferences.getInstance();
-    }
+  /// SharedPreferences.getInstance()
+  /// isWeb SharedPreferencesPlugin()
+  /// isWindows SharedPreferencesWindows.instance
+  static Future<dynamic> init() async {
+    instance = await sharedPreferencesInstance();
     return instance;
   }
 
