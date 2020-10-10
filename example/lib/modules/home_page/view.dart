@@ -196,6 +196,17 @@ flutter: ├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄�
 flutter: │ 👾 What a terrible failure log
 flutter: └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
                 """),
+          FadeTransition(
+            opacity: Tween(begin: 0.0, end: 1.0).animate(
+              CurvedAnimation(
+                parent: state.animationController,
+                curve: Interval(0.2, 1, curve: Curves.ease),
+              ),
+            ),
+            child: BaseButton(child: BaseText("Powered by OctMon"), onPressed: () {
+              onLaunch("https://octmon.github.io");
+            },),
+          ),
         ],
       ),
     ),
