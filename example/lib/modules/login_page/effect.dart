@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/api/api.dart';
 import 'package:flutter_easy_example/store/user_store/store.dart';
 
 import 'action.dart';
@@ -34,10 +35,18 @@ Future<void> _onLoginPressed(Action action, Context<LoginState> ctx) async {
     showToast("需同意《隐私协议》才能继续使用");
     return;
   }
-  await Future.delayed(Duration(milliseconds: randomInt(1000)));
-
-  await UserStore.save(UserModel.fromMap(
-      {"userId": "1", "nickname": "flutter", "avatar": ""}));
+  Result result = await postAPI(
+      path: kApiLogin,
+      data: {"phone": phone, "password": password},
+      context: ctx.context,
+      autoLoading: true);
+  // if (result.valid) {
+  result.fill(
+      UserModel.fromMap({"userId": "1", "nickname": "flutter", "avatar": ""}));
+  await UserStore.save(result.model);
   pop(ctx.context, true);
   showToast("登录成功");
+  // } else {
+  //   showToast(result.message);
+  // }
 }

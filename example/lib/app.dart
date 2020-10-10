@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+import 'api/api.dart';
 import 'routes.dart';
 import 'store/user_store/store.dart';
 
@@ -11,6 +12,8 @@ Future<void> initApp() async {
   await UserStore.load();
   // 获取登录状态
   routesIsLogin = () => UserStore.store.getState().isLogin;
+
+  configApi(null);
 
   colorWithBrightness = Brightness.dark;
 }
