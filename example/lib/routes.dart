@@ -1,17 +1,20 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+import 'modules/account_page/page.dart';
 import 'modules/home_page/page.dart';
 import 'modules/login_page/page.dart';
 import 'modules/photo_view_page/page.dart';
 import 'modules/root_page/page.dart';
 import 'modules/tu_chong_page/page.dart';
+import 'store/user_store/store.dart';
 
 class Routes {
   static final String root = '/';
   static final String home = '/home';
   static final String tuChong = '/tu_chong';
   static final String photoView = '/photo_view';
+  static final String account = '/account';
 
   Routes._();
 
@@ -22,13 +25,14 @@ class Routes {
     Routes.home: HomePage(),
     Routes.tuChong: TuChongPage(),
     Routes.photoView: PhotoViewPage(),
+    Routes.account: AccountPage(),
   };
 
   static final AbstractRoutes routes = PageRoutes(
     pages: Routes.pages,
     visitor: (String path, Page<Object, dynamic> page) {
       /// 用户信息变更
-      // UserStore.visitor(path, page);
+      UserStore.visitor(path, page);
 
       /// AOP
       /// 页面可以有一些私有的 AOP 的增强， 但往往会有一些 AOP 是整个应用下，所有页面都会有的。

@@ -27,19 +27,14 @@ class RootState implements Cloneable<RootState> {
 }
 
 RootState initState(Map<String, dynamic> args) {
-  List<String> titles = [
-    "首页",
-    "图虫",
-  ];
-  List<IconData> children = [
-    Icons.home,
-    Icons.photo,
-  ];
+  List<String> titles = ["首页", "图虫", "账号"];
+  List<IconData> children = [Icons.home, Icons.photo, Icons.account_circle];
   return RootState()
     ..currentIndex = 0
     ..tabBodies = [
       Routes.routes.buildPage(Routes.home, null),
       Routes.routes.buildPage(Routes.tuChong, null),
+      Routes.routes.buildPage(Routes.account, null),
     ]
     ..tabBarItems = List.generate(titles.length, (index) {
       return BottomNavigationBarItem(
