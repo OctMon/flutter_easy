@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+
+import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:flutter_easy_example/routes.dart';
 
 class RootState implements Cloneable<RootState> {
@@ -27,7 +29,7 @@ class RootState implements Cloneable<RootState> {
 }
 
 RootState initState(Map<String, dynamic> args) {
-  List<String> titles = ["首页", "图虫", "账号"];
+  List<String> titles = [S.current.home, S.current.tuchong, S.current.account];
   List<IconData> children = [Icons.home, Icons.photo, Icons.account_circle];
   return RootState()
     ..currentIndex = 0

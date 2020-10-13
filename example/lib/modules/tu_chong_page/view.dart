@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/generated/l10n.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -11,7 +12,7 @@ Widget buildView(
   return BaseScaffold(
     appBar: BaseAppBar(
       brightness: Brightness.dark,
-      title: BaseText("图虫"),
+      title: BaseText(S.of(viewService.context).tuchong),
     ),
     body: BaseRefresh(
       controller: state.refreshController,

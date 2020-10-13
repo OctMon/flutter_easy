@@ -57,8 +57,18 @@ dependencies:
   # ===============================================================================
   photo_view: ^0.10.2
 
+  # ===============================================================================
+  # 名称： locale names from locale codes (ISO 639‑2 and ISO 639-3) for 563 locales.
+  # 来源：https://pub.dev/packages/flutter_localized_locales
+  # GitHub：https://github.com/guidezpl/flutter-localized-locales
+  # 说明： Flutter plugin which provides locale code to name mappings for 563 locales.
+  # ===============================================================================
+  flutter_localized_locales: ^1.1.2
+
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the
@@ -102,3 +112,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_intl:
+  enabled: true

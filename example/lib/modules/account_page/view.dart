@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:flutter_easy_example/generated/l10n.dart';
 
-//import 'action.dart';
+// import 'action.dart';
 import 'state.dart';
 
 Widget buildView(
@@ -38,7 +40,9 @@ Widget buildView(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 18),
                       child: BaseText(
-                        state.user != null ? (state.user.nickname) : "登录",
+                        state.user != null
+                            ? (state.user.nickname)
+                            : S.of(viewService.context).login,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: adaptDp(20),
@@ -56,8 +60,30 @@ Widget buildView(
           delegate: SliverChildListDelegate([
             _SettingCell(
               item: BaseKeyValue(
-                  key: "语言", value: 'System default', extend: Icons.language),
-              onPressed: () {},
+                  key: S.of(viewService.context).language,
+                  value:
+                      "${S.of(viewService.context).systemDefault}-${LocaleNames.of(viewService.context).nameOf("${Localizations.localeOf(viewService.context)}")}",
+                  extend: Icons.language),
+              onPressed: () {
+                showBaseModalBottomSheet(
+                    context: viewService.context,
+                    builder: (BuildContext context) {
+                      return BaseActionSheet(
+                        title: BaseText(S.of(viewService.context).language),
+                        actions: S.delegate.supportedLocales.map((e) {
+                          final localeString =
+                              LocaleNames.of(context).nameOf(e.toString());
+                          return BaseActionSheetAction(
+                            onPressed: () {
+                              pop(viewService.context);
+                              showToast("TODO: Unavailable");
+                            },
+                            child: BaseText(localeString),
+                          );
+                        }).toList(),
+                      );
+                    });
+              },
             ),
           ]),
         ),
@@ -97,7 +123,7 @@ class _SettingCell extends StatelessWidget {
                     ),
                     BaseTitle(
                       item.key,
-                      fontSize: adaptDp(18),
+                      fontSize: adaptDp(16),
                     ),
                   ],
                 ),
@@ -105,7 +131,7 @@ class _SettingCell extends StatelessWidget {
                   children: [
                     BaseTitle(
                       item.value,
-                      fontSize: adaptDp(18),
+                      fontSize: adaptDp(14),
                     ),
                     Icon(Icons.navigate_next, color: Color(0xFFCCCCCC)),
                   ],

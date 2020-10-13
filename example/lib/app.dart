@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 import 'api/api.dart';
+import 'generated/l10n.dart';
 import 'routes.dart';
 import 'store/user_store/store.dart';
 
@@ -30,5 +33,13 @@ Widget createApp() {
         return Routes.routes.buildPage(settings.name, settings.arguments);
       });
     },
+    localizationsDelegates: [
+      S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      LocaleNamesLocalizationsDelegate(),
+    ],
+    supportedLocales: S.delegate.supportedLocales,
   );
 }
