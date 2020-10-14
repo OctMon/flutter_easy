@@ -62,8 +62,7 @@ Widget buildView(
             GlobalListCell(
               item: BaseKeyValue(
                   key: S.of(viewService.context).language,
-                  value:
-                      "${S.of(viewService.context).systemDefault}-${LocaleNames.of(viewService.context).nameOf("${Localizations.localeOf(viewService.context)}")}",
+                  value: "${S.of(viewService.context).systemDefault}",
                   extend: Icons.language),
               onPressed: () {
                 showBaseModalBottomSheet(

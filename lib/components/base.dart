@@ -204,6 +204,7 @@ class BaseApp extends StatelessWidget {
   final RouteFactory onGenerateRoute;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final Iterable<Locale> supportedLocales;
+  final Locale locale;
 
   BaseApp({
     this.title,
@@ -211,6 +212,7 @@ class BaseApp extends StatelessWidget {
     this.onGenerateRoute,
     this.localizationsDelegates,
     this.supportedLocales = const <Locale>[Locale('en', 'US')],
+    this.locale,
   });
 
   @override
@@ -241,6 +243,7 @@ class BaseApp extends StatelessWidget {
           onGenerateRoute: onGenerateRoute,
           localizationsDelegates: localizationsDelegates,
           supportedLocales: supportedLocales,
+          locale: locale,
         ),
       ),
     );
