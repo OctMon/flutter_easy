@@ -6,7 +6,7 @@ import 'package:flutter_easy_example/components/global/global_list_cell.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:flutter_easy_example/routes.dart';
 
-import 'action.dart';
+// import 'action.dart';
 import 'state.dart';
 
 Widget buildView(

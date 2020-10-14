@@ -14,7 +14,6 @@ Reducer<RootState> buildReducer() {
 RootState _updateCurrentIndex(RootState state, Action action) {
   final RootState newState = state.clone();
   newState
-    ..currentIndex = action.payload
-    ..currentPage = state.tabBodies[state.currentIndex];
+    ..currentIndex = action.payload;
   return newState;
 }

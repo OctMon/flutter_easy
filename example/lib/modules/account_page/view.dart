@@ -5,7 +5,7 @@ import 'package:flutter_easy_example/components/global/global_list_cell.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 
-// import 'action.dart';
+import 'action.dart';
 import 'state.dart';
 
 Widget buildView(
@@ -77,7 +77,7 @@ Widget buildView(
                           return BaseActionSheetAction(
                             onPressed: () {
                               pop(viewService.context);
-                              showToast("TODO: Unavailable");
+                              dispatch(AccountActionCreator.onLocaleChange(e));
                             },
                             child: BaseText(localeString),
                           );
