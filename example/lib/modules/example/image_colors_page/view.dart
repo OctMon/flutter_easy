@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -57,7 +58,7 @@ Widget buildView(
         FileImage(file),
         size: null,
         region: null,
-        maximumColorCount: 20,
+        maximumColorCount: 200,
       );
       dispatch(ImageColorsActionCreator.updateFile(file));
       dispatch(
@@ -68,7 +69,7 @@ Widget buildView(
 
   return BaseScaffold(
     appBar: BaseAppBar(
-      title: BaseText("Image Colors"),
+      title: BaseText(S.of(viewService.context).example_ExtractProminentColorsFromAnImage),
       actions: [
         BaseButton(
           child: Icon(
@@ -211,17 +212,23 @@ class PaletteSwatch extends StatelessWidget {
     );
 
     if (label != null) {
-      swatch = ConstrainedBox(
-        constraints:
-            BoxConstraints(maxWidth: adaptDp(130), minWidth: adaptDp(130)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            swatch,
-            Container(width: 5.0),
-            Text(label),
-          ],
-        ),
+      swatch = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Spacer(),
+          Expanded(
+            flex: 2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                swatch,
+                Container(width: 5.0),
+                Text(label),
+              ],
+            ),
+          ),
+          Spacer(),
+        ],
       );
     }
     return swatch;

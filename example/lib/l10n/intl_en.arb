@@ -1,8 +1,10 @@
 {
   "home": "Home",
   "account": "Account",
-  "tuchong": "TuChong",
   "language": "Language",
   "systemDefault": "System default",
-  "login": "Login"
+  "login": "Login",
+  "example": "Example",
+  "example_PictureWaterfallFlow": "Picture waterfall flow",
+  "example_ExtractProminentColorsFromAnImage": "Extract prominent colors from an Image"
 }

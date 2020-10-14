@@ -12,7 +12,7 @@ Widget buildView(
   return BaseScaffold(
     appBar: BaseAppBar(
       brightness: Brightness.dark,
-      title: BaseText(S.of(viewService.context).tuchong),
+      title: BaseText(S.of(viewService.context).example_PictureWaterfallFlow),
     ),
     body: BaseRefresh(
       controller: state.refreshController,

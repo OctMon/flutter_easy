@@ -29,14 +29,13 @@ class RootState implements Cloneable<RootState> {
 }
 
 RootState initState(Map<String, dynamic> args) {
-  List<String> titles = [S.current.home, S.current.tuchong, "ImageColors", S.current.account];
-  List<IconData> children = [Icons.home, Icons.photo, Icons.colorize, Icons.account_circle];
+  List<String> titles = [S.current.home, S.current.example, S.current.account];
+  List<IconData> children = [Icons.home, Icons.apps, Icons.account_circle];
   return RootState()
     ..currentIndex = 0
     ..tabBodies = [
       Routes.routes.buildPage(Routes.home, null),
-      Routes.routes.buildPage(Routes.tuChong, null),
-      Routes.routes.buildPage(Routes.imageColors, null),
+      Routes.routes.buildPage(Routes.example, null),
       Routes.routes.buildPage(Routes.account, null),
     ]
     ..tabBarItems = List.generate(titles.length, (index) {

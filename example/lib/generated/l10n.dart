@@ -53,16 +53,6 @@ class S {
     );
   }
 
-  /// `TuChong`
-  String get tuchong {
-    return Intl.message(
-      'TuChong',
-      name: 'tuchong',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Language`
   String get language {
     return Intl.message(
@@ -88,6 +78,36 @@ class S {
     return Intl.message(
       'Login',
       name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Example`
+  String get example {
+    return Intl.message(
+      'Example',
+      name: 'example',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Picture waterfall flow`
+  String get example_PictureWaterfallFlow {
+    return Intl.message(
+      'Picture waterfall flow',
+      name: 'example_PictureWaterfallFlow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Extract prominent colors from an Image`
+  String get example_ExtractProminentColorsFromAnImage {
+    return Intl.message(
+      'Extract prominent colors from an Image',
+      name: 'example_ExtractProminentColorsFromAnImage',
       desc: '',
       args: [],
     );

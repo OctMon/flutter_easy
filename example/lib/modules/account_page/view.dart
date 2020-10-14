@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/components/global/global_list_cell.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 
@@ -58,7 +59,7 @@ Widget buildView(
         ),
         SliverList(
           delegate: SliverChildListDelegate([
-            _SettingCell(
+            GlobalListCell(
               item: BaseKeyValue(
                   key: S.of(viewService.context).language,
                   value:
@@ -97,59 +98,4 @@ Widget buildView(
       ],
     ),
   );
-}
-
-class _SettingCell extends StatelessWidget {
-  final BaseKeyValue item;
-  final VoidCallback onPressed;
-
-  const _SettingCell({Key key, @required this.item, this.onPressed})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        BaseInkWell(
-          // color: Colors.white,
-          child: Container(
-            margin: EdgeInsets.only(left: 20, right: 15),
-            height: 44,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: <Widget>[
-                    Container(
-                      width: adaptDp(22),
-                      child: Icon(item.extend),
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    BaseTitle(
-                      item.key,
-                      fontSize: adaptDp(16),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    BaseTitle(
-                      item.value,
-                      fontSize: adaptDp(14),
-                    ),
-                    Icon(Icons.navigate_next, color: Color(0xFFCCCCCC)),
-                  ],
-                )
-              ],
-            ),
-          ),
-          onPressed: onPressed,
-        ),
-        BaseDivider(),
-      ],
-    );
-  }
 }

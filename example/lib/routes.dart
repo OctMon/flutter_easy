@@ -1,18 +1,20 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+import 'modules/root_page/page.dart';
 import 'modules/account_page/page.dart';
 import 'modules/home_page/page.dart';
-import 'modules/image_colors_page/page.dart';
-import 'modules/login_page/page.dart';
-import 'modules/photo_view_page/page.dart';
-import 'modules/root_page/page.dart';
-import 'modules/tu_chong_page/page.dart';
+import 'modules/example/example_page/page.dart';
+import 'modules/example/image_colors_page/page.dart';
+import 'modules/example/login_page/page.dart';
+import 'modules/example/photo_view_page/page.dart';
+import 'modules/example/tu_chong_page/page.dart';
 import 'store/user_store/store.dart';
 
 class Routes {
   static final String root = '/';
   static final String home = '/home';
+  static final String example = '/example';
   static final String tuChong = '/tu_chong';
   static final String photoView = '/photo_view';
   static final String account = '/account';
@@ -25,6 +27,7 @@ class Routes {
     routesLoginNamed: LoginPage(),
     Routes.root: RootPage(),
     Routes.home: HomePage(),
+    Routes.example: ExamplePage(),
     Routes.tuChong: TuChongPage(),
     Routes.photoView: PhotoViewPage(),
     Routes.account: AccountPage(),

@@ -22,10 +22,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "account" : MessageLookupByLibrary.simpleMessage("Account"),
+    "example" : MessageLookupByLibrary.simpleMessage("Example"),
+    "example_ExtractProminentColorsFromAnImage" : MessageLookupByLibrary.simpleMessage("Extract prominent colors from an Image"),
+    "example_PictureWaterfallFlow" : MessageLookupByLibrary.simpleMessage("Picture waterfall flow"),
     "home" : MessageLookupByLibrary.simpleMessage("Home"),
     "language" : MessageLookupByLibrary.simpleMessage("Language"),
     "login" : MessageLookupByLibrary.simpleMessage("Login"),
-    "systemDefault" : MessageLookupByLibrary.simpleMessage("System default"),
-    "tuchong" : MessageLookupByLibrary.simpleMessage("TuChong")
+    "systemDefault" : MessageLookupByLibrary.simpleMessage("System default")
   };
 }

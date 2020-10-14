@@ -1,8 +1,10 @@
 {
   "home": "首页",
   "account": "账号",
-  "tuchong": "图虫",
   "language": "语言",
   "systemDefault": "跟随系统",
-  "login": "登录"
+  "login": "登录",
+  "example": "示例",
+  "example_PictureWaterfallFlow": "图片瀑布流",
+  "example_ExtractProminentColorsFromAnImage": "从图像中提取突出的颜色"
 }

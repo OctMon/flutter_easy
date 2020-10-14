@@ -22,10 +22,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "account" : MessageLookupByLibrary.simpleMessage("账号"),
+    "example" : MessageLookupByLibrary.simpleMessage("示例"),
+    "example_ExtractProminentColorsFromAnImage" : MessageLookupByLibrary.simpleMessage("从图像中提取突出的颜色"),
+    "example_PictureWaterfallFlow" : MessageLookupByLibrary.simpleMessage("图片瀑布流"),
     "home" : MessageLookupByLibrary.simpleMessage("首页"),
     "language" : MessageLookupByLibrary.simpleMessage("语言"),
     "login" : MessageLookupByLibrary.simpleMessage("登录"),
-    "systemDefault" : MessageLookupByLibrary.simpleMessage("跟随系统"),
-    "tuchong" : MessageLookupByLibrary.simpleMessage("图虫")
+    "systemDefault" : MessageLookupByLibrary.simpleMessage("跟随系统")
   };
 }
