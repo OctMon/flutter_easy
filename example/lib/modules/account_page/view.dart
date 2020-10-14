@@ -81,6 +81,13 @@ Widget buildView(
                             child: BaseText(localeString),
                           );
                         }).toList(),
+                        cancelButton: BaseActionSheetAction(
+                          child: BaseText('取消'),
+                          isDestructiveAction: true,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                       );
                     });
               },

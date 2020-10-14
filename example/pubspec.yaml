@@ -58,6 +58,24 @@ dependencies:
   photo_view: ^0.10.2
 
   # ===============================================================================
+  # 名称：适用于iOS和Android的Flutter插件，用于从图像库中选择图像，并使用相机拍摄新照片。
+  # 来源：https://pub.dev/packages/image_picker
+  # GitHub：https://github.com/flutter/plugins/tree/master/packages/image_picker
+  # 说明：
+  # Add the following keys to your Info.plist file, located in <project root>/ios/Runner/Info.plist:
+  # NSPhotoLibraryUsageDescription - describe why your app needs permission for the photo library. This is called Privacy - Photo Library Usage Description in the visual editor.
+  # NSCameraUsageDescription - describe why your app needs access to the camera. This is called Privacy - Camera Usage Description in the visual editor.
+  # NSMicrophoneUsageDescription - describe why your app needs access to the microphone, if you intend to record videos. This is called Privacy - Microphone Usage Description in the visual editor.
+  image_picker: ^0.6.7+11
+
+  # ===============================================================================
+  # 名称：Palette Generator package
+  # 来源：https://pub.dev/packages/palette_generator
+  # GitHub：https://github.com/flutter/packages/tree/master/packages/palette_generator
+  # 说明：A Flutter package to extract prominent colors from an Image, typically used to find colors for a user interface.
+  palette_generator: ^0.2.3
+
+  # ===============================================================================
   # 名称： locale names from locale codes (ISO 639‑2 and ISO 639-3) for 563 locales.
   # 来源：https://pub.dev/packages/flutter_localized_locales
   # GitHub：https://github.com/guidezpl/flutter-localized-locales

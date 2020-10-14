@@ -3,6 +3,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 import 'modules/account_page/page.dart';
 import 'modules/home_page/page.dart';
+import 'modules/image_colors_page/page.dart';
 import 'modules/login_page/page.dart';
 import 'modules/photo_view_page/page.dart';
 import 'modules/root_page/page.dart';
@@ -15,6 +16,7 @@ class Routes {
   static final String tuChong = '/tu_chong';
   static final String photoView = '/photo_view';
   static final String account = '/account';
+  static final String imageColors = '/image_colors';
 
   Routes._();
 
@@ -26,6 +28,7 @@ class Routes {
     Routes.tuChong: TuChongPage(),
     Routes.photoView: PhotoViewPage(),
     Routes.account: AccountPage(),
+    Routes.imageColors: ImageColorsPage(),
   };
 
   static final AbstractRoutes routes = PageRoutes(
