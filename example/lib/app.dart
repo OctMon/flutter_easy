@@ -9,7 +9,7 @@ import 'routes.dart';
 import 'store/user_store/store.dart';
 
 const _localeKey = "locale";
-String _lastLocale;
+String lastLocale;
 
 Future<void> initApp() async {
   // 存储沙盒中的密钥
@@ -21,7 +21,7 @@ Future<void> initApp() async {
 
   configApi(null);
 
-  _lastLocale = await getStorageString(_localeKey);
+  lastLocale = await getStorageString(_localeKey);
 
   colorWithBrightness = Brightness.dark;
 }
@@ -34,7 +34,7 @@ Widget createApp() {
   return App();
 }
 
-ValueChanged<Locale> onLocaleChange;
+Future<void> Function(Locale) onLocaleChange;
 
 class App extends StatefulWidget {
   @override
@@ -46,9 +46,9 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
-    if (_lastLocale != null) {
-      Locale _locale = Locale(_lastLocale);
-      List<String> list = _lastLocale.split("_");
+    if (lastLocale != null) {
+      Locale _locale = Locale(lastLocale);
+      List<String> list = lastLocale.split("_");
       if (list.length > 1) {
         _locale = Locale(list.first, list.last);
       }
@@ -56,12 +56,19 @@ class _AppState extends State<App> {
         locale = _locale;
       }
     }
-    onLocaleChange = (locale) {
+    onLocaleChange = (locale) async {
       logWTF("$locale");
-      setStorageString(_localeKey, "$locale");
-      S.delegate.load(locale);
+      if (locale != null) {
+        lastLocale = "$locale";
+        await setStorageString(_localeKey, lastLocale);
+      } else {
+        lastLocale = null;
+        removeStorage(_localeKey);
+      }
       this.locale = locale;
       setState(() {});
+      await Future.delayed(Duration(milliseconds: 500));
+      return;
     };
     super.initState();
   }

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:fish_redux/fish_redux.dart';
 
 enum RootAction {
@@ -9,8 +7,8 @@ enum RootAction {
 }
 
 class RootActionCreator {
-  static Action onLocaleChange(Locale locale) {
-    return Action(RootAction.onLocaleChange, payload: locale);
+  static Action onLocaleChange() {
+    return const Action(RootAction.onLocaleChange);
   }
 
   static Action updateCurrentIndex(int index) {

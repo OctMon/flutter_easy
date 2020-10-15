@@ -4,9 +4,10 @@ import 'state.dart';
 
 Effect<ExampleState> buildEffect() {
   return combineEffects(<Object, Effect<ExampleState>>{
-    ExampleAction.action: _onAction,
+    ExampleAction.onLocaleChange: _onLocaleChange,
   });
 }
 
-void _onAction(Action action, Context<ExampleState> ctx) {
+void _onLocaleChange(Action action, Context<ExampleState> ctx) {
+  ctx.forceUpdate();
 }
