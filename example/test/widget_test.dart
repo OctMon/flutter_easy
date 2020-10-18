@@ -15,9 +15,6 @@ void main() {
   testWidgets('Verify Platform version', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(createEasyApp(
-      // TODO:运行非web报错的时候注掉即可
-      // sharedPreferencesWebInstance: SharedPreferencesPlugin(),
-      // webUserAgent: html.window.navigator.userAgent.toLowerCase(),
       isSelectBaseURLTypeFlag: true,
       initCallback: initApp,
       completionCallback: () {

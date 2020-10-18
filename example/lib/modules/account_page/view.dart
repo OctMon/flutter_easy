@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fish_redux/fish_redux.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/components/global/global_list_cell.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -11,7 +12,6 @@ import 'state.dart';
 
 Widget buildView(
     AccountState state, Dispatch dispatch, ViewService viewService) {
-  Locale locale = Localizations.localeOf(viewService.context);
   return Scaffold(
     body: CustomScrollView(
       slivers: <Widget>[
@@ -64,9 +64,8 @@ Widget buildView(
             GlobalListCell(
               item: BaseKeyValue(
                   key: S.of(viewService.context).language,
-                  value: lastLocale == null
-                      ? "${S.of(viewService.context).systemDefault}"
-                      : "${LocaleNames.of(viewService.context).nameOf("$locale")}",
+                  value:
+                      "${lastLocale == null ? S.of(viewService.context).systemDefault : LocaleNames.of(viewService.context).nameOf("$lastLocale")} - ${Intl.getCurrentLocale()}",
                   extend: Icons.language),
               onPressed: () {
                 showBaseModalBottomSheet(
@@ -82,19 +81,22 @@ Widget buildView(
                               pop(viewService.context);
                               dispatch(AccountActionCreator.onLocaleChange(e));
                             },
-                            child: BaseText(localeString),
+                            child: BaseText(
+                                "${LocaleNamesLocalizationsDelegate.nativeLocaleNames[e.toString()]} - $localeString"),
                           );
                         }).toList()
-                          ..insert(0, BaseActionSheetAction(
-                            isDefaultAction: true,
-                            onPressed: () {
-                              pop(viewService.context);
-                              dispatch(
-                                  AccountActionCreator.onLocaleChange(null));
-                            },
-                            child: BaseText(
-                                S.of(viewService.context).systemDefault),
-                          )),
+                          ..insert(
+                              0,
+                              BaseActionSheetAction(
+                                isDefaultAction: true,
+                                onPressed: () {
+                                  pop(viewService.context);
+                                  dispatch(AccountActionCreator.onLocaleChange(
+                                      null));
+                                },
+                                child: BaseText(
+                                    S.of(viewService.context).systemDefault),
+                              )),
                         cancelButton: BaseActionSheetAction(
                           child: BaseText('取消'),
                           isDestructiveAction: true,
