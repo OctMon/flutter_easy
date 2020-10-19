@@ -78,6 +78,9 @@ String appStoreUserReviewsUrl(String appId) =>
     "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&id=" +
     appId;
 
+String appStoreWriteReview(String name, String appId) =>
+    "itms-apps://itunes.apple.com/us/app/$name/id$appId?mt=8&action=write-review";
+
 Future<bool> canLaunch(String urlString) => urlLauncher.canLaunch(urlString);
 
 Future<bool> onLaunch(
