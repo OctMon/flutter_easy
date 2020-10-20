@@ -205,6 +205,7 @@ class BaseApp extends StatelessWidget {
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final Iterable<Locale> supportedLocales;
   final Locale locale;
+  final LocaleResolutionCallback localeResolutionCallback;
 
   BaseApp({
     this.title,
@@ -213,6 +214,7 @@ class BaseApp extends StatelessWidget {
     this.localizationsDelegates,
     this.supportedLocales = const <Locale>[Locale('en', 'US')],
     this.locale,
+    this.localeResolutionCallback,
   });
 
   @override
@@ -244,6 +246,7 @@ class BaseApp extends StatelessWidget {
           localizationsDelegates: localizationsDelegates,
           supportedLocales: supportedLocales,
           locale: locale,
+          localeResolutionCallback: localeResolutionCallback,
         ),
       ),
     );
