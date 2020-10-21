@@ -91,8 +91,12 @@ class _AppState extends State<App> {
       ],
       supportedLocales: S.delegate.supportedLocales,
       locale: locale,
-      localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+      localeResolutionCallback:
+          (Locale locale, Iterable<Locale> supportedLocales) {
         logWTF("localeResolutionCallback: $locale");
+        if (this.locale == null) {
+          return null;
+        }
         return locale;
       },
     );
