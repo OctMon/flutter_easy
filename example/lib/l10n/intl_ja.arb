@@ -1,0 +1,10 @@
+{
+  "home": "ホーム",
+  "account": "アカウント",
+  "language": "言語",
+  "systemDefault": "システムデフォルト",
+  "login": "ログイン",
+  "example": "例",
+  "example_PictureWaterfallFlow": "画像の滝の流れ",
+  "example_ExtractProminentColorsFromAnImage": "画像から目立つ色を抽出す"
+}

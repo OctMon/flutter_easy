@@ -74,15 +74,19 @@ Widget buildView(
                       return BaseActionSheet(
                         title: BaseText(S.of(viewService.context).language),
                         actions: S.delegate.supportedLocales.map((e) {
-                          final localeString =
+                          final String localeString =
                               LocaleNames.of(context).nameOf(e.toString());
+                          final String nativeLocaleName =
+                              LocaleNamesLocalizationsDelegate
+                                  .nativeLocaleNames[e.toString()];
                           return BaseActionSheetAction(
                             onPressed: () {
                               pop(viewService.context);
                               dispatch(AccountActionCreator.onLocaleChange(e));
                             },
-                            child: BaseText(
-                                "${LocaleNamesLocalizationsDelegate.nativeLocaleNames[e.toString()]} - $localeString"),
+                            child: BaseText(nativeLocaleName == localeString
+                                ? nativeLocaleName
+                                : "$nativeLocaleName - $localeString"),
                           );
                         }).toList()
                           ..insert(
