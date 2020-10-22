@@ -4,7 +4,18 @@
   "language": "语言",
   "systemDefault": "跟随系统",
   "login": "登录",
+  "cancel": "取消",
   "example": "示例",
   "example_PictureWaterfallFlow": "图片瀑布流",
-  "example_ExtractProminentColorsFromAnImage": "从图像中提取突出的颜色"
+  "example_ExtractProminentColorsFromAnImage": "从图像中提取突出的颜色",
+  "example_InputPhoneNumber": "请输入手机号",
+  "example_InputPassword": "请输入密码",
+  "example_NewUserRegister": "新用户注册",
+  "example_ForgetPassword": "忘记密码？",
+  "example_ReadAndAgree": "我已阅读并同意",
+  "example_UserAgreement": "《用户协议》",
+  "example_And": "和",
+  "example_PrivacyPolicy": "《隐私政策》",
+  "example_AgreeToContinueTip": "需同意才能继续使用",
+  "example_ValidPhoneNumberTip": "请输入正确的手机号"
 }

@@ -4,7 +4,18 @@
   "language": "言語",
   "systemDefault": "システムデフォルト",
   "login": "ログイン",
+  "cancel": "キャンセル",
   "example": "例",
   "example_PictureWaterfallFlow": "画像の滝の流れ",
-  "example_ExtractProminentColorsFromAnImage": "画像から目立つ色を抽出す"
+  "example_ExtractProminentColorsFromAnImage": "画像から目立つ色を抽出す",
+  "example_InputPhoneNumber": "電話番号を入力してください",
+  "example_InputPassword": "パスワードを入力してください",
+  "example_NewUserRegister": "新しいユーザー登録",
+  "example_ForgetPassword": "パスワードをお忘れですか？",
+  "example_ReadAndAgree": "私は読んで同意しました",
+  "example_UserAgreement": "《ユーザー合意》",
+  "example_And": "と",
+  "example_PrivacyPolicy": "プライバシーポリシー ",
+  "example_AgreeToContinueTip": "使用を継続することに同意する必要があります",
+  "example_ValidPhoneNumberTip": "有効な電話番号を入力して下さい"
 }

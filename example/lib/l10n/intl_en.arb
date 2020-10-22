@@ -4,7 +4,18 @@
   "language": "Language",
   "systemDefault": "System default",
   "login": "Login",
+  "cancel": "Cancel",
   "example": "Example",
   "example_PictureWaterfallFlow": "Picture waterfall flow",
-  "example_ExtractProminentColorsFromAnImage": "Extract prominent colors from an Image"
+  "example_ExtractProminentColorsFromAnImage": "Extract prominent colors from an Image",
+  "example_InputPhoneNumber": "Please enter phone number",
+  "example_InputPassword": "Please enter password",
+  "example_NewUserRegister": "New User Registration",
+  "example_ForgetPassword": "Forget password?",
+  "example_ReadAndAgree": "I have read and agree",
+  "example_UserAgreement": "\"User Agreement\"",
+  "example_And": "and",
+  "example_PrivacyPolicy": "\"Privacy Policy\"",
+  "example_AgreeToContinueTip": "Need to agree to continue using",
+  "example_ValidPhoneNumberTip": "Please enter a valid phone number"
 }

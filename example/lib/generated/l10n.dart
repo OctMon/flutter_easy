@@ -85,6 +85,16 @@ class S {
     );
   }
 
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Example`
   String get example {
     return Intl.message(
@@ -110,6 +120,106 @@ class S {
     return Intl.message(
       'Extract prominent colors from an Image',
       name: 'example_ExtractProminentColorsFromAnImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter phone number`
+  String get example_InputPhoneNumber {
+    return Intl.message(
+      'Please enter phone number',
+      name: 'example_InputPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter password`
+  String get example_InputPassword {
+    return Intl.message(
+      'Please enter password',
+      name: 'example_InputPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New User Registration`
+  String get example_NewUserRegister {
+    return Intl.message(
+      'New User Registration',
+      name: 'example_NewUserRegister',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forget password?`
+  String get example_ForgetPassword {
+    return Intl.message(
+      'Forget password?',
+      name: 'example_ForgetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I have read and agree`
+  String get example_ReadAndAgree {
+    return Intl.message(
+      'I have read and agree',
+      name: 'example_ReadAndAgree',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `"User Agreement"`
+  String get example_UserAgreement {
+    return Intl.message(
+      '"User Agreement"',
+      name: 'example_UserAgreement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `and`
+  String get example_And {
+    return Intl.message(
+      'and',
+      name: 'example_And',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `"Privacy Policy"`
+  String get example_PrivacyPolicy {
+    return Intl.message(
+      '"Privacy Policy"',
+      name: 'example_PrivacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Need to agree to continue using`
+  String get example_AgreeToContinueTip {
+    return Intl.message(
+      'Need to agree to continue using',
+      name: 'example_AgreeToContinueTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid phone number`
+  String get example_ValidPhoneNumberTip {
+    return Intl.message(
+      'Please enter a valid phone number',
+      name: 'example_ValidPhoneNumberTip',
       desc: '',
       args: [],
     );

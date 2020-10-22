@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/generated/l10n.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -16,7 +17,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
         BaseButton(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
           child: BaseTitle(
-            '取消',
+            S.of(viewService.context).cancel,
             fontSize: 16,
             fontWeight: FontWeight.normal,
           ),
@@ -42,7 +43,8 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                       controller: state.phoneNumberController,
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       maxLength: 11,
-                      placeholder: '请输入手机号',
+                      placeholder:
+                          S.of(viewService.context).example_InputPhoneNumber,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly
@@ -52,58 +54,60 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     controller: state.passwordController,
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     maxLength: 16,
-                    placeholder: '请输入密码',
+                    placeholder:
+                        S.of(viewService.context).example_InputPassword,
                     obscureText: true,
                     keyboardType: TextInputType.text,
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(30, 0, 30, 15),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            BaseButton(
-                              padding: EdgeInsets.symmetric(vertical: 15),
-                              child: BaseTitle(
-                                "新用户注册",
-                                fontSize: adaptDp(14),
-                                color: colorWithTint,
-                              ),
-                              onPressed: () async {},
+                  Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          BaseButton(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            child: BaseTitle(
+                              S
+                                  .of(viewService.context)
+                                  .example_NewUserRegister,
+                              fontSize: adaptDp(14),
+                              color: colorWithTint,
                             ),
-                            BaseButton(
-                              padding: EdgeInsets.symmetric(vertical: 15),
-                              child: BaseTitle(
-                                "忘记密码？",
-                                fontSize: adaptDp(14),
-                                color: colorWithTint,
-                              ),
-                              onPressed: () async {},
-                            ),
-                          ],
-                        ),
-                        BaseGradientButton(
-                          borderRadius: 5,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 3),
-                              blurRadius: 12,
-                              color: Color(0xFFFFB9BF),
-                            ),
-                          ],
-                          height: 50,
-                          title: BaseTitle(
-                            '登录',
-                            color: Colors.white,
-                            fontSize: adaptDp(16),
-                            fontWeight: FontWeight.normal,
+                            onPressed: () async {},
                           ),
-                          onPressed: () =>
-                              dispatch(LoginActionCreator.onLoginPressed()),
+                          BaseButton(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            child: BaseTitle(
+                              S
+                                  .of(viewService.context)
+                                  .example_ForgetPassword,
+                              fontSize: adaptDp(14),
+                              color: colorWithTint,
+                            ),
+                            onPressed: () async {},
+                          ),
+                        ],
+                      ),
+                      BaseGradientButton(
+                        borderRadius: 5,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 3),
+                            blurRadius: 12,
+                            color: Color(0xFFFFB9BF),
+                          ),
+                        ],
+                        height: 50,
+                        title: BaseTitle(
+                          S.of(viewService.context).login,
+                          color: Colors.white,
+                          fontSize: adaptDp(16),
+                          fontWeight: FontWeight.normal,
                         ),
-                      ],
-                    ),
+                        onPressed: () =>
+                            dispatch(LoginActionCreator.onLoginPressed()),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -137,21 +141,24 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                         ),
                         children: [
                           TextSpan(
-                            text: "我已阅读并同意" + appName,
+                            text:
+                                S.of(viewService.context).example_ReadAndAgree +
+                                    appName,
                           ),
                           TextSpan(
-                            text: "《用户协议》",
+                            text:
+                                S.of(viewService.context).example_UserAgreement,
                             style: TextStyle(
                               color: colorWithTint,
                             ),
                             recognizer: TapGestureRecognizer()..onTap = () {},
                           ),
                           TextSpan(
-                            text: '和',
+                            text: S.of(viewService.context).example_And,
                           ),
                           TextSpan(
-                            // 《隐私政策》
-                            text: "《隐私政策》",
+                            text:
+                                S.of(viewService.context).example_PrivacyPolicy,
                             style: TextStyle(
                               color: colorWithTint,
                             ),

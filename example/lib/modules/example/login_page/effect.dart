@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/api/api.dart';
+import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:flutter_easy_example/store/user_store/store.dart';
 
 import 'action.dart';
@@ -17,22 +18,22 @@ Future<void> _onLoginPressed(Action action, Context<LoginState> ctx) async {
   String phone = ctx.state.phoneNumberController.text.trim();
   String password = ctx.state.passwordController.text.trim();
   if (phone.isEmpty) {
-    showToast("请输入手机号");
+    showToast(S.of(ctx.context).example_InputPhoneNumber);
     return;
   }
 
   if (!validIsPhone(phone)) {
-    showToast("请输入正确的手机号");
+    showToast(S.of(ctx.context).example_ValidPhoneNumberTip);
     return;
   }
 
   if (password.isEmpty) {
-    showToast("请输入密码");
+    showToast(S.of(ctx.context).example_InputPassword);
     return;
   }
 
   if (!ctx.state.isChecked) {
-    showToast("需同意《隐私协议》才能继续使用");
+    showToast(S.of(ctx.context).example_AgreeToContinueTip);
     return;
   }
   Result result = await postAPI(
@@ -45,7 +46,6 @@ Future<void> _onLoginPressed(Action action, Context<LoginState> ctx) async {
       UserModel.fromMap({"userId": "1", "nickname": "flutter", "avatar": ""}));
   await UserStore.save(result.model);
   pop(ctx.context, true);
-  showToast("登录成功");
   // } else {
   //   showToast(result.message);
   // }
