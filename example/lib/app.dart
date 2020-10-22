@@ -9,7 +9,6 @@ import 'routes.dart';
 import 'store/user_store/store.dart';
 
 const _localeKey = "locale";
-String lastLocale;
 
 Future<void> initApp() async {
   // 存储沙盒中的密钥
@@ -21,7 +20,8 @@ Future<void> initApp() async {
 
   configApi(null);
 
-  lastLocale = await getStorageString(_localeKey);
+  // 加载手动配置的locale
+  lastStorageLocale = await getStorageString(_localeKey);
 
   colorWithBrightness = Brightness.dark;
 }
@@ -34,38 +34,24 @@ Widget createApp() {
   return App();
 }
 
-Future<void> Function(Locale) onLocaleChange;
-
 class App extends StatefulWidget {
   @override
   _AppState createState() => _AppState();
 }
 
 class _AppState extends State<App> {
-  Locale locale;
 
   @override
   void initState() {
-    if (lastLocale != null) {
-      Locale _locale = Locale(lastLocale);
-      List<String> list = lastLocale.split("_");
-      if (list.length > 1) {
-        _locale = Locale(list.first, list.last);
-      }
-      if (S.delegate.isSupported(_locale)) {
-        locale = _locale;
-      }
-    }
     onLocaleChange = (locale) async {
       logWTF("$locale");
       if (locale != null) {
-        lastLocale = "$locale";
-        await setStorageString(_localeKey, lastLocale);
+        lastStorageLocale = "$locale";
+        await setStorageString(_localeKey, lastStorageLocale);
       } else {
-        lastLocale = null;
+        lastStorageLocale = null;
         removeStorage(_localeKey);
       }
-      this.locale = locale;
       setState(() {});
       await Future.delayed(Duration(milliseconds: 500));
       return;
@@ -90,11 +76,11 @@ class _AppState extends State<App> {
         LocaleNamesLocalizationsDelegate(),
       ],
       supportedLocales: S.delegate.supportedLocales,
-      locale: locale,
+      locale: lastLocale,
       localeResolutionCallback:
           (Locale locale, Iterable<Locale> supportedLocales) {
         logWTF("localeResolutionCallback: $locale");
-        if (this.locale == null || !S.delegate.isSupported(locale)) {
+        if (lastLocale == null || !S.delegate.isSupported(locale)) {
           return null;
         }
         return locale;
