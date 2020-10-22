@@ -94,7 +94,7 @@ class _AppState extends State<App> {
       localeResolutionCallback:
           (Locale locale, Iterable<Locale> supportedLocales) {
         logWTF("localeResolutionCallback: $locale");
-        if (this.locale == null) {
+        if (this.locale == null || !S.delegate.isSupported(locale)) {
           return null;
         }
         return locale;
