@@ -8,6 +8,7 @@ void main() {
   createEasyApp(
     isSelectBaseURLTypeFlag: true,
     initCallback: initApp,
+    initView: initView,
     completionCallback: () {
       runApp(createApp());
       if (isAndroid) {

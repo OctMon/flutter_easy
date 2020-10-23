@@ -26,6 +26,12 @@ Future<void> initApp() async {
   colorWithBrightness = Brightness.dark;
 }
 
+Widget get initView {
+  return BaseLaunchLocal(
+    child: Image.asset(assetsImagesPath("launch/flutter_logo_color")),
+  );
+}
+
 /// 创建应用的根 Widget
 /// 1. 创建一个简单的路由，并注册页面
 /// 2. 对所需的页面进行和 AppStore 的连接
@@ -40,7 +46,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
   @override
   void initState() {
     onLocaleChange = (locale) async {
