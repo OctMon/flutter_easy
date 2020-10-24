@@ -5,6 +5,8 @@ import '../global_util.dart';
 
 String get webUserAgent => "";
 
+String get webOrigin => "";
+
 dynamic sharedPreferencesInstance() {
   if (isWindows) {
     return SharedPreferencesWindows.instance;

@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
+
 import 'hw/hw_mp.dart' as mp;
 
 const bool isProduction = const bool.fromEnvironment("dart.vm.product");
@@ -36,6 +38,8 @@ String get userAgent => webUserAgent.toLowerCase();
 
 /// https://www.jianshu.com/p/40430596e3ab
 String get webUserAgent => mp.webUserAgent;
+
+String get webOrigin => mp.webOrigin;
 
 bool get isWebInIPhone =>
     userAgent.contains("iphone") || userAgent.contains("ipod");
