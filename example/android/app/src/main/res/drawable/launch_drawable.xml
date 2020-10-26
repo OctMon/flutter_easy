@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--背景-->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#ffffff" />
+        </shape>
+    </item>
+
+    <!--logo-->
+    <item
+        android:bottom="100dp"
+        android:gravity="bottom|center">
+        <bitmap
+            android:gravity="bottom|center"
+            android:src="@mipmap/flutter_logo_color" />
+    </item>
+
+</layer-list>

@@ -5,7 +5,6 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/components/global/global_list_cell.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
-import 'package:flutter_easy_example/app.dart';
 
 import 'action.dart';
 import 'state.dart';
