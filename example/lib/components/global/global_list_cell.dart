@@ -39,14 +39,17 @@ class GlobalListCell extends StatelessWidget {
                     ],
                   ),
                 ),
-                Row(
-                  children: [
-                    BaseTitle(
-                      item.value,
-                      fontSize: adaptDp(14),
-                    ),
-                    Icon(Icons.navigate_next),
-                  ],
+                Visibility(
+                  visible: onPressed != null,
+                  child: Row(
+                    children: [
+                      BaseTitle(
+                        item.value,
+                        fontSize: adaptDp(14),
+                      ),
+                      Icon(Icons.navigate_next),
+                    ],
+                  ),
                 )
               ],
             ),

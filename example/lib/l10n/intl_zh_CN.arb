@@ -8,6 +8,7 @@
   "example": "示例",
   "example_PictureWaterfallFlow": "图片瀑布流",
   "example_ExtractProminentColorsFromAnImage": "从图像中提取突出的颜色",
+  "example_Navigator": "使用Navigator进行局部跳转页面",
   "example_InputPhoneNumber": "请输入手机号",
   "example_InputPassword": "请输入密码",
   "example_NewUserRegister": "新用户注册",

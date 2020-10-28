@@ -37,6 +37,74 @@ Widget buildView(
             pushNamed(viewService.context, Routes.imageColors);
           },
         ),
+        GlobalListCell(
+          item: BaseKeyValue(
+            key: S.of(viewService.context).example_Navigator,
+            value: "",
+            extend: Icons.navigation_outlined,
+          ),
+          onPressed: () {
+            showDialog(
+                context: viewService.context,
+                builder: (BuildContext context) {
+                  return Material(
+                    type: MaterialType.transparency,
+                    child: Center(
+                      child: Container(
+                        height: adaptDp(350),
+                        width: adaptDp(300),
+                        child: Navigator(
+                          initialRoute: '/',
+                          onGenerateRoute: (RouteSettings settings) {
+                            WidgetBuilder builder;
+                            switch (settings.name) {
+                              case '/':
+                                builder = (context) {
+                                  return Card(
+                                    child: Column(
+                                      children: <Widget>[
+                                        GlobalListCell(
+                                          item: BaseKeyValue(
+                                              key: "first",
+                                              value: "",
+                                              extend: Icons.flag),
+                                        ),
+                                        BaseDivider(),
+                                        GlobalListCell(
+                                          item: BaseKeyValue(
+                                              key: "second",
+                                              value: "",
+                                              extend: Icons.login),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                              return BaseScaffold(
+                                                appBar: BaseAppBar(
+                                                  brightness: Brightness.light,
+                                                  title: BaseText("title"),
+                                                ),
+                                                body: Center(
+                                                    child: BaseText("body")),
+                                              );
+                                            }));
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                };
+                                break;
+                            }
+                            return MaterialPageRoute(builder: builder);
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                });
+          },
+        ),
       ],
     ),
   );

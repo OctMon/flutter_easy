@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "example_ForgetPassword" : MessageLookupByLibrary.simpleMessage("パスワードをお忘れですか？"),
     "example_InputPassword" : MessageLookupByLibrary.simpleMessage("パスワードを入力してください"),
     "example_InputPhoneNumber" : MessageLookupByLibrary.simpleMessage("電話番号を入力してください"),
+    "example_Navigator" : MessageLookupByLibrary.simpleMessage("使用ナビゲーター進む行局部跳転页面"),
     "example_NewUserRegister" : MessageLookupByLibrary.simpleMessage("新しいユーザー登録"),
     "example_PictureWaterfallFlow" : MessageLookupByLibrary.simpleMessage("画像の滝の流れ"),
     "example_PrivacyPolicy" : MessageLookupByLibrary.simpleMessage("プライバシーポリシー "),

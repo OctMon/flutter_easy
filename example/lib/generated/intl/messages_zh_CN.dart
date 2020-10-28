@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "example_ForgetPassword" : MessageLookupByLibrary.simpleMessage("忘记密码？"),
     "example_InputPassword" : MessageLookupByLibrary.simpleMessage("请输入密码"),
     "example_InputPhoneNumber" : MessageLookupByLibrary.simpleMessage("请输入手机号"),
+    "example_Navigator" : MessageLookupByLibrary.simpleMessage("使用Navigator进行局部跳转页面"),
     "example_NewUserRegister" : MessageLookupByLibrary.simpleMessage("新用户注册"),
     "example_PictureWaterfallFlow" : MessageLookupByLibrary.simpleMessage("图片瀑布流"),
     "example_PrivacyPolicy" : MessageLookupByLibrary.simpleMessage("《隐私政策》"),

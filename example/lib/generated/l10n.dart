@@ -125,6 +125,16 @@ class S {
     );
   }
 
+  /// `Use Navigator for partial page jumps`
+  String get example_Navigator {
+    return Intl.message(
+      'Use Navigator for partial page jumps',
+      name: 'example_Navigator',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please enter phone number`
   String get example_InputPhoneNumber {
     return Intl.message(

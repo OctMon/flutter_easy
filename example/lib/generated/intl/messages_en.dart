@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "example_ForgetPassword" : MessageLookupByLibrary.simpleMessage("Forget password?"),
     "example_InputPassword" : MessageLookupByLibrary.simpleMessage("Please enter password"),
     "example_InputPhoneNumber" : MessageLookupByLibrary.simpleMessage("Please enter phone number"),
+    "example_Navigator" : MessageLookupByLibrary.simpleMessage("Use Navigator for partial page jumps"),
     "example_NewUserRegister" : MessageLookupByLibrary.simpleMessage("New User Registration"),
     "example_PictureWaterfallFlow" : MessageLookupByLibrary.simpleMessage("Picture waterfall flow"),
     "example_PrivacyPolicy" : MessageLookupByLibrary.simpleMessage("\"Privacy Policy\""),

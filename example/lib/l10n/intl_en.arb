@@ -8,6 +8,7 @@
   "example": "Example",
   "example_PictureWaterfallFlow": "Picture waterfall flow",
   "example_ExtractProminentColorsFromAnImage": "Extract prominent colors from an Image",
+  "example_Navigator": "Use Navigator for partial page jumps",
   "example_InputPhoneNumber": "Please enter phone number",
   "example_InputPassword": "Please enter password",
   "example_NewUserRegister": "New User Registration",
