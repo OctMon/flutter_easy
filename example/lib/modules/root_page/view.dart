@@ -22,6 +22,8 @@ Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
     Routes.routes.buildPage(Routes.account, null),
   ];
 
+  AdaptUtil.initContext(viewService.context);
+
   return Scaffold(
     backgroundColor: colorWithScaffoldBackground,
     body: IndexedStack(index: state.currentIndex, children: children),

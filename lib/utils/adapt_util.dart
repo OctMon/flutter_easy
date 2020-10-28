@@ -4,15 +4,29 @@ import 'package:flutter/material.dart';
 import 'global_util.dart';
 
 class AdaptUtil {
-  static MediaQueryData mediaQuery = MediaQueryData.fromWindow(window);
-  static double _width = mediaQuery.size.width;
-  static double _height = mediaQuery.size.height;
-  static double _top = mediaQuery.padding.top;
-  static double _bottom = mediaQuery.padding.bottom;
-  static double _devicePixelRatio = mediaQuery.devicePixelRatio;
+  static MediaQueryData mediaQuery;
+
+  static double _width;
+  static double _height;
+  static double _top;
+  static double _bottom;
+
+  static double _devicePixelRatio;
+
   static var _ratio;
 
   AdaptUtil._();
+
+  static initContext(BuildContext context) {
+    if (mediaQuery == null) {
+      mediaQuery = MediaQuery.of(context);
+      _width = mediaQuery.size.width;
+      _height = mediaQuery.size.height;
+      _top = mediaQuery.padding.top;
+      _bottom = mediaQuery.padding.bottom;
+      _devicePixelRatio = mediaQuery.devicePixelRatio;
+    }
+  }
 
   static init(int number) {
     int uiWidth = number is int ? number : 750;
