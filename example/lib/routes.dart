@@ -62,6 +62,7 @@ class Routes {
         /// Store AOP
         middleware: <Middleware<dynamic>>[
           logMiddleware<dynamic>(tag: page.runtimeType.toString()),
+          performanceMiddleware(tag: page.runtimeType.toString()),
         ],
       );
     },
