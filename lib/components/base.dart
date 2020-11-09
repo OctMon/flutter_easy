@@ -2,15 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-
 import 'package:oktoast/oktoast.dart';
-
-import '../utils/global_util.dart';
-import '../utils/color_util.dart';
-import '../utils/adapt_util.dart';
-import '../utils/json_util.dart';
-import '../utils/package_info_util.dart';
-import '../utils/network_util.dart' as network;
 
 export 'base_refresh.dart';
 
@@ -132,12 +124,12 @@ createEasyApp(
     String appVersion = "",
     String appBuildNumber = "",
     bool usePackage = true,
-    bool isSelectBaseURLTypeFlag = false,
+    bool appDebugFlag = false,
     sharedPreferencesWebInstance,
     Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
-  network.isSelectBaseURLTypeFlag = isSelectBaseURLTypeFlag;
+  isAppDebugFlag = appDebugFlag;
   void callback() {
     if (initCallback != null) {
       initCallback().then((_) {
@@ -166,8 +158,8 @@ createEasyApp(
     SharedPreferencesUtil.init(),
   ]).then((e) {
     logInfo("init: $e");
-    if (isSelectBaseURLTypeFlag) {
-      network.initSelectedBaseURLType().then((value) {
+    if (isAppDebugFlag) {
+      initSelectedBaseURLType().then((value) {
         logInfo("network: $value");
         callback();
       });
@@ -220,10 +212,10 @@ class BaseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget _buildBannerUrlType({@required Widget child}) {
-      if (isSelectBaseURLTypeFlag) {
+      if (isAppDebugFlag) {
         return Banner(
           message:
-              "${network.kBaseURLType == network.BaseURLType.release ? "Release" : "Test"}",
+              "${kBaseURLType == BaseURLType.release ? "Release" : "Test"}",
           location: BannerLocation.topEnd,
           child: child,
         );

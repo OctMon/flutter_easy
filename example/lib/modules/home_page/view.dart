@@ -44,7 +44,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
 
   return BaseScaffold(
     appBar: BaseAppBar(
-      leading: isSelectBaseURLTypeFlag
+      leading: isAppDebugFlag
           ? IconButton(
               icon: Icon(Icons.developer_mode),
               onPressed: () {
@@ -78,6 +78,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
               buildTableRowTop(code: "is", value: "value"),
               buildTableRow(code: "isProduction", value: "$isProduction"),
               buildTableRow(code: "isDebug", value: "$isDebug"),
+              buildTableRow(code: "isAppDebugFlag", value: "$isAppDebugFlag"),
               buildTableRow(code: "isAndroid", value: "$isAndroid"),
               buildTableRow(code: "isIOS", value: "$isIOS"),
               buildTableRow(code: "isWeb", value: "$isWeb"),
@@ -203,9 +204,12 @@ flutter: └──────────────────────�
                 curve: Interval(0.2, 1, curve: Curves.ease),
               ),
             ),
-            child: BaseButton(child: BaseText("Powered by OctMon"), onPressed: () {
-              onLaunch("https://octmon.github.io");
-            },),
+            child: BaseButton(
+              child: BaseText("Powered by OctMon"),
+              onPressed: () {
+                onLaunch("https://octmon.github.io");
+              },
+            ),
           ),
         ],
       ),

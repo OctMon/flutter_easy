@@ -15,7 +15,7 @@ void main() {
   testWidgets('Verify Platform version', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(createEasyApp(
-      isSelectBaseURLTypeFlag: true,
+      appDebugFlag: true,
       initCallback: initApp,
       completionCallback: () {
         runApp(createApp());
@@ -26,7 +26,7 @@ void main() {
           ]);
           // Set overlay style status bar. It must run after MyApp(), because MaterialApp may override it.
           SystemUiOverlayStyle systemUiOverlayStyle =
-          SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+              SystemUiOverlayStyle(statusBarColor: Colors.transparent);
           SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
         }
       },
@@ -35,8 +35,8 @@ void main() {
     // Verify that platform version is retrieved.
     expect(
       find.byWidgetPredicate(
-        (Widget widget) => widget is Text &&
-                           widget.data.startsWith('Running on:'),
+        (Widget widget) =>
+            widget is Text && widget.data.startsWith('Running on:'),
       ),
       findsOneWidget,
     );

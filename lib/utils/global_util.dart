@@ -13,6 +13,9 @@ final bool isDebug = _isDebug();
 
 bool _debugFlag = false;
 
+/// 打开app调试模式
+bool isAppDebugFlag = false;
+
 /// is app run a debug mode.
 bool _isDebug() {
   /// Assert statements have no effect in production code;

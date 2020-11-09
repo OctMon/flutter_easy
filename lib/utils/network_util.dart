@@ -20,12 +20,9 @@ String _baseURLTypeKey = md5("$BaseURLType");
 /// 当前环境
 String _baseURLTypeString;
 
-/// 开户环境切换，需要自己埋入口
-bool isSelectBaseURLTypeFlag = false;
-
 /// 上线环境
 BaseURLType get kBaseURLType {
-  if (isSelectBaseURLTypeFlag && _baseURLTypeString != null) {
+  if (isAppDebugFlag && _baseURLTypeString != null) {
     if (_baseURLTypeString == "${BaseURLType.test}") {
       return BaseURLType.test;
     } else if (_baseURLTypeString == "${BaseURLType.release}") {
@@ -206,7 +203,7 @@ Future<String> initSelectedBaseURLType() async {
 
 /// 弹出切换环境菜单
 Future<bool> showSelectBaseURLTypeAlert({@required BuildContext context}) {
-  if (!isSelectBaseURLTypeFlag) {
+  if (!isAppDebugFlag) {
     return Future.value(false);
   }
 

@@ -6,7 +6,7 @@ import 'app.dart';
 
 void main() {
   createEasyApp(
-    isSelectBaseURLTypeFlag: true,
+    appDebugFlag: true,
     initCallback: initApp,
     initView: initView,
     completionCallback: () {

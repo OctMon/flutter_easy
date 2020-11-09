@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import 'global_util.dart';
 
 void log(String tag, Object value) {
-  if (isDebug) {
+  if (isDebug || isAppDebugFlag) {
     print("$tag => $value");
   }
 }
@@ -41,7 +41,7 @@ void logWTF(dynamic message, [dynamic error, StackTrace stackTrace]) {
 }
 
 void logRequest(RequestOptions options) {
-  logVerbose(
+  logInfo(
       options.data,
       "Request ${options.uri}",
       StackTrace.fromString('method: ${options.method}\n' +
@@ -55,13 +55,13 @@ void logRequest(RequestOptions options) {
 
 void logResponse(Result result) {
   if (result.error != null) {
-    logVerbose(
+    logInfo(
         result.response?.data,
         "Response ${result.response.request.uri}",
         StackTrace.fromString('statusCode: ${result.response.statusCode}\n' +
             "${result.error}: ${result.message}"));
   } else {
-    logVerbose(
+    logInfo(
         result.response?.data,
         "Response ${result.response.request.uri}",
         StackTrace.fromString('statusCode: ${result.response.statusCode}\n' +
@@ -75,7 +75,14 @@ void logResponse(Result result) {
   }
 }
 
+class _LogFilter extends LogFilter {
+  @override
+  bool shouldLog(LogEvent event) {
+    return isDebug || isAppDebugFlag;
+  }
+}
+
 var logger = Logger(
-  filter: DevelopmentFilter(),
+  filter: _LogFilter(),
   printer: PrettyPrinter(colors: false, printTime: true),
 );
