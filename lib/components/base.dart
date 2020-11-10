@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:oktoast/oktoast.dart';
 
+import 'log_console.dart';
+
 export 'base_refresh.dart';
 
 enum BaseAction {
@@ -129,6 +131,7 @@ createEasyApp(
     Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
+  LogConsole.init();
   isAppDebugFlag = appDebugFlag;
   void callback() {
     if (initCallback != null) {
@@ -217,7 +220,7 @@ class BaseApp extends StatelessWidget {
           message:
               "${kBaseURLType == BaseURLType.release ? "Release" : "Test"}",
           location: BannerLocation.topEnd,
-          child: child,
+          child: DebugPage(child: child),
         );
       }
       return child;
@@ -241,6 +244,46 @@ class BaseApp extends StatelessWidget {
           localeResolutionCallback: localeResolutionCallback,
         ),
       ),
+    );
+  }
+}
+
+class DebugPage extends StatefulWidget {
+  final Widget child;
+
+  const DebugPage({Key key, this.child}) : super(key: key);
+
+  @override
+  _DebugPageState createState() => _DebugPageState();
+}
+
+class _DebugPageState extends State<DebugPage> {
+  bool _flag = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        widget.child,
+        Visibility(
+          visible: _flag,
+          child: LogConsole(dark: true),
+        ),
+        Positioned(
+          bottom: 200,
+          child: BaseButton(
+            child: Icon(
+              _flag ? Icons.clear : Icons.connect_without_contact,
+              color: colorWithTint.withOpacity(0.4),
+            ),
+            onPressed: () {
+              setState(() {
+                _flag = !_flag;
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 }
