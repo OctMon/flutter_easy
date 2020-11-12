@@ -131,7 +131,9 @@ createEasyApp(
     Widget initView,
     Future<void> Function() initCallback,
     @required void Function() completionCallback}) {
-  LogConsole.init();
+  if (appDebugFlag) {
+    LogConsole.init();
+  }
   isAppDebugFlag = appDebugFlag;
   void callback() {
     if (initCallback != null) {
@@ -265,10 +267,12 @@ class _DebugPageState extends State<DebugPage> {
     return Stack(
       children: [
         widget.child,
-        Visibility(
-          visible: _flag,
-          child: LogConsole(dark: true),
-        ),
+        _flag
+            ? Visibility(
+                visible: _flag,
+                child: LogConsole(dark: true),
+              )
+            : SizedBox(),
         Positioned(
           bottom: 200,
           child: BaseButton(
