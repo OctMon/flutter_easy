@@ -191,20 +191,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.16.1"
-  io:
-    dependency: transitive
-    description:
-      name: io
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.3.4"
   logger:
     dependency: "direct main"
     description:
       name: logger
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.8.3"
+    version: "0.9.4"
   matcher:
     dependency: transitive
     description:

@@ -82,7 +82,14 @@ class _LogFilter extends LogFilter {
   }
 }
 
+var memoryOutput = MemoryOutput();
+var streamOutput = StreamOutput();
 var logger = Logger(
   filter: _LogFilter(),
   printer: PrettyPrinter(colors: false, printTime: true),
+  output: MultiOutput([
+    ConsoleOutput(),
+    memoryOutput,
+    streamOutput,
+  ]),
 );

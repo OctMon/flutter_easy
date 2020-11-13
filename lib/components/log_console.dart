@@ -2,10 +2,10 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:flutter_easy/utils/logger_util.dart';
 
-ListQueue<OutputEvent> _outputEventBuffer = ListQueue();
-int _bufferSize = 20;
 bool _initialized = false;
+ValueChanged _outputEvent;
 
 class LogConsole extends StatefulWidget {
   final bool dark;
@@ -13,17 +13,10 @@ class LogConsole extends StatefulWidget {
   LogConsole({this.dark = false})
       : assert(_initialized, "Please call LogConsole.init() first.");
 
-  static void init({int bufferSize = 20}) {
+  static void init() {
     if (_initialized) return;
-
-    _bufferSize = bufferSize;
     _initialized = true;
-    Logger.addOutputListener((e) {
-      if (_outputEventBuffer.length == bufferSize) {
-        _outputEventBuffer.removeFirst();
-      }
-      _outputEventBuffer.add(e);
-    });
+    streamOutput.stream.listen((event) => _outputEvent);
   }
 
   @override
@@ -40,8 +33,6 @@ class RenderedEvent {
 }
 
 class _LogConsoleState extends State<LogConsole> {
-  OutputCallback _callback;
-
   ListQueue<RenderedEvent> _renderedBuffer = ListQueue();
   List<RenderedEvent> _filteredBuffer = [];
 
@@ -59,16 +50,9 @@ class _LogConsoleState extends State<LogConsole> {
   void initState() {
     super.initState();
 
-    _callback = (e) {
-      if (_renderedBuffer.length == _bufferSize) {
-        _renderedBuffer.removeFirst();
-      }
-
-      _renderedBuffer.add(_renderEvent(e));
+    _outputEvent = (event) {
       _refreshFilter();
     };
-
-    Logger.addOutputListener(_callback);
 
     _scrollController.addListener(() {
       if (!_scrollListenerEnabled) return;
@@ -85,7 +69,7 @@ class _LogConsoleState extends State<LogConsole> {
     super.didChangeDependencies();
 
     _renderedBuffer.clear();
-    for (var event in _outputEventBuffer) {
+    for (var event in memoryOutput.buffer) {
       _renderedBuffer.add(_renderEvent(event));
     }
     _refreshFilter();
@@ -301,12 +285,6 @@ class _LogConsoleState extends State<LogConsole> {
       TextSpan(children: parser.spans),
       text.toLowerCase(),
     );
-  }
-
-  @override
-  void dispose() {
-    Logger.removeOutputListener(_callback);
-    super.dispose();
   }
 }
 
