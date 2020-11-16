@@ -48,8 +48,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
           ? IconButton(
               icon: Icon(Icons.developer_mode),
               onPressed: () {
-                showSelectBaseURLTypeAlert(context: viewService.context)
-                    .then((value) => main());
+                showSelectBaseURLTypeAlert(context: viewService.context);
               },
             )
           : null,

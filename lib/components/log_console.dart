@@ -192,7 +192,9 @@ class _LogConsoleState extends State<LogConsole> {
               }
               showSelectBaseURLTypeAlert().then((success) {
                 if (success) {
-                  showToast("current: $kBaseURLType");
+                  if (baseURLChangedCallback != null) {
+                    baseURLChangedCallback();
+                  }
                 }
               });
             },

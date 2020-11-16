@@ -9,6 +9,12 @@ void main() {
     appDebugFlag: true,
     initCallback: initApp,
     initView: initView,
+    appBaseURLChangedCallback: () {
+      showToast("current: $kBaseURLType");
+      Future.delayed(Duration(seconds: 1), () {
+        main();
+      });
+    },
     completionCallback: () {
       runApp(createApp());
       if (isAndroid) {

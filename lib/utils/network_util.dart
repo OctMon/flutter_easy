@@ -57,6 +57,9 @@ String kPageKey = 'page';
 /// 每页数量
 String kPageSizeKey = 'pagesize';
 
+/// BaseURL变化回调
+VoidCallback baseURLChangedCallback;
+
 typedef _ResultCallBack = Result Function<T>(
     Result result, bool validResult, BuildContext context);
 
@@ -243,6 +246,9 @@ Future<bool> showSelectBaseURLTypeAlert({BuildContext context}) {
             child: Text("${BaseURLType.test}"),
             onPressed: () async {
               await save(BaseURLType.test);
+              if (baseURLChangedCallback != null) {
+                baseURLChangedCallback();
+              }
               Navigator.pop(ctx, true);
             },
           ),
@@ -251,6 +257,9 @@ Future<bool> showSelectBaseURLTypeAlert({BuildContext context}) {
             child: Text("${BaseURLType.release}"),
             onPressed: () async {
               await save(BaseURLType.release);
+              if (baseURLChangedCallback != null) {
+                baseURLChangedCallback();
+              }
               Navigator.pop(ctx, true);
             },
           ),

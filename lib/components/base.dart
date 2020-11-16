@@ -127,14 +127,16 @@ createEasyApp(
     String appBuildNumber = "",
     bool usePackage = true,
     bool appDebugFlag = false,
+    VoidCallback appBaseURLChangedCallback,
     sharedPreferencesWebInstance,
     Widget initView,
     Future<void> Function() initCallback,
-    @required void Function() completionCallback}) {
+    @required VoidCallback completionCallback}) {
   if (appDebugFlag) {
     LogConsole.init();
   }
   isAppDebugFlag = appDebugFlag;
+  baseURLChangedCallback = appBaseURLChangedCallback;
   void callback() {
     if (initCallback != null) {
       initCallback().then((_) {
