@@ -202,7 +202,7 @@ Future<String> initSelectedBaseURLType() async {
 }
 
 /// 弹出切换环境菜单
-Future<bool> showSelectBaseURLTypeAlert({@required BuildContext context}) {
+Future<bool> showSelectBaseURLTypeAlert({BuildContext context}) {
   if (!isAppDebugFlag) {
     return Future.value(false);
   }
@@ -213,6 +213,12 @@ Future<bool> showSelectBaseURLTypeAlert({@required BuildContext context}) {
     logInfo("$_baseURLTypeKey = " + _baseURLTypeString);
     return SharedPreferencesUtil.setSharedPrefsString(
         _baseURLTypeKey, _baseURLTypeString);
+  }
+
+  if (context == null) {
+    return save(kBaseURLType == BaseURLType.test
+        ? BaseURLType.release
+        : BaseURLType.test);
   }
 
   return showBaseDialog(

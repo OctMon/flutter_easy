@@ -1,6 +1,9 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easy/utils/global_util.dart';
+import 'package:flutter_easy/utils/network_util.dart';
+import 'package:flutter_easy/utils/toast_util.dart';
 import 'package:logger/logger.dart';
 import 'package:flutter_easy/utils/logger_util.dart';
 
@@ -181,6 +184,19 @@ class _LogConsoleState extends State<LogConsole> {
             ),
           ),
           Spacer(),
+          IconButton(
+            icon: Icon(Icons.developer_mode),
+            onPressed: () {
+              if (!isAppDebugFlag) {
+                return;
+              }
+              showSelectBaseURLTypeAlert().then((success) {
+                if (success) {
+                  showToast("current: $kBaseURLType");
+                }
+              });
+            },
+          ),
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
