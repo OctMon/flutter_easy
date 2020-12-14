@@ -159,7 +159,7 @@ packages:
       name: flutter_easyrefresh
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   flutter_localizations:
     dependency: "direct dev"
     description: flutter
@@ -230,7 +230,7 @@ packages:
       name: image_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.7+14"
+    version: "0.6.7+15"
   image_picker_platform_interface:
     dependency: transitive
     description:
