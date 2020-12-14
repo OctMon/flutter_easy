@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
@@ -121,8 +122,26 @@ Future<Result> requestAPI(
     config: _config(baseUrl),
     onRequest: _onRequest,
   );
-  Result result = await session.request(path,
-      data: data, queryParameters: queryParameters, options: options);
+  final HttpMetric metric = FirebasePerformance.instance.newHttpMetric(
+      "${session.config.baseUrl}$path",
+      options.method.startsWith("post") ? HttpMethod.Post : HttpMethod.Get);
+  await metric.start();
+  Result result;
+  try {
+    result = await session.request(path,
+        data: data, queryParameters: queryParameters, options: options);
+    metric
+      // ..responsePayloadSize = int.tryParse(
+      //         result.response.headers.value(Headers.contentLengthHeader) ?? "0") ??
+      //     0
+      ..responseContentType =
+          result.response.headers.value(Headers.contentTypeHeader)
+      // ..requestPayloadSize =
+      //     result.response.request.headers[Headers.contentLengthHeader]
+      ..httpResponseCode = result.response.statusCode;
+  } finally {
+    await metric.stop();
+  }
   if (autoLoading && alreadyShowLoading) {
     // Dismiss loading
     dismissLoading(context);
