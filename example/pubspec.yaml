@@ -83,6 +83,14 @@ dependencies:
   # ===============================================================================
   flutter_localized_locales: ^1.1.2
 
+  # ===============================================================================
+  # 名称： 用于 Google Firebase 性能监控的 Flutter 插件，这是一个应用程序测量解决方案，可监控 Android 和 iOS 上的跟踪和 HTTP/S 网络请求。
+  # 来源：https://pub.dev/packages/firebase_performance
+  # GitHub：https://github.com/FirebaseExtended/flutterfire/tree/master/packages/firebase_performance
+  # 说明： https://firebase.google.com/docs/perf-mon/get-started-ios
+  # ===============================================================================
+  firebase_performance: ^0.4.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
