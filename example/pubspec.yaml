@@ -91,6 +91,14 @@ dependencies:
   # ===============================================================================
   firebase_performance: ^0.4.3
 
+  # ===============================================================================
+  # 名称： Flutter plugin for Firebase Crashlytics. It reports uncaught errors to the Firebase console.
+  # 来源：https://pub.dev/packages/firebase_crashlytics
+  # GitHub：https://github.com/FirebaseExtended/flutterfire/tree/master/packages/firebase_crashlytics
+  # 说明：https://firebase.google.com/docs/crashlytics/
+  # ===============================================================================
+  firebase_crashlytics: ^0.2.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
