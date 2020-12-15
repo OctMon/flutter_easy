@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -46,6 +48,8 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  FirebaseAnalytics analytics = FirebaseAnalytics();
+
   @override
   void initState() {
     onLocaleChange = (locale) async {
@@ -73,6 +77,9 @@ class _AppState extends State<App> {
           return Routes.routes.buildPage(settings.name, settings.arguments);
         });
       },
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

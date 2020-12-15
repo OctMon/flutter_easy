@@ -76,7 +76,7 @@ dependencies:
   palette_generator: ^0.2.3
 
   # ===============================================================================
-  # 名称： locale names from locale codes (ISO 639‑2 and ISO 639-3) for 563 locales.
+  # 名称：locale names from locale codes (ISO 639‑2 and ISO 639-3) for 563 locales.
   # 来源：https://pub.dev/packages/flutter_localized_locales
   # GitHub：https://github.com/guidezpl/flutter-localized-locales
   # 说明： Flutter plugin which provides locale code to name mappings for 563 locales.
@@ -84,7 +84,7 @@ dependencies:
   flutter_localized_locales: ^1.1.2
 
   # ===============================================================================
-  # 名称： 用于 Google Firebase 性能监控的 Flutter 插件，这是一个应用程序测量解决方案，可监控 Android 和 iOS 上的跟踪和 HTTP/S 网络请求。
+  # 名称：用于 Google Firebase 性能监控的 Flutter 插件，这是一个应用程序测量解决方案，可监控 Android 和 iOS 上的跟踪和 HTTP/S 网络请求。
   # 来源：https://pub.dev/packages/firebase_performance
   # GitHub：https://github.com/FirebaseExtended/flutterfire/tree/master/packages/firebase_performance
   # 说明： https://firebase.google.com/docs/perf-mon/get-started-ios
@@ -92,12 +92,20 @@ dependencies:
   firebase_performance: ^0.4.3
 
   # ===============================================================================
-  # 名称： Flutter plugin for Firebase Crashlytics. It reports uncaught errors to the Firebase console.
+  # 名称：Flutter plugin for Firebase Crashlytics. It reports uncaught errors to the Firebase console.
   # 来源：https://pub.dev/packages/firebase_crashlytics
   # GitHub：https://github.com/FirebaseExtended/flutterfire/tree/master/packages/firebase_crashlytics
   # 说明：https://firebase.google.com/docs/crashlytics/
   # ===============================================================================
   firebase_crashlytics: ^0.2.4
+
+  # ===============================================================================
+  # 名称：Flutter plugin for Google Analytics for Firebase, an app measurement solution that provides insight on app usage and user engagement on Android and iOS.
+  # 来源：https://pub.dev/packages/firebase_analytics
+  # GitHub：https://github.com/FirebaseExtended/flutterfire/tree/master/packages/firebase_analytics/firebase_analytics
+  # 说明：https://firebase.google.com/docs/analytics/
+  # ===============================================================================
+  firebase_analytics: ^6.3.0
 
 dev_dependencies:
   flutter_test:
