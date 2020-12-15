@@ -1,4 +1,4 @@
-package com.octmon.flutter_easy_example
+package com.octmon.flutterEasyExample
 
 import io.flutter.embedding.android.FlutterActivity
 
