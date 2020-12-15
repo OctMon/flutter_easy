@@ -131,13 +131,16 @@ Future<Result> requestAPI(
     result = await session.request(path,
         data: data, queryParameters: queryParameters, options: options);
     metric
-      // ..responsePayloadSize = int.tryParse(
-      //         result.response.headers.value(Headers.contentLengthHeader) ?? "0") ??
-      //     0
+      ..responsePayloadSize = int.tryParse(
+              result.response.headers.value(Headers.contentLengthHeader) ??
+                  "") ??
+          0
       ..responseContentType =
           result.response.headers.value(Headers.contentTypeHeader)
-      // ..requestPayloadSize =
-      //     result.response.request.headers[Headers.contentLengthHeader]
+      ..requestPayloadSize = int.tryParse(
+              result.response.request.headers[Headers.contentLengthHeader] ??
+                  "") ??
+          0
       ..httpResponseCode = result.response.statusCode;
   } finally {
     await metric.stop();
