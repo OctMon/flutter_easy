@@ -200,6 +200,7 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
 class BaseApp extends StatelessWidget {
   final String title;
   final Widget home;
+  final List<NavigatorObserver> navigatorObservers;
   final RouteFactory onGenerateRoute;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final Iterable<Locale> supportedLocales;
@@ -209,6 +210,7 @@ class BaseApp extends StatelessWidget {
   BaseApp({
     this.title,
     this.home,
+    this.navigatorObservers = const <NavigatorObserver>[],
     this.onGenerateRoute,
     this.localizationsDelegates,
     this.supportedLocales = const <Locale>[Locale('en', 'US')],
@@ -241,6 +243,7 @@ class BaseApp extends StatelessWidget {
           ),
           home: home,
           debugShowCheckedModeBanner: false,
+          navigatorObservers: navigatorObservers,
           onGenerateRoute: onGenerateRoute,
           localizationsDelegates: localizationsDelegates,
           supportedLocales: supportedLocales,
