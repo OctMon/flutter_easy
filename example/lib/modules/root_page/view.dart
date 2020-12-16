@@ -8,6 +8,34 @@ import 'action.dart';
 import 'state.dart';
 
 Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
+  AdaptUtil.initContext(viewService.context);
+
+  if (state.countDown > 0) {
+    String url =
+        "https://picsum.photos/${(screenWidthDp * screenDevicePixelRatio).round()}/${(screenHeightDp * screenDevicePixelRatio).round()}";
+    return Stack(
+      children: [
+        BaseLaunchRemote(
+          keepLogo: false,
+          url: url,
+          onTap: () {
+            showToast(url);
+          },
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: BaseButton(
+            padding: EdgeInsets.only(top: 35, right: 20),
+            child: Text('skip(${state.countDown ?? ''})'),
+            onPressed: () {
+              state.timer.cancel();
+              dispatch(RootActionCreator.updateCountdown(0));
+            },
+          ),
+        ),
+      ],
+    );
+  }
   final List<String> titles = [
     S.of(viewService.context).home,
     S.of(viewService.context).example,
@@ -21,8 +49,6 @@ Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
     Routes.routes.buildPage(Routes.example, null),
     Routes.routes.buildPage(Routes.account, null),
   ];
-
-  AdaptUtil.initContext(viewService.context);
 
   return Scaffold(
     backgroundColor: colorWithScaffoldBackground,

@@ -80,6 +80,9 @@ double screenToolbarHeightDp = 44;
 /// 底部安全区距离 dp
 double screenBottomBarHeightDp = AdaptUtil.screenBottomBarHeightDp();
 
+/// The number of device pixels for each logical pixe
+double screenDevicePixelRatio = AdaptUtil.devicePixelRatio();
+
 bool isIPhoneX = screenBottomBarHeightDp > 0;
 
 bool _noAdapt =
