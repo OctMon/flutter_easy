@@ -1,3 +1,8 @@
+## 1.2.1
+
+* upgrade sdk >=2.6.0
+* add extensions.
+
 ## 1.1.0
 
 * add appDebugFlag.
