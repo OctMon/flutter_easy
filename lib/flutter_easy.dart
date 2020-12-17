@@ -19,8 +19,7 @@ export 'utils/package_info_util.dart';
 export 'utils/picker_util.dart';
 export 'utils/locale_util.dart';
 
-export 'utils/extension/num_extensions.dart';
-export 'utils/extension/duration_extensions.dart';
+export 'utils/extension/export.dart';
 
 export 'routes/routes.dart';
 

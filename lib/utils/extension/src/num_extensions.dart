@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../adapt_util.dart';
+import '../../adapt_util.dart';
 import 'duration_extensions.dart';
 
 extension NumExtensions on num {
