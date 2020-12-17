@@ -11,7 +11,7 @@ void main() {
     initView: initView,
     appBaseURLChangedCallback: () {
       showToast("current: $kBaseURLType");
-      Future.delayed(Duration(seconds: 1), () {
+      1.delay(() {
         main();
       });
     },

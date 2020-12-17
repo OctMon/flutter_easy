@@ -26,7 +26,7 @@ void startCountdownTimer(Action action, Context<RootState> ctx) {
     }
   };
 
-  ctx.state.timer = Timer.periodic(const Duration(seconds: 1), callback);
+  ctx.state.timer = Timer.periodic(1.seconds, callback);
 }
 
 void _dispose(Action action, Context<RootState> ctx) {
