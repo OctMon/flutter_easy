@@ -223,6 +223,7 @@ class BaseApp extends StatelessWidget {
     Widget _buildBannerUrlType({@required Widget child}) {
       if (isAppDebugFlag) {
         return Banner(
+          color: Colors.deepPurple,
           message:
               "${kBaseURLType == BaseURLType.release ? "Release" : "Test"}",
           location: BannerLocation.topEnd,
@@ -242,7 +243,6 @@ class BaseApp extends StatelessWidget {
             splashColor: Colors.transparent,
           ),
           home: home,
-          debugShowCheckedModeBanner: false,
           navigatorObservers: navigatorObservers,
           onGenerateRoute: onGenerateRoute,
           localizationsDelegates: localizationsDelegates,
