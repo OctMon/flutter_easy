@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart' hide isDebug;
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/main.dart';
 
 import 'state.dart';
 
@@ -91,6 +90,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
               buildTableRow(code: "isIPhoneX", value: "$isIPhoneX"),
               buildTableRowTop(code: "adapt", value: "value"),
               buildTableRow(code: "adaptDp(1)", value: "${adaptDp(1)}"),
+              buildTableRow(code: "100.adaptRatio", value: "${100.adaptRatio}"),
               buildTableRow(code: "adaptPx(2)", value: "${adaptPx(2)}"),
               buildTableRow(code: "adaptOnePx()", value: "${adaptOnePx()}"),
               buildTableRow(code: "screenWidthDp", value: "$screenWidthDp"),
@@ -104,10 +104,14 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
               buildTableRow(
                   code: "screenBottomBarHeightDp",
                   value: "$screenBottomBarHeightDp"),
-              buildTableRowTop(code: "valid", value: "value"),
+              buildTableRowTop(code: "extensions", value: "value"),
               buildTableRow(
-                  code: "validIsPhone(\"13012345678\")",
-                  value: "${validIsPhone("13012345678")}"),
+                  code: "\"13012345678\".isPhoneNumber",
+                  value: "${"13012345678".isPhoneNumber}"),
+              buildTableRow(
+                  code: "\"\".isEmptyOrNull", value: "${"".isEmptyOrNull}"),
+              buildTableRow(
+                  code: "\"OctMon\".md5", value: "${"OctMon".md5}"),
               buildTableRowTop(code: "other", value: "value"),
               buildTableRow(code: "webUserAgent", value: "$webUserAgent"),
               buildTableRow(code: "randomInt(100)", value: '${randomInt(100)}'),

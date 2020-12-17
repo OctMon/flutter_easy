@@ -12,7 +12,6 @@ export 'src/color_util.dart';
 export 'src/adapt_util.dart';
 export 'src/logger_util.dart';
 export 'src/network_util.dart';
-export 'src/valid_util.dart';
 export 'src/package_info_util.dart';
 export 'src/picker_util.dart';
 export 'src/locale_util.dart';

@@ -22,7 +22,7 @@ Future<void> _onLoginPressed(Action action, Context<LoginState> ctx) async {
     return;
   }
 
-  if (!validIsPhone(phone)) {
+  if (!phone.isPhoneNumber) {
     showToast(S.of(ctx.context).example_ValidPhoneNumberTip);
     return;
   }

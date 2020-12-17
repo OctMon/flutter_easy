@@ -15,7 +15,7 @@ export 'package:session/session.dart';
 enum BaseURLType { test, release }
 
 /// 存储当前环境的key
-String _baseURLTypeKey = md5("$BaseURLType");
+String _baseURLTypeKey = "$BaseURLType".md5;
 
 /// 当前环境
 String _baseURLTypeString;
