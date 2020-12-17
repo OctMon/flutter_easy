@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_easy/components/base.dart';
+import 'package:flutter_easy/components/src/base.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 Future<DateTime> showModalPopupDatePicker(BuildContext context,

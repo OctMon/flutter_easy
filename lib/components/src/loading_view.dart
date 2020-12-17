@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy/components/base.dart';
-import 'package:flutter_easy/components/base_animation_image.dart';
-import 'package:flutter_easy/utils/color_util.dart';
 
-import 'base_animation_image.dart';
+import 'package:flutter_easy/components/export.dart';
+import 'package:flutter_easy/flutter_easy.dart';
 
 class LoadingView extends StatelessWidget {
   final String message;

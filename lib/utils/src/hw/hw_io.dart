@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_windows/shared_preferences_windows.dart';
 
-import '../global_util.dart';
+import 'package:flutter_easy/flutter_easy.dart';
 
 String get webUserAgent => "";
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy/components/base.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-
-import '../utils/color_util.dart';
+import 'package:flutter_easy/flutter_easy.dart';
 
 export 'package:flutter_easyrefresh/easy_refresh.dart'
     show EasyRefreshController;

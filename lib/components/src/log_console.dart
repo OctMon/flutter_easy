@@ -1,11 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_easy/utils/global_util.dart';
-import 'package:flutter_easy/utils/network_util.dart';
-import 'package:flutter_easy/utils/toast_util.dart';
+import 'package:flutter_easy/flutter_easy.dart';
 import 'package:logger/logger.dart';
-import 'package:flutter_easy/utils/logger_util.dart';
 
 bool _initialized = false;
 ValueChanged _outputEvent;

@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import '../../adapt_util.dart';
+import 'package:flutter_easy/flutter_easy.dart';
+
 import 'duration_extensions.dart';
 
 extension NumExtensions on num {

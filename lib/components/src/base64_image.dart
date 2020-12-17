@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easy/utils/export.dart';
 
-import 'package:flutter_easy/utils/crypto_util.dart';
 
 class Base64Image extends StatelessWidget {
   ///

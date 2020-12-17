@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../components/base_animation_image.dart';
-import '../components/loading_view.dart';
+import 'package:flutter_easy/components/export.dart';
 
 bool _loadingStatus = false;
 

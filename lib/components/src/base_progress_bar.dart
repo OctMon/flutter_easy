@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy/utils/adapt_util.dart';
 
 final _kDeafultWidth = adaptDp(80);
 final _kDeafultHeight = adaptDp(15);

@@ -1,5 +1,6 @@
-import '../components/base.dart';
-import '../utils/lunar/lunar_solar_converter.dart';
+import 'package:flutter_easy/flutter_easy.dart';
+
+import 'lunar/lunar_solar_converter.dart';
 
 /// 获取当前时间戳
 int timestampNow() => timestampBy(DateTime.now());

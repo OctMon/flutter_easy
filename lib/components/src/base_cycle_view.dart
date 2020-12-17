@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+
+import 'package:flutter_easy/utils/export.dart';
+import 'web_image.dart';
 
 class BaseBannerView extends StatelessWidget {
   final List<String> urls;

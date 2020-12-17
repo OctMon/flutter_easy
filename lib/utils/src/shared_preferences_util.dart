@@ -1,6 +1,5 @@
-import 'package:flutter_easy/utils/global_util.dart';
-
 import 'hw/hw_mp.dart';
+import 'global_util.dart';
 
 class SharedPreferencesUtil {
   SharedPreferencesUtil._();

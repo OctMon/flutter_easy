@@ -1,5 +1,6 @@
 import 'package:package_info/package_info.dart';
-import 'package:flutter_easy/utils/global_util.dart';
+
+import 'global_util.dart';
 
 String _appName;
 String _appPackageName;
