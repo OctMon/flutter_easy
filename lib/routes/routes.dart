@@ -8,6 +8,8 @@ String routesLoginNamed = 'login';
 /// 指定登录状态
 bool Function() routesIsLogin;
 
+GlobalKey<NavigatorState> navigatorGlobalKey = GlobalKey();
+
 ///
 /// 路由跳转封装pushNamed
 ///

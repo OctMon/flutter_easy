@@ -236,6 +236,7 @@ class BaseApp extends StatelessWidget {
     return OKToast(
       child: _buildBannerUrlType(
         child: MaterialApp(
+          navigatorKey: navigatorGlobalKey,
           title: title ?? "",
           theme: ThemeData(
             platform: TargetPlatform.iOS,
