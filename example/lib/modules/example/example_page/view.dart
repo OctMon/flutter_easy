@@ -5,6 +5,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/components/global/global_list_cell.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:flutter_easy_example/routes.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 // import 'action.dart';
 import 'state.dart';
@@ -67,25 +68,129 @@ Widget buildView(
                                           item: BaseKeyValue(
                                               key: "first",
                                               value: "",
-                                              extend: Icons.flag),
+                                              extend: Icons.login),
                                         ),
                                         BaseDivider(),
                                         GlobalListCell(
                                           item: BaseKeyValue(
-                                              key: "second",
+                                              key: "Flags",
                                               value: "",
-                                              extend: Icons.login),
+                                              extend: Icons.flag),
                                           onPressed: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) {
+                                              List<MapEntry<String, String>>
+                                                  locales =
+                                                  LocaleNamesLocalizationsDelegate
+                                                      .nativeLocaleNames.entries
+                                                      .toList();
                                               return BaseScaffold(
                                                 appBar: BaseAppBar(
                                                   brightness: Brightness.light,
-                                                  title: BaseText("title"),
+                                                  title: BaseText("Flags"),
                                                 ),
-                                                body: Center(
-                                                    child: BaseText("body")),
+                                                body: ListView.separated(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  itemCount: locales.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    MapEntry locale =
+                                                        locales[index];
+                                                    final String localeString =
+                                                        LocaleNames.of(context)
+                                                            .nameOf(locale.key);
+                                                    return BaseButton(
+                                                      padding: EdgeInsets.zero,
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            width:
+                                                                50.adaptRatio,
+                                                            height:
+                                                                50.adaptRatio,
+                                                            child: WebImage(
+                                                              "https://flagpedia.net/data/flags/h160/${(locale.key as String).split("_").last.toLowerCase()}.webp",
+                                                              placeholder:
+                                                                  SizedBox(),
+                                                            ),
+                                                          ),
+                                                          SizedBox(width: 8.0),
+                                                          Flexible(
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                BaseTitle(
+                                                                  '${locale.key}🌍${locale.value}',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                                BaseTitle(
+                                                                    localeString),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      onPressed: () {
+                                                        showBaseDialog(
+                                                            barrierDismissible:
+                                                                true,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return BaseAlertDialog(
+                                                                margin:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                contentPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                titlePadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                actionPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                title:
+                                                                    SizedBox(),
+                                                                content:
+                                                                    GestureDetector(
+                                                                  onTap: () {
+                                                                    pop(context);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    child:
+                                                                        RotatedBox(
+                                                                      quarterTurns:
+                                                                          1,
+                                                                      child:
+                                                                          WebImage(
+                                                                        "https://flagpedia.net/data/flags/w1160/${(locale.key as String).split("_").last.toLowerCase()}.webp",
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            });
+                                                      },
+                                                    );
+                                                    // String countryCode = locales;
+                                                    // return WebImage("https://flagpedia.net/data/flags/normal/${countryCode?.toLowerCase()??''}.png");
+                                                  },
+                                                  separatorBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return BaseDivider();
+                                                  },
+                                                ),
                                               );
                                             }));
                                           },
