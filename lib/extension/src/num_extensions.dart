@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'duration_extensions.dart';
@@ -39,4 +40,8 @@ extension NumExtensions on num {
   /// print('🎉 currently running callback');
   ///```
   Future delay([FutureOr callback()]) async => this.seconds.delay(callback);
+}
+
+extension IntExtensions on int {
+  Color get hexColor => Color(this);
 }
