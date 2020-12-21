@@ -109,6 +109,9 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
                   code: "\"13012345678\".isPhoneNumber",
                   value: "${"13012345678".isPhoneNumber}"),
               buildTableRow(
+                  code: "\"octmon#qq.com\".isEmail",
+                  value: "${"octmon#qq.com".isEmail}"),
+              buildTableRow(
                   code: "\"\".isEmptyOrNull", value: "${"".isEmptyOrNull}"),
               buildTableRow(
                   code: "\"OctMon\".md5", value: "${"OctMon".md5}"),

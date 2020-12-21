@@ -18,12 +18,15 @@ extension StringExtensions on String {
   }
 
   /// 验证手机号码
-  bool get isPhoneNumber {
-    if (this.length == 11) {
-      if (RegExp("^(1[3-9][0-9])\\d{8}\$").hasMatch(this)) {
-        return true;
-      }
-    }
-    return false;
+  bool get isPhoneNumber =>
+      hasMatch("^(1[3-9][0-9])\\d{8}\$") && this.length == 11;
+
+  /// 验证邮箱
+  bool get isEmail => hasMatch(
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+
+  /// RegExp Match pattern
+  bool hasMatch(String pattern) {
+    return (this == null) ? false : RegExp(pattern).hasMatch(this);
   }
 }
