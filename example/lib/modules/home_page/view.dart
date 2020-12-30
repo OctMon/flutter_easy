@@ -109,6 +109,15 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
                   code: "\"13012345678\".isPhoneNumber",
                   value: "${"13012345678".isPhoneNumber}"),
               buildTableRow(
+                  code: "\"110101199003071276\".isIdentityCard",
+                  value: "${"110101199003071276".isIdentityCard}"),
+              buildTableRow(
+                  code: "\"150102201203072197\".isIdentityCard",
+                  value: "${"150102201203072197".getAgeFromIdentityCard}"),
+              buildTableRow(
+                  code: "\"110101193703074649\".isIdentityCard",
+                  value: "${"110101193703074649".getSexFromIdentityCard}"),
+              buildTableRow(
                   code: "\"octmon#qq.com\".isEmail",
                   value: "${"octmon#qq.com".isEmail}"),
               buildTableRow(
