@@ -10,7 +10,7 @@ import 'state.dart';
 Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
   AdaptUtil.initContext(viewService.context);
 
-  if (state.countDown > 0) {
+  if (state.countDown.isEmptyOrNull || state.countDown > 0) {
     String url =
         "https://picsum.photos/${(screenWidthDp * screenDevicePixelRatio).round()}/${(screenHeightDp * screenDevicePixelRatio).round()}";
     return Stack(
@@ -22,15 +22,19 @@ Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
             showToast(url);
           },
         ),
-        Align(
-          alignment: Alignment.topRight,
-          child: BaseButton(
-            padding: EdgeInsets.only(top: 35, right: 20),
-            child: Text('skip(${state.countDown ?? ''})'),
-            onPressed: () {
-              state.timer.cancel();
-              dispatch(RootActionCreator.updateCountdown(0));
-            },
+        Visibility(
+          visible: !state.countDown.isEmptyOrNull,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: BaseButton(
+              padding: EdgeInsets.only(top: 35, right: 20),
+              child: Text(
+                  '${state.timer?.isActive}: skip(${state.countDown ?? ''})'),
+              onPressed: () {
+                dispatch(RootActionCreator.updateCountdown(0));
+                state.timer.cancel();
+              },
+            ),
           ),
         ),
       ],

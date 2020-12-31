@@ -17,16 +17,16 @@ Effect<RootState> buildEffect() {
 
 void startCountdownTimer(Action action, Context<RootState> ctx) {
   int count = randomInt(5) + 3;
-  ctx.dispatch(RootActionCreator.updateCountdown(count));
-
-  var callback = (timer) {
-    ctx.dispatch(RootActionCreator.updateCountdown(--count));
-    if (count < 1) {
-      timer?.cancel();
-    }
+  var callback = (current) {
+    ctx.dispatch(RootActionCreator.updateCountdown(
+        current ~/ Duration.millisecondsPerSecond));
   };
 
-  ctx.state.timer = Timer.periodic(1.seconds, callback);
+  ctx.state.timer = TimerUtil(
+      totalTime: count * Duration.millisecondsPerSecond, callback: callback);
+  2.seconds.delay(() {
+    ctx.state.timer.run();
+  });
 }
 
 void _dispose(Action action, Context<RootState> ctx) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter_easy/flutter_easy.dart';
 
 class RootState implements Cloneable<RootState> {
   /// 当前下标
@@ -9,7 +10,8 @@ class RootState implements Cloneable<RootState> {
   /// 闪屏页倒计时
   int countDown;
 
-  Timer timer;
+  /// 计时器⌛️
+  TimerUtil timer;
 
   @override
   RootState clone() {
