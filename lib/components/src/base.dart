@@ -118,22 +118,27 @@ class BaseKeyValue {
   }
 }
 
+/// 可切环境、查看日志 additional arguments:
+/// --dart-define=app-debug-flag=true
+/// flutter run --release --dart-define=app-debug-flag=true
 createEasyApp(
     {String appName = "",
     String appPackageName = "",
     String appVersion = "",
     String appBuildNumber = "",
     bool usePackage = true,
-    bool appDebugFlag = false,
     VoidCallback appBaseURLChangedCallback,
     sharedPreferencesWebInstance,
     Widget initView,
     Future<void> Function() initCallback,
     @required VoidCallback completionCallback}) {
-  if (appDebugFlag) {
+  /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
+  const appDebugFlag = const bool.fromEnvironment("app-debug-flag");
+  isAppDebugFlag = appDebugFlag;
+
+  if (isAppDebugFlag) {
     LogConsole.init();
   }
-  isAppDebugFlag = appDebugFlag;
   baseURLChangedCallback = appBaseURLChangedCallback;
   void callback() {
     if (initCallback != null) {
