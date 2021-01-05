@@ -203,6 +203,7 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
 class BaseApp extends StatelessWidget {
   final String title;
   final Widget home;
+  final TransitionBuilder builder;
   final List<NavigatorObserver> navigatorObservers;
   final RouteFactory onGenerateRoute;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
@@ -213,6 +214,7 @@ class BaseApp extends StatelessWidget {
   BaseApp({
     this.title,
     this.home,
+    this.builder,
     this.navigatorObservers = const <NavigatorObserver>[],
     this.onGenerateRoute,
     this.localizationsDelegates,
@@ -247,6 +249,16 @@ class BaseApp extends StatelessWidget {
             splashColor: Colors.transparent,
           ),
           home: home,
+          builder: builder ??
+              (context, child) => Scaffold(
+                    // Global GestureDetector that will dismiss the keyboard
+                    body: GestureDetector(
+                      onTap: () {
+                        hideKeyboard(context);
+                      },
+                      child: child,
+                    ),
+                  ),
           navigatorObservers: navigatorObservers,
           onGenerateRoute: onGenerateRoute,
           localizationsDelegates: localizationsDelegates,
