@@ -182,7 +182,7 @@ createEasyApp(
 /// 默认返回按钮的样式
 /// initAppBarLeading = Icons.arrow_back;
 /// or
-//  initAppBarLeading = assetsImagesPath("icon_arrow_back");
+/// initAppBarLeading = assetsImagesPath("icon_arrow_back");
 dynamic initAppBarLeading;
 
 abstract class PlatformWidget<M extends Widget, C extends Widget>
