@@ -280,8 +280,12 @@ class DebugPage extends StatefulWidget {
   _DebugPageState createState() => _DebugPageState();
 }
 
+const double _kMenuSize = 40;
+
 class _DebugPageState extends State<DebugPage> {
   bool _flag = false;
+
+  Offset _offset = Offset(0, 200);
 
   @override
   Widget build(BuildContext context) {
@@ -295,21 +299,76 @@ class _DebugPageState extends State<DebugPage> {
               )
             : SizedBox(),
         Positioned(
-          bottom: 200,
-          child: BaseButton(
-            child: Icon(
-              _flag ? Icons.clear : Icons.connect_without_contact,
-              color: colorWithTint.withOpacity(0.4),
+          left: _offset.dx,
+          top: _offset.dy,
+          child: Opacity(
+            opacity: 0.6,
+            child: Container(
+              width: _kMenuSize,
+              height: _kMenuSize,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: colorWithTint,
+                borderRadius: BorderRadius.circular(_kMenuSize / 2),
+              ),
+              child: GestureDetector(
+                onPanEnd: _onPanEnd,
+                onPanUpdate: _onPanUpdate,
+                child: BaseButton(
+                  padding: EdgeInsets.zero,
+                  child: Icon(
+                    _flag ? Icons.clear : Icons.connect_without_contact,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _flag = !_flag;
+                    });
+                  },
+                ),
+              ),
             ),
-            onPressed: () {
-              setState(() {
-                _flag = !_flag;
-              });
-            },
           ),
         ),
       ],
     );
+  }
+
+  void _onPanUpdate(DragUpdateDetails details) {
+    final double circleRadius = _kMenuSize / 2;
+    double y = details.globalPosition.dy - circleRadius;
+    double x = details.globalPosition.dx - circleRadius;
+    if (x < _kMenuSize / 2 - circleRadius) {
+      x = _kMenuSize / 2 - circleRadius;
+    }
+
+    if (y < _kMenuSize / 2 - circleRadius) {
+      y = _kMenuSize / 2 - circleRadius;
+    }
+
+    if (x > screenWidthDp - _kMenuSize / 2 - circleRadius) {
+      x = screenWidthDp - _kMenuSize / 2 - circleRadius;
+    }
+
+    if (y > screenHeightDp - _kMenuSize / 2 - circleRadius) {
+      y = screenHeightDp - _kMenuSize / 2 - circleRadius;
+    }
+    setState(() {
+      _offset = Offset(x, y);
+    });
+  }
+
+  void _onPanEnd(DragEndDetails details) {
+    double px;
+    final double circleRadius = _kMenuSize / 2;
+    if (_offset.dx < screenWidthDp / 2 - circleRadius) {
+      px = 0; //begin + (end - begin) * t;
+    } else {
+      px = screenWidthDp - _kMenuSize; //begin + (end - begin) * t;
+    }
+    setState(() {
+      _offset = Offset(px, _offset.dy);
+    });
   }
 }
 
