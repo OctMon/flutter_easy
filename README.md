@@ -2,6 +2,11 @@
 
 # flutter_easy
 
+![pub](https://img.shields.io/pub/v/flutter_easy.svg)
+![flutter](https://img.shields.io/badge/flutter-Android%7CiOS%7CWeb%7CWindows%7CMac-blue.svg)
+![license](https://img.shields.io/badge/license-MIT-green.svg)
+![build](https://github.com/OctMon/flutter_easy/workflows/build/badge.svg)
+
 A common Flutter package.
 
 ## Getting Started
