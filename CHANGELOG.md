@@ -1,3 +1,9 @@
+## 1.2.3
+
+* upgrade dependencies.
+* auto hideKeyboard.
+* support --dart-define=app-debug-flag=true
+
 ## 1.2.1
 
 * upgrade sdk >=2.6.0
