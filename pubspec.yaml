@@ -88,9 +88,9 @@ dependencies:
   # pub: https://pub.dartlang.org/packages/cached_network_image
   # git: https://github.com/renefloor/flutter_cached_network_image
   # ———————————————————————————————————————————————————————————————————————————————
-  cached_network_image: ^2.4.1
-  flutter_cache_manager: ^2.0.0
-  path_provider: ^1.6.24
+  cached_network_image: ^2.5.0
+  flutter_cache_manager: ^2.1.0
+  path_provider: ^1.6.27
   path: ^1.7.0
   # ===============================================================================
 
@@ -99,7 +99,7 @@ dependencies:
   # pub: https://pub.dev/packages/flutter_easyrefresh
   # git: https://github.com/xuelongqy/flutter_easyrefresh
   # ———————————————————————————————————————————————————————————————————————————————
-  flutter_easyrefresh: ^2.1.7
+  flutter_easyrefresh: ^2.1.8
   # ===============================================================================
 
   # ===============================================================================
