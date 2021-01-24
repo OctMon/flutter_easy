@@ -152,7 +152,7 @@ Future<Result> requestAPI(
       showLoading(context);
       alreadyShowLoading = true;
     } catch (e) {
-//      log('showLoading(); error:', e.toString());
+      logError('showLoading(); error:', e.toString());
     }
   }
   Session session = Session(

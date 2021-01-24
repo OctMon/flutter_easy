@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter_easy_example/routes.dart';
+import 'package:flutter_easy_example/store/user_store/store.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/components/global/global_list_cell.dart';
@@ -57,6 +59,18 @@ Widget buildView(
               ),
             ),
           ),
+          actions: UserStore.store.getState().isLogin
+              ? [
+                  BaseButton(
+                    child: Icon(Icons.exit_to_app),
+                    onPressed: () async {
+                      await UserStore.clean();
+                      pushNamedAndRemoveUntil(viewService.context, Routes.root,
+                          predicate: ModalRoute.withName(""));
+                    },
+                  ),
+                ]
+              : null,
         ),
         SliverList(
           delegate: SliverChildListDelegate([

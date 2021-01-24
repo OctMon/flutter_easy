@@ -18,6 +18,7 @@ Future<void> initApp() async {
   // 获取登录状态
   routesIsLogin = () => UserStore.store.getState().isLogin;
 
+  // 初始化Api
   configApi(null);
 
   // 加载手动配置的locale
