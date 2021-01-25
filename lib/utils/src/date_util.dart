@@ -13,28 +13,28 @@ int timestampBy(DateTime dateTime) => dateTime.millisecondsSinceEpoch ~/ 1000;
 String timestampToNormal_yyyy_MM_dd_HH_mm_ss(int timestamp,
     {bool isUtc = false}) {
   DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
-  return '${dateTime.year}-${_fixedZero2(dateTime.month)}-${_fixedZero2(dateTime.day)} ${_fixedZero2(dateTime.hour)}:${_fixedZero2(dateTime.minute)}:${_fixedZero2(dateTime.second)}';
+  return '${dateTime.year}-${twoDigits(dateTime.month)}-${twoDigits(dateTime.day)} ${twoDigits(dateTime.hour)}:${twoDigits(dateTime.minute)}:${twoDigits(dateTime.second)}';
 }
 
 /// 时间戳转yyyy-MM-dd
 // ignore: non_constant_identifier_names
 String timestampToNormal_yyyy_MM_dd(int timestamp, {bool isUtc = false}) {
   DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
-  return '${dateTime.year}-${_fixedZero2(dateTime.month)}-${_fixedZero2(dateTime.day)}';
+  return '${dateTime.year}-${twoDigits(dateTime.month)}-${twoDigits(dateTime.day)}';
 }
 
 /// 时间戳转yyyy年MM月dd日 HH时mm分ss秒
 // ignore: non_constant_identifier_names
 String timestampToZh_yyyy_MM_dd_HH_mm_ss(int timestamp, {bool isUtc = false}) {
   DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
-  return '${dateTime.year}年${_fixedZero2(dateTime.month)}月${_fixedZero2(dateTime.day)}日 ${_fixedZero2(dateTime.hour)}时${_fixedZero2(dateTime.minute)}分${_fixedZero2(dateTime.second)}秒';
+  return '${dateTime.year}年${twoDigits(dateTime.month)}月${twoDigits(dateTime.day)}日 ${twoDigits(dateTime.hour)}时${twoDigits(dateTime.minute)}分${twoDigits(dateTime.second)}秒';
 }
 
 /// 时间戳转yyyy年MM月dd日 HH时mm分
 // ignore: non_constant_identifier_names
 String timestampToZh_yyyy_MM_dd_HH_mm(int timestamp, {bool isUtc = false}) {
   DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
-  return '${dateTime.year}年${_fixedZero2(dateTime.month)}月${_fixedZero2(dateTime.day)}日 ${_fixedZero2(dateTime.hour)}时${_fixedZero2(dateTime.minute)}分';
+  return '${dateTime.year}年${twoDigits(dateTime.month)}月${twoDigits(dateTime.day)}日 ${twoDigits(dateTime.hour)}时${twoDigits(dateTime.minute)}分';
 }
 
 /// 时间戳转HH:mm
@@ -42,21 +42,21 @@ String timestampToZh_yyyy_MM_dd_HH_mm(int timestamp, {bool isUtc = false}) {
 String timestampTo_HH_mm(int timestamp,
     {String unit = ':', bool isUtc = false}) {
   DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
-  return '${_fixedZero2(dateTime.hour)}:${_fixedZero2(dateTime.minute)}';
+  return '${twoDigits(dateTime.hour)}:${twoDigits(dateTime.minute)}';
 }
 
 /// 时间戳转yyyy年MM月dd日
 // ignore: non_constant_identifier_names
 String timestampToZh_yyyy_MM_dd(int timestamp, {bool isUtc = false}) {
   DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
-  return '${dateTime.year}年${_fixedZero2(dateTime.month)}月${_fixedZero2(dateTime.day)}日';
+  return '${dateTime.year}年${twoDigits(dateTime.month)}月${twoDigits(dateTime.day)}日';
 }
 
 /// 时间戳转yyyy年MM月
 // ignore: non_constant_identifier_names
 String timestampToZh_yyyy_MM(int timestamp, {bool isUtc = false}) {
   DateTime dateTime = timestampToDateTime(timestamp, isUtc: isUtc);
-  return '${dateTime.year}年${_fixedZero2(dateTime.month)}月';
+  return '${dateTime.year}年${twoDigits(dateTime.month)}月';
 }
 
 /// 时间戳转DateTime
@@ -64,7 +64,10 @@ DateTime timestampToDateTime(int timestamp, {bool isUtc = false}) =>
     DateTime.fromMillisecondsSinceEpoch(timestamp * 1000, isUtc: isUtc);
 
 /// 不足两位前面补0
-String _fixedZero2(int digits) => '$digits'.padLeft(2, '0');
+String twoDigits(int n) {
+  if (n >= 10) return "$n";
+  return "0$n";
+}
 
 /// 公历转农历
 Lunar lunarSolarConverter(DateTime date) {

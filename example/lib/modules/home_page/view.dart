@@ -73,6 +73,10 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
               buildTableRow(code: "appPackageName", value: appPackageName),
               buildTableRow(code: "appBuildNumber", value: appBuildNumber),
               buildTableRow(code: "appVersion", value: appVersion),
+              buildTableRow(
+                  code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
+                  value:
+                      "${timestampToNormal_yyyy_MM_dd_HH_mm_ss(timestampNow())}"),
               buildTableRowTop(code: "is", value: "value"),
               buildTableRow(code: "isProduction", value: "$isProduction"),
               buildTableRow(code: "isDebug", value: "$isDebug"),
@@ -122,8 +126,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
                   value: "${"octmon#qq.com".isEmail}"),
               buildTableRow(
                   code: "\"\".isEmptyOrNull", value: "${"".isEmptyOrNull}"),
-              buildTableRow(
-                  code: "\"OctMon\".md5", value: "${"OctMon".md5}"),
+              buildTableRow(code: "\"OctMon\".md5", value: "${"OctMon".md5}"),
               buildTableRowTop(code: "other", value: "value"),
               buildTableRow(code: "webUserAgent", value: "$webUserAgent"),
               buildTableRow(code: "randomInt(100)", value: '${randomInt(100)}'),
