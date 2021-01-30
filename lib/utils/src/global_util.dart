@@ -69,9 +69,13 @@ Future<String> getClipboard() =>
 const kPathIcons = "icons/";
 const kPathOthers = "others/";
 
-/// 获取图片路径
+/// 获取图片路径后缀wep
 String assetsImagesPathWebP(String name) =>
     assetsImagesPath(name, format: 'webp');
+
+/// 获取图片路径后缀svg
+String assetsImagesPathSvg(String name) =>
+    assetsImagesPath(name, format: 'svg');
 
 /// 获取图片路径
 String assetsImagesPath(String name, {String format = "png"}) =>
