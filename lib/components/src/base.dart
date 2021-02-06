@@ -929,6 +929,7 @@ class BaseGradientButton extends StatelessWidget {
         width: width,
         height: height,
         child: FlatButton(
+          padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius)),
           splashColor: Colors.transparent,
