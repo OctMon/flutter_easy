@@ -98,10 +98,10 @@ class TuChongModel {
     tuChongModelBean.content = map['content'];
     tuChongModelBean.title = map['title'];
     tuChongModelBean.imageCount = map['image_count'];
-    tuChongModelBean.images = List()
+    tuChongModelBean.images = []
       ..addAll((map['images'] as List ?? []).map((o) => ImagesBean.fromMap(o)));
     tuChongModelBean.titleImage = map['title_image'];
-    tuChongModelBean.tags = List()
+    tuChongModelBean.tags = []
       ..addAll((map['tags'] as List ?? []).map((o) => o.toString()));
     tuChongModelBean.favoriteListPrefix = map['favorite_list_prefix'];
     tuChongModelBean.rewardListPrefix = map['reward_list_prefix'];

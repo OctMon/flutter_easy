@@ -82,7 +82,7 @@ Future<String> calcTemporaryDirectoryCacheSize() async {
     if (null == value) {
       return 0;
     }
-    List<String> unitArr = List()..add('B')..add('K')..add('M')..add('G');
+    List<String> unitArr = []..add('B')..add('K')..add('M')..add('G');
     int index = 0;
     while (value > 1024) {
       index++;

@@ -37,7 +37,7 @@ dependencies:
   # Fish Redux 的灵感主要来自于 Redux， Elm， Dva 这样的优秀框架。
   # 而 Fish Redux 站在巨人的肩膀上，将集中，分治，复用，隔离做的更进一步。
   # ===============================================================================
-  fish_redux: ^0.3.4
+  fish_redux: ^0.3.6
 
   # ===============================================================================
   # 名称：支持多列和不同大小的行的交错网格视图。
@@ -81,7 +81,7 @@ dependencies:
   # GitHub：https://github.com/guidezpl/flutter-localized-locales
   # 说明： Flutter plugin which provides locale code to name mappings for 563 locales.
   # ===============================================================================
-  flutter_localized_locales: ^1.1.2
+  flutter_localized_locales: ^2.0.1
 
 dev_dependencies:
   flutter_test:
