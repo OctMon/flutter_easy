@@ -1,3 +1,8 @@
+## 2.0.0
+
+* upgrade dependencies.
+* upgrade dart sdk >=2.12.0
+
 ## 1.2.3
 
 * upgrade dependencies.

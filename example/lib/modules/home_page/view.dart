@@ -215,6 +215,19 @@ flutter: ├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄�
 flutter: │ 👾 What a terrible failure log
 flutter: └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
                 """),
+          BaseBackgroundButton(
+            title: BaseTitle(
+              "BaseBackgroundButton",
+            ),
+            onPressed: () {},
+          ),
+          SizedBox(height: 15),
+          BaseGradientButton(
+            title: BaseTitle(
+              "BaseGradientButton",
+            ),
+            onPressed: () {},
+          ),
           FadeTransition(
             opacity: Tween(begin: 0.0, end: 1.0).animate(
               CurvedAnimation(

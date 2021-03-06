@@ -839,12 +839,21 @@ class BaseInkWell extends StatelessWidget {
       child: Container(
         margin: margin,
         decoration: decoration,
-        child: FlatButton(
-          padding: padding,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+        child: TextButton(
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(padding),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius))),
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            backgroundColor: MaterialStateProperty.resolveWith(
+              (states) {
+                if (states.contains(MaterialState.pressed)) {
+                  return Theme.of(context).highlightColor;
+                }
+                return color;
+              },
+            ),
           ),
-          color: color,
           child: DefaultTextStyle(
             style: TextStyle(
               fontSize: 15,
@@ -928,11 +937,21 @@ class BaseGradientButton extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        child: FlatButton(
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius)),
-          splashColor: Colors.transparent,
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius))),
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            elevation: MaterialStateProperty.all(0),
+            backgroundColor: MaterialStateProperty.resolveWith(
+              (states) {
+                if (states.contains(MaterialState.pressed)) {
+                  return Colors.black12;
+                }
+                return Colors.transparent;
+              },
+            ),
+          ),
           child: Center(
             child: Container(
               child: Row(
@@ -982,31 +1001,37 @@ class BaseBackgroundButton extends StatelessWidget {
       children.add(title);
     }
     return Container(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
-          color: onPressed != null
-              ? (color ?? colorWithTint)
-              : (disableColor ?? Colors.grey),
-        ),
-        child: Container(
-          width: width,
-          height: height,
-          child: FlatButton(
-            padding: padding,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius)),
-            splashColor: Colors.transparent,
-            child: Center(
-              child: Container(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: children),
-              ),
-            ),
-            onPressed: onPressed,
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderRadius),
+        color: onPressed != null
+            ? (color ?? colorWithTint)
+            : (disableColor ?? Colors.black12),
+      ),
+      child: TextButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(padding),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius))),
+          overlayColor: MaterialStateProperty.all(Colors.transparent),
+          backgroundColor: MaterialStateProperty.resolveWith(
+            (states) {
+              if (states.contains(MaterialState.pressed)) {
+                return Colors.black12;
+              }
+              return Colors.transparent;
+            },
           ),
         ),
+        child: Center(
+          child: Container(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: children),
+          ),
+        ),
+        onPressed: onPressed,
       ),
     );
   }
