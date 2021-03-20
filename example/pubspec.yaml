@@ -37,7 +37,7 @@ dependencies:
   # Fish Redux 的灵感主要来自于 Redux， Elm， Dva 这样的优秀框架。
   # 而 Fish Redux 站在巨人的肩膀上，将集中，分治，复用，隔离做的更进一步。
   # ===============================================================================
-  fish_redux: ^0.3.6
+  fish_redux: ^0.3.7
 
   # ===============================================================================
   # 名称：支持多列和不同大小的行的交错网格视图。
@@ -55,7 +55,7 @@ dependencies:
   # Photo View provides a gesture sensitive zoomable widget.
   # Photo View is largely used to show interacive images and other stuff such as SVG.
   # ===============================================================================
-  photo_view: ^0.10.3
+  photo_view: ^0.11.1
 
   # ===============================================================================
   # 名称：适用于iOS和Android的Flutter插件，用于从图像库中选择图像，并使用相机拍摄新照片。
@@ -73,7 +73,7 @@ dependencies:
   # 来源：https://pub.dev/packages/palette_generator
   # GitHub：https://github.com/flutter/packages/tree/master/packages/palette_generator
   # 说明：A Flutter package to extract prominent colors from an Image, typically used to find colors for a user interface.
-  palette_generator: ^0.2.3
+  palette_generator: ^0.3.0
 
   # ===============================================================================
   # 名称： locale names from locale codes (ISO 639‑2 and ISO 639-3) for 563 locales.

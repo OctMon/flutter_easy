@@ -24,7 +24,7 @@ dependencies:
   # pub: https://pub.dev/packages/logger
   # git: https://github.com/leisim/logger
   # ———————————————————————————————————————————————————————————————————————————————
-  logger: ^0.9.4
+  logger: ^1.0.0
   # ===============================================================================
 
   # ===============================================================================
@@ -80,7 +80,7 @@ dependencies:
   # pub: https://pub.dev/packages/url_launcher
   # git: https://github.com/flutter/plugins/tree/master/packages/url_launcher
   # ———————————————————————————————————————————————————————————————————————————————
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.2
   # ===============================================================================
 
   # ===============================================================================
@@ -88,7 +88,7 @@ dependencies:
   # pub: https://pub.dartlang.org/packages/cached_network_image
   # git: https://github.com/renefloor/flutter_cached_network_image
   # ———————————————————————————————————————————————————————————————————————————————
-  cached_network_image: ^2.5.0
+  cached_network_image: ^2.5.1
   flutter_cache_manager: ^2.1.0
   path_provider: ^1.6.27
   path: ^1.7.0
