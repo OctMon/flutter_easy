@@ -36,7 +36,7 @@ Future<void> _onLoginPressed(Action action, Context<LoginState> ctx) async {
     showToast(S.of(ctx.context).example_AgreeToContinueTip);
     return;
   }
-  Result result = await postAPI(
+  Result result = await post(
       path: kApiLogin,
       data: {"phone": phone, "password": password},
       context: ctx.context,

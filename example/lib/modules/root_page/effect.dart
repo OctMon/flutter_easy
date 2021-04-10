@@ -35,7 +35,7 @@ void _dispose(Action action, Context<RootState> ctx) {
 
 Future<void> _initState(Action action, Context<RootState> ctx) async {
   startCountdownTimer(action, ctx);
-  Result result = await getHttpBin(path: kHttpBinIp);
+  Result result = await getHttpBin(path: kApiHttpBinIp);
   if (result.response?.statusCode == 200) {
     showToast("${result.response}");
   }
