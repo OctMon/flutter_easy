@@ -41,7 +41,7 @@ Result _onValidResult<T>(
 /// context: 上下文
 /// autoLoading: 展示Loading
 ///
-Future<Result> getApi(
+Future<Result> getAPI(
     {String baseUrl,
     String path = '',
     Map data,

@@ -19,7 +19,7 @@ Future<void> initApp() async {
   routesIsLogin = () => UserStore.store.getState().isLogin;
 
   // 初始化Api
-  configApi(null);
+  configAPI(null);
 
   // 加载手动配置的locale
   lastStorageLocale = await getStorageString(_localeKey);

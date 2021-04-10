@@ -6,7 +6,7 @@ import 'package:flutter_easy_example/store/user_store/store.dart';
 export 'constant.dart';
 export 'package:session/session.dart' show Result;
 
-void configApi(String baseURL) {
+void configAPI(String baseURL) {
   Config.logEnable = false;
 
   /// 测试环境

@@ -18,7 +18,7 @@ void _initState(Action action, Context<TuChongState> ctx) {
 
 Future<void> _onRequestData(Action action, Context<TuChongState> ctx) async {
   ctx.state.page = action.payload;
-  Result result = await getApi(path: kApiFeedApp, queryParameters: {
+  Result result = await getAPI(path: kApiFeedApp, queryParameters: {
     "page": ctx.state.page,
     "pose_id": ctx.state.postId ?? 0
   })
