@@ -103,7 +103,7 @@ class BaseRefresh extends StatelessWidget {
       this.controller,
       this.scrollController,
       this.header,
-      this.firstRefresh,
+      this.firstRefresh = false,
       this.firstRefreshWidget,
       this.onRefresh,
       this.footer,

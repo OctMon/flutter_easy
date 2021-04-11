@@ -57,20 +57,20 @@ void logResponse(Result result) {
   if (result.error != null) {
     logInfo(
         result.response?.data,
-        "Response ${result.response.request.uri}",
-        StackTrace.fromString('statusCode: ${result.response.statusCode}\n' +
+        "Response ${result.response?.requestOptions?.uri}",
+        StackTrace.fromString('statusCode: ${result.response?.statusCode}\n' +
             "${result.error}: ${result.message}"));
   } else {
     logInfo(
         result.response?.data,
-        "Response ${result.response.request.uri}",
-        StackTrace.fromString('statusCode: ${result.response.statusCode}\n' +
-            (result.response.isRedirect == true
-                ? "redirect: ${result.response.realUri}\n"
+        "Response ${result.response?.requestOptions?.uri}",
+        StackTrace.fromString('statusCode: ${result.response?.statusCode}\n' +
+            (result.response?.isRedirect == true
+                ? "redirect: ${result.response?.realUri}\n"
                 : "") +
-            "connectTimeout: ${result.response.request.connectTimeout}\n" +
-            (result.response.headers != null
-                ? "headers: \n${result.response.headers}"
+            "connectTimeout: ${result.response?.requestOptions?.connectTimeout}\n" +
+            (result.response?.headers != null
+                ? "headers: \n${result.response?.headers}"
                 : "")));
   }
 }

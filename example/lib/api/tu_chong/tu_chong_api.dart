@@ -18,7 +18,7 @@ Config _config(String baseURL) {
       list: "feedList");
 }
 
-InterceptorSendCallback _onRequest = (options) async {
+SessionInterceptorSendHandler _onRequest = (options) async {
   logRequest(options);
   return options;
 };

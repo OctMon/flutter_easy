@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/store/user_store/store.dart';
@@ -31,7 +30,7 @@ void configAPI(String baseURL) {
   );
 }
 
-InterceptorSendCallback _onRequest = (options) async {
+SessionInterceptorSendHandler _onRequest = (options) async {
   var headers = {
     'os': isIOS ? 'ios' : 'android',
   };

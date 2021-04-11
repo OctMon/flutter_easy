@@ -17,7 +17,7 @@ Config _config(String baseURL) {
   );
 }
 
-InterceptorSendCallback _onRequest = (options) async {
+SessionInterceptorSendHandler _onRequest = (options) async {
   logRequest(options);
   return options;
 };
