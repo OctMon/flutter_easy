@@ -59,7 +59,7 @@ String kPageSizeKey = 'pagesize';
 /// BaseURL变化回调
 VoidCallback baseURLChangedCallback;
 
-typedef _ResultCallBack = Result Function<T>(
+typedef _ResultCallBack = Result Function(
     Result result, bool validResult, BuildContext context);
 
 class NetworkUtil {
@@ -78,7 +78,6 @@ _ResultCallBack _onResult;
 ///
 /// 发送请求并解析远程服务器返回的result对应的实体类型
 ///
-/// <T>: 要解析的实体类名(需要自动转换时必须要加)
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// data: 请求参数
@@ -87,7 +86,7 @@ _ResultCallBack _onResult;
 /// context: 上下文
 /// autoLoading: 展示Loading
 ///
-Future<Result> get<T>(
+Future<Result> get(
     {String baseUrl,
     String path = '',
     Map data,
@@ -95,7 +94,7 @@ Future<Result> get<T>(
     bool validResult = true,
     BuildContext context,
     bool autoLoading = false}) async {
-  return request<T>(
+  return request(
       baseUrl: baseUrl,
       path: path,
       data: data,
@@ -109,7 +108,6 @@ Future<Result> get<T>(
 ///
 /// 发送请求并解析远程服务器返回的result对应的实体类型
 ///
-/// <T>: 要解析的实体类名(需要自动转换时必须要加)
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// data: 请求参数
@@ -117,14 +115,14 @@ Future<Result> get<T>(
 /// context: 上下文
 /// autoLoading: 展示Loading
 ///
-Future<Result> post<T>(
+Future<Result> post(
     {String baseUrl,
     String path = '',
     Map data,
     bool validResult = true,
     BuildContext context,
     bool autoLoading = false}) async {
-  return request<T>(
+  return request(
       baseUrl: baseUrl,
       path: path,
       data: data,
@@ -137,7 +135,6 @@ Future<Result> post<T>(
 ///
 /// 发送请求并解析远程服务器返回的result对应的实体类型
 ///
-/// <T>: 要解析的实体类名(需要自动转换时必须要加)
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// data: 请求参数
@@ -145,7 +142,7 @@ Future<Result> post<T>(
 /// context: 上下文
 /// autoLoading: 展示Loading
 ///
-Future<Result> request<T>(
+Future<Result> request(
     {String baseUrl,
     String path = '',
     Map data,
@@ -190,7 +187,7 @@ Future<Result> request<T>(
     dismissLoading(context);
   }
   return _onResult != null
-      ? _onResult<T>(result, validResult, context)
+      ? _onResult(result, validResult, context)
       : result;
 }
 
