@@ -159,7 +159,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.0.0"
+    version: "2.0.1"
   flutter_easyrefresh:
     dependency: transitive
     description:
@@ -426,7 +426,7 @@ packages:
       name: session
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   shared_preferences:
     dependency: transitive
     description:
