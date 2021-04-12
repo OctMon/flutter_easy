@@ -34,13 +34,27 @@ var colorWithDivider = Color(0xFFEFEFF4);
 
 const colorWithHex3 = Color(0xFF333333);
 
+const colorWithHex4 = Color(0xFF444444);
+
+const colorWithHex5 = Color(0xFF555555);
+
 const colorWithHex6 = Color(0xFF666666);
 
 const colorWithHex7 = Color(0xFF777777);
 
+const colorWithHex8 = Color(0xFF888888);
+
 const colorWithHex9 = Color(0xFF999999);
 
+const colorWithHexA = Color(0xFFAAAAAA);
+
+const colorWithHexB = Color(0xFFBBBBBB);
+
 const colorWithHexC = Color(0xFFCCCCCC);
+
+const colorWithHexD = Color(0xFFDDDDDD);
+
+const colorWithHexE = Color(0xFFEEEEEE);
 
 Color colorWithRandom() {
   int red = Random.secure().nextInt(255);
