@@ -99,7 +99,7 @@ dependencies:
   # pub: https://pub.dev/packages/flutter_easyrefresh
   # git: https://github.com/xuelongqy/flutter_easyrefresh
   # ———————————————————————————————————————————————————————————————————————————————
-  flutter_easyrefresh: ^2.2.0
+  flutter_easyrefresh: ^2.2.1
   # ===============================================================================
 
   # ===============================================================================
