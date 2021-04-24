@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-class PlaceholderView extends StatelessWidget {
+class BasePlaceholderView extends StatelessWidget {
   final String title;
   final String image;
   final VoidCallback onTap;
 
-  const PlaceholderView({
+  const BasePlaceholderView({
     Key key,
     this.title = '暂无数据',
     this.image = 'empty',
