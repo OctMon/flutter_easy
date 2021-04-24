@@ -17,7 +17,7 @@ class BasePlaceholderView extends StatelessWidget {
   Widget build(BuildContext context) {
     if (title == null || title.isEmpty) {
       return Center(
-        child: LoadingView(),
+        child: BaseLoadingView(),
       );
     }
     return GestureDetector(

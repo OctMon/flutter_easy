@@ -23,7 +23,7 @@ void showLoading(BuildContext context, {String message}) {
             ),
             child: (baseDefaultAnimationImage != null && message == null)
                 ? baseDefaultAnimationImage
-                : LoadingView(message: message),
+                : BaseLoadingView(message: message),
           ),
         ),
       );

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/components/export.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-class LoadingView extends StatelessWidget {
+class BaseLoadingView extends StatelessWidget {
   final String message;
 
-  const LoadingView({Key key, this.message}) : super(key: key);
+  const BaseLoadingView({Key key, this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 export 'src/base.dart';
 export 'src/base_tab_page.dart';
-export 'src/loading_view.dart';
+export 'src/base_loading_view.dart';
 export 'src/base_launch.dart';
 export 'src/base_animation_image.dart';
 export 'src/base_progress_bar.dart';
