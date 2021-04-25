@@ -8,7 +8,7 @@ export 'src/base_refresh.dart';
 export 'src/base_animation_number_text.dart';
 export 'src/base_cycle_view.dart';
 export 'src/base_tag_list_view.dart';
-export 'src/web_image.dart';
+export 'src/base_web_image.dart';
 export 'src/base_placeholder_view.dart';
 export 'src/base64_image.dart';
 export 'src/keep_alive.dart';

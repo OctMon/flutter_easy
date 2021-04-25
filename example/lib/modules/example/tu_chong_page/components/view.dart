@@ -25,7 +25,7 @@ Widget buildView(
                   width: 50,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(25),
-                      child: WebImage(state.data.site.icon)),
+                      child: BaseWebImage(state.data.site.icon)),
                 ),
                 Expanded(
                   child: Column(
@@ -58,7 +58,7 @@ Widget buildView(
             itemCount: state.data.images.length,
             itemBuilder: (BuildContext context, int index) => BaseButton(
               padding: EdgeInsets.zero,
-              child: WebImage(
+              child: BaseWebImage(
                 state.data.images[index].imageURL,
                 placeholder: Container(
                   color: colorWithRandom(),

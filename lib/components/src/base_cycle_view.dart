@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'package:flutter_easy/utils/export.dart';
-import 'web_image.dart';
+import 'base_web_image.dart';
 
 class BaseBannerView extends StatelessWidget {
   final List<String> urls;
@@ -31,7 +31,7 @@ class BaseBannerView extends StatelessWidget {
       showPagination: showPagination,
       items: urls.map((url) {
         if (url.startsWith("http")) {
-          return WebImage(
+          return BaseWebImage(
             url,
             fit: BoxFit.fill,
             placeholder: Container(),

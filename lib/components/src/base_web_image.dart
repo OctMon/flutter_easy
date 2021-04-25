@@ -5,20 +5,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 // import 'package:path_provider/path_provider.dart';
 // import 'package:path/path.dart' as p;
 
-ImageProvider<CachedNetworkImageProvider> webImageProvider(
-    String url,
-    {double scale = 1.0,
-    Map<String, String> headers,
-    BaseCacheManager cacheManager,
-    ImageRenderMethodForWeb imageRenderMethodForWeb}) {
-  return CachedNetworkImageProvider(url,
-      scale: scale,
-      headers: headers,
-      cacheManager: cacheManager,
-      imageRenderMethodForWeb: imageRenderMethodForWeb);
-}
-
-class WebImage extends StatelessWidget {
+class BaseWebImage extends StatelessWidget {
   final String imageUrl;
   final Widget placeholder;
   final Widget errorWidget;
@@ -26,7 +13,7 @@ class WebImage extends StatelessWidget {
   final double height;
   final BoxFit fit;
 
-  const WebImage(this.imageUrl,
+  const BaseWebImage(this.imageUrl,
       {Key key,
       this.placeholder = const Center(child: CircularProgressIndicator()),
       this.errorWidget,
@@ -53,6 +40,18 @@ class WebImage extends StatelessWidget {
       placeholder: (context, url) => placeholder,
       errorWidget: (context, url, error) => errorWidget ?? placeholder,
     );
+  }
+
+  static ImageProvider<CachedNetworkImageProvider> provider(String url,
+      {double scale = 1.0,
+      Map<String, String> headers,
+      BaseCacheManager cacheManager,
+      ImageRenderMethodForWeb imageRenderMethodForWeb}) {
+    return CachedNetworkImageProvider(url,
+        scale: scale,
+        headers: headers,
+        cacheManager: cacheManager,
+        imageRenderMethodForWeb: imageRenderMethodForWeb);
   }
 }
 

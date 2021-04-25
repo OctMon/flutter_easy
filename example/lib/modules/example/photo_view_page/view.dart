@@ -16,7 +16,7 @@ Widget buildView(
       scrollPhysics: const BouncingScrollPhysics(),
       builder: (BuildContext context, int index) {
         return PhotoViewGalleryPageOptions(
-          imageProvider: webImageProvider(state.data.images[index].imageURL),
+          imageProvider: BaseWebImage.provider(state.data.images[index].imageURL),
         );
       },
       itemCount: state.data.imageCount,

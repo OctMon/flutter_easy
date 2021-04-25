@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'web_image.dart';
+import 'base_web_image.dart';
 
 Widget baseDefaultLaunchLocalWidget =
     FlutterLogo(style: FlutterLogoStyle.horizontal);
@@ -63,7 +63,7 @@ class BaseLaunchRemote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [
-      WebImage(
+      BaseWebImage(
         url ?? "",
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

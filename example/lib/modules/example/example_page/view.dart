@@ -111,7 +111,7 @@ Widget buildView(
                                                                 50.adaptRatio,
                                                             height:
                                                                 50.adaptRatio,
-                                                            child: WebImage(
+                                                            child: BaseWebImage(
                                                               "https://flagpedia.net/data/flags/h160/${(locale.key as String).split("_").last.toLowerCase()}.webp",
                                                               placeholder:
                                                                   SizedBox(),
@@ -172,7 +172,7 @@ Widget buildView(
                                                                       quarterTurns:
                                                                           1,
                                                                       child:
-                                                                          WebImage(
+                                                                          BaseWebImage(
                                                                         "https://flagpedia.net/data/flags/w1160/${(locale.key as String).split("_").last.toLowerCase()}.webp",
                                                                       ),
                                                                     ),
