@@ -57,7 +57,7 @@ String kPageKey = 'page';
 String kPageSizeKey = 'pagesize';
 
 /// BaseURL变化回调
-VoidCallback baseURLChangedCallback;
+VoidCallback? baseURLChangedCallback;
 
 typedef _ResultCallBack = Result Function(
     Result result, bool validResult, BuildContext context);

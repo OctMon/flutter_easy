@@ -14,16 +14,16 @@ enum BaseAction {
 T updateBaseState<T>(T state, action) => action?.payload;
 
 mixin BaseState<T> {
-  String get message;
+  String? get message;
 
-  set message(String message);
+  set message(String? message);
 
-  T get data;
+  T? get data;
 
-  set data(T data);
+  set data(T? data);
 
-  updateResult(Result result) {
-    message = result.message;
+  updateResult(Result? result) {
+    message = result?.message;
     if (result != null && result.valid) {
       data = result.model;
     }
@@ -40,16 +40,15 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
   set page(int page);
 
   @override
-  updateResult(Result result,
-      {bool hasMore = false, bool updateModel = false, String emptyTitle}) {
+  updateResult(Result? result,
+      {bool hasMore = false, bool updateModel = false, String? emptyTitle}) {
     if (result != null) {
       bool loadMore = false;
       message = result.message;
       dynamic _data = data ?? [];
-      dynamic _list = result.models?.toList() ?? [];
+      dynamic _list = result.models.toList();
       if (result.valid) {
         if (_list.isNotEmpty) {
-          page ??= kFirstPage;
           if (page > kFirstPage) {
             _data.addAll(_list);
           } else {
@@ -67,36 +66,36 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
       }
 
       hasMore || loadMore
-          ? (refreshController as EasyRefreshController)?.resetLoadState()
+          ? (refreshController as EasyRefreshController).resetLoadState()
           : finishLoad(success: result.valid, noMore: true);
     } else {
       // 清空所有数据
       message = null;
-      page = null;
+      page = kFirstPage;
       data = null;
     }
   }
 
   /// 完成加载
   void finishLoad({
-    bool success,
-    bool noMore,
+    required bool success,
+    required bool noMore,
   }) {
     Future.delayed(Duration(milliseconds: 100), () {
       // TODO: 延迟100ms执行，首次自动刷新，数据只有一页，finishLoad(noMore: true)不生效，但是下拉刷新却生效. #197
       // https://github.com/xuelongqy/flutter_easyrefresh/issues/197
       (refreshController as EasyRefreshController)
-          ?.finishLoad(success: success, noMore: noMore);
+          .finishLoad(success: success, noMore: noMore);
     });
   }
 }
 
 class BaseKeyValue {
-  String key;
-  String value;
+  late String key;
+  late String value;
   dynamic extend;
 
-  BaseKeyValue({this.key, this.value, this.extend});
+  BaseKeyValue({required this.key, required this.value, this.extend});
 
   BaseKeyValue.fromJson(Map<String, dynamic> json) {
     key = json['key'];
@@ -127,11 +126,10 @@ createEasyApp(
     String appVersion = "",
     String appBuildNumber = "",
     bool usePackage = true,
-    VoidCallback appBaseURLChangedCallback,
-    sharedPreferencesWebInstance,
-    Widget initView,
-    Future<void> Function() initCallback,
-    @required VoidCallback completionCallback}) {
+    VoidCallback? appBaseURLChangedCallback,
+    Widget? initView,
+    Future<void> Function()? initCallback,
+    required VoidCallback completionCallback}) {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = const bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
@@ -202,17 +200,17 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
 
 class BaseApp extends StatelessWidget {
   final String title;
-  final Widget home;
-  final TransitionBuilder builder;
+  final Widget? home;
+  final TransitionBuilder? builder;
   final List<NavigatorObserver> navigatorObservers;
-  final RouteFactory onGenerateRoute;
-  final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
+  final RouteFactory? onGenerateRoute;
+  final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
   final Iterable<Locale> supportedLocales;
-  final Locale locale;
-  final LocaleResolutionCallback localeResolutionCallback;
+  final Locale? locale;
+  final LocaleResolutionCallback? localeResolutionCallback;
 
   BaseApp({
-    this.title,
+    this.title = "",
     this.home,
     this.builder,
     this.navigatorObservers = const <NavigatorObserver>[],
@@ -225,7 +223,7 @@ class BaseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget _buildBannerUrlType({@required Widget child}) {
+    Widget _buildBannerUrlType({required Widget child}) {
       if (isAppDebugFlag) {
         return Banner(
           color: Colors.deepPurple,
@@ -242,7 +240,7 @@ class BaseApp extends StatelessWidget {
       child: _buildBannerUrlType(
         child: MaterialApp(
           navigatorKey: navigatorGlobalKey,
-          title: title ?? "",
+          title: title,
           theme: ThemeData(
             platform: TargetPlatform.iOS,
             primarySwatch: Colors.grey,
@@ -274,7 +272,7 @@ class BaseApp extends StatelessWidget {
 class DebugPage extends StatefulWidget {
   final Widget child;
 
-  const DebugPage({Key key, this.child}) : super(key: key);
+  const DebugPage({Key? key, required this.child}) : super(key: key);
 
   @override
   _DebugPageState createState() => _DebugPageState();
@@ -372,11 +370,11 @@ class _DebugPageState extends State<DebugPage> {
   }
 }
 
-Widget _buildLeading(
-    {BuildContext context,
-    Widget leading,
-    VoidCallback leadingOnPressed,
-    Color tintColor}) {
+Widget? _buildLeading(
+    {required BuildContext context,
+    Widget? leading,
+    required VoidCallback? leadingOnPressed,
+    required Color? tintColor}) {
   Widget buildLeading() {
     return initAppBarLeading is String
         ? Image.asset(
@@ -389,13 +387,13 @@ Widget _buildLeading(
             : Icon(Icons.arrow_back_ios, color: tintColor);
   }
 
-  final ModalRoute<dynamic> parentRoute = ModalRoute.of(context);
+  final ModalRoute<Object?>? parentRoute = ModalRoute.of(context);
 
   final bool canPop = parentRoute?.canPop ?? false;
   final bool useCloseButton =
       parentRoute is PageRoute<dynamic> && parentRoute.fullscreenDialog;
 
-  Widget _leading = leading;
+  Widget? _leading = leading;
   if (_leading == null) {
     if (canPop) {
       if (isIOS) {
@@ -430,14 +428,14 @@ Widget _buildLeading(
 
 class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final bool automaticallyImplyLeading;
-  final Widget title;
-  final Widget leading;
-  final VoidCallback leadingOnPressed;
-  final List<Widget> actions;
-  final double elevation;
-  final Color tintColor;
-  final Color backgroundColor;
-  final Brightness brightness;
+  final Widget? title;
+  final Widget? leading;
+  final VoidCallback? leadingOnPressed;
+  final List<Widget>? actions;
+  final double? elevation;
+  final Color? tintColor;
+  final Color? backgroundColor;
+  final Brightness? brightness;
 
   BaseAppBar({
     this.automaticallyImplyLeading = true,
@@ -476,7 +474,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
                         : colorWithAppBarDartTint),
                 fontWeight: FontWeight.w500,
               ),
-              child: title,
+              child: title!,
             )
           : null,
       actions: actions == null ? [] : actions,
@@ -516,7 +514,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
                           : colorWithAppBarDartTint),
                   fontWeight: FontWeight.w500,
                 ),
-                child: title,
+                child: title!,
               )
             : null,
         actions: actions == null ? [] : actions,
@@ -532,19 +530,19 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
 }
 
 class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
-  final Widget title;
-  final Widget leading;
-  final VoidCallback leadingOnPressed;
-  final List<Widget> actions;
-  final double elevation;
-  final Color tintColor;
-  final Color backgroundColor;
-  final Brightness brightness;
-  final bool centerTitle;
+  final Widget? title;
+  final Widget? leading;
+  final VoidCallback? leadingOnPressed;
+  final List<Widget>? actions;
+  final double? elevation;
+  final Color? tintColor;
+  final Color? backgroundColor;
+  final Brightness? brightness;
+  final bool? centerTitle;
   final bool floating;
   final bool pinned;
-  final double expandedHeight;
-  final Widget flexibleSpace;
+  final double? expandedHeight;
+  final Widget? flexibleSpace;
 
   BaseSliverAppBar({
     this.title,
@@ -584,7 +582,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
                         : colorWithAppBarDartTint),
                 fontWeight: FontWeight.w500,
               ),
-              child: title,
+              child: title!,
             )
           : null,
       actions: actions == null ? [] : actions,
@@ -624,7 +622,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
                           : colorWithAppBarDartTint),
                   fontWeight: FontWeight.w500,
                 ),
-                child: title,
+                child: title!,
               )
             : null,
         actions: actions == null ? [] : actions,
@@ -645,10 +643,10 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 }
 
 class BaseScaffold extends StatelessWidget {
-  final BaseAppBar appBar;
-  final Widget body;
-  final Color backgroundColor;
-  final Widget bottomNavigationBar;
+  final BaseAppBar? appBar;
+  final Widget? body;
+  final Color? backgroundColor;
+  final Widget? bottomNavigationBar;
 
   BaseScaffold({
     this.appBar,
@@ -668,8 +666,8 @@ class BaseScaffold extends StatelessWidget {
     }
     return Scaffold(
       appBar: isIOS
-          ? appBar.buildCupertinoWidget(context)
-          : appBar.buildMaterialWidget(context),
+          ? appBar?.buildCupertinoWidget(context)
+          : appBar?.buildMaterialWidget(context),
       body: body,
       backgroundColor: backgroundColor ?? colorWithScaffoldBackground,
       bottomNavigationBar: bottomNavigationBar,
@@ -678,23 +676,23 @@ class BaseScaffold extends StatelessWidget {
 }
 
 class BaseText extends StatelessWidget {
-  final String data;
-  final InlineSpan textSpan;
-  final TextStyle style;
-  final StrutStyle strutStyle;
-  final TextAlign textAlign;
-  final TextDirection textDirection;
-  final Locale locale;
-  final bool softWrap;
-  final TextOverflow overflow;
-  final double textScaleFactor;
-  final int maxLines;
-  final String semanticsLabel;
-  final TextWidthBasis textWidthBasis;
+  final String? data;
+  final InlineSpan? textSpan;
+  final TextStyle? style;
+  final StrutStyle? strutStyle;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
+  final Locale? locale;
+  final bool? softWrap;
+  final TextOverflow? overflow;
+  final double? textScaleFactor;
+  final int? maxLines;
+  final String? semanticsLabel;
+  final TextWidthBasis? textWidthBasis;
 
   const BaseText(
     this.data, {
-    Key key,
+    Key? key,
     this.style,
     this.strutStyle,
     this.textAlign,
@@ -715,7 +713,7 @@ class BaseText extends StatelessWidget {
 
   const BaseText.rich(
     this.textSpan, {
-    Key key,
+    Key? key,
     this.style,
     this.strutStyle,
     this.textAlign,
@@ -738,7 +736,7 @@ class BaseText extends StatelessWidget {
   Widget build(BuildContext context) {
     if (data == null && textSpan != null) {
       return Text.rich(
-        textSpan,
+        textSpan!,
         key: key,
         style: style,
         strutStyle: strutStyle,
@@ -754,7 +752,7 @@ class BaseText extends StatelessWidget {
       );
     }
     return Text(
-      data,
+      data!,
       key: key,
       style: style,
       strutStyle: strutStyle,
@@ -772,18 +770,18 @@ class BaseText extends StatelessWidget {
 }
 
 class BaseTitle extends StatelessWidget {
-  final String title;
-  final TextAlign textAlign;
+  final String? title;
+  final TextAlign? textAlign;
   final double fontSize;
-  final FontWeight fontWeight;
-  final String fontFamily;
-  final Color color;
-  final int maxLines;
-  final double height;
-  final TextOverflow overflow;
+  final FontWeight? fontWeight;
+  final String? fontFamily;
+  final Color? color;
+  final int? maxLines;
+  final double? height;
+  final TextOverflow? overflow;
 
   const BaseTitle(this.title,
-      {Key key,
+      {Key? key,
       this.textAlign,
       this.fontSize = 14,
       this.fontWeight,
@@ -815,13 +813,11 @@ class BaseTitle extends StatelessWidget {
 class BaseInkWell extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
-  final Color color;
+  final Color? color;
   final double borderRadius;
-  final Decoration decoration;
-  @required
+  final Decoration? decoration;
   final Widget child;
-  @required
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   BaseInkWell(
       {this.margin = EdgeInsets.zero,
@@ -829,8 +825,8 @@ class BaseInkWell extends StatelessWidget {
       this.color,
       this.borderRadius = 0,
       this.decoration,
-      this.child,
-      this.onPressed});
+      required this.child,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -870,14 +866,12 @@ class BaseInkWell extends StatelessWidget {
 }
 
 class BaseButton extends StatelessWidget {
-  @required
   final EdgeInsetsGeometry padding;
-  @required
   final Widget child;
-  @required
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
-  BaseButton({this.padding, this.child, this.onPressed});
+  BaseButton(
+      {required this.padding, required this.child, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -892,17 +886,17 @@ class BaseButton extends StatelessWidget {
 class BaseGradientButton extends StatelessWidget {
   final double width;
   final double height;
-  final EdgeInsetsGeometry padding;
-  final Widget icon;
-  final Widget title;
+  final EdgeInsetsGeometry? padding;
+  final Widget? icon;
+  final Widget? title;
   final double borderRadius;
   final Gradient gradient;
-  final List<BoxShadow> boxShadow;
+  final List<BoxShadow>? boxShadow;
   final Gradient disableGradient;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const BaseGradientButton(
-      {Key key,
+      {Key? key,
       this.width = double.infinity,
       this.height = 44,
       this.padding,
@@ -914,18 +908,18 @@ class BaseGradientButton extends StatelessWidget {
       this.disableGradient =
           const LinearGradient(colors: [Color(0xFFE3E3E3), Color(0xFFD3D3D3)]),
       this.boxShadow,
-      this.onPressed})
+      required this.onPressed})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];
     if (icon != null) {
-      children.add(icon);
+      children.add(icon!);
       children.add(SizedBox(width: 10));
     }
     if (title != null) {
-      children.add(title);
+      children.add(title!);
     }
     return Container(
       padding: padding,
@@ -970,15 +964,15 @@ class BaseBackgroundButton extends StatelessWidget {
   final double width;
   final double height;
   final EdgeInsetsGeometry padding;
-  final Widget icon;
-  final Widget title;
+  final Widget? icon;
+  final Widget? title;
   final double borderRadius;
-  final Color color;
-  final Color disableColor;
-  final VoidCallback onPressed;
+  final Color? color;
+  final Color? disableColor;
+  final VoidCallback? onPressed;
 
   const BaseBackgroundButton(
-      {Key key,
+      {Key? key,
       this.width = double.infinity,
       this.height = 44,
       this.padding = EdgeInsets.zero,
@@ -987,18 +981,18 @@ class BaseBackgroundButton extends StatelessWidget {
       this.borderRadius = 22,
       this.color,
       this.disableColor,
-      this.onPressed})
+      required this.onPressed})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];
     if (icon != null) {
-      children.add(icon);
+      children.add(icon!);
       children.add(SizedBox(width: 10));
     }
     if (title != null) {
-      children.add(title);
+      children.add(title!);
     }
     return Container(
       width: width,
@@ -1040,18 +1034,18 @@ class BaseBackgroundButton extends StatelessWidget {
 class BaseOutlineButton extends StatelessWidget {
   final double width;
   final double height;
-  final EdgeInsetsGeometry padding;
-  final Color backgroundColor;
-  final Widget icon;
-  final Widget title;
+  final EdgeInsetsGeometry? padding;
+  final Color? backgroundColor;
+  final Widget? icon;
+  final Widget? title;
   final double borderWidth;
   final double borderRadius;
-  final Color borderColor;
-  final List<BoxShadow> boxShadow;
-  final VoidCallback onPressed;
+  final Color? borderColor;
+  final List<BoxShadow>? boxShadow;
+  final VoidCallback? onPressed;
 
   const BaseOutlineButton(
-      {Key key,
+      {Key? key,
       this.width = double.infinity,
       this.height = 44,
       this.padding,
@@ -1062,18 +1056,18 @@ class BaseOutlineButton extends StatelessWidget {
       this.borderRadius = 22,
       this.borderColor,
       this.boxShadow,
-      this.onPressed})
+      required this.onPressed})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];
     if (icon != null) {
-      children.add(icon);
+      children.add(icon!);
       children.add(SizedBox(width: 10));
     }
     if (title != null) {
-      children.add(title);
+      children.add(title!);
     }
     return BaseButton(
       padding: EdgeInsets.zero,
@@ -1103,34 +1097,34 @@ class BaseOutlineButton extends StatelessWidget {
 }
 
 class BaseTextField extends StatelessWidget {
-  final EdgeInsetsGeometry margin;
-  final EdgeInsetsGeometry padding;
-  final double height;
-  final double borderRadius;
-  final Color backgroundColor;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final double? height;
+  final double? borderRadius;
+  final Color? backgroundColor;
   final int maxLines;
-  final TextEditingController controller;
-  final TextStyle style;
-  final TextStyle placeholderStyle;
+  final TextEditingController? controller;
+  final TextStyle? style;
+  final TextStyle? placeholderStyle;
   final bool readOnly;
   final bool obscureText;
-  final int maxLength;
-  final String placeholder;
-  final FocusNode focusNode;
-  final TextInputType keyboardType;
+  final int? maxLength;
+  final String? placeholder;
+  final FocusNode? focusNode;
+  final TextInputType? keyboardType;
   final TextAlign textAlign;
-  final TextInputAction textInputAction;
+  final TextInputAction? textInputAction;
   final OverlayVisibilityMode clearButtonMode;
-  final List<TextInputFormatter> inputFormatters;
-  final Widget prefix;
-  final Widget suffix;
-  final BoxDecoration decoration;
-  final ValueChanged<String> onChanged;
-  final ValueChanged<String> onSubmitted;
-  final GestureTapCallback onTap;
+  final List<TextInputFormatter>? inputFormatters;
+  final Widget? prefix;
+  final Widget? suffix;
+  final BoxDecoration? decoration;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final GestureTapCallback? onTap;
 
   const BaseTextField(
-      {Key key,
+      {Key? key,
       this.margin,
       this.padding,
       this.height,
@@ -1194,7 +1188,7 @@ class BaseTextField extends StatelessWidget {
           placeholderStyle: placeholderStyle ??
               TextStyle(
                 fontSize: adaptDp(14),
-                color: (readOnly && placeholder.isEmpty)
+                color: (readOnly && placeholder.isEmptyOrNull)
                     ? colorWithHex3
                     : Color(0xFFC1C0C8),
                 textBaseline: TextBaseline.alphabetic,
@@ -1215,12 +1209,12 @@ class BaseTextField extends StatelessWidget {
 Widget baseDefaultGeneralAlertDialogTitle = BaseText('提示');
 
 class BaseGeneralAlertDialog extends StatelessWidget {
-  final Widget title;
-  final Widget content;
+  final Widget? title;
+  final Widget? content;
   final List<Widget> actions;
 
   const BaseGeneralAlertDialog(
-      {Key key, this.title, this.content, this.actions})
+      {Key? key, this.title, this.content, this.actions = const <Widget>[]})
       : super(key: key);
 
   @override
@@ -1249,7 +1243,7 @@ class BaseAlertDialog extends Dialog {
   final List<Widget> actions;
 
   const BaseAlertDialog({
-    Key key,
+    Key? key,
     this.barrierDismissible = false,
     this.margin = const EdgeInsets.all(38.0),
     this.titlePadding = const EdgeInsets.fromLTRB(20.0, 34.0, 20.0, 20.0),
@@ -1257,10 +1251,9 @@ class BaseAlertDialog extends Dialog {
     this.actionPadding = const EdgeInsets.fromLTRB(20, 24, 20, 34),
     this.actionsAxisAlignment = MainAxisAlignment.spaceAround,
     this.title = const BaseText('提示'),
-    this.content,
+    required this.content,
     this.actions = const <Widget>[],
-  })  : assert(actions != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -1327,13 +1320,13 @@ class BaseDialogAction extends StatelessWidget {
     this.isDefaultAction = false,
     this.isDestructiveAction = false,
     this.textStyle,
-    @required this.child,
-  }) : assert(child != null);
+    required this.child,
+  });
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool isDefaultAction;
   final bool isDestructiveAction;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final Widget child;
 
   @override
@@ -1349,10 +1342,10 @@ class BaseDialogAction extends StatelessWidget {
 }
 
 ///  只针对[BaseGeneralAlertDialog]设置[barrierDismissible]有效
-Future<T> showBaseDialog<T>({
-  @required BuildContext context,
+Future<T?> showBaseDialog<T>({
+  required BuildContext context,
   bool barrierDismissible = false,
-  @required WidgetBuilder builder,
+  required WidgetBuilder builder,
 }) {
   return showDialog<T>(
       context: context,
@@ -1367,19 +1360,12 @@ class BaseActionSheet extends StatelessWidget {
   final Widget cancelButton;
 
   const BaseActionSheet({
-    Key key,
-    this.title,
-    this.message,
+    Key? key,
+    required this.title,
+    required this.message,
     this.actions = const <Widget>[],
-    this.cancelButton,
-  })  : assert(
-            actions != null ||
-                title != null ||
-                message != null ||
-                cancelButton != null,
-            'An action sheet must have a non-null value for at least one of the following arguments: '
-            'actions, title, message, or cancelButton'),
-        super(key: key);
+    required this.cancelButton,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -1403,12 +1389,11 @@ class BaseActionSheetAction extends StatelessWidget {
   final Widget child;
 
   const BaseActionSheetAction({
-    @required this.onPressed,
+    required this.onPressed,
     this.isDefaultAction = false,
     this.isDestructiveAction = false,
-    @required this.child,
-  })  : assert(child != null),
-        assert(onPressed != null);
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1421,25 +1406,25 @@ class BaseActionSheetAction extends StatelessWidget {
   }
 }
 
-Future<T> showBaseModalBottomSheet<T>({
-  @required BuildContext context,
-  WidgetBuilder builder,
+Future<T?> showBaseModalBottomSheet<T>({
+  required BuildContext context,
+  required WidgetBuilder builder,
 }) {
   return showCupertinoModalPopup(context: context, builder: builder);
 }
 
 class BaseDivider extends StatelessWidget {
   /// 分割线的厚度
-  final double thickness;
+  final double? thickness;
 
   /// 缩进距离
-  final EdgeInsets margin;
+  final EdgeInsets? margin;
 
   /// 分割线颜色
-  final Color color;
+  final Color? color;
 
   const BaseDivider({
-    Key key,
+    Key? key,
     this.thickness,
     this.margin,
     this.color,
