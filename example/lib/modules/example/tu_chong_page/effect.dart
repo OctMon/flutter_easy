@@ -22,9 +22,9 @@ Future<void> _onRequestData(Action action, Context<TuChongState> ctx) async {
     "page": ctx.state.page,
     "pose_id": ctx.state.postId ?? 0
   })
-    ..fillMap((json) => TuChongModel.fromMap(json));
+    ..fillMap((json) => TuChongModel.fromJson(json));
 
   ctx.dispatch(TuChongActionCreator.updateState(ctx.state.clone()
-    ..postId = ((result.models as List<TuChongModel>)?.last?.postId)
+    ..postId = ((result.models as List<TuChongModel>).last.postId)
     ..updateResult(result, hasMore: result.valid)));
 }

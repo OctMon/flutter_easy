@@ -10,7 +10,7 @@ import 'state.dart';
 Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
   AdaptUtil.initContext(viewService.context);
 
-  if (state.countDown.isEmptyOrNull || state.countDown > 0) {
+  if (state.countDown == null || state.countDown! > 0) {
     String url =
         "https://picsum.photos/${(screenWidthDp * screenDevicePixelRatio).round()}/${(screenHeightDp * screenDevicePixelRatio).round()}";
     return Stack(
@@ -32,7 +32,7 @@ Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
                   '${state.timer?.isActive}: skip(${state.countDown ?? ''})'),
               onPressed: () {
                 dispatch(RootActionCreator.updateCountdown(0));
-                state.timer.cancel();
+                state.timer?.cancel();
               },
             ),
           ),

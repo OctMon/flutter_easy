@@ -43,13 +43,13 @@ Widget buildView(
     );
 
     final ImagePicker _picker = ImagePicker();
-    File file;
+    File? file;
     if (selected == 0) {
       // 调用相机
-      file = File((await _picker.getImage(source: ImageSource.camera)).path);
+      file = File((await _picker.getImage(source: ImageSource.camera))?.path ?? "");
     } else if (selected == 1) {
       // 调用相册
-      file = File((await _picker.getImage(source: ImageSource.gallery)).path);
+      file = File((await _picker.getImage(source: ImageSource.gallery))?.path ?? "");
     }
     if (file != null) {
       showLoading(viewService.context);
@@ -82,7 +82,7 @@ Widget buildView(
         ),
       ],
     ),
-    body: state.file != null
+    body: state.file != null && state.paletteGenerator != null
         ? SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -90,12 +90,12 @@ Widget buildView(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.file(
-                  state.file,
+                  state.file!,
                   width: screenWidthDp,
                 ),
                 Container(
                     margin: EdgeInsets.all(15),
-                    child: PaletteSwatches(generator: state.paletteGenerator)),
+                    child: PaletteSwatches(generator: state.paletteGenerator!)),
               ],
             ),
           )
@@ -116,7 +116,7 @@ class PaletteSwatches extends StatelessWidget {
   ///
   /// The [generator] is optional. If it is null, then the display will
   /// just be an empty container.
-  const PaletteSwatches({Key key, this.generator}) : super(key: key);
+  const PaletteSwatches({Key? key, required this.generator}) : super(key: key);
 
   /// The [PaletteGenerator] that contains all of the swatches that we're going
   /// to display.
@@ -125,7 +125,7 @@ class PaletteSwatches extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> swatches = <Widget>[];
-    if (generator == null || generator.colors.isEmpty) {
+    if (generator.colors.isEmpty) {
       return Container();
     }
     for (Color color in generator.colors) {
@@ -164,16 +164,16 @@ class PaletteSwatch extends StatelessWidget {
   /// If the [color] argument is omitted, then the swatch will show a
   /// placeholder instead, to indicate that there is no color.
   const PaletteSwatch({
-    Key key,
+    Key? key,
     this.color,
     this.label,
   }) : super(key: key);
 
   /// The color of the swatch. May be null.
-  final Color color;
+  final Color? color;
 
   /// The optional label to display next to the swatch.
-  final String label;
+  final String? label;
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +223,7 @@ class PaletteSwatch extends StatelessWidget {
               children: <Widget>[
                 swatch,
                 Container(width: 5.0),
-                Text(label),
+                Text(label!),
               ],
             ),
           ),

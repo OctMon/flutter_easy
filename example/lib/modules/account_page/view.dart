@@ -45,7 +45,7 @@ Widget buildView(
                       padding: const EdgeInsets.only(top: 10, bottom: 18),
                       child: BaseText(
                         state.user != null
-                            ? (state.user.nickname)
+                            ? (state.user?.nickname)
                             : S.of(viewService.context).login,
                         style: TextStyle(
                           color: Colors.white,
@@ -78,7 +78,7 @@ Widget buildView(
               item: BaseKeyValue(
                   key: S.of(viewService.context).language,
                   value:
-                      "${lastLocale == null ? S.of(viewService.context).systemDefault : LocaleNames.of(viewService.context).nameOf("$lastLocale")} - ${Intl.getCurrentLocale()}",
+                      "${lastLocale == null ? S.of(viewService.context).systemDefault : LocaleNames.of(viewService.context)?.nameOf("$lastLocale")} - ${Intl.getCurrentLocale()}",
                   extend: Icons.language),
               onPressed: () {
                 showBaseModalBottomSheet(
@@ -87,9 +87,9 @@ Widget buildView(
                       return BaseActionSheet(
                         title: BaseText(S.of(viewService.context).language),
                         actions: S.delegate.supportedLocales.map((e) {
-                          final String localeString =
-                              LocaleNames.of(context).nameOf(e.toString());
-                          final String nativeLocaleName =
+                          final String? localeString =
+                              LocaleNames.of(context)?.nameOf(e.toString());
+                          final String? nativeLocaleName =
                               LocaleNamesLocalizationsDelegate
                                   .nativeLocaleNames[e.toString()];
                           return BaseActionSheetAction(

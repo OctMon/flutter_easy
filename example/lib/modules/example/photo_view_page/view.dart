@@ -10,24 +10,24 @@ Widget buildView(
   return BaseScaffold(
     appBar: BaseAppBar(
       brightness: Brightness.light,
-      title: BaseText(state.data.title),
+      title: BaseText(state.data?.title),
     ),
     body: PhotoViewGallery.builder(
       scrollPhysics: const BouncingScrollPhysics(),
       builder: (BuildContext context, int index) {
         return PhotoViewGalleryPageOptions(
-          imageProvider: BaseWebImage.provider(state.data.images[index].imageURL),
+          imageProvider: BaseWebImage.provider(state.data?.images?[index].imageURL ?? ""),
         );
       },
-      itemCount: state.data.imageCount,
+      itemCount: state.data?.imageCount,
       loadingBuilder: (context, event) => Center(
         child: Container(
           width: 20.0,
           height: 20.0,
           child: CircularProgressIndicator(
-            value: event == null
+            value: event == null || event.expectedTotalBytes == null
                 ? 0
-                : event.cumulativeBytesLoaded / event.expectedTotalBytes,
+                : event.cumulativeBytesLoaded / event.expectedTotalBytes!,
           ),
         ),
       ),

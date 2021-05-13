@@ -5,7 +5,7 @@ import 'package:flutter_easy_example/store/user_store/store.dart';
 export 'constant.dart';
 export 'package:session/session.dart' show Result;
 
-void configAPI(String baseURL) {
+void configAPI(String? baseURL) {
   Config.logEnable = false;
 
   /// 测试环境
@@ -36,7 +36,7 @@ SessionInterceptorSendHandler _onRequest = (options) async {
   };
   options.headers.addAll(headers);
   if (UserStore.store.getState().isLogin) {
-    options.headers['id'] = UserStore.store.getState().user.userId;
+    options.headers['id'] = UserStore.store.getState().user?.userId;
   }
   // options.contentType = Headers.formUrlEncodedContentType;
   // options.responseType = ResponseType.plain;
@@ -46,8 +46,8 @@ SessionInterceptorSendHandler _onRequest = (options) async {
 };
 
 /// 响应结果拦截处理
-Result _onValidResult<T>(
-    Result result, bool validResult, BuildContext context) {
+Result _onValidResult(
+    Result result, bool validResult, BuildContext? context) {
   logResponse(result);
   // 拦截处理一些错误
   if (validResult) {

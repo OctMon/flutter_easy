@@ -5,7 +5,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 export 'constant.dart';
 export 'package:session/session.dart' show Result;
 
-Config _config(String baseURL) {
+Config _config(String? baseURL) {
   Config.logEnable = false;
 
   return Config(
@@ -25,7 +25,7 @@ SessionInterceptorSendHandler _onRequest = (options) async {
 
 /// 响应结果拦截处理
 Result _onValidResult<T>(
-    Result result, bool validResult, BuildContext context) {
+    Result result, bool validResult, BuildContext? context) {
   logResponse(result);
   return result;
 }
@@ -42,12 +42,12 @@ Result _onValidResult<T>(
 /// autoLoading: 展示Loading
 ///
 Future<Result> getAPI(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
-    Map<String, dynamic> queryParameters,
+    Map? data,
+    Map<String, dynamic>? queryParameters,
     bool validResult = true,
-    BuildContext context,
+    BuildContext? context,
     bool autoLoading = false}) async {
   return requestAPI(
       baseUrl: baseUrl,
@@ -71,11 +71,11 @@ Future<Result> getAPI(
 /// autoLoading: 展示Loading
 ///
 Future<Result> postAPI(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
+    Map? data,
     bool validResult = true,
-    BuildContext context,
+    BuildContext? context,
     bool autoLoading = false}) async {
   return requestAPI(
       baseUrl: baseUrl,
@@ -99,13 +99,13 @@ Future<Result> postAPI(
 /// autoLoading: 展示Loading
 ///
 Future<Result> requestAPI(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
-    Map<String, dynamic> queryParameters,
-    Options options,
+    Map? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
     bool validResult = true,
-    BuildContext context,
+    BuildContext? context,
     bool autoLoading = false}) async {
   // Loading is show
   bool alreadyShowLoading = false;
@@ -123,7 +123,7 @@ Future<Result> requestAPI(
   );
   Result result = await session.request(path,
       data: data, queryParameters: queryParameters, options: options);
-  if (autoLoading && alreadyShowLoading) {
+  if (context != null && autoLoading && alreadyShowLoading) {
     // Dismiss loading
     dismissLoading(context);
   }

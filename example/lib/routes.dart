@@ -79,7 +79,7 @@ EffectMiddleware<T> _pageAnalyticsMiddleware<T>() {
           logDebug('${logic.runtimeType}', '${action.type}',
               StackTrace.fromString('${ctx.context}'));
         }
-        return effect?.call(action, ctx);
+        return effect.call(action, ctx);
       };
     };
   };

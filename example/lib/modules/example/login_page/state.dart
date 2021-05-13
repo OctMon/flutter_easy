@@ -2,9 +2,9 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 
 class LoginState implements Cloneable<LoginState> {
-  TextEditingController phoneNumberController;
-  TextEditingController passwordController;
-  bool isChecked;
+  late TextEditingController phoneNumberController;
+  late TextEditingController passwordController;
+  late bool isChecked;
 
   @override
   LoginState clone() {

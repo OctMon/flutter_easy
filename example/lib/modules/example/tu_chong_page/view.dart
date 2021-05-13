@@ -22,7 +22,7 @@ Widget buildView(
               onTap: () => state.refreshController.callRefresh(),
             )
           : null,
-      onRefresh: () async => dispatch(TuChongActionCreator.onRequestData(null)),
+      onRefresh: () async => dispatch(TuChongActionCreator.onRequestData(kFirstPage)),
       onLoad: () async =>
           dispatch(TuChongActionCreator.onRequestData(state.page)),
       child: ListView.builder(

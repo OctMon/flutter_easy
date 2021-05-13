@@ -67,9 +67,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           BaseButton(
                             padding: EdgeInsets.symmetric(vertical: 15),
                             child: BaseTitle(
-                              S
-                                  .of(viewService.context)
-                                  .example_NewUserRegister,
+                              S.of(viewService.context).example_NewUserRegister,
                               fontSize: adaptDp(14),
                               color: colorWithTint,
                             ),
@@ -78,9 +76,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           BaseButton(
                             padding: EdgeInsets.symmetric(vertical: 15),
                             child: BaseTitle(
-                              S
-                                  .of(viewService.context)
-                                  .example_ForgetPassword,
+                              S.of(viewService.context).example_ForgetPassword,
                               fontSize: adaptDp(14),
                               color: colorWithTint,
                             ),

@@ -13,18 +13,18 @@ Effect<HomeState> buildEffect() {
 }
 
 void _initState(Action action, Context<HomeState> ctx) {
-  final Object ticker = ctx.stfState;
+  final TickerProvider ticker = ctx.stfState as TickerProvider;
   ctx.state.animationController = AnimationController(
       vsync: ticker, duration: Duration(milliseconds: 2000));
 }
 
 void _build(Action action, Context<HomeState> ctx) {
   Future.delayed(Duration(milliseconds: 0),
-      () => ctx.state.animationController.repeat(reverse: true));
+      () => ctx.state.animationController?.repeat(reverse: true));
 }
 
 void _dispose(Action action, Context<HomeState> ctx) {
-  ctx.state.animationController.dispose();
+  ctx.state.animationController?.dispose();
 }
 
 void _onAction(Action action, Context<HomeState> ctx) {}

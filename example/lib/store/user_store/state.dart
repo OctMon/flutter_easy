@@ -4,14 +4,14 @@ import 'model.dart';
 export 'model.dart';
 
 abstract class UserBaseState {
-  UserModel get user;
+  UserModel? get user;
 
-  set user(UserModel user);
+  set user(UserModel? user);
 }
 
 class UserState implements UserBaseState, Cloneable<UserState> {
   @override
-  UserModel user;
+  UserModel? user;
 
   bool get isLogin => user != null;
 

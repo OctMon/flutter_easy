@@ -8,7 +8,7 @@ class AccountState implements UserBaseState, Cloneable<AccountState> {
   }
 
   @override
-  UserModel user;
+  UserModel? user;
 }
 
 AccountState initState(Map<String, dynamic> args) {

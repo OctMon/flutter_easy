@@ -25,7 +25,7 @@ void startCountdownTimer(Action action, Context<RootState> ctx) {
   ctx.state.timer = TimerUtil(
       totalTime: count * Duration.millisecondsPerSecond, callback: callback);
   2.seconds.delay(() {
-    ctx.state.timer.run();
+    ctx.state.timer?.run();
   });
 }
 

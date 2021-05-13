@@ -1,290 +1,354 @@
-/// post_id : 70268574
-/// type : "multi-photo"
-/// url : "https://tuchong.com/3416599/70268574/"
-/// site_id : "3416599"
-/// author_id : "3416599"
-/// published_at : "2020-08-24 09:40:13"
-/// passed_time : "08月24日"
-/// excerpt : "曼谷真的太有趣了，火车经过的通道竟然还有个热闹非凡的市场~无人机视角的铁道市场你见过吗？"
-/// favorites : 22
-/// comments : 2
-/// rewardable : true
-/// parent_comments : "2"
-/// rewards : "0"
-/// views : 682
-/// collected : false
-/// shares : 1
-/// recommend : true
-/// delete : false
-/// update : false
-/// content : "曼谷真的太有趣了，火车经过的通道竟然还有个热闹非凡的市场~无人机视角的铁道市场你见过吗？"
-/// title : ""
-/// image_count : 1
-/// images : [{"img_id":312529951,"img_id_str":"312529951","user_id":3416599,"title":"Optional(","excerpt":"","width":1798,"height":2398,"description":""}]
-/// title_image : null
-/// tags : ["这个巷子有故事","胶片人文和纪实交流","用镜头诉说","独目天下（人文）","人文风光摄影圈","街道","交通工具"]
-/// event_tags : ["这个巷子有故事","胶片人文和纪实交流","用镜头诉说","独目天下（人文）","人文风光摄影圈"]
-/// favorite_list_prefix : []
-/// reward_list_prefix : []
-/// comment_list_prefix : []
-/// data_type : "post"
 /// created_at : ""
+/// published_at : "2021-01-22 12:36:09"
+/// favorite_list_prefix : []
+/// comments : 3664
+/// url : "https://yudachui.tuchong.com/82009786/"
+/// rewardable : true
+/// parent_comments : "3544"
+/// site_id : "2353448"
+/// type : "multi-photo"
+/// passed_time : "01月22日"
+/// favorites : 16910
+/// shares : 2221
+/// author_id : "2353448"
+/// recom_type : "热门"
+/// update : false
+/// views : 322057
 /// sites : []
-/// site : {"site_id":"3416599","type":"user","name":"Supermickiii","domain":"","description":"Instagram/新浪微博/小红书同名\nmicki_fly@hotmail.com","followers":189,"url":"https://tuchong.com/3416599/","icon":"https://sf3-tccdn-tos.pstatp.com/obj/tuchong-avatar/ll_3416599_2","is_bind_everphoto":true,"has_everphoto_note":true,"verified":false,"verifications":0,"verification_list":[],"is_following":false}
-/// recom_type : ""
-/// rqt_id : "8626c461faaa3d20490d021a5b53c806"
+/// site : {"description":"资深人像摄影师","videos":11,"is_bind_everphoto":true,"verifications":1,"verified":true,"domain":"yudachui.tuchong.com","url":"https://yudachui.tuchong.com/","type":"user","is_following":false,"verification_list":[{"verification_type":13,"verification_reason":"资深人像摄影师"}],"icon":"https://sf6-tccdn-tos.pstatp.com/obj/tuchong-avatar/ll_2353448_29","followers":113826,"site_id":"2353448","name":"俞大锤","has_everphoto_note":false}
+/// images : [{"img_id":824771553,"excerpt":"","img_id_str":"824771553","height":1564,"title":"35409","width":1564,"user_id":2353448,"description":""},{"img_id":858522611,"excerpt":"","img_id_str":"858522611","height":5608,"title":"35405","width":3155,"user_id":2353448,"description":""},{"img_id":1292829728,"excerpt":"","img_id_str":"1292829728","height":6000,"title":"35407","width":3375,"user_id":2353448,"description":""},{"img_id":709755890,"excerpt":"","img_id_str":"709755890","height":5667,"title":"35400","width":3188,"user_id":2353448,"description":""},{"img_id":1258554294,"excerpt":"","img_id_str":"1258554294","height":5831,"title":"35404","width":3280,"user_id":2353448,"description":""},{"img_id":913572837,"excerpt":"","img_id_str":"913572837","height":6000,"title":"35406","width":3375,"user_id":2353448,"description":""},{"img_id":1027670978,"excerpt":"","img_id_str":"1027670978","height":4572,"title":"35403","width":2572,"user_id":2353448,"description":""},{"img_id":883753955,"excerpt":"","img_id_str":"883753955","height":5264,"title":"35402","width":2961,"user_id":2353448,"description":""},{"img_id":663356348,"excerpt":"","img_id_str":"663356348","height":5989,"title":"35401","width":3369,"user_id":2353448,"description":""},{"img_id":860029861,"excerpt":"","img_id_str":"860029861","height":5955,"title":"35399","width":3350,"user_id":2353448,"description":""}]
+/// event_tags : ["日本摄影圈","我要上“首页推荐位”","我要上开屏"]
+/// recommend : true
+/// content : "那些值得被记录的日子。"
+/// excerpt : "那些值得被记录的日子。"
+/// delete : false
+/// collected : false
+/// title_image : null
+/// tags : ["日本摄影圈","我要上“首页推荐位”","我要上开屏","俞大锤·正片滤镜","日本","旅游","环境"]
+/// reward_list_prefix : []
+/// rqt_id : "4a57f08e3f26f48ebf97ac035bcd01d2"
 /// is_favorite : false
+/// image_count : 10
+/// data_type : "post"
+/// title : ""
+/// post_id : 82009786
+/// rewards : "6"
+/// comment_list_prefix : []
 
 class TuChongModel {
-  int postId;
-  String type;
-  String url;
-  String siteId;
-  String authorId;
-  String publishedAt;
-  String passedTime;
-  String excerpt;
-  int favorites;
-  int comments;
-  bool rewardable;
-  String parentComments;
-  String rewards;
-  int views;
-  bool collected;
-  int shares;
-  bool recommend;
-  bool delete;
-  bool update;
-  String content;
-  String title;
-  int imageCount;
-  List<ImagesBean> images;
-  dynamic titleImage;
-  List<String> tags;
-  List<String> eventTags;
-  List<dynamic> favoriteListPrefix;
-  List<dynamic> rewardListPrefix;
-  List<dynamic> commentListPrefix;
-  String dataType;
-  String createdAt;
-  List<dynamic> sites;
-  SiteBean site;
-  String recomType;
-  String rqtId;
-  bool isFavorite;
+  String? createdAt;
+  String? publishedAt;
+  int? comments;
+  String? url;
+  bool? rewardable;
+  String? parentComments;
+  String? siteId;
+  String? type;
+  String? passedTime;
+  int? favorites;
+  int? shares;
+  String? authorId;
+  String? recomType;
+  bool? update;
+  int? views;
+  List<Images>? images;
+  List<String>? eventTags;
+  bool? recommend;
+  String? content;
+  String? excerpt;
+  bool? delete;
+  bool? collected;
+  List<String>? tags;
+  String? rqtId;
+  bool? isFavorite;
+  int? imageCount;
+  String? dataType;
+  String? title;
+  int? postId;
+  String? rewards;
 
-  static TuChongModel fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-    TuChongModel tuChongModelBean = TuChongModel();
-    tuChongModelBean.postId = map['post_id'];
-    tuChongModelBean.type = map['type'];
-    tuChongModelBean.url = map['url'];
-    tuChongModelBean.siteId = map['site_id'];
-    tuChongModelBean.authorId = map['author_id'];
-    tuChongModelBean.publishedAt = map['published_at'];
-    tuChongModelBean.passedTime = map['passed_time'];
-    tuChongModelBean.excerpt = map['excerpt'];
-    tuChongModelBean.favorites = map['favorites'];
-    tuChongModelBean.comments = map['comments'];
-    tuChongModelBean.rewardable = map['rewardable'];
-    tuChongModelBean.parentComments = map['parent_comments'];
-    tuChongModelBean.rewards = map['rewards'];
-    tuChongModelBean.views = map['views'];
-    tuChongModelBean.collected = map['collected'];
-    tuChongModelBean.shares = map['shares'];
-    tuChongModelBean.recommend = map['recommend'];
-    tuChongModelBean.delete = map['delete'];
-    tuChongModelBean.update = map['update'];
-    tuChongModelBean.content = map['content'];
-    tuChongModelBean.title = map['title'];
-    tuChongModelBean.imageCount = map['image_count'];
-    tuChongModelBean.images = []
-      ..addAll((map['images'] as List ?? []).map((o) => ImagesBean.fromMap(o)));
-    tuChongModelBean.titleImage = map['title_image'];
-    tuChongModelBean.tags = []
-      ..addAll((map['tags'] as List ?? []).map((o) => o.toString()));
-    tuChongModelBean.favoriteListPrefix = map['favorite_list_prefix'];
-    tuChongModelBean.rewardListPrefix = map['reward_list_prefix'];
-    tuChongModelBean.commentListPrefix = map['comment_list_prefix'];
-    tuChongModelBean.dataType = map['data_type'];
-    tuChongModelBean.createdAt = map['created_at'];
-    tuChongModelBean.sites = map['sites'];
-    tuChongModelBean.site = SiteBean.fromMap(map['site']);
-    tuChongModelBean.recomType = map['recom_type'];
-    tuChongModelBean.rqtId = map['rqt_id'];
-    tuChongModelBean.isFavorite = map['is_favorite'];
-    return tuChongModelBean;
+  TuChongModel({
+      this.createdAt,
+      this.publishedAt,
+      this.comments,
+      this.url,
+      this.rewardable,
+      this.parentComments,
+      this.siteId,
+      this.type,
+      this.passedTime,
+      this.favorites,
+      this.shares,
+      this.authorId,
+      this.recomType,
+      this.update,
+      this.views,
+      this.images,
+      this.eventTags,
+      this.recommend,
+      this.content,
+      this.excerpt,
+      this.delete,
+      this.collected,
+      this.tags,
+      this.rqtId,
+      this.isFavorite,
+      this.imageCount,
+      this.dataType,
+      this.title,
+      this.postId,
+      this.rewards});
+
+  TuChongModel.fromJson(dynamic json) {
+    createdAt = json["created_at"];
+    publishedAt = json["published_at"];
+    comments = json["comments"];
+    url = json["url"];
+    rewardable = json["rewardable"];
+    parentComments = json["parent_comments"];
+    siteId = json["site_id"];
+    type = json["type"];
+    passedTime = json["passed_time"];
+    favorites = json["favorites"];
+    shares = json["shares"];
+    authorId = json["author_id"];
+    recomType = json["recom_type"];
+    update = json["update"];
+    views = json["views"];
+    if (json["images"] != null) {
+      images = [];
+      json["images"].forEach((v) {
+        images?.add(Images.fromJson(v));
+      });
+    }
+    eventTags = json["event_tags"] != null ? json["event_tags"].cast<String>() : [];
+    recommend = json["recommend"];
+    content = json["content"];
+    excerpt = json["excerpt"];
+    delete = json["delete"];
+    collected = json["collected"];
+    tags = json["tags"] != null ? json["tags"].cast<String>() : [];
+    rqtId = json["rqt_id"];
+    isFavorite = json["is_favorite"];
+    imageCount = json["image_count"];
+    dataType = json["data_type"];
+    title = json["title"];
+    postId = json["post_id"];
+    rewards = json["rewards"];
   }
 
-  Map toJson() => {
-        "post_id": postId,
-        "type": type,
-        "url": url,
-        "site_id": siteId,
-        "author_id": authorId,
-        "published_at": publishedAt,
-        "passed_time": passedTime,
-        "excerpt": excerpt,
-        "favorites": favorites,
-        "comments": comments,
-        "rewardable": rewardable,
-        "parent_comments": parentComments,
-        "rewards": rewards,
-        "views": views,
-        "collected": collected,
-        "shares": shares,
-        "recommend": recommend,
-        "delete": delete,
-        "update": update,
-        "content": content,
-        "title": title,
-        "image_count": imageCount,
-        "images": images,
-        "title_image": titleImage,
-        "tags": tags,
-        "event_tags": eventTags,
-        "favorite_list_prefix": favoriteListPrefix,
-        "reward_list_prefix": rewardListPrefix,
-        "comment_list_prefix": commentListPrefix,
-        "data_type": dataType,
-        "created_at": createdAt,
-        "sites": sites,
-        "site": site,
-        "recom_type": recomType,
-        "rqt_id": rqtId,
-        "is_favorite": isFavorite,
-      };
-}
-
-/// site_id : "3416599"
-/// type : "user"
-/// name : "Supermickiii"
-/// domain : ""
-/// description : "Instagram/新浪微博/小红书同名\nmicki_fly@hotmail.com"
-/// followers : 189
-/// url : "https://tuchong.com/3416599/"
-/// icon : "https://sf3-tccdn-tos.pstatp.com/obj/tuchong-avatar/ll_3416599_2"
-/// is_bind_everphoto : true
-/// has_everphoto_note : true
-/// verified : false
-/// verifications : 0
-/// verification_list : []
-/// is_following : false
-
-class SiteBean {
-  String siteId;
-  String type;
-  String name;
-  String domain;
-  String description;
-  int followers;
-  String url;
-  String icon;
-  bool isBindEverphoto;
-  bool hasEverphotoNote;
-  bool verified;
-  int verifications;
-  List<dynamic> verificationList;
-  bool isFollowing;
-
-  static SiteBean fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-    SiteBean siteBean = SiteBean();
-    siteBean.siteId = map['site_id'];
-    siteBean.type = map['type'];
-    siteBean.name = map['name'];
-    siteBean.domain = map['domain'];
-    siteBean.description = map['description'];
-    siteBean.followers = map['followers'];
-    siteBean.url = map['url'];
-    siteBean.icon = map['icon'];
-    siteBean.isBindEverphoto = map['is_bind_everphoto'];
-    siteBean.hasEverphotoNote = map['has_everphoto_note'];
-    siteBean.verified = map['verified'];
-    siteBean.verifications = map['verifications'];
-    siteBean.verificationList = map['verification_list'];
-    siteBean.isFollowing = map['is_following'];
-    return siteBean;
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map["created_at"] = createdAt;
+    map["published_at"] = publishedAt;
+    map["comments"] = comments;
+    map["url"] = url;
+    map["rewardable"] = rewardable;
+    map["parent_comments"] = parentComments;
+    map["site_id"] = siteId;
+    map["type"] = type;
+    map["passed_time"] = passedTime;
+    map["favorites"] = favorites;
+    map["shares"] = shares;
+    map["author_id"] = authorId;
+    map["recom_type"] = recomType;
+    map["update"] = update;
+    map["views"] = views;
+    if (images != null) {
+      map["images"] = images?.map((v) => v.toJson()).toList();
+    }
+    map["event_tags"] = eventTags;
+    map["recommend"] = recommend;
+    map["content"] = content;
+    map["excerpt"] = excerpt;
+    map["delete"] = delete;
+    map["collected"] = collected;
+    map["tags"] = tags;
+    map["rqt_id"] = rqtId;
+    map["is_favorite"] = isFavorite;
+    map["image_count"] = imageCount;
+    map["data_type"] = dataType;
+    map["title"] = title;
+    map["post_id"] = postId;
+    map["rewards"] = rewards;
+    return map;
   }
 
-  Map toJson() => {
-        "site_id": siteId,
-        "type": type,
-        "name": name,
-        "domain": domain,
-        "description": description,
-        "followers": followers,
-        "url": url,
-        "icon": icon,
-        "is_bind_everphoto": isBindEverphoto,
-        "has_everphoto_note": hasEverphotoNote,
-        "verified": verified,
-        "verifications": verifications,
-        "verification_list": verificationList,
-        "is_following": isFollowing,
-      };
 }
 
-/// img_id : 312529951
-/// img_id_str : "312529951"
-/// user_id : 3416599
-/// title : "Optional("
+/// img_id : 824771553
 /// excerpt : ""
-/// width : 1798
-/// height : 2398
+/// img_id_str : "824771553"
+/// height : 1564
+/// title : "35409"
+/// width : 1564
+/// user_id : 2353448
 /// description : ""
 
-class ImagesBean {
-  int imgId;
-  String imgIdStr;
-  int userId;
-  String title;
-  String excerpt;
-  int width;
-  int height;
-  String description;
+class Images {
+  int? imgId;
+  String? excerpt;
+  String? imgIdStr;
+  int? height;
+  String? title;
+  int? width;
+  int? userId;
+  String? description;
 
-  static const int crossAxisCount = 2;
-  static const double spacing = 4;
+  Images({
+      this.imgId,
+      this.excerpt,
+      this.imgIdStr,
+      this.height,
+      this.title,
+      this.width,
+      this.userId,
+      this.description});
 
-  String get imageURL =>
-      "https://photo.tuchong.com/" + "$userId" + "/f/" + "$imgId" + ".jpg";
+  Images.fromJson(dynamic json) {
+    imgId = json["img_id"];
+    excerpt = json["excerpt"];
+    imgIdStr = json["img_id_str"];
+    height = json["height"];
+    title = json["title"];
+    width = json["width"];
+    userId = json["user_id"];
+    description = json["description"];
+  }
 
-  double imageHeightInWidth(double screenWidth) {
-    if (isSquare) {
-      return (screenWidth - spacing * 2) * height / width;
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map["img_id"] = imgId;
+    map["excerpt"] = excerpt;
+    map["img_id_str"] = imgIdStr;
+    map["height"] = height;
+    map["title"] = title;
+    map["width"] = width;
+    map["user_id"] = userId;
+    map["description"] = description;
+    return map;
+  }
+
+}
+
+/// description : "资深人像摄影师"
+/// videos : 11
+/// is_bind_everphoto : true
+/// verifications : 1
+/// verified : true
+/// domain : "yudachui.tuchong.com"
+/// url : "https://yudachui.tuchong.com/"
+/// type : "user"
+/// is_following : false
+/// verification_list : [{"verification_type":13,"verification_reason":"资深人像摄影师"}]
+/// icon : "https://sf6-tccdn-tos.pstatp.com/obj/tuchong-avatar/ll_2353448_29"
+/// followers : 113826
+/// site_id : "2353448"
+/// name : "俞大锤"
+/// has_everphoto_note : false
+
+class Site {
+  String? description;
+  int? videos;
+  bool? isBindEverphoto;
+  int? verifications;
+  bool? verified;
+  String? domain;
+  String? url;
+  String? type;
+  bool? isFollowing;
+  List<VerificationList>? verificationList;
+  String? icon;
+  int? followers;
+  String? siteId;
+  String? name;
+  bool? hasEverphotoNote;
+
+  Site({
+      this.description,
+      this.videos,
+      this.isBindEverphoto,
+      this.verifications,
+      this.verified,
+      this.domain,
+      this.url,
+      this.type,
+      this.isFollowing,
+      this.verificationList,
+      this.icon,
+      this.followers,
+      this.siteId,
+      this.name,
+      this.hasEverphotoNote});
+
+  Site.fromJson(dynamic json) {
+    description = json["description"];
+    videos = json["videos"];
+    isBindEverphoto = json["is_bind_everphoto"];
+    verifications = json["verifications"];
+    verified = json["verified"];
+    domain = json["domain"];
+    url = json["url"];
+    type = json["type"];
+    isFollowing = json["is_following"];
+    if (json["verification_list"] != null) {
+      verificationList = [];
+      json["verification_list"].forEach((v) {
+        verificationList?.add(VerificationList.fromJson(v));
+      });
     }
-    return ((screenWidth - spacing * (crossAxisCount + 1)) / crossAxisCount) *
-        height /
-        width;
+    icon = json["icon"];
+    followers = json["followers"];
+    siteId = json["site_id"];
+    name = json["name"];
+    hasEverphotoNote = json["has_everphoto_note"];
   }
 
-  bool get isSquare {
-    return width >= height;
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map["description"] = description;
+    map["videos"] = videos;
+    map["is_bind_everphoto"] = isBindEverphoto;
+    map["verifications"] = verifications;
+    map["verified"] = verified;
+    map["domain"] = domain;
+    map["url"] = url;
+    map["type"] = type;
+    map["is_following"] = isFollowing;
+    if (verificationList != null) {
+      map["verification_list"] = verificationList?.map((v) => v.toJson()).toList();
+    }
+    map["icon"] = icon;
+    map["followers"] = followers;
+    map["site_id"] = siteId;
+    map["name"] = name;
+    map["has_everphoto_note"] = hasEverphotoNote;
+    return map;
   }
 
-  static ImagesBean fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-    ImagesBean imagesBean = ImagesBean();
-    imagesBean.imgId = map['img_id'];
-    imagesBean.imgIdStr = map['img_id_str'];
-    imagesBean.userId = map['user_id'];
-    imagesBean.title = map['title'];
-    imagesBean.excerpt = map['excerpt'];
-    imagesBean.width = map['width'];
-    imagesBean.height = map['height'];
-    imagesBean.description = map['description'];
-    return imagesBean;
+}
+
+/// verification_type : 13
+/// verification_reason : "资深人像摄影师"
+
+class VerificationList {
+  int? verificationType;
+  String? verificationReason;
+
+  VerificationList({
+      this.verificationType,
+      this.verificationReason});
+
+  VerificationList.fromJson(dynamic json) {
+    verificationType = json["verification_type"];
+    verificationReason = json["verification_reason"];
   }
 
-  Map toJson() => {
-        "img_id": imgId,
-        "img_id_str": imgIdStr,
-        "user_id": userId,
-        "title": title,
-        "excerpt": excerpt,
-        "width": width,
-        "height": height,
-        "description": description,
-      };
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map["verification_type"] = verificationType;
+    map["verification_reason"] = verificationReason;
+    return map;
+  }
+
 }

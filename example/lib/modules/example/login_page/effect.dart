@@ -43,7 +43,7 @@ Future<void> _onLoginPressed(Action action, Context<LoginState> ctx) async {
       autoLoading: true);
   // if (result.valid) {
   result.fill(
-      UserModel.fromMap({"userId": "1", "nickname": "flutter", "avatar": ""}));
+      UserModel.fromJson({"userId": "1", "nickname": "flutter", "avatar": ""}));
   await UserStore.save(result.model);
   pop(ctx.context, true);
   // } else {

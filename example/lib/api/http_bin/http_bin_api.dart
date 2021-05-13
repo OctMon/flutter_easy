@@ -5,7 +5,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 export 'constant.dart';
 export 'package:session/session.dart' show Result;
 
-Config _config(String baseURL) {
+Config _config(String? baseURL) {
   Config.logEnable = false;
 
   return Config(
@@ -24,7 +24,7 @@ SessionInterceptorSendHandler _onRequest = (options) async {
 
 /// 响应结果拦截处理
 Result _onValidResult<T>(
-    Result result, bool validResult, BuildContext context) {
+    Result result, bool validResult, BuildContext? context) {
   logResponse(result);
   return result;
 }
@@ -41,12 +41,12 @@ Result _onValidResult<T>(
 /// autoLoading: 展示Loading
 ///
 Future<Result> getHttpBin(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
-    Map<String, dynamic> queryParameters,
+    Map? data,
+    Map<String, dynamic>? queryParameters,
     bool validResult = true,
-    BuildContext context,
+    BuildContext? context,
     bool autoLoading = false}) async {
   return requestHttpBin(
       baseUrl: baseUrl,
@@ -70,11 +70,11 @@ Future<Result> getHttpBin(
 /// autoLoading: 展示Loading
 ///
 Future<Result> postHttpBin(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
+    Map? data,
     bool validResult = true,
-    BuildContext context,
+    BuildContext? context,
     bool autoLoading = false}) async {
   return requestHttpBin(
       baseUrl: baseUrl,
@@ -98,13 +98,13 @@ Future<Result> postHttpBin(
 /// autoLoading: 展示Loading
 ///
 Future<Result> requestHttpBin(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
-    Map<String, dynamic> queryParameters,
-    Options options,
+    Map? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
     bool validResult = true,
-    BuildContext context,
+    BuildContext? context,
     bool autoLoading = false}) async {
   // Loading is show
   bool alreadyShowLoading = false;
@@ -122,7 +122,7 @@ Future<Result> requestHttpBin(
   );
   Result result = await session.request(path,
       data: data, queryParameters: queryParameters, options: options);
-  if (autoLoading && alreadyShowLoading) {
+  if (context != null &&autoLoading && alreadyShowLoading) {
     // Dismiss loading
     dismissLoading(context);
   }

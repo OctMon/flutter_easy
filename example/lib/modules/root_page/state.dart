@@ -3,13 +3,13 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 class RootState implements Cloneable<RootState> {
   /// 当前下标
-  int currentIndex;
+  late int currentIndex;
 
   /// 闪屏页倒计时
-  int countDown;
+  int? countDown;
 
   /// 计时器⌛️
-  TimerUtil timer;
+  TimerUtil? timer;
 
   @override
   RootState clone() {

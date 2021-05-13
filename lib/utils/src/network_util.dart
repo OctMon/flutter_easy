@@ -36,10 +36,10 @@ BaseURLType get kBaseURLType {
 }
 
 /// 测试环境
-String? kTestBaseURL;
+late String kTestBaseURL;
 
 /// 生产环境
-String? kReleaseBaseURL;
+late String kReleaseBaseURL;
 
 /// 列表无数据
 String kEmptyList = "暂无内容";
@@ -228,11 +228,11 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
         content: Text(
           "${BaseURLType.test}" +
               "=\n" +
-              (kTestBaseURL ?? "unknown") +
+              (kTestBaseURL) +
               "\n\n"
                   "${BaseURLType.release}" +
               "=\n" +
-              (kReleaseBaseURL ?? "unknown"),
+              (kReleaseBaseURL),
         ),
         actions: <Widget>[
           BaseDialogAction(

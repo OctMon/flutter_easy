@@ -16,4 +16,4 @@ Locale? get lastLocale {
   return null;
 }
 
-Future<void> Function(Locale)? onLocaleChange;
+Future<void> Function(Locale?)? onLocaleChange;
