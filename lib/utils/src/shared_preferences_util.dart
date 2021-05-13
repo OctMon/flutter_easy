@@ -66,7 +66,7 @@ class SharedPreferencesUtil {
       key.startsWith('flutter.') ? key : "flutter.$key";
 
   static Future<dynamic> _all(String key) async {
-    Map<String, Object> all = await SharedPreferencesUtil.instance.getAll();
-    return all != null ? all[_checkPrefix(key)] : {};
+    Map<String, Object> all = await SharedPreferencesUtil.instance.getAll() ?? {};
+    return all[_checkPrefix(key)];
   }
 }

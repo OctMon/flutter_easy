@@ -5,7 +5,7 @@ Widget keepAliveWrapper(Widget child) => _KeepAlive(child: child);
 class _KeepAlive extends StatefulWidget {
   final Widget child;
 
-  const _KeepAlive({Key key, this.child}) : super(key: key);
+  const _KeepAlive({Key? key, required this.child}) : super(key: key);
 
   @override
   _KeepAliveState createState() => _KeepAliveState();

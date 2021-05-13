@@ -6,15 +6,15 @@ import 'base_web_image.dart';
 
 class BaseBannerView extends StatelessWidget {
   final List<String> urls;
-  final double width;
-  final double height;
-  final int playDelay;
+  final double? width;
+  final double? height;
+  final int? playDelay;
   final bool showPagination;
-  final SwiperOnTap onTap;
+  final SwiperOnTap? onTap;
 
   const BaseBannerView(
-      {Key key,
-      @required this.urls,
+      {Key? key,
+      required this.urls,
       this.width,
       this.height,
       this.playDelay,
@@ -50,17 +50,17 @@ class BaseBannerView extends StatelessWidget {
 
 class BaseCycleView extends StatelessWidget {
   final List<Widget> items;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final Axis scrollDirection;
-  final ScrollPhysics physics;
-  final int playDelay;
+  final ScrollPhysics? physics;
+  final int? playDelay;
   final bool showPagination;
-  final SwiperOnTap onTap;
+  final SwiperOnTap? onTap;
 
   const BaseCycleView(
-      {Key key,
-      this.items,
+      {Key? key,
+      required this.items,
       this.width,
       this.height,
       this.scrollDirection = Axis.horizontal,

@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_easy/components/src/base.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-Future<DateTime> showModalPopupDatePicker(BuildContext context,
-    {double height,
+Future<DateTime?> showModalPopupDatePicker(BuildContext context,
+    {double? height,
     CupertinoDatePickerMode mode = CupertinoDatePickerMode.dateAndTime,
-    DateTime initialDateTime,
-    DateTime minimumDate,
-    DateTime maximumDate,
-    int minimumYear,
-    int maximumYear}) {
+    DateTime? initialDateTime,
+    DateTime? minimumDate,
+    DateTime? maximumDate,
+    int? minimumYear,
+    int? maximumYear}) {
   return showCupertinoModalPopup(
     context: context,
     builder: (context) {
@@ -54,9 +54,6 @@ Future<DateTime> showModalPopupDatePicker(BuildContext context,
               child: CupertinoDatePicker(
                 mode: mode,
                 onDateTimeChanged: (changed) {
-                  if (changed == null) {
-                    return;
-                  }
                   dateTime = changed;
                 },
                 initialDateTime: initialDateTime ?? DateTime.now(),
@@ -73,10 +70,10 @@ Future<DateTime> showModalPopupDatePicker(BuildContext context,
   );
 }
 
-Future<int> showModalPopupTitlesPicker(
+Future<int?> showModalPopupTitlesPicker(
   BuildContext context,
   List<String> titles, {
-  double height,
+  double? height,
 }) {
   return showCupertinoModalPopup(
     context: context,

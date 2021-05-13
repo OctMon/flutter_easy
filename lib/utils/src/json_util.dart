@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 /// Converts [value] to a JSON string.
-String jsonEncode(Object object, {Object toEncodable(Object nonEncodable)}) =>
-    json.encode(object, toEncodable: toEncodable);
+String jsonEncode(Object? value, {Object? toEncodable(dynamic object)?}) =>
+    json.encode(value, toEncodable: toEncodable);
 
 /// Parses the string and returns the resulting Json object.
-dynamic jsonDecode(String source, {Object reviver(Object key, Object value)}) =>
+dynamic jsonDecode(String source,
+        {Object? reviver(Object? key, Object? value)?}) =>
     json.decode(source, reviver: reviver);
 
 Map sortMap(Map map) {

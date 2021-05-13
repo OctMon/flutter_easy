@@ -9,13 +9,13 @@ String base64Encode(List<int> input) => base64.encode(input);
 
 /// base64解密字符串
 String base64DecodeString(String data) {
-  Uint8List decode = base64Decode(data);
+  Uint8List? decode = base64Decode(data);
   return decode != null ? utf8.decode(decode) : "";
 }
 
 /// base64解密字符串
-Uint8List base64Decode(String encoded) {
-  Uint8List decode;
+Uint8List? base64Decode(String encoded) {
+  Uint8List? decode;
   try {
     decode = base64.decode(encoded);
   } catch (e) {}

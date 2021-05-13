@@ -27,7 +27,7 @@ extension StringExtensions on String {
 
   /// RegExp Match pattern
   bool hasMatch(String pattern) {
-    return (this == null) ? false : RegExp(pattern).hasMatch(this);
+    return RegExp(pattern).hasMatch(this);
   }
 }
 
@@ -136,7 +136,7 @@ extension IdentityCardExtensions on String {
 
   /// 根据出生日期获取年龄
   int _getAgeFromBirthday(String strBirthday) {
-    if (strBirthday == null || strBirthday.isEmpty) {
+    if (strBirthday.isEmpty) {
       logDebug('生日错误');
       return 0;
     }

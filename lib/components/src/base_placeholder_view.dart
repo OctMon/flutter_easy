@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 class BasePlaceholderView extends StatelessWidget {
-  final String title;
+  final String? title;
   final String image;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const BasePlaceholderView({
-    Key key,
+    Key? key,
     this.title = '暂无数据',
     this.image = 'empty',
     this.onTap,
@@ -15,7 +15,7 @@ class BasePlaceholderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (title == null || title.isEmpty) {
+    if (title == null || title?.isEmpty == true) {
       return Center(
         child: BaseLoadingView(),
       );

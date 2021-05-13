@@ -2,55 +2,49 @@ part of lunar_calendar_converter;
 
 class Lunar {
   /// 农历对应的公历年份。如 2018 表示与公历公元 2018 年对应的农历戊戌年；-200 表示与公历公元前 200 年对应的农历辛丑年；0/-1 年均表示公历公元前 1 年，农历庚申年。
-  int _lunarYear;
-  DateTime _dateTime;
+  late int _lunarYear;
+  late DateTime _dateTime;
 
   String get lunarYearString {
     String result = "";
-    if (lunarYear != null) {
-      int year = lunarYear;
-      if (year < 0) {
-        // 确保能读到正确的天干地支数据
-        year++;
-      }
-      if (year < 1900) {
-        // 把远古年代转到近代来计算天干地支
-        year += ((2018 - year) / 60).floor() * 60;
-      }
+    int year = lunarYear;
+    if (year < 0) {
+      // 确保能读到正确的天干地支数据
+      year++;
+    }
+    if (year < 1900) {
+      // 把远古年代转到近代来计算天干地支
+      year += ((2018 - year) / 60).floor() * 60;
+    }
 //      int absYear = lunarYear.abs();
 //      String prefix = (lunarYear < 0 ? "公元前" : "") + "$absYear";
-      result = ((_tianganList[(year - 4) % _tianganList.length]) +
-          (_dizhiList[(year - 4) % _dizhiList.length]) +
-          "年");
-    }
+    result = ((_tianganList[(year - 4) % _tianganList.length]) +
+        (_dizhiList[(year - 4) % _dizhiList.length]) +
+        "年");
     return result;
   }
 
-  int lunarMonth;
+  late int lunarMonth;
 
   String get lunarMonthString {
     String result = "";
-    if (lunarMonth != null) {
-      if (lunarMonth < 1 || lunarMonth > 12) {
-        result = "非法日期";
-      }
-      String month = _lunarMonthList[lunarMonth - 1];
-      String leap = isLeap ? "闰" : "";
-      result = "$leap$month月";
+    if (lunarMonth < 1 || lunarMonth > 12) {
+      result = "非法日期";
     }
+    String month = _lunarMonthList[lunarMonth - 1];
+    String leap = isLeap ? "闰" : "";
+    result = "$leap$month月";
     return result;
   }
 
-  int lunarDay;
+  late int lunarDay;
 
   String get lunarDayString {
     String result = "";
-    if (lunarDay != null) {
-      if (lunarDay < 1 || lunarDay > 30) {
-        result = "非法日期";
-      }
-      result = _lunarDayList[lunarDay - 1];
+    if (lunarDay< 1 || lunarDay> 30) {
+      result = "非法日期";
     }
+    result = _lunarDayList[lunarDay- 1];
     return result;
   }
 
@@ -104,7 +98,7 @@ class Lunar {
     return _twelveSymbolicAnimalsList[(lunarYear - 1900) % 12];
   }
 
-  bool isLeap;
+  late bool isLeap;
 
   static List<String> _lunarMonthList = [
     '正',
@@ -468,11 +462,11 @@ class Lunar {
   ];
 
   Lunar(DateTime dateTime,
-      {int lunarYear, int lunarMonth, int lunarDay, bool isLeap}) {
+      {int? lunarYear, int? lunarMonth, int? lunarDay, bool? isLeap}) {
     this._dateTime = dateTime;
-    this.lunarYear = lunarYear;
-    this.lunarMonth = lunarMonth;
-    this.lunarDay = lunarDay;
+    this.lunarYear = lunarYear ?? 0;
+    this.lunarMonth = lunarMonth ?? 1;
+    this.lunarDay = lunarDay ?? 1;
     this.isLeap = isLeap == null ? false : isLeap;
   }
 

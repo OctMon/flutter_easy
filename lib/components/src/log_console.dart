@@ -5,7 +5,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:logger/logger.dart';
 
 bool _initialized = false;
-ValueChanged _outputEvent;
+ValueChanged? _outputEvent;
 
 class LogConsole extends StatefulWidget {
   final bool dark;
@@ -188,9 +188,9 @@ class _LogConsoleState extends State<LogConsole> {
                 return;
               }
               showSelectBaseURLTypeAlert().then((success) {
-                if (success) {
+                if (success != null && success) {
                   if (baseURLChangedCallback != null) {
-                    baseURLChangedCallback();
+                    baseURLChangedCallback!();
                   }
                 }
               });
@@ -264,7 +264,7 @@ class _LogConsoleState extends State<LogConsole> {
               )
             ],
             onChanged: (value) {
-              _filterLevel = value;
+              _filterLevel = value as Level;
               _refreshFilter();
             },
           )
@@ -307,7 +307,7 @@ class LogBar extends StatelessWidget {
   final bool dark;
   final Widget child;
 
-  LogBar({this.dark, this.child});
+  LogBar({this.dark = false, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -319,7 +319,7 @@ class LogBar extends StatelessWidget {
               ? null
               : [
                   BoxShadow(
-                    color: Colors.grey[400],
+                    color: Colors.grey[400] ?? Colors.white,
                     blurRadius: 3,
                   ),
                 ],
@@ -343,17 +343,17 @@ class AnsiParser {
 
   AnsiParser(this.dark);
 
-  Color foreground;
-  Color background;
-  List<TextSpan> spans;
+  Color? foreground;
+  Color? background;
+  late List<TextSpan> spans;
 
   void parse(String s) {
     spans = [];
     var state = TEXT;
-    StringBuffer buffer;
+    late StringBuffer buffer;
     var text = StringBuffer();
     var code = 0;
-    List<int> codes;
+    late List<int> codes;
 
     for (var i = 0, n = s.length; i < n; i++) {
       var c = s[i];
@@ -436,19 +436,25 @@ class AnsiParser {
   }
 
   Color getColor(int colorCode, bool foreground) {
+    Color? color;
     switch (colorCode) {
       case 0:
-        return foreground ? Colors.black : Colors.transparent;
+        color = foreground ? Colors.black : Colors.transparent;
+        break;
       case 12:
-        return dark ? Colors.lightBlue[300] : Colors.indigo[700];
+        color = dark ? Colors.lightBlue[300] : Colors.indigo[700];
+        break;
       case 208:
-        return dark ? Colors.orange[300] : Colors.orange[700];
+        color = dark ? Colors.orange[300] : Colors.orange[700];
+        break;
       case 196:
-        return dark ? Colors.red[300] : Colors.red[700];
+        color = dark ? Colors.red[300] : Colors.red[700];
+        break;
       case 199:
-        return dark ? Colors.pink[300] : Colors.pink[700];
+        color = dark ? Colors.pink[300] : Colors.pink[700];
+        break;
     }
-    return Colors.white;
+    return color ?? Colors.white;
   }
 
   TextSpan createSpan(String text) {

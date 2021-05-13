@@ -17,11 +17,11 @@ enum BaseURLType { test, release }
 String _baseURLTypeKey = "$BaseURLType".md5;
 
 /// 当前环境
-String _baseURLTypeString;
+String _baseURLTypeString = "";
 
 /// 上线环境
 BaseURLType get kBaseURLType {
-  if (isAppDebugFlag && _baseURLTypeString != null) {
+  if (isAppDebugFlag && _baseURLTypeString.isNotEmpty) {
     if (_baseURLTypeString == "${BaseURLType.test}") {
       return BaseURLType.test;
     } else if (_baseURLTypeString == "${BaseURLType.release}") {
@@ -36,10 +36,10 @@ BaseURLType get kBaseURLType {
 }
 
 /// 测试环境
-String kTestBaseURL;
+String? kTestBaseURL;
 
 /// 生产环境
-String kReleaseBaseURL;
+String? kReleaseBaseURL;
 
 /// 列表无数据
 String kEmptyList = "暂无内容";
@@ -60,20 +60,20 @@ String kPageSizeKey = 'pagesize';
 VoidCallback? baseURLChangedCallback;
 
 typedef _ResultCallBack = Result Function(
-    Result result, bool validResult, BuildContext context);
+    Result result, bool validResult, BuildContext? context);
 
 class NetworkUtil {
   NetworkUtil._();
 
-  static init(Session session, {_ResultCallBack onResult}) {
+  static init(Session session, {_ResultCallBack? onResult}) {
     _session = session;
     _onResult = onResult;
   }
 }
 
-Session _session;
+late Session _session;
 
-_ResultCallBack _onResult;
+_ResultCallBack? _onResult;
 
 ///
 /// 发送请求并解析远程服务器返回的result对应的实体类型
@@ -87,12 +87,12 @@ _ResultCallBack _onResult;
 /// autoLoading: 展示Loading
 ///
 Future<Result> get(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
-    Map<String, dynamic> queryParameters,
+    Map? data,
+    Map<String, dynamic>? queryParameters,
     bool validResult = true,
-    BuildContext context,
+    BuildContext? context,
     bool autoLoading = false}) async {
   return request(
       baseUrl: baseUrl,
@@ -116,11 +116,11 @@ Future<Result> get(
 /// autoLoading: 展示Loading
 ///
 Future<Result> post(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
+    Map? data,
     bool validResult = true,
-    BuildContext context,
+    BuildContext? context,
     bool autoLoading = false}) async {
   return request(
       baseUrl: baseUrl,
@@ -143,13 +143,13 @@ Future<Result> post(
 /// autoLoading: 展示Loading
 ///
 Future<Result> request(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
-    Map<String, dynamic> queryParameters,
-    Options options,
+    Map? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
     bool validResult = true,
-    BuildContext context,
+    BuildContext? context,
     bool autoLoading = false}) async {
   // Loading is show
   bool alreadyShowLoading = false;
@@ -164,7 +164,7 @@ Future<Result> request(
   Session session = Session(
       config: Config(
           baseUrl:
-              baseUrl?.isNotEmpty == true ? baseUrl : _session.config.baseUrl,
+              baseUrl?.isNotEmpty == true ? baseUrl! : _session.config.baseUrl,
           proxy: _session.config.proxy,
           badCertificateCallback: _session.config.badCertificateCallback,
           connectTimeout: _session.config.connectTimeout,
@@ -182,26 +182,24 @@ Future<Result> request(
       onResult: validResult ? _session.onResult : null);
   Result result = await session.request(path,
       data: data, queryParameters: queryParameters, options: options);
-  if (autoLoading && alreadyShowLoading) {
+  if (context != null && autoLoading && alreadyShowLoading) {
     // Dismiss loading
     dismissLoading(context);
   }
-  return _onResult != null
-      ? _onResult(result, validResult, context)
-      : result;
+  return _onResult != null ? _onResult!(result, validResult, context) : result;
 }
 
 Future<String> initSelectedBaseURLType() async {
   String urlType =
       await SharedPreferencesUtil.getSharedPrefsString(_baseURLTypeKey);
-  if (urlType != null && urlType.isNotEmpty) {
+  if (urlType.isNotEmpty) {
     _baseURLTypeString = urlType;
   }
   return urlType;
 }
 
 /// 弹出切换环境菜单
-Future<bool> showSelectBaseURLTypeAlert({BuildContext context}) {
+Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
   if (!isAppDebugFlag) {
     return Future.value(false);
   }
@@ -226,7 +224,7 @@ Future<bool> showSelectBaseURLTypeAlert({BuildContext context}) {
     builder: (BuildContext ctx) {
       return BaseGeneralAlertDialog(
         title: Text(
-            _baseURLTypeString == null ? "$kBaseURLType" : _baseURLTypeString),
+            _baseURLTypeString.isEmpty? "$kBaseURLType" : _baseURLTypeString),
         content: Text(
           "${BaseURLType.test}" +
               "=\n" +
@@ -243,7 +241,7 @@ Future<bool> showSelectBaseURLTypeAlert({BuildContext context}) {
             onPressed: () async {
               await save(BaseURLType.test);
               if (baseURLChangedCallback != null) {
-                baseURLChangedCallback();
+                baseURLChangedCallback!();
               }
               Navigator.pop(ctx, true);
             },
@@ -254,7 +252,7 @@ Future<bool> showSelectBaseURLTypeAlert({BuildContext context}) {
             onPressed: () async {
               await save(BaseURLType.release);
               if (baseURLChangedCallback != null) {
-                baseURLChangedCallback();
+                baseURLChangedCallback!();
               }
               Navigator.pop(ctx, true);
             },

@@ -5,20 +5,20 @@ class BaseTagListView extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
   final double spacing;
   final double runSpacing;
-  final Color color;
-  final BorderRadiusGeometry borderRadius;
+  final Color? color;
+  final BorderRadiusGeometry? borderRadius;
   final double borderWidth;
   final List<Widget> children;
 
   const BaseTagListView(
-      {Key key,
+      {Key? key,
       this.contentPadding = const EdgeInsets.symmetric(horizontal: 3),
       this.spacing = 10.0,
       this.runSpacing = 5.0,
       this.color,
       this.borderRadius,
       this.borderWidth = 0.5,
-      this.children})
+      required this.children})
       : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class BaseTagListView extends StatelessWidget {
               padding: contentPadding,
               decoration: BoxDecoration(
                 border: Border.all(
-                  width: borderWidth ?? 0.5,
+                  width: borderWidth,
                   color: color ?? colorWithTint,
                 ),
                 borderRadius: borderRadius ??

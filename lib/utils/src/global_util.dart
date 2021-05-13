@@ -63,7 +63,7 @@ Future<void> setClipboard(String text) =>
     Clipboard.setData(ClipboardData(text: text));
 
 /// 获取剪贴板内容
-Future<String> getClipboard() =>
+Future<String?> getClipboard() =>
     Clipboard.getData(Clipboard.kTextPlain).then((data) => data?.text);
 
 const kPathIcons = "icons/";
@@ -97,13 +97,13 @@ Future<bool> canLaunch(String urlString) => urlLauncher.canLaunch(urlString);
 
 Future<bool> onLaunch(
   String urlString, {
-  bool forceSafariVC,
-  bool forceWebView,
-  bool enableJavaScript,
-  bool enableDomStorage,
-  bool universalLinksOnly,
-  Map<String, String> headers,
-  Brightness statusBarBrightness,
+  bool forceSafariVC = false,
+  bool forceWebView = false,
+  bool enableJavaScript = false,
+  bool enableDomStorage = false,
+  bool universalLinksOnly = false,
+  Map<String, String> headers = const <String, String>{},
+  Brightness? statusBarBrightness,
 }) =>
     urlLauncher.launch(urlString,
         forceSafariVC: forceSafariVC,

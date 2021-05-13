@@ -5,12 +5,12 @@ import 'base.dart';
 /// 数字滚动效果
 class BaseAnimationNumberText extends StatefulWidget {
   final num number;
-  final TextStyle style;
+  final TextStyle? style;
   final int duration;
   final int fixed;
 
   const BaseAnimationNumberText(this.number,
-      {Key key, this.style, this.duration: 1200, this.fixed: 2})
+      {Key? key, this.style, this.duration: 1200, this.fixed: 2})
       : super(key: key);
 
   @override
@@ -20,8 +20,8 @@ class BaseAnimationNumberText extends StatefulWidget {
 
 class _BaseAnimationNumberTextState extends State<BaseAnimationNumberText>
     with SingleTickerProviderStateMixin {
-  Animation<double> _animation;
-  AnimationController _controller;
+  late Animation<double> _animation;
+  late AnimationController _controller;
   num _fromNumber = 0;
 
   @override
@@ -30,7 +30,7 @@ class _BaseAnimationNumberTextState extends State<BaseAnimationNumberText>
 
     _controller = AnimationController(
         duration: Duration(milliseconds: widget.duration), vsync: this);
-    final Animation curve =
+    final Animation<double> curve =
         CurvedAnimation(parent: _controller, curve: Curves.linear);
     _animation = Tween<double>(begin: 0, end: 1).animate(curve);
     _controller.forward(from: 0);
@@ -48,7 +48,7 @@ class _BaseAnimationNumberTextState extends State<BaseAnimationNumberText>
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 

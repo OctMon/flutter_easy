@@ -30,7 +30,7 @@ Footer baseRefreshFooter(
         String loadingText: '正在加载',
         String loadedText: '加载完成',
         String loadFailedText: '加载失败',
-        String noMoreText,
+        String? noMoreText,
         String infoText: '更新于 %T',
         Color textColor: colorWithHex3,
         Color infoColor: colorWithHex6}) =>
@@ -44,7 +44,7 @@ Footer baseRefreshFooter(
           double loadIndicatorExtent,
           AxisDirection axisDirection,
           bool float,
-          Duration completeDuration,
+          Duration? completeDuration,
           bool enableInfiniteLoad,
           bool success,
           bool noMore) {
@@ -86,20 +86,20 @@ Footer baseRefreshFooter(
 Footer baseDefaultRefreshFooter = baseRefreshFooter();
 
 class BaseRefresh extends StatelessWidget {
-  final EasyRefreshController controller;
-  final ScrollController scrollController;
-  final Header header;
+  final EasyRefreshController? controller;
+  final ScrollController? scrollController;
+  final Header? header;
   final bool firstRefresh;
-  final Widget firstRefreshWidget;
-  final OnRefreshCallback onRefresh;
-  final Footer footer;
-  final OnLoadCallback onLoad;
-  final Widget emptyWidget;
-  final List<Widget> slivers;
-  final Widget child;
+  final Widget? firstRefreshWidget;
+  final OnRefreshCallback? onRefresh;
+  final Footer? footer;
+  final OnLoadCallback? onLoad;
+  final Widget? emptyWidget;
+  final List<Widget>? slivers;
+  final Widget? child;
 
   const BaseRefresh(
-      {Key key,
+      {Key? key,
       this.controller,
       this.scrollController,
       this.header,
@@ -114,11 +114,11 @@ class BaseRefresh extends StatelessWidget {
         super(key: key);
 
   const BaseRefresh.custom(
-      {Key key,
+      {Key? key,
       this.controller,
       this.scrollController,
       this.header,
-      this.firstRefresh,
+      this.firstRefresh = false,
       this.firstRefreshWidget,
       this.onRefresh,
       this.footer,

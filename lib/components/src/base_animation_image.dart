@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget baseDefaultAnimationImage;
+Widget? baseDefaultAnimationImage;
 
 class BaseAnimationImage extends StatefulWidget {
   final List<String> assetList;
@@ -9,11 +9,11 @@ class BaseAnimationImage extends StatefulWidget {
   final int interval;
 
   BaseAnimationImage(
-      {Key key,
-      @required this.assetList,
+      {Key? key,
+      required this.assetList,
       this.width = 100,
       this.height = 100,
-      @required this.interval})
+      required this.interval})
       : super(key: key);
 
   @override
@@ -24,8 +24,8 @@ class BaseAnimationImage extends StatefulWidget {
 
 class _BaseAnimationImageState extends State<BaseAnimationImage>
     with SingleTickerProviderStateMixin {
-  Animation<double> _animation;
-  AnimationController _controller;
+  late Animation<double> _animation;
+  late AnimationController _controller;
 
   @override
   void initState() {

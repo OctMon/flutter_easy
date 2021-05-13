@@ -12,10 +12,10 @@ String reverse(String text) {
 
 /// 每隔n位 加 pattern
 String formatDigitPattern(String text, {int digit = 4, String pattern = ' '}) {
-  text = text?.replaceAllMapped(RegExp("(.{$digit})"), (Match match) {
+  text = text.replaceAllMapped(RegExp("(.{$digit})"), (Match match) {
     return "${match.group(0)}$pattern";
   });
-  if (text != null && text.endsWith(pattern)) {
+  if (text.endsWith(pattern)) {
     text = text.substring(0, text.length - 1);
   }
   return text;
@@ -28,7 +28,7 @@ String formatDigitPatternEnd(String text,
 
 /// 每隔n位 加逗号
 String formatDigitNum(Object num, {int digit: 3}) =>
-    formatDigitPatternEnd(num?.toString(), digit: digit, pattern: ',');
+    formatDigitPatternEnd(num.toString(), digit: digit, pattern: ',');
 
 /// 保留n位小数
 String formatFractionDigitsAsFixed(double amount,

@@ -866,12 +866,12 @@ class BaseInkWell extends StatelessWidget {
 }
 
 class BaseButton extends StatelessWidget {
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
   final Widget child;
   final VoidCallback? onPressed;
 
   BaseButton(
-      {required this.padding, required this.child, required this.onPressed});
+      {this.padding, required this.child, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -1354,15 +1354,15 @@ Future<T?> showBaseDialog<T>({
 }
 
 class BaseActionSheet extends StatelessWidget {
-  final Widget title;
-  final Widget message;
+  final Widget? title;
+  final Widget? message;
   final List<Widget> actions;
   final Widget cancelButton;
 
   const BaseActionSheet({
     Key? key,
-    required this.title,
-    required this.message,
+    this.title,
+    this.message,
     this.actions = const <Widget>[],
     required this.cancelButton,
   }) : super(key: key);

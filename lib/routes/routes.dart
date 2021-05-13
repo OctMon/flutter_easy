@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 String routesLoginNamed = 'login';
 
 /// 指定登录状态
-bool Function() routesIsLogin;
+bool Function()? routesIsLogin;
 
 GlobalKey<NavigatorState> navigatorGlobalKey = GlobalKey();
 
@@ -18,7 +18,7 @@ GlobalKey<NavigatorState> navigatorGlobalKey = GlobalKey();
 /// needLogin: 是否检测用户登录状态 需要[setPushToLogin]指定登录方法 [setIsLogin]指定登录状态
 ///
 Future pushNamed(BuildContext context, String routeName,
-    {Object arguments, dynamic Function(bool) needLogin}) {
+    {Object? arguments, dynamic Function(bool)? needLogin}) {
   return _pushNamed('pushNamed', context, routeName,
       arguments: arguments, needLogin: needLogin);
 }
@@ -31,7 +31,7 @@ Future pushNamed(BuildContext context, String routeName,
 /// needLogin: 是否检测用户登录状态 需要[setPushToLogin]指定登录方法 [setIsLogin]指定登录状态
 ///
 Future pushReplacementNamed(BuildContext context, String routeName,
-    {Object arguments, dynamic Function(bool) needLogin}) {
+    {Object? arguments, dynamic Function(bool)? needLogin}) {
   return _pushNamed('pushReplacementNamed', context, routeName,
       arguments: arguments, needLogin: needLogin);
 }
@@ -45,9 +45,9 @@ Future pushReplacementNamed(BuildContext context, String routeName,
 /// needLogin: 是否检测用户登录状态 需要[setPushToLogin]指定登录方法 [setIsLogin]指定登录状态
 ///
 Future pushNamedAndRemoveUntil(BuildContext context, String routeName,
-    {RoutePredicate predicate,
-    Object arguments,
-    dynamic Function(bool) needLogin}) {
+    {required RoutePredicate predicate,
+    Object? arguments,
+    dynamic Function(bool)? needLogin}) {
   return _pushNamed('pushNamedAndRemoveUntil', context, routeName,
       predicate: predicate, arguments: arguments, needLogin: needLogin);
 }
@@ -60,7 +60,7 @@ Future pushNamedAndRemoveUntil(BuildContext context, String routeName,
 /// needLogin: 是否检测用户登录状态 需要[setPushToLogin]指定登录方法 [setIsLogin]指定登录状态
 ///
 Future popAndPushNamed(BuildContext context, String routeName,
-    {Object arguments, dynamic Function(bool) needLogin}) {
+    {Object? arguments, dynamic Function(bool)? needLogin}) {
   return _pushNamed('popAndPushNamed', context, routeName,
       arguments: arguments, needLogin: needLogin);
 }
@@ -68,31 +68,32 @@ Future popAndPushNamed(BuildContext context, String routeName,
 ///
 /// 路由跳转封装pop
 ///
-pop<T extends Object>(BuildContext context, [T result]) {
+pop<T extends Object?>(BuildContext context, [T? result]) {
   return Navigator.of(context).pop(result);
 }
 
-Future _pushNamed(String type, BuildContext context, String routeName,
-    {RoutePredicate predicate,
-    Object arguments,
-    dynamic Function(bool) needLogin}) {
-  if (needLogin != null && !routesIsLogin()) {
-    return pushNamedToLogin(context)
-        .then((success) => needLogin(success ?? false));
+Future<T?> _pushNamed<T extends Object?>(
+    String type, BuildContext context, String routeName,
+    {RoutePredicate? predicate,
+    Object? arguments,
+    dynamic Function(bool)? needLogin}) async {
+  if (needLogin != null && routesIsLogin != null && !routesIsLogin!()) {
+    return pushNamedToLogin(context).then((success) => needLogin(success));
   }
   switch (type) {
     case 'pushReplacementNamed':
       return Navigator.of(context)
           .pushReplacementNamed(routeName, arguments: arguments);
-      break;
     case 'pushNamedAndRemoveUntil':
-      return Navigator.of(context)
-          .pushNamedAndRemoveUntil(routeName, predicate, arguments: arguments);
+      if (predicate != null) {
+        return Navigator.of(context).pushNamedAndRemoveUntil(
+            routeName, predicate,
+            arguments: arguments);
+      }
       break;
     case 'popAndPushNamed':
       return Navigator.of(context)
           .popAndPushNamed(routeName, arguments: arguments);
-      break;
     default:
       return Navigator.of(context).pushNamed(routeName, arguments: arguments);
   }

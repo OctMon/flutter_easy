@@ -8,18 +8,18 @@ import 'package:path_provider/path_provider.dart';
 import 'logger_util.dart';
 import 'shared_preferences_util.dart';
 
-String _secret;
+String? _secret;
 
 class StorageUtil {
   static void setEncrypt(String secret) => _secret = secret;
 }
 
-final _encrypt = Encrypter(AES(Key.fromUtf8(_secret), mode: AESMode.ecb));
+final _encrypt = Encrypter(AES(Key.fromUtf8(_secret ?? ""), mode: AESMode.ecb));
 final _iv = IV.fromLength(16);
 
 Future<String> getStorageString(String key) async {
   String string = await SharedPreferencesUtil.getSharedPrefsString(key);
-  if (_secret == null || string == null) {
+  if (_secret == null) {
     return string;
   }
 //  if (isWeb) {
@@ -30,13 +30,7 @@ Future<String> getStorageString(String key) async {
 
 Future<bool> setStorageString(String key, String value) async {
   String string = value;
-  if (string != null) {
-//    if (isWeb) {
-    string = _encrypt.encrypt(value, iv: _iv).base64;
-//    } else {
-//      string = await FlutterDes.encryptToBase64(value, _secret);
-//    }
-  }
+  string = _encrypt.encrypt(value, iv: _iv).base64;
   return SharedPreferencesUtil.setSharedPrefsString(key, string);
 }
 
@@ -66,9 +60,8 @@ Future<String> calcTemporaryDirectoryCacheSize() async {
       if (file is Directory) {
         final List<FileSystemEntity> children = file.listSync();
         double total = 0;
-        if (children != null)
-          for (final FileSystemEntity child in children)
-            total += await getTotalSizeOfFilesInDir(child);
+        for (final FileSystemEntity child in children)
+          total += await getTotalSizeOfFilesInDir(child);
         return total;
       }
       return 0;
@@ -79,9 +72,6 @@ Future<String> calcTemporaryDirectoryCacheSize() async {
   }
 
   convertSize(double value) {
-    if (null == value) {
-      return 0;
-    }
     List<String> unitArr = []..add('B')..add('K')..add('M')..add('G');
     int index = 0;
     while (value > 1024) {

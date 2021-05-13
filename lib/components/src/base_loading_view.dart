@@ -4,9 +4,9 @@ import 'package:flutter_easy/components/export.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 class BaseLoadingView extends StatelessWidget {
-  final String message;
+  final String? message;
 
-  const BaseLoadingView({Key key, this.message}) : super(key: key);
+  const BaseLoadingView({Key? key, this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class BaseLoadingView extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               fit: StackFit.expand,
               children: <Widget>[
-                baseDefaultAnimationImage,
+                baseDefaultAnimationImage!,
                 Align(
                   alignment: Alignment.center,
                   child: Container(
@@ -30,7 +30,7 @@ class BaseLoadingView extends StatelessWidget {
                 ),
               ],
             )
-          : baseDefaultAnimationImage;
+          : baseDefaultAnimationImage!;
     }
     return Padding(
       padding: EdgeInsets.all((message == null) ? 30 : 15),
@@ -43,7 +43,7 @@ class BaseLoadingView extends StatelessWidget {
 
   List<Widget> _buildChildren() {
     List<Widget> list = [CircularProgressIndicator()];
-    if (message != null && message.isNotEmpty) {
+    if (message != null && message!.isNotEmpty) {
       list.add(Padding(
         padding: const EdgeInsets.only(top: 15),
         child: BaseText(

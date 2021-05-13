@@ -14,15 +14,15 @@ double baseDefaultLaunchLocalImagePadding = 0.1;
 /// child只需设置一次
 class BaseLaunchLocal extends StatelessWidget {
   final Color color;
-  final Widget child;
+  final Widget? child;
 
-  const BaseLaunchLocal({Key key, this.color = Colors.white, this.child})
+  const BaseLaunchLocal({Key? key, this.color = Colors.white, this.child})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (child != null) {
-      baseDefaultLaunchLocalWidget = child;
+      baseDefaultLaunchLocalWidget = child!;
     }
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -55,16 +55,16 @@ class BaseLaunchLocal extends StatelessWidget {
 class BaseLaunchRemote extends StatelessWidget {
   final String url;
   final bool keepLogo;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
-  const BaseLaunchRemote({Key key, this.url, this.keepLogo = true, this.onTap})
+  const BaseLaunchRemote({Key? key, this.url = "", this.keepLogo = true, this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [
       BaseWebImage(
-        url ?? "",
+        url,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         placeholder: Container(),
@@ -79,8 +79,8 @@ class BaseLaunchRemote extends StatelessWidget {
       onTap: onTap == null
           ? null
           : () {
-              if (url != null && url.isNotEmpty) {
-                onTap();
+              if (onTap != null && url.isNotEmpty) {
+                onTap!();
               }
             },
       child: Stack(

@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 class TimerUtil {
   TimerUtil(
       {this.periodic = Duration.millisecondsPerSecond,
-      this.totalTime,
+      required this.totalTime,
       this.callback});
 
   /// 倒计时间隔 单位毫秒，默认1000毫秒
@@ -15,9 +15,9 @@ class TimerUtil {
   int totalTime;
 
   /// 倒计时回调
-  ValueChanged<int> callback;
+  ValueChanged<int>? callback;
 
-  Timer timer;
+  Timer? timer;
 
   /// 倒计时是否启动.
   bool get isActive => timer?.isActive ?? false;
@@ -41,7 +41,7 @@ class TimerUtil {
 
   void _runCallback(int time) {
     if (callback != null) {
-      callback(time);
+      callback!(time);
     }
   }
 
@@ -55,7 +55,7 @@ class TimerUtil {
   /// 销毁计时器
   void cancel() {
     if (timer != null) {
-      timer.cancel();
+      timer?.cancel();
       timer = null;
     }
   }

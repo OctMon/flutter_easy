@@ -10,5 +10,5 @@ extension DurationExtensions on Duration {
   /// 1.8.seconds.delay(() => print('✅ 1.8 seconds callback called'));
   /// print('🎉 currently running callback');
   ///```
-  Future delay([FutureOr callback()]) async => Future.delayed(this, callback);
+  Future delay([FutureOr callback()?]) async => Future.delayed(this, callback);
 }

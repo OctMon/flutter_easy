@@ -39,7 +39,7 @@ extension NumExtensions on num {
   /// 1.8.delay(() => print('✅ 1.8 seconds callback called'));
   /// print('🎉 currently running callback');
   ///```
-  Future delay([FutureOr callback()]) async => this.seconds.delay(callback);
+  Future delay([FutureOr callback()?]) async => this.seconds.delay(callback);
 }
 
 extension IntExtensions on int {

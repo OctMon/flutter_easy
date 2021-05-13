@@ -3,7 +3,7 @@ import 'package:flutter_easy/components/export.dart';
 
 bool _loadingStatus = false;
 
-void showLoading(BuildContext context, {String message}) {
+void showLoading(BuildContext context, {String? message}) {
   // 已有弹窗，则不再显示弹窗
   if (_loadingStatus) {
     return;

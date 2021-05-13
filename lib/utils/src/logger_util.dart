@@ -11,32 +11,32 @@ void log(String tag, Object value) {
 }
 
 /// Log a message at level [Level.verbose].
-void logVerbose(dynamic message, [dynamic error, StackTrace stackTrace]) {
+void logVerbose(dynamic message, [dynamic error, StackTrace? stackTrace]) {
   isWeb ? log("verbose", message) : logger.v(message, error, stackTrace);
 }
 
 /// Log a message at level [Level.debug].
-void logDebug(dynamic message, [dynamic error, StackTrace stackTrace]) {
+void logDebug(dynamic message, [dynamic error, StackTrace? stackTrace]) {
   isWeb ? log("debug", message) : logger.d(message, error, stackTrace);
 }
 
 /// Log a message at level [Level.info].
-void logInfo(dynamic message, [dynamic error, StackTrace stackTrace]) {
+void logInfo(dynamic message, [dynamic error, StackTrace? stackTrace]) {
   isWeb ? log("info", message) : logger.i(message, error, stackTrace);
 }
 
 /// Log a message at level [Level.warning].
-void logWarning(dynamic message, [dynamic error, StackTrace stackTrace]) {
+void logWarning(dynamic message, [dynamic error, StackTrace? stackTrace]) {
   isWeb ? log("warning", message) : logger.w(message, error, stackTrace);
 }
 
 /// Log a message at level [Level.error].
-void logError(dynamic message, [dynamic error, StackTrace stackTrace]) {
+void logError(dynamic message, [dynamic error, StackTrace? stackTrace]) {
   isWeb ? log("error", message) : logger.e(message, error, stackTrace);
 }
 
 /// Log a message at level [Level.wtf].
-void logWTF(dynamic message, [dynamic error, StackTrace stackTrace]) {
+void logWTF(dynamic message, [dynamic error, StackTrace? stackTrace]) {
   isWeb ? log("wtf", message) : logger.wtf(message, error, stackTrace);
 }
 
@@ -45,7 +45,7 @@ void logRequest(RequestOptions options) {
       options.data,
       "Request ${options.uri}",
       StackTrace.fromString('method: ${options.method}\n' +
-          'responseType: ${options.responseType?.toString()}\n' +
+          'responseType: ${options.responseType.toString()}\n' +
           "followRedirects: ${options.followRedirects}\n" +
           "connectTimeout: ${options.connectTimeout}\n" +
           "receiveTimeout: ${options.receiveTimeout}\n" +
@@ -57,18 +57,18 @@ void logResponse(Result result) {
   if (result.error != null) {
     logInfo(
         result.response?.data,
-        "Response ${result.response?.requestOptions?.uri}",
+        "Response ${result.response?.requestOptions.uri}",
         StackTrace.fromString('statusCode: ${result.response?.statusCode}\n' +
             "${result.error}: ${result.message}"));
   } else {
     logInfo(
         result.response?.data,
-        "Response ${result.response?.requestOptions?.uri}",
+        "Response ${result.response?.requestOptions.uri}",
         StackTrace.fromString('statusCode: ${result.response?.statusCode}\n' +
             (result.response?.isRedirect == true
                 ? "redirect: ${result.response?.realUri}\n"
                 : "") +
-            "connectTimeout: ${result.response?.requestOptions?.connectTimeout}\n" +
+            "connectTimeout: ${result.response?.requestOptions.connectTimeout}\n" +
             (result.response?.headers != null
                 ? "headers: \n${result.response?.headers}"
                 : "")));

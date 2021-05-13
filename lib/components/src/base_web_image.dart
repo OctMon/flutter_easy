@@ -6,15 +6,15 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 // import 'package:path/path.dart' as p;
 
 class BaseWebImage extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   final Widget placeholder;
-  final Widget errorWidget;
-  final double width;
-  final double height;
-  final BoxFit fit;
+  final Widget? errorWidget;
+  final double? width;
+  final double? height;
+  final BoxFit? fit;
 
   const BaseWebImage(this.imageUrl,
-      {Key key,
+      {Key? key,
       this.placeholder = const Center(child: CircularProgressIndicator()),
       this.errorWidget,
       this.width,
@@ -28,12 +28,12 @@ class BaseWebImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl == null || imageUrl.isEmpty) {
+    if (imageUrl == null || imageUrl?.isEmpty == true) {
       return placeholder;
     }
     return CachedNetworkImage(
       // cacheManager: DefaultCacheManager(),
-      imageUrl: imageUrl,
+      imageUrl: imageUrl!,
       width: width,
       height: height,
       fit: fit,
@@ -44,9 +44,9 @@ class BaseWebImage extends StatelessWidget {
 
   static ImageProvider<CachedNetworkImageProvider> provider(String url,
       {double scale = 1.0,
-      Map<String, String> headers,
-      BaseCacheManager cacheManager,
-      ImageRenderMethodForWeb imageRenderMethodForWeb}) {
+      Map<String, String>? headers,
+      BaseCacheManager? cacheManager,
+      ImageRenderMethodForWeb? imageRenderMethodForWeb}) {
     return CachedNetworkImageProvider(url,
         scale: scale,
         headers: headers,

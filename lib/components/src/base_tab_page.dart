@@ -28,19 +28,19 @@ BaseScaffold(
 class BaseTabPage extends StatefulWidget {
   final int initialIndex;
   final bool isScrollable;
-  final Color indicatorColor;
+  final Color? indicatorColor;
   final TextStyle labelStyle;
   final List<Widget> tabs;
   final List<Widget> children;
 
   const BaseTabPage(
-      {Key key,
+      {Key? key,
       this.initialIndex = 0,
       this.isScrollable = false,
       this.indicatorColor,
       this.labelStyle = const TextStyle(fontWeight: FontWeight.normal),
-      this.tabs,
-      this.children})
+      required this.tabs,
+      required this.children})
       : super(key: key);
 
   @override

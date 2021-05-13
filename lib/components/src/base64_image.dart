@@ -7,15 +7,15 @@ class Base64Image extends StatelessWidget {
   final String base64;
 
   /// 设置宽度
-  final double width;
+  final double? width;
 
   /// 设置高度
-  final double height;
+  final double? height;
 
   /// 填充
-  final BoxFit fit;
+  final BoxFit? fit;
 
-  const Base64Image({Key key, this.base64, this.width, this.height, this.fit})
+  const Base64Image({Key? key, required this.base64, this.width, this.height, this.fit})
       : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class Base64Image extends StatelessWidget {
     String encoded = base64.contains(',') ? base64.split(',')[1] : base64;
     try {
       return Image.memory(
-        base64Decode(encoded),
+        base64Decode(encoded)!,
         width: width,
         height: height,
         fit: fit,

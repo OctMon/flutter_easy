@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'global_util.dart';
 
 class AdaptUtil {
-  static MediaQueryData mediaQuery;
+  static MediaQueryData? mediaQuery;
 
-  static double _width;
-  static double _height;
-  static double _top;
-  static double _bottom;
+  static late double _width;
+  static late double _height;
+  static late double _top;
+  static late double _bottom;
 
-  static double _devicePixelRatio;
+  static late double _devicePixelRatio;
 
   static var _ratio;
 
@@ -18,11 +18,11 @@ class AdaptUtil {
   static initContext(BuildContext context) {
     if (mediaQuery == null) {
       mediaQuery = MediaQuery.of(context);
-      _width = mediaQuery.size.width;
-      _height = mediaQuery.size.height;
-      _top = mediaQuery.padding.top;
-      _bottom = mediaQuery.padding.bottom;
-      _devicePixelRatio = mediaQuery.devicePixelRatio;
+      _width = mediaQuery!.size.width;
+      _height = mediaQuery!.size.height;
+      _top = mediaQuery!.padding.top;
+      _bottom = mediaQuery!.padding.bottom;
+      _devicePixelRatio = mediaQuery!.devicePixelRatio;
     }
   }
 
