@@ -80,7 +80,6 @@ _ResultCallBack _onResult;
 ///
 /// baseUrl: 主机地址
 /// path: 请求路径
-/// data: 请求参数
 /// queryParameters: URL携带请求参数
 /// validResult: 是否检验返回结果
 /// context: 上下文
@@ -89,7 +88,6 @@ _ResultCallBack _onResult;
 Future<Result> get(
     {String baseUrl,
     String path = '',
-    Map data,
     Map<String, dynamic> queryParameters,
     bool validResult = true,
     BuildContext context,
@@ -97,7 +95,6 @@ Future<Result> get(
   return request(
       baseUrl: baseUrl,
       path: path,
-      data: data,
       queryParameters: queryParameters,
       options: Options(method: 'get'),
       validResult: validResult,
@@ -118,7 +115,7 @@ Future<Result> get(
 Future<Result> post(
     {String baseUrl,
     String path = '',
-    Map data,
+    data,
     bool validResult = true,
     BuildContext context,
     bool autoLoading = false}) async {
@@ -145,7 +142,7 @@ Future<Result> post(
 Future<Result> request(
     {String baseUrl,
     String path = '',
-    Map data,
+    data,
     Map<String, dynamic> queryParameters,
     Options options,
     bool validResult = true,
