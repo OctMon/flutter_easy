@@ -13,17 +13,24 @@ void showLoading(BuildContext context, {String message}) {
     context: context,
     barrierDismissible: false,
     builder: (context) {
-      return Material(
-        type: MaterialType.transparency,
-        child: Center(
-          child: Container(
-            decoration: BoxDecoration(
-              color: baseDefaultAnimationImage != null ? Colors.transparent : Colors.white,
-              borderRadius: BorderRadius.circular(5),
+      return WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Material(
+          type: MaterialType.transparency,
+          child: Center(
+            child: Container(
+              decoration: BoxDecoration(
+                color: baseDefaultAnimationImage != null
+                    ? Colors.transparent
+                    : Colors.white,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: (baseDefaultAnimationImage != null && message == null)
+                  ? baseDefaultAnimationImage
+                  : BaseLoadingView(message: message),
             ),
-            child: (baseDefaultAnimationImage != null && message == null)
-                ? baseDefaultAnimationImage
-                : BaseLoadingView(message: message),
           ),
         ),
       );

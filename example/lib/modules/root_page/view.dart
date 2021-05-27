@@ -54,9 +54,24 @@ Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
     Routes.routes.buildPage(Routes.account, null),
   ];
 
+  /// 上次点击的时间
+  DateTime lastPressedAt;
+
   return Scaffold(
     backgroundColor: colorWithScaffoldBackground,
-    body: IndexedStack(index: state.currentIndex, children: children),
+    body: WillPopScope(
+      onWillPop: () async {
+        if (lastPressedAt == null ||
+            (DateTime.now().difference(lastPressedAt) > Duration(seconds: 1))) {
+          // 两次点击间隔超过1秒，重新计时
+          lastPressedAt = DateTime.now();
+          print(lastPressedAt);
+          return false;
+        }
+        return true;
+      },
+      child: IndexedStack(index: state.currentIndex, children: children),
+    ),
     bottomNavigationBar: BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       selectedFontSize: 12,
