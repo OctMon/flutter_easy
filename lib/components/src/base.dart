@@ -210,6 +210,10 @@ class BaseApp extends StatelessWidget {
   final Iterable<Locale> supportedLocales;
   final Locale locale;
   final LocaleResolutionCallback localeResolutionCallback;
+  final TextStyle toastTextStyle;
+  final EdgeInsets toastTextPadding;
+  final double toastRadius;
+  final Color toastBackgroundColor;
 
   BaseApp({
     this.title,
@@ -221,6 +225,10 @@ class BaseApp extends StatelessWidget {
     this.supportedLocales = const <Locale>[Locale('en', 'US')],
     this.locale,
     this.localeResolutionCallback,
+    this.toastTextStyle,
+    this.toastTextPadding,
+    this.toastRadius = 10.0,
+    this.toastBackgroundColor,
   });
 
   @override
@@ -239,6 +247,10 @@ class BaseApp extends StatelessWidget {
     }
 
     return OKToast(
+      textStyle: toastTextStyle,
+      textPadding: toastTextPadding,
+      radius: toastRadius,
+      backgroundColor: toastBackgroundColor,
       child: _buildBannerUrlType(
         child: MaterialApp(
           navigatorKey: navigatorGlobalKey,
