@@ -150,9 +150,9 @@ Future<Result> request(
     bool autoLoading = false}) async {
   // Loading is show
   bool alreadyShowLoading = false;
-  if (autoLoading && context != null) {
+  if (autoLoading) {
     try {
-      showLoading(context);
+      showLoading();
       alreadyShowLoading = true;
     } catch (e) {
       logError('showLoading()', e.toString());
@@ -181,11 +181,9 @@ Future<Result> request(
       data: data, queryParameters: queryParameters, options: options);
   if (autoLoading && alreadyShowLoading) {
     // Dismiss loading
-    dismissLoading(context);
+    dismissLoading();
   }
-  return _onResult != null
-      ? _onResult(result, validResult, context)
-      : result;
+  return _onResult != null ? _onResult(result, validResult, context) : result;
 }
 
 Future<String> initSelectedBaseURLType() async {

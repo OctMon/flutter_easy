@@ -49,18 +49,18 @@ dependencies:
   # ===============================================================================
 
   # ===============================================================================
-  # a pure flutter toast library You can completely customize the style of toast.
-  # pub: https://pub.dev/packages/oktoast
-  # git: https://github.com/OpenFlutter/flutter_oktoast
-  # ———————————————————————————————————————————————————————————————————————————————
-  oktoast: ^3.0.0
+  # Flutter EasyLoading
+  # pub：https://pub.dev/packages/flutter_easyloading
+  # git：https://github.com/kokohuang/flutter_easyloading
+  # desc： ✨A clean and lightweight loading/toast widget for Flutter, easy to use without context, support iOS、Android and Web
   # ===============================================================================
+  flutter_easyloading: ^3.0.0
 
   # ===============================================================================
-  # 名称：共享首选项插件
-  # 来源：https://pub.dev/packages/shared_preferences
-  # GitHub：https://github.com/flutter/plugins/tree/master/packages/shared_preferences
-  # 说明：包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储。
+  # 共享首选项插件
+  # pub：https://pub.dev/packages/shared_preferences
+  # git：https://github.com/flutter/plugins/tree/master/packages/shared_preferences
+  # desc：包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储。
   # 数据异步保存到磁盘。 这两个平台都不能保证在返回后将写操作持久化到磁盘，并且该插件不得用于存储关键数据。
   # ===============================================================================
   shared_preferences: ^2.0.5
@@ -103,10 +103,10 @@ dependencies:
   # ===============================================================================
 
   # ===============================================================================
-  # 名称：无限轮播
-  # 来源：https://pub.dev/packages/flutter_swiper
-  # GitHub：https://github.com/best-flutter/flutter_swiper
-  # 说明：flutter最强大的swiper, 多种布局方式，无限轮播，Android和IOS双端适配.
+  # 无限轮播
+  # pub: https://pub.dev/packages/flutter_swiper
+  # git: https://github.com/best-flutter/flutter_swiper
+  # desc：flutter最强大的swiper, 多种布局方式，无限轮播，Android和IOS双端适配.
   # ===============================================================================
   flutter_swiper: ^1.1.6
 

@@ -218,15 +218,27 @@ flutter: └──────────────────────�
           BaseBackgroundButton(
             title: BaseTitle(
               "BaseBackgroundButton",
+              color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              showToast("status");
+              1.seconds.delay(() {
+                showSuccessToast("success");
+              });
+            },
           ),
           SizedBox(height: 15),
           BaseGradientButton(
             title: BaseTitle(
               "BaseGradientButton",
+              color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              showLoading();
+              3.seconds.delay(() {
+                dismissLoading();
+              });
+            },
           ),
           FadeTransition(
             opacity: Tween(begin: 0.0, end: 1.0).animate(

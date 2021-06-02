@@ -104,15 +104,8 @@ Future<Result> requestAPI(
     bool validResult = true,
     BuildContext context,
     bool autoLoading = false}) async {
-  // Loading is show
-  bool alreadyShowLoading = false;
-  if (autoLoading && context != null) {
-    try {
-      showLoading(context);
-      alreadyShowLoading = true;
-    } catch (e) {
-//      log('showLoading(); error:', e.toString());
-    }
+  if (autoLoading) {
+    showLoading();
   }
   Session session = Session(
     config: _config(baseUrl),
@@ -120,9 +113,9 @@ Future<Result> requestAPI(
   );
   Result result = await session.request(path,
       data: data, queryParameters: queryParameters, options: options);
-  if (autoLoading && alreadyShowLoading) {
+  if (autoLoading) {
     // Dismiss loading
-    dismissLoading(context);
+    dismissLoading();
   }
   return _onValidResult(result, validResult, context);
 }

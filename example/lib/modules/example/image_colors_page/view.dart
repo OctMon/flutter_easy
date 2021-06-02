@@ -52,7 +52,7 @@ Widget buildView(
       file = File((await _picker.getImage(source: ImageSource.gallery)).path);
     }
     if (file != null) {
-      showLoading(viewService.context);
+      showLoading();
       PaletteGenerator paletteGenerator =
           await PaletteGenerator.fromImageProvider(
         FileImage(file),
@@ -63,7 +63,7 @@ Widget buildView(
       dispatch(ImageColorsActionCreator.updateFile(file));
       dispatch(
           ImageColorsActionCreator.updatePaletteGenerator(paletteGenerator));
-      dismissLoading(viewService.context);
+      dismissLoading();
     }
   }
 

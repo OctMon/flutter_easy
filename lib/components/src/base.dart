@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'log_console.dart';
 
@@ -210,10 +210,6 @@ class BaseApp extends StatelessWidget {
   final Iterable<Locale> supportedLocales;
   final Locale locale;
   final LocaleResolutionCallback localeResolutionCallback;
-  final TextStyle toastTextStyle;
-  final EdgeInsets toastTextPadding;
-  final double toastRadius;
-  final Color toastBackgroundColor;
 
   BaseApp({
     this.title,
@@ -225,10 +221,6 @@ class BaseApp extends StatelessWidget {
     this.supportedLocales = const <Locale>[Locale('en', 'US')],
     this.locale,
     this.localeResolutionCallback,
-    this.toastTextStyle,
-    this.toastTextPadding,
-    this.toastRadius = 10.0,
-    this.toastBackgroundColor,
   });
 
   @override
@@ -246,38 +238,36 @@ class BaseApp extends StatelessWidget {
       return child;
     }
 
-    return OKToast(
-      textStyle: toastTextStyle,
-      textPadding: toastTextPadding,
-      radius: toastRadius,
-      backgroundColor: toastBackgroundColor,
-      child: _buildBannerUrlType(
-        child: MaterialApp(
-          navigatorKey: navigatorGlobalKey,
-          title: title ?? "",
-          theme: ThemeData(
-            platform: TargetPlatform.iOS,
-            primarySwatch: Colors.grey,
-            splashColor: Colors.transparent,
-          ),
-          home: home,
-          builder: builder ??
-              (context, child) => Scaffold(
-                    // Global GestureDetector that will dismiss the keyboard
-                    body: GestureDetector(
-                      onTap: () {
-                        hideKeyboard(context);
-                      },
-                      child: child,
-                    ),
-                  ),
-          navigatorObservers: navigatorObservers,
-          onGenerateRoute: onGenerateRoute,
-          localizationsDelegates: localizationsDelegates,
-          supportedLocales: supportedLocales,
-          locale: locale,
-          localeResolutionCallback: localeResolutionCallback,
+    return _buildBannerUrlType(
+      child: MaterialApp(
+        navigatorKey: navigatorGlobalKey,
+        title: title ?? "",
+        theme: ThemeData(
+          platform: TargetPlatform.iOS,
+          primarySwatch: Colors.grey,
+          splashColor: Colors.transparent,
         ),
+        home: home,
+        builder: builder ??
+            EasyLoading.init(
+              builder: (context, child) {
+                return Scaffold(
+                  // Global GestureDetector that will dismiss the keyboard
+                  body: GestureDetector(
+                    onTap: () {
+                      hideKeyboard(context);
+                    },
+                    child: child,
+                  ),
+                );
+              },
+            ),
+        navigatorObservers: navigatorObservers,
+        onGenerateRoute: onGenerateRoute,
+        localizationsDelegates: localizationsDelegates,
+        supportedLocales: supportedLocales,
+        locale: locale,
+        localeResolutionCallback: localeResolutionCallback,
       ),
     );
   }
