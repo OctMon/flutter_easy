@@ -1241,6 +1241,7 @@ class BaseGeneralAlertDialog extends StatelessWidget {
 
 class BaseAlertDialog extends Dialog {
   final bool barrierDismissible;
+  final BorderRadiusGeometry borderRadius;
   final EdgeInsets margin;
   final EdgeInsets titlePadding;
   final EdgeInsets contentPadding;
@@ -1253,6 +1254,7 @@ class BaseAlertDialog extends Dialog {
   const BaseAlertDialog({
     Key key,
     this.barrierDismissible = false,
+    this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     this.margin = const EdgeInsets.all(38.0),
     this.titlePadding = const EdgeInsets.fromLTRB(20.0, 34.0, 20.0, 20.0),
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 20.0),
@@ -1277,7 +1279,7 @@ class BaseAlertDialog extends Dialog {
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: borderRadius,
                 ),
               ),
               margin: margin,
