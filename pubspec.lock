@@ -344,7 +344,7 @@ packages:
       name: session
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.3+1"
+    version: "1.0.3+2"
   shared_preferences:
     dependency: "direct main"
     description:

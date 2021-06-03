@@ -81,6 +81,7 @@ _ResultCallBack _onResult;
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// queryParameters: URL携带请求参数
+/// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
 /// context: 上下文
 /// autoLoading: 展示Loading
@@ -89,6 +90,7 @@ Future<Result> get(
     {String baseUrl,
     String path = '',
     Map<String, dynamic> queryParameters,
+    int connectTimeout,
     bool validResult = true,
     BuildContext context,
     bool autoLoading = false}) async {
@@ -97,6 +99,7 @@ Future<Result> get(
       path: path,
       queryParameters: queryParameters,
       options: Options(method: 'get'),
+      connectTimeout: connectTimeout,
       validResult: validResult,
       context: context,
       autoLoading: autoLoading);
@@ -108,6 +111,7 @@ Future<Result> get(
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// data: 请求参数
+/// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
 /// context: 上下文
 /// autoLoading: 展示Loading
@@ -116,6 +120,7 @@ Future<Result> post(
     {String baseUrl,
     String path = '',
     data,
+    int connectTimeout,
     bool validResult = true,
     BuildContext context,
     bool autoLoading = false}) async {
@@ -124,6 +129,7 @@ Future<Result> post(
       path: path,
       data: data,
       options: Options(method: 'post'),
+      connectTimeout: connectTimeout,
       validResult: validResult,
       context: context,
       autoLoading: autoLoading);
@@ -135,6 +141,7 @@ Future<Result> post(
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// data: 请求参数
+/// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
 /// context: 上下文
 /// autoLoading: 展示Loading
@@ -145,6 +152,7 @@ Future<Result> request(
     data,
     Map<String, dynamic> queryParameters,
     Options options,
+    int connectTimeout,
     bool validResult = true,
     BuildContext context,
     bool autoLoading = false}) async {
@@ -177,8 +185,13 @@ Future<Result> request(
           errorOther: _session.config.errorOther),
       onRequest: _session.onRequest,
       onResult: validResult ? _session.onResult : null);
-  Result result = await session.request(path,
-      data: data, queryParameters: queryParameters, options: options);
+  Result result = await session.request(
+    path,
+    data: data,
+    queryParameters: queryParameters,
+    options: options,
+    connectTimeout: connectTimeout,
+  );
   if (autoLoading && alreadyShowLoading) {
     // Dismiss loading
     dismissLoading();
