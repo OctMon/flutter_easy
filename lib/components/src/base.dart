@@ -238,20 +238,20 @@ class BaseApp extends StatelessWidget {
       return child;
     }
 
-    return _buildBannerUrlType(
-      child: MaterialApp(
-        navigatorKey: navigatorGlobalKey,
-        title: title ?? "",
-        theme: ThemeData(
-          platform: TargetPlatform.iOS,
-          primarySwatch: Colors.grey,
-          splashColor: Colors.transparent,
-        ),
-        home: home,
-        builder: builder ??
-            EasyLoading.init(
-              builder: (context, child) {
-                return Scaffold(
+    return MaterialApp(
+      navigatorKey: navigatorGlobalKey,
+      title: title ?? "",
+      theme: ThemeData(
+        platform: TargetPlatform.iOS,
+        primarySwatch: Colors.grey,
+        splashColor: Colors.transparent,
+      ),
+      home: home,
+      builder: builder ??
+          EasyLoading.init(
+            builder: (context, child) {
+              return _buildBannerUrlType(
+                child: Scaffold(
                   // Global GestureDetector that will dismiss the keyboard
                   body: GestureDetector(
                     onTap: () {
@@ -259,16 +259,16 @@ class BaseApp extends StatelessWidget {
                     },
                     child: child,
                   ),
-                );
-              },
-            ),
-        navigatorObservers: navigatorObservers,
-        onGenerateRoute: onGenerateRoute,
-        localizationsDelegates: localizationsDelegates,
-        supportedLocales: supportedLocales,
-        locale: locale,
-        localeResolutionCallback: localeResolutionCallback,
-      ),
+                ),
+              );
+            },
+          ),
+      navigatorObservers: navigatorObservers,
+      onGenerateRoute: onGenerateRoute,
+      localizationsDelegates: localizationsDelegates,
+      supportedLocales: supportedLocales,
+      locale: locale,
+      localeResolutionCallback: localeResolutionCallback,
     );
   }
 }
