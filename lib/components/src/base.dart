@@ -269,6 +269,7 @@ class BaseApp extends StatelessWidget {
       supportedLocales: supportedLocales,
       locale: locale,
       localeResolutionCallback: localeResolutionCallback,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
