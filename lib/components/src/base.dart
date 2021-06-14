@@ -122,12 +122,7 @@ class BaseKeyValue {
 /// --dart-define=app-debug-flag=true
 /// flutter run --release --dart-define=app-debug-flag=true
 createEasyApp(
-    {String appName = "",
-    String appPackageName = "",
-    String appVersion = "",
-    String appBuildNumber = "",
-    bool usePackage = true,
-    VoidCallback appBaseURLChangedCallback,
+    {VoidCallback appBaseURLChangedCallback,
     sharedPreferencesWebInstance,
     Widget initView,
     Future<void> Function() initCallback,
@@ -152,19 +147,13 @@ createEasyApp(
 
   runApp(
     MaterialApp(
-      title: appName,
       home: initView ?? Scaffold(backgroundColor: Colors.white),
       debugShowCheckedModeBanner: false,
     ),
   );
 
   Future.wait([
-    PackageInfoUtil.init(
-        appName: appName,
-        appPackageName: appPackageName,
-        appVersion: appVersion,
-        appBuildNumber: appBuildNumber,
-        usePackage: usePackage),
+    PackageInfoUtil.init(),
     SharedPreferencesUtil.init(),
   ]).then((e) {
     logInfo("init: $e");

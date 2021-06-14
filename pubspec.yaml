@@ -69,10 +69,10 @@ dependencies:
 
   # ===============================================================================
   # This Flutter plugin provides an API for querying information about an application package.
-  # pub: https://pub.dev/packages/package_info
-  # git: https://github.com/flutter/plugins/tree/master/packages/package_info
+  # pub: https://pub.dev/packages/package_info_plus
+  # git: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus
   # ———————————————————————————————————————————————————————————————————————————————
-  package_info: ^2.0.0
+  package_info_plus: ^1.0.2
   # ===============================================================================
 
   # ===============================================================================
