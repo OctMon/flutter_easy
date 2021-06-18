@@ -118,6 +118,8 @@ class BaseKeyValue {
   }
 }
 
+VoidCallback _appBaseURLChangedCallback;
+
 /// 可切环境、查看日志 additional arguments:
 /// --dart-define=app-debug-flag=true
 /// flutter run --release --dart-define=app-debug-flag=true
@@ -134,7 +136,7 @@ createEasyApp(
   if (isAppDebugFlag) {
     LogConsole.init();
   }
-  baseURLChangedCallback = appBaseURLChangedCallback;
+  _appBaseURLChangedCallback = appBaseURLChangedCallback;
   void callback() {
     if (initCallback != null) {
       initCallback().then((_) {
@@ -189,7 +191,7 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
   }
 }
 
-class BaseApp extends StatelessWidget {
+class BaseApp extends StatefulWidget {
   final String title;
   final Widget home;
   final TransitionBuilder builder;
@@ -213,6 +215,22 @@ class BaseApp extends StatelessWidget {
   });
 
   @override
+  _BaseAppState createState() => _BaseAppState();
+}
+
+class _BaseAppState extends State<BaseApp> {
+  @override
+  void initState() {
+    baseURLChangedCallback = () {
+      setState(() {});
+      if (_appBaseURLChangedCallback != null) {
+        _appBaseURLChangedCallback();
+      }
+    };
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget _buildBannerUrlType({@required Widget child}) {
       if (isAppDebugFlag) {
@@ -229,14 +247,14 @@ class BaseApp extends StatelessWidget {
 
     return MaterialApp(
       navigatorKey: navigatorGlobalKey,
-      title: title ?? "",
+      title: widget.title ?? "",
       theme: ThemeData(
         platform: TargetPlatform.iOS,
         primarySwatch: Colors.grey,
         splashColor: Colors.transparent,
       ),
-      home: home,
-      builder: builder ??
+      home: widget.home,
+      builder: widget.builder ??
           EasyLoading.init(
             builder: (context, child) {
               return _buildBannerUrlType(
@@ -252,12 +270,12 @@ class BaseApp extends StatelessWidget {
               );
             },
           ),
-      navigatorObservers: navigatorObservers,
-      onGenerateRoute: onGenerateRoute,
-      localizationsDelegates: localizationsDelegates,
-      supportedLocales: supportedLocales,
-      locale: locale,
-      localeResolutionCallback: localeResolutionCallback,
+      navigatorObservers: widget.navigatorObservers,
+      onGenerateRoute: widget.onGenerateRoute,
+      localizationsDelegates: widget.localizationsDelegates,
+      supportedLocales: widget.supportedLocales,
+      locale: widget.locale,
+      localeResolutionCallback: widget.localeResolutionCallback,
       debugShowCheckedModeBanner: false,
     );
   }
