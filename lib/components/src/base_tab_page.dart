@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+mixin BaseTabState<T> {
+  int get initIndex;
+
+  set initIndex(int initIndex);
+
+  updateInitIndex(Map<String, dynamic> args) {
+    int index = 0;
+    if (args != null) {
+      index = args['index'] ?? 0;
+    }
+    initIndex = index;
+  }
+}
+
 /*
 BaseScaffold(
   appBar: BaseAppBar(
