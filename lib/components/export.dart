@@ -11,4 +11,5 @@ export 'src/base_tag_list_view.dart';
 export 'src/base_web_image.dart';
 export 'src/base_placeholder_view.dart';
 export 'src/base64_image.dart';
+export 'src/base_segment_bar.dart';
 export 'src/keep_alive.dart';
