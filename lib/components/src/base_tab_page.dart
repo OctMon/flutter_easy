@@ -47,6 +47,9 @@ class BaseTabPage extends StatefulWidget {
   final Widget divider;
   final List<Widget> tabs;
   final List<Widget> children;
+  final Color backgroundColor;
+  final Color labelColor;
+  final Color unselectedLabelColor;
 
   const BaseTabPage({
     Key key,
@@ -57,6 +60,9 @@ class BaseTabPage extends StatefulWidget {
     this.divider = const Divider(height: 1),
     this.tabs,
     this.children,
+    this.backgroundColor = Colors.white,
+    this.labelColor,
+    this.unselectedLabelColor,
   }) : super(key: key);
 
   @override
@@ -72,15 +78,16 @@ class _BaseTabPageState extends State<BaseTabPage> {
       child: Column(
         children: <Widget>[
           Container(
-            color: Colors.white,
+            color: widget.backgroundColor,
             child: TabBar(
               isScrollable: widget.isScrollable,
               indicatorColor: widget.indicatorColor ?? colorWithTint,
               indicatorSize: TabBarIndicatorSize.label,
               labelPadding: EdgeInsets.symmetric(horizontal: 6),
-              labelColor: colorWithTint,
+              labelColor: widget.labelColor ?? colorWithTint,
               labelStyle: widget.labelStyle,
-              unselectedLabelColor: colorWithHex3,
+              unselectedLabelColor:
+                  widget.unselectedLabelColor ?? colorWithHex3,
               tabs: widget.tabs,
             ),
           ),
