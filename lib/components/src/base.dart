@@ -25,7 +25,7 @@ mixin BaseState<T> {
   updateResult(Result result) {
     message = result.message;
     if (result != null && result.valid) {
-      data = result.model;
+      data = result.model ?? result.models;
     }
   }
 }
