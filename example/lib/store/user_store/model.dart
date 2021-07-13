@@ -1,7 +1,7 @@
 class UserModel {
-  String? userId;
-  String? nickname;
-  String? avatar;
+  String userId;
+  String nickname;
+  String avatar;
 
   UserModel({
       this.userId, 

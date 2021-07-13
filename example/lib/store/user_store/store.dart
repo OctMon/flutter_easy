@@ -15,14 +15,16 @@ const String _keyUser = "w351kMZwl21f1pYd";
 class UserStore {
   UserStore._();
 
-  static late Store<UserState> _userStore;
+  static Store<UserState> _userStore;
 
   static Store<UserState> get store => _userStore;
 
   static Future load() async {
     UserModel user;
     String storage = await getStorageString(_keyUser);
-    user = UserModel.fromJson(jsonDecode(storage));
+    if (storage != null) {
+      user = UserModel.fromJson(jsonDecode(storage));
+    }
     _userStore =
         createStore<UserState>(UserState()..user = user, buildReducer());
   }
@@ -50,12 +52,12 @@ class UserStore {
       /// 2. 参数2 当 AppStore.state 变化时, PageStore.state 该如何变化
       page.connectExtraStore<UserState>(UserStore.store,
           (Object pageState, UserState appState) {
-        final UserBaseState p = pageState as UserBaseState;
-        if (p.user?.toJson().toString() !=
-            appState.user?.toJson().toString()) {
+        final UserBaseState p = pageState;
+        if (p.user?.toJson()?.toString() !=
+            appState.user?.toJson()?.toString()) {
           if (pageState is Cloneable) {
-            final Object copy = (pageState as Cloneable).clone();
-            final UserBaseState newState = copy as UserBaseState;
+            final Object copy = pageState.clone();
+            final UserBaseState newState = copy;
             newState.user = appState.user;
             return newState;
           }

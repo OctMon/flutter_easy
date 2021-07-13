@@ -5,7 +5,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 export 'constant.dart';
 export 'package:session/session.dart' show Result;
 
-Config _config(String? baseURL) {
+Config _config(String baseURL) {
   Config.logEnable = false;
 
   return Config(
@@ -25,7 +25,7 @@ SessionInterceptorSendHandler _onRequest = (options) async {
 
 /// 响应结果拦截处理
 Result _onValidResult<T>(
-    Result result, bool validResult, BuildContext? context) {
+    Result result, bool validResult, BuildContext context) {
   logResponse(result);
   return result;
 }
@@ -35,24 +35,21 @@ Result _onValidResult<T>(
 ///
 /// baseUrl: 主机地址
 /// path: 请求路径
-/// data: 请求参数
 /// queryParameters: URL携带请求参数
 /// validResult: 是否检验返回结果
 /// context: 上下文
 /// autoLoading: 展示Loading
 ///
 Future<Result> getAPI(
-    {String? baseUrl,
+    {String baseUrl,
     String path = '',
-    Map? data,
-    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic> queryParameters,
     bool validResult = true,
-    BuildContext? context,
+    BuildContext context,
     bool autoLoading = false}) async {
   return requestAPI(
       baseUrl: baseUrl,
       path: path,
-      data: data,
       queryParameters: queryParameters,
       options: Options(method: 'get'),
       validResult: validResult,
@@ -71,11 +68,11 @@ Future<Result> getAPI(
 /// autoLoading: 展示Loading
 ///
 Future<Result> postAPI(
-    {String? baseUrl,
+    {String baseUrl,
     String path = '',
-    Map? data,
+    data,
     bool validResult = true,
-    BuildContext? context,
+    BuildContext context,
     bool autoLoading = false}) async {
   return requestAPI(
       baseUrl: baseUrl,
@@ -99,23 +96,16 @@ Future<Result> postAPI(
 /// autoLoading: 展示Loading
 ///
 Future<Result> requestAPI(
-    {String? baseUrl,
+    {String baseUrl,
     String path = '',
-    Map? data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
+    Map data,
+    Map<String, dynamic> queryParameters,
+    Options options,
     bool validResult = true,
-    BuildContext? context,
+    BuildContext context,
     bool autoLoading = false}) async {
-  // Loading is show
-  bool alreadyShowLoading = false;
-  if (autoLoading && context != null) {
-    try {
-      showLoading(context);
-      alreadyShowLoading = true;
-    } catch (e) {
-//      log('showLoading(); error:', e.toString());
-    }
+  if (autoLoading) {
+    showLoading();
   }
   Session session = Session(
     config: _config(baseUrl),
@@ -123,9 +113,9 @@ Future<Result> requestAPI(
   );
   Result result = await session.request(path,
       data: data, queryParameters: queryParameters, options: options);
-  if (context != null && autoLoading && alreadyShowLoading) {
+  if (autoLoading) {
     // Dismiss loading
-    dismissLoading(context);
+    dismissLoading();
   }
   return _onValidResult(result, validResult, context);
 }

@@ -33,17 +33,17 @@ Widget buildView(
                   child: Column(
                     children: [
                       BaseTitle(
-                        state.data!.title,
+                        state.data.title,
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(width: 5),
                       BaseTitle(
-                        state.data!.siteId,
+                        state.data.siteId,
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(width: 5),
                       BaseTitle(
-                        state.data!.tags?.join(","),
+                        state.data?.tags?.join(","),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -61,7 +61,7 @@ Widget buildView(
             itemBuilder: (BuildContext context, int index) => BaseButton(
               padding: EdgeInsets.zero,
               child: BaseWebImage(
-                state.data?.images?[index].imageURL,
+                state.data?.images[index].imageURL,
                 placeholder: Container(
                   color: colorWithRandom(),
                 ),
@@ -73,10 +73,8 @@ Widget buildView(
               },
             ),
             staggeredTileBuilder: (int index) => new StaggeredTile.extent(
-                state.data!.images![index].isSquare
-                    ? crossAxisCount
-                    : 1,
-                state.data!.images![index]
+                state.data.images[index].isSquare ? crossAxisCount : 1,
+                state.data.images[index]
                     .imageHeightInWidth(constraints.maxWidth)),
             mainAxisSpacing: spacing,
             crossAxisSpacing: spacing,

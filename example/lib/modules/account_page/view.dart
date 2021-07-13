@@ -87,9 +87,9 @@ Widget buildView(
                       return BaseActionSheet(
                         title: BaseText(S.of(viewService.context).language),
                         actions: S.delegate.supportedLocales.map((e) {
-                          final String? localeString =
+                          final String localeString =
                               LocaleNames.of(context)?.nameOf(e.toString());
-                          final String? nativeLocaleName =
+                          final String nativeLocaleName =
                               LocaleNamesLocalizationsDelegate
                                   .nativeLocaleNames[e.toString()];
                           return BaseActionSheetAction(

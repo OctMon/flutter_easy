@@ -15,7 +15,7 @@ class SharedPreferencesUtil {
     return instance;
   }
 
-  static Future<String> getSharedPrefsString(String key) async {
+  static Future<String?> getSharedPrefsString(String key) async {
     return isWeb || isWindows
         ? await _all(key)
         : SharedPreferencesUtil.instance.getString(key);

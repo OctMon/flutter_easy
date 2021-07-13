@@ -57,7 +57,7 @@ Widget buildView(
                         child: Navigator(
                           initialRoute: '/',
                           onGenerateRoute: (RouteSettings settings) {
-                            late WidgetBuilder builder;
+                            WidgetBuilder builder;
                             switch (settings.name) {
                               case '/':
                                 builder = (context) {
@@ -99,7 +99,7 @@ Widget buildView(
                                                           int index) {
                                                     MapEntry locale =
                                                         locales[index];
-                                                    final String? localeString =
+                                                    final String localeString =
                                                         LocaleNames.of(context)
                                                             ?.nameOf(
                                                                 locale.key);

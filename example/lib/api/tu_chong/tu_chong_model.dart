@@ -36,36 +36,36 @@
 /// comment_list_prefix : []
 
 class TuChongModel {
-  String? createdAt;
-  String? publishedAt;
-  int? comments;
-  String? url;
-  bool? rewardable;
-  String? parentComments;
-  String? siteId;
-  String? type;
-  String? passedTime;
-  int? favorites;
-  int? shares;
-  String? authorId;
-  String? recomType;
-  bool? update;
-  int? views;
-  List<Images>? images;
-  List<String>? eventTags;
-  bool? recommend;
-  String? content;
-  String? excerpt;
-  bool? delete;
-  bool? collected;
-  List<String>? tags;
-  String? rqtId;
-  bool? isFavorite;
-  int? imageCount;
-  String? dataType;
-  String? title;
-  int? postId;
-  String? rewards;
+  String createdAt;
+  String publishedAt;
+  int comments;
+  String url;
+  bool rewardable;
+  String parentComments;
+  String siteId;
+  String type;
+  String passedTime;
+  int favorites;
+  int shares;
+  String authorId;
+  String recomType;
+  bool update;
+  int views;
+  List<Images> images;
+  List<String> eventTags;
+  bool recommend;
+  String content;
+  String excerpt;
+  bool delete;
+  bool collected;
+  List<String> tags;
+  String rqtId;
+  bool isFavorite;
+  int imageCount;
+  String dataType;
+  String title;
+  int postId;
+  String rewards;
 
   TuChongModel({
       this.createdAt,
@@ -118,7 +118,7 @@ class TuChongModel {
     if (json["images"] != null) {
       images = [];
       json["images"].forEach((v) {
-        images?.add(Images.fromJson(v));
+        images.add(Images.fromJson(v));
       });
     }
     eventTags = json["event_tags"] != null ? json["event_tags"].cast<String>() : [];
@@ -155,7 +155,7 @@ class TuChongModel {
     map["update"] = update;
     map["views"] = views;
     if (images != null) {
-      map["images"] = images?.map((v) => v.toJson()).toList();
+      map["images"] = images.map((v) => v.toJson()).toList();
     }
     map["event_tags"] = eventTags;
     map["recommend"] = recommend;
@@ -186,14 +186,14 @@ class TuChongModel {
 /// description : ""
 
 class Images {
-  int? imgId;
-  String? excerpt;
-  String? imgIdStr;
-  int? height;
-  String? title;
-  int? width;
-  int? userId;
-  String? description;
+  int imgId;
+  String excerpt;
+  String imgIdStr;
+  int height;
+  String title;
+  int width;
+  int userId;
+  String description;
 
   Images({
       this.imgId,
@@ -248,21 +248,21 @@ class Images {
 /// has_everphoto_note : false
 
 class Site {
-  String? description;
-  int? videos;
-  bool? isBindEverphoto;
-  int? verifications;
-  bool? verified;
-  String? domain;
-  String? url;
-  String? type;
-  bool? isFollowing;
-  List<VerificationList>? verificationList;
-  String? icon;
-  int? followers;
-  String? siteId;
-  String? name;
-  bool? hasEverphotoNote;
+  String description;
+  int videos;
+  bool isBindEverphoto;
+  int verifications;
+  bool verified;
+  String domain;
+  String url;
+  String type;
+  bool isFollowing;
+  List<VerificationList> verificationList;
+  String icon;
+  int followers;
+  String siteId;
+  String name;
+  bool hasEverphotoNote;
 
   Site({
       this.description,
@@ -294,7 +294,7 @@ class Site {
     if (json["verification_list"] != null) {
       verificationList = [];
       json["verification_list"].forEach((v) {
-        verificationList?.add(VerificationList.fromJson(v));
+        verificationList.add(VerificationList.fromJson(v));
       });
     }
     icon = json["icon"];
@@ -316,7 +316,7 @@ class Site {
     map["type"] = type;
     map["is_following"] = isFollowing;
     if (verificationList != null) {
-      map["verification_list"] = verificationList?.map((v) => v.toJson()).toList();
+      map["verification_list"] = verificationList.map((v) => v.toJson()).toList();
     }
     map["icon"] = icon;
     map["followers"] = followers;
@@ -332,8 +332,8 @@ class Site {
 /// verification_reason : "资深人像摄影师"
 
 class VerificationList {
-  int? verificationType;
-  String? verificationReason;
+  int verificationType;
+  String verificationReason;
 
   VerificationList({
       this.verificationType,

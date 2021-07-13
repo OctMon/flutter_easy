@@ -5,7 +5,7 @@ import 'model.dart';
 enum UserAction { setUser }
 
 class UserActionCreator {
-  static Action setUser(UserModel? user) {
+  static Action setUser(UserModel user) {
     return Action(UserAction.setUser, payload: user);
   }
 }

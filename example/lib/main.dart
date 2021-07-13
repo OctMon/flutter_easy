@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/api/api.dart';
 
 import 'app.dart';
 
@@ -9,10 +10,8 @@ void main() {
     initCallback: initApp,
     initView: initView,
     appBaseURLChangedCallback: () {
-      showToast("current: $kBaseURLType");
-      1.delay(() {
-        main();
-      });
+      // 刷新网络配置
+      configAPI(null);
     },
     completionCallback: () {
       runApp(createApp());

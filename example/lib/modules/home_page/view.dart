@@ -5,7 +5,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'state.dart';
 
 Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
-  TableRow buildTableRow({required String code, required String value}) {
+  TableRow buildTableRow({@required String code, @required String value}) {
     return TableRow(
       children: [
         Center(child: Container(margin: EdgeInsets.all(5), child: Text(code))),
@@ -14,7 +14,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
     );
   }
 
-  Widget buildTableColumn({required String code, required String value}) {
+  Widget buildTableColumn({@required String code, @required String value}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,7 +28,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
     );
   }
 
-  TableRow buildTableRowTop({required String code, required String value}) {
+  TableRow buildTableRowTop({@required String code, @required String value}) {
     return TableRow(
       //第一行样式 添加背景色
       decoration: BoxDecoration(
@@ -218,20 +218,32 @@ flutter: └──────────────────────�
           BaseBackgroundButton(
             title: BaseTitle(
               "BaseBackgroundButton",
+              color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              showToast("status");
+              1.seconds.delay(() {
+                showSuccessToast("success");
+              });
+            },
           ),
           SizedBox(height: 15),
           BaseGradientButton(
             title: BaseTitle(
               "BaseGradientButton",
+              color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              showLoading();
+              3.seconds.delay(() {
+                dismissLoading();
+              });
+            },
           ),
           FadeTransition(
             opacity: Tween(begin: 0.0, end: 1.0).animate(
               CurvedAnimation(
-                parent: state.animationController!,
+                parent: state.animationController,
                 curve: Interval(0.2, 1, curve: Curves.ease),
               ),
             ),

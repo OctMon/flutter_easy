@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'log_console.dart';
 
@@ -25,7 +25,7 @@ mixin BaseState<T> {
   updateResult(Result? result) {
     message = result?.message;
     if (result != null && result.valid) {
-      data = result.model;
+      data = result.model ?? result.models;
     }
   }
 }
@@ -44,6 +44,7 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
       {bool hasMore = false, bool updateModel = false, String? emptyTitle}) {
     if (result != null) {
       bool loadMore = false;
+      page ??= kFirstPage;
       message = result.message;
       dynamic _data = data ?? [];
       dynamic _list = result.models.toList();
@@ -117,16 +118,13 @@ class BaseKeyValue {
   }
 }
 
+VoidCallback? _appBaseURLChangedCallback;
+
 /// 可切环境、查看日志 additional arguments:
 /// --dart-define=app-debug-flag=true
 /// flutter run --release --dart-define=app-debug-flag=true
 createEasyApp(
-    {String appName = "",
-    String appPackageName = "",
-    String appVersion = "",
-    String appBuildNumber = "",
-    bool usePackage = true,
-    VoidCallback? appBaseURLChangedCallback,
+    {VoidCallback? appBaseURLChangedCallback,
     Widget? initView,
     Future<void> Function()? initCallback,
     required VoidCallback completionCallback}) {
@@ -137,7 +135,7 @@ createEasyApp(
   if (isAppDebugFlag) {
     LogConsole.init();
   }
-  baseURLChangedCallback = appBaseURLChangedCallback;
+  _appBaseURLChangedCallback = appBaseURLChangedCallback;
   void callback() {
     if (initCallback != null) {
       initCallback().then((_) {
@@ -150,19 +148,13 @@ createEasyApp(
 
   runApp(
     MaterialApp(
-      title: appName,
       home: initView ?? Scaffold(backgroundColor: Colors.white),
       debugShowCheckedModeBanner: false,
     ),
   );
 
   Future.wait([
-    PackageInfoUtil.init(
-        appName: appName,
-        appPackageName: appPackageName,
-        appVersion: appVersion,
-        appBuildNumber: appBuildNumber,
-        usePackage: usePackage),
+    PackageInfoUtil.init(),
     SharedPreferencesUtil.init(),
   ]).then((e) {
     logInfo("init: $e");
@@ -198,7 +190,7 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
   }
 }
 
-class BaseApp extends StatelessWidget {
+class BaseApp extends StatefulWidget {
   final String title;
   final Widget? home;
   final TransitionBuilder? builder;
@@ -222,6 +214,22 @@ class BaseApp extends StatelessWidget {
   });
 
   @override
+  _BaseAppState createState() => _BaseAppState();
+}
+
+class _BaseAppState extends State<BaseApp> {
+  @override
+  void initState() {
+    baseURLChangedCallback = () {
+      setState(() {});
+      if (_appBaseURLChangedCallback != null) {
+        _appBaseURLChangedCallback!();
+      }
+    };
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget _buildBannerUrlType({required Widget child}) {
       if (isAppDebugFlag) {
@@ -236,35 +244,38 @@ class BaseApp extends StatelessWidget {
       return child;
     }
 
-    return OKToast(
-      child: _buildBannerUrlType(
-        child: MaterialApp(
-          navigatorKey: navigatorGlobalKey,
-          title: title,
-          theme: ThemeData(
-            platform: TargetPlatform.iOS,
-            primarySwatch: Colors.grey,
-            splashColor: Colors.transparent,
-          ),
-          home: home,
-          builder: builder ??
-              (context, child) => Scaffold(
-                    // Global GestureDetector that will dismiss the keyboard
-                    body: GestureDetector(
-                      onTap: () {
-                        hideKeyboard(context);
-                      },
-                      child: child,
-                    ),
-                  ),
-          navigatorObservers: navigatorObservers,
-          onGenerateRoute: onGenerateRoute,
-          localizationsDelegates: localizationsDelegates,
-          supportedLocales: supportedLocales,
-          locale: locale,
-          localeResolutionCallback: localeResolutionCallback,
-        ),
+    return MaterialApp(
+      navigatorKey: navigatorGlobalKey,
+      title: widget.title,
+      theme: ThemeData(
+        platform: TargetPlatform.iOS,
+        primarySwatch: Colors.grey,
+        splashColor: Colors.transparent,
       ),
+      home: widget.home,
+      builder: widget.builder ??
+          EasyLoading.init(
+            builder: (context, child) {
+              return _buildBannerUrlType(
+                child: Scaffold(
+                  // Global GestureDetector that will dismiss the keyboard
+                  body: GestureDetector(
+                    onTap: () {
+                      hideKeyboard(context);
+                    },
+                    child: child,
+                  ),
+                ),
+              );
+            },
+          ),
+      navigatorObservers: widget.navigatorObservers,
+      onGenerateRoute: widget.onGenerateRoute,
+      localizationsDelegates: widget.localizationsDelegates,
+      supportedLocales: widget.supportedLocales,
+      locale: widget.locale,
+      localeResolutionCallback: widget.localeResolutionCallback,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -1233,6 +1244,7 @@ class BaseGeneralAlertDialog extends StatelessWidget {
 
 class BaseAlertDialog extends Dialog {
   final bool barrierDismissible;
+  final BorderRadiusGeometry borderRadius;
   final EdgeInsets margin;
   final EdgeInsets titlePadding;
   final EdgeInsets contentPadding;
@@ -1245,6 +1257,7 @@ class BaseAlertDialog extends Dialog {
   const BaseAlertDialog({
     Key? key,
     this.barrierDismissible = false,
+    this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     this.margin = const EdgeInsets.all(38.0),
     this.titlePadding = const EdgeInsets.fromLTRB(20.0, 34.0, 20.0, 20.0),
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 20.0),
@@ -1268,7 +1281,7 @@ class BaseAlertDialog extends Dialog {
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: borderRadius,
                 ),
               ),
               margin: margin,

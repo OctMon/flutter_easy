@@ -80,8 +80,8 @@ _ResultCallBack? _onResult;
 ///
 /// baseUrl: 主机地址
 /// path: 请求路径
-/// data: 请求参数
 /// queryParameters: URL携带请求参数
+/// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
 /// context: 上下文
 /// autoLoading: 展示Loading
@@ -89,17 +89,17 @@ _ResultCallBack? _onResult;
 Future<Result> get(
     {String? baseUrl,
     String path = '',
-    Map? data,
     Map<String, dynamic>? queryParameters,
+    int? connectTimeout,
     bool validResult = true,
     BuildContext? context,
     bool autoLoading = false}) async {
   return request(
       baseUrl: baseUrl,
       path: path,
-      data: data,
       queryParameters: queryParameters,
       options: Options(method: 'get'),
+      connectTimeout: connectTimeout,
       validResult: validResult,
       context: context,
       autoLoading: autoLoading);
@@ -111,6 +111,7 @@ Future<Result> get(
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// data: 请求参数
+/// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
 /// context: 上下文
 /// autoLoading: 展示Loading
@@ -118,7 +119,8 @@ Future<Result> get(
 Future<Result> post(
     {String? baseUrl,
     String path = '',
-    Map? data,
+    data,
+    int? connectTimeout,
     bool validResult = true,
     BuildContext? context,
     bool autoLoading = false}) async {
@@ -127,6 +129,7 @@ Future<Result> post(
       path: path,
       data: data,
       options: Options(method: 'post'),
+      connectTimeout: connectTimeout,
       validResult: validResult,
       context: context,
       autoLoading: autoLoading);
@@ -138,6 +141,7 @@ Future<Result> post(
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// data: 请求参数
+/// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
 /// context: 上下文
 /// autoLoading: 展示Loading
@@ -145,17 +149,18 @@ Future<Result> post(
 Future<Result> request(
     {String? baseUrl,
     String path = '',
-    Map? data,
+    data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+    int? connectTimeout,
     bool validResult = true,
     BuildContext? context,
     bool autoLoading = false}) async {
   // Loading is show
   bool alreadyShowLoading = false;
-  if (autoLoading && context != null) {
+  if (autoLoading) {
     try {
-      showLoading(context);
+      showLoading();
       alreadyShowLoading = true;
     } catch (e) {
       logError('showLoading()', e.toString());
@@ -180,20 +185,25 @@ Future<Result> request(
           errorOther: _session.config.errorOther),
       onRequest: _session.onRequest,
       onResult: validResult ? _session.onResult : null);
-  Result result = await session.request(path,
-      data: data, queryParameters: queryParameters, options: options);
-  if (context != null && autoLoading && alreadyShowLoading) {
+  Result result = await session.request(
+    path,
+    data: data,
+    queryParameters: queryParameters,
+    options: options,
+    connectTimeout: connectTimeout,
+  );
+  if (autoLoading && alreadyShowLoading) {
     // Dismiss loading
-    dismissLoading(context);
+    dismissLoading();
   }
   return _onResult != null ? _onResult!(result, validResult, context) : result;
 }
 
-Future<String> initSelectedBaseURLType() async {
-  String urlType =
+Future<String?> initSelectedBaseURLType() async {
+  String? urlType =
       await SharedPreferencesUtil.getSharedPrefsString(_baseURLTypeKey);
-  if (urlType.isNotEmpty) {
-    _baseURLTypeString = urlType;
+  if (urlType?.isNotEmpty ?? false) {
+    _baseURLTypeString = urlType ?? "";
   }
   return urlType;
 }
@@ -224,7 +234,7 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
     builder: (BuildContext ctx) {
       return BaseGeneralAlertDialog(
         title: Text(
-            _baseURLTypeString.isEmpty? "$kBaseURLType" : _baseURLTypeString),
+            _baseURLTypeString.isEmpty ? "$kBaseURLType" : _baseURLTypeString),
         content: Text(
           "${BaseURLType.test}" +
               "=\n" +

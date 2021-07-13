@@ -17,9 +17,9 @@ class StorageUtil {
 final _encrypt = Encrypter(AES(Key.fromUtf8(_secret ?? ""), mode: AESMode.ecb));
 final _iv = IV.fromLength(16);
 
-Future<String> getStorageString(String key) async {
-  String string = await SharedPreferencesUtil.getSharedPrefsString(key);
-  if (_secret == null) {
+Future<String?> getStorageString(String key) async {
+  String? string = await SharedPreferencesUtil.getSharedPrefsString(key);
+  if (_secret == null || string == null) {
     return string;
   }
 //  if (isWeb) {

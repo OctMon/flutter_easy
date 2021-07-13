@@ -16,7 +16,7 @@ Widget buildView(
       scrollPhysics: const BouncingScrollPhysics(),
       builder: (BuildContext context, int index) {
         return PhotoViewGalleryPageOptions(
-          imageProvider: BaseWebImage.provider(state.data?.images?[index].imageURL ?? ""),
+          imageProvider: BaseWebImage.provider(state.data?.images[index].imageURL ?? ""),
         );
       },
       itemCount: state.data?.imageCount,
@@ -27,7 +27,7 @@ Widget buildView(
           child: CircularProgressIndicator(
             value: event == null || event.expectedTotalBytes == null
                 ? 0
-                : event.cumulativeBytesLoaded / event.expectedTotalBytes!,
+                : event.cumulativeBytesLoaded / event.expectedTotalBytes,
           ),
         ),
       ),

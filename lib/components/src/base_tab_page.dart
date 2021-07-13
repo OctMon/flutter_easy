@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+mixin BaseTabState<T> {
+  int get initIndex;
+
+  set initIndex(int initIndex);
+
+  updateInitIndex(Map<String, dynamic> args) {
+    initIndex = args['index'] ?? 0;
+  }
+}
+
 /*
 BaseScaffold(
   appBar: BaseAppBar(
@@ -30,18 +40,26 @@ class BaseTabPage extends StatefulWidget {
   final bool isScrollable;
   final Color? indicatorColor;
   final TextStyle labelStyle;
+  final Widget divider;
   final List<Widget> tabs;
   final List<Widget> children;
+  final Color backgroundColor;
+  final Color? labelColor;
+  final Color? unselectedLabelColor;
 
-  const BaseTabPage(
-      {Key? key,
-      this.initialIndex = 0,
-      this.isScrollable = false,
-      this.indicatorColor,
-      this.labelStyle = const TextStyle(fontWeight: FontWeight.normal),
-      required this.tabs,
-      required this.children})
-      : super(key: key);
+  const BaseTabPage({
+    Key? key,
+    this.initialIndex = 0,
+    this.isScrollable = false,
+    this.indicatorColor,
+    this.labelStyle = const TextStyle(fontWeight: FontWeight.normal),
+    this.divider = const Divider(height: 1),
+    required this.tabs,
+    required this.children,
+    this.backgroundColor = Colors.white,
+    this.labelColor,
+    this.unselectedLabelColor,
+  }) : super(key: key);
 
   @override
   _BaseTabPageState createState() => _BaseTabPageState();
@@ -56,22 +74,21 @@ class _BaseTabPageState extends State<BaseTabPage> {
       child: Column(
         children: <Widget>[
           Container(
-            color: Colors.white,
+            color: widget.backgroundColor,
             child: TabBar(
               isScrollable: widget.isScrollable,
               indicatorColor: widget.indicatorColor ?? colorWithTint,
               indicatorSize: TabBarIndicatorSize.label,
               labelPadding: EdgeInsets.symmetric(horizontal: 6),
-              labelColor: colorWithTint,
+              labelColor: widget.labelColor ?? colorWithTint,
               labelStyle: widget.labelStyle,
-              unselectedLabelColor: colorWithHex3,
+              unselectedLabelColor:
+                  widget.unselectedLabelColor ?? colorWithHex3,
               tabs: widget.tabs,
             ),
           ),
           // Container(height: 5),
-          Divider(
-            height: 1,
-          ),
+          widget.divider,
           Expanded(
             child: TabBarView(
               children: widget.children,

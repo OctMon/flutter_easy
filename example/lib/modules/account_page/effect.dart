@@ -12,12 +12,10 @@ Effect<AccountState> buildEffect() {
 }
 
 Future<void> _onLocaleChange(Action action, Context<AccountState> ctx) async {
-  if (onLocaleChange != null && action.payload != null) {
-    showLoading(ctx.context);
-    await onLocaleChange!(action.payload);
-    ctx.broadcast(RootActionCreator.onLocaleChange());
-    ctx.broadcast(ExampleActionCreator.onLocaleChange());
-    ctx.forceUpdate();
-    dismissLoading(ctx.context);
-  }
+  showLoading();
+  await onLocaleChange(action.payload);
+  ctx.broadcast(RootActionCreator.onLocaleChange());
+  ctx.broadcast(ExampleActionCreator.onLocaleChange());
+  ctx.forceUpdate();
+  dismissLoading();
 }

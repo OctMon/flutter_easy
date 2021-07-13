@@ -1,6 +1,6 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 2.0.2
+version: 2.0.3
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
@@ -15,7 +15,7 @@ dependencies:
   # pub: https://pub.dev/packages/session
   # git: https://github.com/OctMon/session
   # ———————————————————————————————————————————————————————————————————————————————
-  session: ^1.0.3
+  session: ^1.0.3+2
   dio: ^4.0.0
   # ===============================================================================
 
@@ -45,34 +45,34 @@ dependencies:
   # ———————————————————————————————————————————————————————————————————————————————
   encrypt: ^5.0.0
   crypto: ^3.0.1
-  convert: ^3.0.0
+  convert: ^3.0.1
   # ===============================================================================
 
   # ===============================================================================
-  # a pure flutter toast library You can completely customize the style of toast.
-  # pub: https://pub.dev/packages/oktoast
-  # git: https://github.com/OpenFlutter/flutter_oktoast
-  # ———————————————————————————————————————————————————————————————————————————————
-  oktoast: ^3.0.0
+  # Flutter EasyLoading
+  # pub：https://pub.dev/packages/flutter_easyloading
+  # git：https://github.com/kokohuang/flutter_easyloading
+  # desc： ✨A clean and lightweight loading/toast widget for Flutter, easy to use without context, support iOS、Android and Web
   # ===============================================================================
+  flutter_easyloading: ^3.0.0
 
   # ===============================================================================
-  # 名称：共享首选项插件
-  # 来源：https://pub.dev/packages/shared_preferences
-  # GitHub：https://github.com/flutter/plugins/tree/master/packages/shared_preferences
-  # 说明：包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储。
+  # 共享首选项插件
+  # pub：https://pub.dev/packages/shared_preferences
+  # git：https://github.com/flutter/plugins/tree/master/packages/shared_preferences
+  # desc：包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储。
   # 数据异步保存到磁盘。 这两个平台都不能保证在返回后将写操作持久化到磁盘，并且该插件不得用于存储关键数据。
   # ===============================================================================
-  shared_preferences: ^2.0.5
+  shared_preferences: ^2.0.6
   shared_preferences_windows: ^2.0.0
   shared_preferences_web: ^2.0.0
 
   # ===============================================================================
   # This Flutter plugin provides an API for querying information about an application package.
-  # pub: https://pub.dev/packages/package_info
-  # git: https://github.com/flutter/plugins/tree/master/packages/package_info
+  # pub: https://pub.dev/packages/package_info_plus
+  # git: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus
   # ———————————————————————————————————————————————————————————————————————————————
-  package_info: ^2.0.0
+  package_info_plus: ^1.0.3
   # ===============================================================================
 
   # ===============================================================================
@@ -80,7 +80,7 @@ dependencies:
   # pub: https://pub.dev/packages/url_launcher
   # git: https://github.com/flutter/plugins/tree/master/packages/url_launcher
   # ———————————————————————————————————————————————————————————————————————————————
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.9
   # ===============================================================================
 
   # ===============================================================================
@@ -89,8 +89,8 @@ dependencies:
   # git: https://github.com/renefloor/flutter_cached_network_image
   # ———————————————————————————————————————————————————————————————————————————————
   cached_network_image: ^3.0.0
-  flutter_cache_manager: ^3.0.1
-  path_provider: ^2.0.1
+  flutter_cache_manager: ^3.1.2
+  path_provider: ^2.0.2
   path: ^1.8.0
   # ===============================================================================
 
@@ -103,12 +103,12 @@ dependencies:
   # ===============================================================================
 
   # ===============================================================================
-  # 名称：无限轮播
-  # 来源：https://pub.dev/packages/flutter_swiper
-  # GitHub：https://github.com/best-flutter/flutter_swiper
-  # 说明：flutter最强大的swiper, 多种布局方式，无限轮播，Android和IOS双端适配.
+  # 无限轮播
+  # pub: https://pub.dev/packages/card_swiper
+  # git: https://github.com/TheAnkurPanchani/card_swiper
+  # desc：flutter最强大的swiper, 多种布局方式，无限轮播，Android和IOS双端适配.
   # ===============================================================================
-  flutter_swiper: ^1.1.6
+  card_swiper: ^1.0.2
 
 dev_dependencies:
   flutter_test:

@@ -9,7 +9,7 @@ class AccountActionCreator {
     return const Action(AccountAction.action);
   }
 
-  static Action onLocaleChange(Locale? locale) {
+  static Action onLocaleChange(Locale locale) {
     return Action(AccountAction.onLocaleChange, payload: locale);
   }
 }

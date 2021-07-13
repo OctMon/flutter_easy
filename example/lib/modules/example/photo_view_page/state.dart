@@ -2,7 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy_example/api/tu_chong/tu_chong_model.dart';
 
 class PhotoViewState implements Cloneable<PhotoViewState> {
-  TuChongModel? data;
+  TuChongModel data;
 
   @override
   PhotoViewState clone() {
