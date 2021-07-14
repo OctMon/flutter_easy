@@ -13,7 +13,7 @@ Effect<TuChongState> buildEffect() {
 }
 
 void _initState(Action action, Context<TuChongState> ctx) {
-  _onRequestData(action, ctx);
+  ctx.dispatch(TuChongActionCreator.onRequestData(kFirstPage));
 }
 
 Future<void> _onRequestData(Action action, Context<TuChongState> ctx) async {

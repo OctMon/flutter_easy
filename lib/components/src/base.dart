@@ -44,7 +44,6 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
       {bool hasMore = false, bool updateModel = false, String? emptyTitle}) {
     if (result != null) {
       bool loadMore = false;
-      page ??= kFirstPage;
       message = result.message;
       dynamic _data = data ?? [];
       dynamic _list = result.models.toList();
@@ -881,8 +880,7 @@ class BaseButton extends StatelessWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  BaseButton(
-      {this.padding, required this.child, required this.onPressed});
+  BaseButton({this.padding, required this.child, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
