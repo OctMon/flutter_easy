@@ -10,7 +10,7 @@ class BaseBannerView extends StatelessWidget {
   final double? height;
   final int? playDelay;
   final bool showPagination;
-  final SwiperOnTap? onTap;
+  final ValueChanged<int>? onTap;
 
   const BaseBannerView(
       {Key? key,
@@ -56,7 +56,7 @@ class BaseCycleView extends StatelessWidget {
   final ScrollPhysics? physics;
   final int? playDelay;
   final bool showPagination;
-  final SwiperOnTap? onTap;
+  final ValueChanged<int>? onTap;
 
   const BaseCycleView(
       {Key? key,
