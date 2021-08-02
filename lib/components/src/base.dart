@@ -836,7 +836,7 @@ class BaseInkWell extends StatelessWidget {
       this.borderRadius = 0,
       this.decoration,
       required this.child,
-      required this.onPressed});
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
