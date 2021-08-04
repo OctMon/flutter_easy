@@ -83,6 +83,14 @@ dependencies:
   # ===============================================================================
   flutter_localized_locales: ^2.0.1
 
+  # ===============================================================================
+  # 名称： GetX
+  # 来源：https://pub.dev/packages/get
+  # GitHub：https://github.com/jonataslaw/getx
+  # 说明：Open screens/snackbars/dialogs without context, manage states and inject dependencies easily with GetX
+  # ===============================================================================
+  get: ^4.3.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

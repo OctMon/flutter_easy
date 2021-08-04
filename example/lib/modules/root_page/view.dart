@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
+import 'package:flutter_easy_example/modules/home/home_view.dart';
 import 'package:flutter_easy_example/routes.dart';
 
 import 'action.dart';
@@ -49,7 +50,7 @@ Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
   const List<IconData> icons = [Icons.home, Icons.apps, Icons.account_circle];
 
   final List<Widget> children = [
-    Routes.routes.buildPage(Routes.home, null),
+    HomePage(),
     Routes.routes.buildPage(Routes.example, null),
     Routes.routes.buildPage(Routes.account, null),
   ];

@@ -111,7 +111,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
               buildTableRowTop(code: "extensions", value: "value"),
               buildTableRow(
                   code: "\"13012345678\".isPhoneNumber",
-                  value: "${"13012345678".isPhoneNumber}"),
+                  value: "${"13012345678".isCNPhoneNumber}"),
               buildTableRow(
                   code: "\"110101199003071276\".isIdentityCard",
                   value: "${"110101199003071276".isIdentityCard}"),

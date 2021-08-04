@@ -17,8 +17,8 @@ extension StringExtensions on String {
     return convert.hex.encode(digest.bytes);
   }
 
-  /// 验证手机号码
-  bool get isPhoneNumber =>
+  /// 验证国内手机号码
+  bool get isCNPhoneNumber =>
       hasMatch("^(1[3-9][0-9])\\d{8}\$") && this.length == 11;
 
   /// 验证邮箱
