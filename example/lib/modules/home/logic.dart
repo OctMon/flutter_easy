@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'home_state.dart';
+import 'state.dart';
 
 class HomeLogic extends GetxController with SingleGetTickerProviderMixin {
   final state = HomeState();

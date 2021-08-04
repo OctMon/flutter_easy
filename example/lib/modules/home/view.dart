@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide GetStringUtils, GetNumUtils, GetDurationUtils;
 import 'package:flutter_easy/flutter_easy.dart';
 
-import 'home_logic.dart';
-import 'home_state.dart';
+import 'logic.dart';
+import 'state.dart';
 
 class HomePage extends StatelessWidget {
   final HomeLogic logic = Get.put(HomeLogic());
