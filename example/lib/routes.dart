@@ -1,12 +1,15 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:get/get.dart';
 
-import 'modules/root_page/page.dart';
+import 'modules/example/login/view.dart';
+import 'modules/root/page.dart';
+import 'modules/root_page/page.dart' as fish;
 import 'modules/account_page/page.dart';
-import 'modules/home_page/page.dart';
+import 'modules/home_page/page.dart' as fish;
 import 'modules/example/example_page/page.dart';
 import 'modules/example/image_colors_page/page.dart';
-import 'modules/example/login_page/page.dart';
+import 'modules/example/login_page/page.dart' as fish;
 import 'modules/example/photo_view_page/page.dart';
 import 'modules/example/tu_chong_page/page.dart';
 import 'store/user_store/store.dart';
@@ -22,11 +25,22 @@ class Routes {
 
   Routes._();
 
+  static final List<GetPage> routes = [
+    GetPage(
+      name: Routes.root,
+      page: () => RootPage(),
+    ),
+    GetPage(
+      name: routesLoginNamed,
+      page: () => LoginPage(),
+    ),
+  ];
+
   static final Map<String, Page<Object, dynamic>> pages =
       <String, Page<Object, dynamic>>{
-    routesLoginNamed: LoginPage(),
-    Routes.root: RootPage(),
-    Routes.home: HomePage(),
+    routesLoginNamed: fish.LoginPage(),
+    Routes.root: fish.RootPage(),
+    Routes.home: fish.HomePage(),
     Routes.example: ExamplePage(),
     Routes.tuChong: TuChongPage(),
     Routes.photoView: PhotoViewPage(),
@@ -34,7 +48,7 @@ class Routes {
     Routes.imageColors: ImageColorsPage(),
   };
 
-  static final AbstractRoutes routes = PageRoutes(
+  static final AbstractRoutes fRoutes = PageRoutes(
     pages: Routes.pages,
     visitor: (String path, Page<Object, dynamic> page) {
       /// 用户信息变更

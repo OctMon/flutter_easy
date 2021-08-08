@@ -74,9 +74,10 @@ class _AppState extends State<App> {
       // home: Routes.routes.buildPage(Routes.root, null),
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute<Object>(builder: (BuildContext context) {
-          return Routes.routes.buildPage(settings.name, settings.arguments);
+          return Routes.fRoutes.buildPage(settings.name, settings.arguments);
         });
       },
+      getPages: Routes.routes,
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

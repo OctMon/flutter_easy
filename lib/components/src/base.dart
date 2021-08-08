@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 
 import 'log_console.dart';
 
@@ -195,6 +196,7 @@ class BaseApp extends StatefulWidget {
   final TransitionBuilder? builder;
   final List<NavigatorObserver> navigatorObservers;
   final RouteFactory? onGenerateRoute;
+  final List<GetPage>? getPages;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
   final Iterable<Locale> supportedLocales;
   final Locale? locale;
@@ -206,6 +208,7 @@ class BaseApp extends StatefulWidget {
     this.builder,
     this.navigatorObservers = const <NavigatorObserver>[],
     this.onGenerateRoute,
+    this.getPages,
     this.localizationsDelegates,
     this.supportedLocales = const <Locale>[Locale('en', 'US')],
     this.locale,
@@ -243,8 +246,7 @@ class _BaseAppState extends State<BaseApp> {
       return child;
     }
 
-    return MaterialApp(
-      navigatorKey: navigatorGlobalKey,
+    return GetMaterialApp(
       title: widget.title,
       theme: ThemeData(
         platform: TargetPlatform.iOS,
@@ -255,6 +257,7 @@ class _BaseAppState extends State<BaseApp> {
       builder: widget.builder ??
           EasyLoading.init(
             builder: (context, child) {
+              AdaptUtil.initContext(context);
               return _buildBannerUrlType(
                 child: Scaffold(
                   // Global GestureDetector that will dismiss the keyboard
@@ -270,6 +273,7 @@ class _BaseAppState extends State<BaseApp> {
           ),
       navigatorObservers: widget.navigatorObservers,
       onGenerateRoute: widget.onGenerateRoute,
+      getPages: widget.getPages,
       localizationsDelegates: widget.localizationsDelegates,
       supportedLocales: widget.supportedLocales,
       locale: widget.locale,

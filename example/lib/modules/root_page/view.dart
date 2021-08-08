@@ -51,8 +51,8 @@ Widget buildView(RootState state, Dispatch dispatch, ViewService viewService) {
 
   final List<Widget> children = [
     HomePage(),
-    Routes.routes.buildPage(Routes.example, null),
-    Routes.routes.buildPage(Routes.account, null),
+    Routes.fRoutes.buildPage(Routes.example, null),
+    Routes.fRoutes.buildPage(Routes.account, null),
   ];
 
   return Scaffold(

@@ -110,6 +110,14 @@ dependencies:
   # ===============================================================================
   card_swiper: ^1.0.2
 
+  # ===============================================================================
+  # 名称： GetX
+  # pub：https://pub.dev/packages/get
+  # get：https://github.com/jonataslaw/getx
+  # desc：Open screens/snackbars/dialogs without context, manage states and inject dependencies easily with GetX
+  # ===============================================================================
+  get: ^4.3.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
