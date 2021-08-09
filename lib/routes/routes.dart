@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /// 指定登录路由
 String routesLoginNamed = 'login';
@@ -15,6 +16,7 @@ bool Function()? routesIsLogin;
 /// arguments: 路由参数
 /// needLogin: 是否检测用户登录状态 需要[setPushToLogin]指定登录方法 [setIsLogin]指定登录状态
 ///
+@deprecated
 Future pushNamed(BuildContext context, String routeName,
     {Object? arguments, dynamic Function(bool)? needLogin}) {
   return _pushNamed('pushNamed', context, routeName,
@@ -28,6 +30,7 @@ Future pushNamed(BuildContext context, String routeName,
 /// arguments: 路由参数
 /// needLogin: 是否检测用户登录状态 需要[setPushToLogin]指定登录方法 [setIsLogin]指定登录状态
 ///
+@deprecated
 Future pushReplacementNamed(BuildContext context, String routeName,
     {Object? arguments, dynamic Function(bool)? needLogin}) {
   return _pushNamed('pushReplacementNamed', context, routeName,
@@ -42,6 +45,7 @@ Future pushReplacementNamed(BuildContext context, String routeName,
 /// arguments: 路由参数
 /// needLogin: 是否检测用户登录状态 需要[setPushToLogin]指定登录方法 [setIsLogin]指定登录状态
 ///
+@deprecated
 Future pushNamedAndRemoveUntil(BuildContext context, String routeName,
     {required RoutePredicate predicate,
     Object? arguments,
@@ -57,6 +61,7 @@ Future pushNamedAndRemoveUntil(BuildContext context, String routeName,
 /// arguments: 路由参数
 /// needLogin: 是否检测用户登录状态 需要[setPushToLogin]指定登录方法 [setIsLogin]指定登录状态
 ///
+@deprecated
 Future popAndPushNamed(BuildContext context, String routeName,
     {Object? arguments, dynamic Function(bool)? needLogin}) {
   return _pushNamed('popAndPushNamed', context, routeName,
@@ -66,10 +71,12 @@ Future popAndPushNamed(BuildContext context, String routeName,
 ///
 /// 路由跳转封装pop
 ///
+@deprecated
 pop<T extends Object?>(BuildContext context, [T? result]) {
   return Navigator.of(context).pop(result);
 }
 
+@deprecated
 Future<T?> _pushNamed<T extends Object?>(
     String type, BuildContext context, String routeName,
     {RoutePredicate? predicate,
@@ -97,7 +104,72 @@ Future<T?> _pushNamed<T extends Object?>(
   }
 }
 
+@deprecated
 Future<bool> pushNamedToLogin(BuildContext context) async {
   bool success = await pushNamed(context, routesLoginNamed) ?? false;
   return success;
+}
+
+Future<T?>? toNamed<T>(
+  String page, {
+  dynamic arguments,
+  int? id,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+}) {
+  return Get.toNamed<T>(page,
+      arguments: arguments,
+      id: id,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters);
+}
+
+Future<T?>? offNamed<T>(
+  String page, {
+  dynamic arguments,
+  int? id,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+}) {
+  return Get.offNamed(page,
+      arguments: arguments,
+      id: id,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters);
+}
+
+Future<T?>? offNamedUntil<T>(
+  String page,
+  RoutePredicate predicate, {
+  int? id,
+  dynamic arguments,
+  Map<String, String>? parameters,
+}) {
+  return Get.offNamedUntil(page, predicate,
+      id: id, arguments: arguments, parameters: parameters);
+}
+
+Future<T?>? offAndToNamed<T>(
+  String page, {
+  dynamic arguments,
+  int? id,
+  dynamic result,
+  Map<String, String>? parameters,
+}) {
+  return Get.offAndToNamed(page,
+      arguments: arguments, id: id, result: result, parameters: parameters);
+}
+
+Future<T?>? offAllNamed<T>(
+  String newRouteName, {
+  RoutePredicate? predicate,
+  dynamic arguments,
+  int? id,
+  Map<String, String>? parameters,
+}) {
+  return Get.offAllNamed<T>(newRouteName,
+      predicate: predicate,
+      arguments: arguments,
+      id: id,
+      parameters: parameters);
 }

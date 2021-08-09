@@ -2,16 +2,17 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:get/get.dart';
 
+import 'modules/example/image_colors/page.dart';
 import 'modules/example/login/view.dart';
 import 'modules/root/page.dart';
 import 'modules/root_page/page.dart' as fish;
-import 'modules/account_page/page.dart';
+import 'modules/account_page/page.dart' as fish;
 import 'modules/home_page/page.dart' as fish;
-import 'modules/example/example_page/page.dart';
-import 'modules/example/image_colors_page/page.dart';
+import 'modules/example/example_page/page.dart' as fish;
+import 'modules/example/image_colors_page/page.dart' as fish;
 import 'modules/example/login_page/page.dart' as fish;
-import 'modules/example/photo_view_page/page.dart';
-import 'modules/example/tu_chong_page/page.dart';
+import 'modules/example/photo_view_page/page.dart' as fish;
+import 'modules/example/tu_chong_page/page.dart' as fish;
 import 'store/user_store/store.dart';
 
 class Routes {
@@ -21,7 +22,7 @@ class Routes {
   static final String tuChong = '/tu_chong';
   static final String photoView = '/photo_view';
   static final String account = '/account';
-  static final String imageColors = '/image_colors';
+  static final String imageColors = '$example/image_colors';
 
   Routes._();
 
@@ -34,6 +35,10 @@ class Routes {
       name: routesLoginNamed,
       page: () => LoginPage(),
     ),
+    GetPage(
+      name: Routes.imageColors,
+      page: () => ImageColorsPage(),
+    ),
   ];
 
   static final Map<String, Page<Object, dynamic>> pages =
@@ -41,11 +46,11 @@ class Routes {
     routesLoginNamed: fish.LoginPage(),
     Routes.root: fish.RootPage(),
     Routes.home: fish.HomePage(),
-    Routes.example: ExamplePage(),
-    Routes.tuChong: TuChongPage(),
-    Routes.photoView: PhotoViewPage(),
-    Routes.account: AccountPage(),
-    Routes.imageColors: ImageColorsPage(),
+    Routes.example: fish.ExamplePage(),
+    Routes.tuChong: fish.TuChongPage(),
+    Routes.photoView: fish.PhotoViewPage(),
+    Routes.account: fish.AccountPage(),
+    Routes.imageColors: fish.ImageColorsPage(),
   };
 
   static final AbstractRoutes fRoutes = PageRoutes(

@@ -1,4 +1,4 @@
-import 'package:fish_redux/fish_redux.dart';
+import 'package:fish_redux/fish_redux.dart' hide Get;
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
@@ -24,7 +24,8 @@ Widget buildView(
               value: "",
               extend: Icons.image),
           onPressed: () {
-            pushNamed(viewService.context, Routes.tuChong);
+            // pushNamed(viewService.context, Routes.tuChong);
+            toNamed(Routes.tuChong);
           },
         ),
         GlobalListCell(
@@ -35,7 +36,8 @@ Widget buildView(
               value: "",
               extend: Icons.colorize),
           onPressed: () {
-            pushNamed(viewService.context, Routes.imageColors);
+            // pushNamed(viewService.context, Routes.imageColors);
+            toNamed(Routes.imageColors);
           },
         ),
         GlobalListCell(
