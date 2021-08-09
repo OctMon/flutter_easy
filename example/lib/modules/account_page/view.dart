@@ -31,7 +31,7 @@ Widget buildView(
                   GestureDetector(
                     onTap: state.user != null
                         ? null
-                        : () => pushNamedToLogin(viewService.context),
+                        : () => toLogin(),
                     child: FlutterLogo(
                       size: adaptDp(80),
                       style: FlutterLogoStyle.markOnly,
@@ -40,7 +40,7 @@ Widget buildView(
                   GestureDetector(
                     onTap: state.user != null
                         ? null
-                        : () => pushNamedToLogin(viewService.context),
+                        : () => toLogin(),
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 18),
                       child: BaseText(
@@ -94,7 +94,7 @@ Widget buildView(
                                   .nativeLocaleNames[e.toString()];
                           return BaseActionSheetAction(
                             onPressed: () {
-                              pop(viewService.context);
+                              back();
                               dispatch(AccountActionCreator.onLocaleChange(e));
                             },
                             child: BaseText(nativeLocaleName == localeString
@@ -107,7 +107,7 @@ Widget buildView(
                               BaseActionSheetAction(
                                 isDefaultAction: true,
                                 onPressed: () {
-                                  pop(viewService.context);
+                                  back();
                                   dispatch(AccountActionCreator.onLocaleChange(
                                       null));
                                 },

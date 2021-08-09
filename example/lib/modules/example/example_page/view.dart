@@ -164,7 +164,7 @@ Widget buildView(
                                                                 content:
                                                                     GestureDetector(
                                                                   onTap: () {
-                                                                    pop(context);
+                                                                    back( );
                                                                   },
                                                                   child:
                                                                       Container(

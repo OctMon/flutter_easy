@@ -71,12 +71,6 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return BaseApp(
-      // home: Routes.routes.buildPage(Routes.root, null),
-      onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute<Object>(builder: (BuildContext context) {
-          return Routes.fRoutes.buildPage(settings.name, settings.arguments);
-        });
-      },
       getPages: Routes.routes,
       localizationsDelegates: [
         S.delegate,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
+import 'package:flutter_easy_example/modules/example/example_list/page.dart';
 import 'package:flutter_easy_example/modules/home/view.dart';
 import 'package:flutter_easy_example/routes.dart';
 import 'package:get/get.dart';
@@ -60,8 +61,8 @@ class RootPage extends StatelessWidget {
 
           final List<Widget> children = [
             HomePage(),
-            Routes.fRoutes.buildPage(Routes.example, null),
-            Routes.fRoutes.buildPage(Routes.account, null),
+            ExampleListPage(),
+            // Routes.fRoutes.buildPage(Routes.account, null),
           ];
 
           return GetX<RootController>(

@@ -15,20 +15,20 @@ class ImageColorsPage extends StatelessWidget {
     final ImageColorsController controller = Get.put(ImageColorsController());
 
     void _onImagePickerClicked() async {
-      int selected = await showBaseModalBottomSheet(
+      final selected = await showBaseModalBottomSheet<int>(
         context: context,
         builder: (context) => BaseActionSheet(
           actions: <Widget>[
             BaseActionSheetAction(
               child: BaseText('拍照'),
               onPressed: () {
-                Navigator.pop(context, 0);
+                back(0);
               },
             ),
             BaseActionSheetAction(
               child: BaseText('从相册选择'),
               onPressed: () {
-                Navigator.pop(context, 1);
+                back(1);
               },
             ),
           ],
@@ -36,7 +36,7 @@ class ImageColorsPage extends StatelessWidget {
             child: BaseText('取消'),
             isDestructiveAction: true,
             onPressed: () {
-              Navigator.pop(context);
+              back();
             },
           ),
         ),

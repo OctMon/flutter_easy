@@ -23,7 +23,6 @@ class LoginLogic extends GetxController {
   void onClose() {
     state.phoneNumberController.dispose();
     state.passwordController.dispose();
-    logWTF("dispose");
     super.onClose();
   }
 
@@ -59,7 +58,7 @@ class LoginLogic extends GetxController {
     result.fill(
         UserModel.fromJson({"userId": "1", "nickname": "flutter", "avatar": ""}));
     await UserStore.save(result.model);
-    pop(Get.context, true);
+    back(true);
     // } else {
     //   showToast(result.message);
     // }
