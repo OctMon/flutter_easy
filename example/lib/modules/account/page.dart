@@ -19,59 +19,64 @@ class AccountPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          BaseSliverAppBar(
-            pinned: true,
-            expandedHeight: 211.0 + (isIPhoneX ? 0 : 24),
-            tintColor: Colors.white,
-            backgroundColor: colorWithTint,
-            brightness: Brightness.dark,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                margin: EdgeInsets.only(top: 50),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap:
-                          userController.user != null ? null : () => toLogin(),
-                      child: FlutterLogo(
-                        size: adaptDp(80),
-                        style: FlutterLogoStyle.markOnly,
+          Obx(() {
+            return BaseSliverAppBar(
+              pinned: true,
+              expandedHeight: 211.0 + (isIPhoneX ? 0 : 24),
+              tintColor: Colors.white,
+              backgroundColor: colorWithTint,
+              brightness: Brightness.dark,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  margin: EdgeInsets.only(top: 50),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: userController.isLogin ? null : () => toLogin(),
+                        child: FlutterLogo(
+                          size: adaptDp(80),
+                          style: FlutterLogoStyle.markOnly,
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap:
-                          userController.user != null ? null : () => toLogin(),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 18),
-                        child: BaseText(
-                          userController.user != null
-                              ? (userController.user?.nickname)
-                              : S.of(context).login,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: adaptDp(20),
-                            fontWeight: FontWeight.w500,
+                      GestureDetector(
+                        onTap: userController.isLogin ? null : () => toLogin(),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 18),
+                          child: BaseText(
+                            userController.isLogin
+                                ? (userController.user?.value?.nickname)
+                                : S.of(context).login,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: adaptDp(20),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            actions: userController.isLogin
-                ? [
-                    BaseButton(
-                      child: Icon(Icons.exit_to_app),
-                      onPressed: () async {
-                        await userController.clean();
-                        offAllNamed(Routes.root);
-                      },
-                    ),
-                  ]
-                : null,
-          ),
+              actions: userController.isLogin
+                  ? [
+                      BaseButton(
+                        child: Icon(
+                          Icons.exit_to_app,
+                          color: Colors.white,
+                        ),
+                        onPressed: () async {
+                          showLoading();
+                          await userController.clean();
+                          dismissLoading();
+                          offAllNamed(Routes.root);
+                        },
+                      ),
+                    ]
+                  : null,
+            );
+          }),
           SliverList(
             delegate: SliverChildListDelegate([
               GlobalListCell(

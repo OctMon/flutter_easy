@@ -1,6 +1,5 @@
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/api/http_bin/http_bin_api.dart';
-import 'package:flutter_easy_example/utils/user/model.dart';
 import 'package:get/get.dart' hide GetNumUtils, GetDurationUtils;
 
 class RootController extends GetxController {
@@ -15,8 +14,12 @@ class RootController extends GetxController {
 
   @override
   void onReady() {
-    _startCountdownTimer();
-    _onRequest();
+    if (isProduction) {
+      _startCountdownTimer();
+      _onRequest();
+    } else {
+      countDown.value = 0;
+    }
     super.onReady();
   }
 

@@ -38,7 +38,7 @@ SessionInterceptorSendHandler _onRequest = (options) async {
   options.headers.addAll(headers);
   final userController = Get.find<UserController>();
   if (userController.isLogin) {
-    options.headers['id'] = userController.user?.userId;
+    options.headers['id'] = userController.user?.value?.userId;
   }
   // options.contentType = Headers.formUrlEncodedContentType;
   // options.responseType = ResponseType.plain;

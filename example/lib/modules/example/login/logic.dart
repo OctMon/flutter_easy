@@ -56,7 +56,7 @@ class LoginLogic extends GetxController {
         autoLoading: true);
     // if (result.valid) {
     result.fill(UserModel.fromJson(
-        {"userId": "1", "nickname": "flutter", "avatar": ""}));
+        {"userId": "1", "nickname": "flutter${colorWithRandom()}", "avatar": ""}));
 
     final userController = Get.find<UserController>();
     await userController.save(result.model);
