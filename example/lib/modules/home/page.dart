@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide GetStringUtils, GetNumUtils, GetDurationUtils;
 import 'package:flutter_easy/flutter_easy.dart';
 
-import 'logic.dart';
+import 'controller.dart';
 import 'state.dart';
 
 class HomePage extends StatelessWidget {

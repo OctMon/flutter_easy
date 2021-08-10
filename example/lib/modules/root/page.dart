@@ -3,7 +3,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:flutter_easy_example/modules/account/page.dart';
 import 'package:flutter_easy_example/modules/example/example_list/page.dart';
-import 'package:flutter_easy_example/modules/home/view.dart';
+import 'package:flutter_easy_example/modules/home/page.dart';
 import 'package:get/get.dart';
 
 import 'controller.dart';
