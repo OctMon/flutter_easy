@@ -9,11 +9,11 @@ import 'controller.dart';
 import 'state.dart';
 
 class LoginPage extends StatelessWidget {
+  final LoginLogic logic = Get.put(LoginLogic());
+  final LoginState state = Get.find<LoginLogic>().state;
+
   @override
   Widget build(BuildContext context) {
-    final LoginLogic logic = Get.put(LoginLogic());
-    final LoginState state = Get.find<LoginLogic>().state;
-
     return BaseScaffold(
       appBar: BaseAppBar(
         automaticallyImplyLeading: false,
@@ -103,8 +103,7 @@ class LoginPage extends StatelessWidget {
                             fontSize: adaptDp(16),
                             fontWeight: FontWeight.normal,
                           ),
-                          onPressed: () =>
-                              logic.onLoginPressed(),
+                          onPressed: () => logic.onLoginPressed(),
                         ),
                       ],
                     ),
@@ -131,9 +130,8 @@ class LoginPage extends StatelessWidget {
                                 ? Icons.check_circle
                                 : Icons.radio_button_unchecked,
                             size: adaptDp(20),
-                            color: state.isChecked
-                                ? colorWithTint
-                                : colorWithHex9,
+                            color:
+                                state.isChecked ? colorWithTint : colorWithHex9,
                           ),
                         );
                       },
