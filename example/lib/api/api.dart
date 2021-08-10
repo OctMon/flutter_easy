@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/store/user_store/store.dart';
+import 'package:flutter_easy_example/utils/user/controller.dart';
+import 'package:get/get.dart';
 
 export 'constant.dart';
 export 'package:session/session.dart' show Result;
@@ -35,8 +36,9 @@ SessionInterceptorSendHandler _onRequest = (options) async {
     'os': isIOS ? 'ios' : 'android',
   };
   options.headers.addAll(headers);
-  if (UserStore.store.getState().isLogin) {
-    options.headers['id'] = UserStore.store.getState().user?.userId;
+  final userController = Get.find<UserController>();
+  if (userController.isLogin) {
+    options.headers['id'] = userController.user?.userId;
   }
   // options.contentType = Headers.formUrlEncodedContentType;
   // options.responseType = ResponseType.plain;

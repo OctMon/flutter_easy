@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/api/constant.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
-import 'package:flutter_easy_example/store/user_store/model.dart';
-import 'package:flutter_easy_example/store/user_store/store.dart';
+import 'package:flutter_easy_example/utils/user/controller.dart';
+import 'package:flutter_easy_example/utils/user/model.dart';
 import 'package:get/get.dart';
 
 import 'state.dart';
@@ -55,9 +55,11 @@ class LoginLogic extends GetxController {
         context: Get.context,
         autoLoading: true);
     // if (result.valid) {
-    result.fill(
-        UserModel.fromJson({"userId": "1", "nickname": "flutter", "avatar": ""}));
-    await UserStore.save(result.model);
+    result.fill(UserModel.fromJson(
+        {"userId": "1", "nickname": "flutter", "avatar": ""}));
+
+    final userController = Get.find<UserController>();
+    await userController.save(result.model);
     back(true);
     // } else {
     //   showToast(result.message);
