@@ -15,18 +15,18 @@ enum BaseAction {
 T updateBaseState<T>(T state, action) => action?.payload;
 
 mixin BaseState<T> {
-  String? get message;
+  Rx<String?> get message;
 
-  set message(String? message);
+  set message(Rx<String?> message);
 
-  T? get data;
+  Rx<T?> get data;
 
-  set data(T? data);
+  set data(Rx<T?> data);
 
   updateResult(Result? result) {
-    message = result?.message;
+    message.value = result?.message;
     if (result != null && result.valid) {
-      data = result.model ?? result.models;
+      data.value = result.model ?? result.models;
     }
   }
 }
@@ -40,26 +40,28 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
 
   set page(int page);
 
+  RxList<T?> get list;
+
+  set list(RxList<T?> data);
+
   @override
   updateResult(Result? result,
       {bool hasMore = false, bool updateModel = false, String? emptyTitle}) {
     if (result != null) {
       bool loadMore = false;
-      message = result.message;
-      dynamic _data = data ?? [];
+      message.value = result.message;
       dynamic _list = result.models.toList();
       if (result.valid) {
         if (_list.isNotEmpty) {
           if (page > kFirstPage) {
-            _data.addAll(_list);
+            list.addAll(_list);
           } else {
-            _data = _list;
+            list.value = _list;
           }
           page++;
-          data = _data;
           loadMore = _list.length >= kLimitPage;
         } else if (emptyTitle != null) {
-          message = emptyTitle;
+          message.value = emptyTitle;
         }
         if (updateModel && result.model != null) {
           data = result.model;
@@ -71,9 +73,10 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
           : finishLoad(success: result.valid, noMore: true);
     } else {
       // 清空所有数据
-      message = null;
+      message.value = null;
       page = kFirstPage;
-      data = null;
+      data.value = null;
+      list.clear();
     }
   }
 

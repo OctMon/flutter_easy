@@ -18,7 +18,7 @@ Widget buildView(
       controller: state.refreshController,
       emptyWidget: (state.data.isEmptyOrNull)
           ? BasePlaceholderView(
-              title: state.message,
+              title: state.message.value,
               onTap: () => state.refreshController.callRefresh(),
             )
           : null,
