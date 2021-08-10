@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'state.dart';
 
-class HomeLogic extends GetxController with SingleGetTickerProviderMixin {
+class HomeController extends GetxController with SingleGetTickerProviderMixin {
   final state = HomeState();
 
   @override
