@@ -15,16 +15,16 @@ enum BaseAction {
 T updateBaseState<T>(T state, action) => action?.payload;
 
 mixin BaseState<T> {
-  Rx<String?> get message;
+  Rx<String> get message;
 
-  set message(Rx<String?> message);
+  set message(Rx<String> message);
 
   Rx<T?> get data;
 
   set data(Rx<T?> data);
 
   updateResult(Result? result) {
-    message.value = result?.message;
+    message.value = result?.message ?? '';
     if (result != null && result.valid) {
       data.value = result.model ?? result.models;
     }
@@ -73,7 +73,7 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
           : finishLoad(success: result.valid, noMore: true);
     } else {
       // 清空所有数据
-      message.value = null;
+      message.value = '';
       page = kFirstPage;
       data.value = null;
       list.clear();

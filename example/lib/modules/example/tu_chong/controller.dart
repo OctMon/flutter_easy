@@ -14,7 +14,10 @@ class TuChongController extends GetxController
   RxList<TuChongModel> list = <TuChongModel>[].obs;
 
   @override
-  Rx<String?> message = "".obs;
+  Rx<String> message = "".obs;
+
+  @override
+  EasyRefreshController refreshController = EasyRefreshController();
 
   @override
   int page = kFirstPage;
@@ -37,9 +40,6 @@ class TuChongController extends GetxController
         queryParameters: {"page": this.page, "pose_id": this.postId ?? 0})
       ..fillMap((json) => TuChongModel.fromJson(json));
     updateResult(result, hasMore: result.valid);
-    postId = list.last.postId;
+    postId = list.last?.postId;
   }
-
-  @override
-  EasyRefreshController refreshController = EasyRefreshController();
 }
