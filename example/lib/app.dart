@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/utils/user/service.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -8,7 +9,6 @@ import 'package:get/get.dart';
 import 'api/api.dart';
 import 'generated/l10n.dart';
 import 'routes.dart';
-import 'utils/user/controller.dart';
 
 const _localeKey = "locale";
 
@@ -16,9 +16,7 @@ Future<void> initApp() async {
   // 存储沙盒中的密钥
   StorageUtil.setEncrypt("963K3REfb30szs1n");
   // 加载用户信息
-
-  final UserController userController = Get.put(UserController());
-  await userController.load();
+  await Get.putAsync(() => UserService().load());
 
   // 初始化Api
   configAPI(null);

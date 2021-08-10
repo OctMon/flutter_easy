@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/utils/user/controller.dart';
+import 'package:flutter_easy_example/utils/user/service.dart';
 import 'package:get/get.dart';
 
 export 'constant.dart';
@@ -36,7 +36,7 @@ SessionInterceptorSendHandler _onRequest = (options) async {
     'os': isIOS ? 'ios' : 'android',
   };
   options.headers.addAll(headers);
-  final userController = Get.find<UserController>();
+  final userController = Get.find<UserService>();
   if (userController.isLogin) {
     options.headers['id'] = userController.user?.value?.userId;
   }

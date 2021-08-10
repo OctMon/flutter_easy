@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy_example/utils/user/controller.dart';
+import 'package:flutter_easy_example/modules/root/controller.dart';
+import 'package:flutter_easy_example/utils/user/service.dart';
 import 'package:get/get.dart';
 import 'package:flutter_easy_example/routes.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +16,7 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userController = Get.find<UserController>();
+    final service = Get.find<UserService>();
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -33,19 +34,19 @@ class AccountPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: userController.isLogin ? null : () => toLogin(),
+                        onTap: service.isLogin ? null : () => toLogin(),
                         child: FlutterLogo(
                           size: adaptDp(80),
                           style: FlutterLogoStyle.markOnly,
                         ),
                       ),
                       GestureDetector(
-                        onTap: userController.isLogin ? null : () => toLogin(),
+                        onTap: service.isLogin ? null : () => toLogin(),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 18),
                           child: BaseText(
-                            userController.isLogin
-                                ? (userController.user?.value?.nickname)
+                            service.isLogin
+                                ? (service.user?.value?.nickname)
                                 : S.of(context).login,
                             style: TextStyle(
                               color: Colors.white,
@@ -59,7 +60,7 @@ class AccountPage extends StatelessWidget {
                   ),
                 ),
               ),
-              actions: userController.isLogin
+              actions: service.isLogin
                   ? [
                       BaseButton(
                         child: Icon(
@@ -68,8 +69,9 @@ class AccountPage extends StatelessWidget {
                         ),
                         onPressed: () async {
                           showLoading();
-                          await userController.clean();
+                          await service.clean();
                           dismissLoading();
+                          await Get.delete<RootController>();
                           offAllNamed(Routes.root);
                         },
                       ),
