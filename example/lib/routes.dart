@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'modules/example/image_colors/page.dart';
 import 'modules/example/login/page.dart';
+import 'modules/example/photo_view/page.dart';
 import 'modules/example/tu_chong/page.dart';
 import 'modules/root/page.dart';
 
@@ -33,6 +34,10 @@ class Routes {
     GetPage(
       name: Routes.tuChong,
       page: () => TuChongPage(),
+    ),
+    GetPage(
+      name: Routes.photoView,
+      page: () => PhotoViewPage(),
     ),
   ];
 }

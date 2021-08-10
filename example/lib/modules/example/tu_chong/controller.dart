@@ -8,26 +8,6 @@ class TuChongController extends GetxController
   int postId;
 
   @override
-  void onReady() {
-    onRequestData(null);
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  Future<void> onRequestData(int page) async {
-    Result result = await getAPI(
-        path: kApiFeedApp,
-        queryParameters: {"page": this.page, "pose_id": this.postId ?? 0})
-      ..fillMap((json) => TuChongModel.fromJson(json));
-    updateResult(result, hasMore: result.valid);
-    postId = list.last.postId;
-  }
-
-  @override
   Rx<TuChongModel> data;
 
   @override
@@ -38,6 +18,27 @@ class TuChongController extends GetxController
 
   @override
   int page = kFirstPage;
+
+  @override
+  void onReady() {
+    onRequestData(page);
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
+
+  Future<void> onRequestData(int page) async {
+    this.page = page;
+    Result result = await getAPI(
+        path: kApiFeedApp,
+        queryParameters: {"page": this.page, "pose_id": this.postId ?? 0})
+      ..fillMap((json) => TuChongModel.fromJson(json));
+    updateResult(result, hasMore: result.valid);
+    postId = list.last.postId;
+  }
 
   @override
   EasyRefreshController refreshController = EasyRefreshController();

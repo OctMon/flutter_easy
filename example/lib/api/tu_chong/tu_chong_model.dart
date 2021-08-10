@@ -352,3 +352,21 @@ class VerificationList {
   }
 
 }
+
+extension TuChongModelExtension on Images {
+  static double spacing = 4;
+
+  double imageHeightInWidth(double screenWidth) {
+    if (isSquare) {
+      return (screenWidth - spacing * 2) * height / width;
+    }
+    return 0;
+  }
+
+  bool get isSquare {
+    return width >= height;
+  }
+
+  String get imageURL =>
+      "https://photo.tuchong.com/" + "$userId" + "/f/" + "$imgId" + ".jpg";
+}
