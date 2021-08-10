@@ -1,20 +1,20 @@
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/api/tu_chong/model/tu_chong_model.dart';
 import 'package:flutter_easy_example/api/tu_chong/tu_chong_api.dart';
-import 'package:flutter_easy_example/api/tu_chong/tu_chong_model.dart';
 import 'package:get/get.dart';
 
 class TuChongController extends GetxController
     with BaseRefreshState<EasyRefreshController, TuChongModel> {
-  int postId;
+  int? postId;
 
   @override
-  Rx<TuChongModel> data;
+  late Rx<TuChongModel?> data;
 
   @override
   RxList<TuChongModel> list = <TuChongModel>[].obs;
 
   @override
-  Rx<String> message = "".obs;
+  Rx<String?> message = "".obs;
 
   @override
   int page = kFirstPage;

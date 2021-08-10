@@ -40,9 +40,9 @@ mixin BaseRefreshState<C, T> implements BaseState<T> {
 
   set page(int page);
 
-  RxList<T?> get list;
+  RxList<T> get list;
 
-  set list(RxList<T?> data);
+  set list(RxList<T> data);
 
   @override
   updateResult(Result? result,

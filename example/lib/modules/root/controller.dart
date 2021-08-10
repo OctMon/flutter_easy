@@ -10,7 +10,7 @@ class RootController extends GetxController {
   var countDown = (-1).obs;
 
   /// 计时器⌛️
-  TimerUtil timer;
+  TimerUtil? timer;
 
   @override
   void onReady() {

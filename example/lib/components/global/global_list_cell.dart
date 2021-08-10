@@ -3,9 +3,9 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 class GlobalListCell extends StatelessWidget {
   final BaseKeyValue item;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
-  const GlobalListCell({Key key, @required this.item, this.onPressed})
+  const GlobalListCell({Key? key, required this.item, this.onPressed})
       : super(key: key);
 
   @override

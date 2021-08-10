@@ -1,12 +1,9 @@
 class UserModel {
-  String userId;
-  String nickname;
-  String avatar;
+  String? userId;
+  String? nickname;
+  String? avatar;
 
-  UserModel({
-      this.userId, 
-      this.nickname, 
-      this.avatar});
+  UserModel({this.userId, this.nickname, this.avatar});
 
   UserModel.fromJson(dynamic json) {
     userId = json["userId"];
@@ -21,5 +18,4 @@ class UserModel {
     map["avatar"] = avatar;
     return map;
   }
-
 }

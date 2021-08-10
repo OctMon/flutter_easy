@@ -11,7 +11,7 @@ class UserService extends GetxService {
   final user = UserModel().obs;
 
   Future<UserService> load() async {
-    String storage = await getStorageString(_keyUser);
+    String? storage = await getStorageString(_keyUser);
     if (storage != null) {
       user.value = UserModel.fromJson(jsonDecode(storage));
     }

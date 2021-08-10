@@ -55,7 +55,7 @@ class _AppState extends State<App> {
       logWTF("$locale");
       if (locale != null) {
         lastStorageLocale = "$locale";
-        await setStorageString(_localeKey, lastStorageLocale);
+        await setStorageString(_localeKey, lastStorageLocale!);
       } else {
         lastStorageLocale = null;
         removeStorage(_localeKey);
@@ -81,7 +81,7 @@ class _AppState extends State<App> {
       supportedLocales: S.delegate.supportedLocales,
       locale: lastLocale,
       localeResolutionCallback:
-          (Locale locale, Iterable<Locale> supportedLocales) {
+          (Locale? locale, Iterable<Locale> supportedLocales) {
         logWTF("localeResolutionCallback: $locale");
         if (lastLocale == null ||
             locale == null ||

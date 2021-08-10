@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/utils/user/service.dart';
 import 'package:get/get.dart';
@@ -6,7 +5,7 @@ import 'package:get/get.dart';
 export 'constant.dart';
 export 'package:session/session.dart' show Result;
 
-void configAPI(String baseURL) {
+void configAPI(String? baseURL) {
   Config.logEnable = false;
 
   /// 测试环境
@@ -38,7 +37,7 @@ SessionInterceptorSendHandler _onRequest = (options) async {
   options.headers.addAll(headers);
   final userController = Get.find<UserService>();
   if (userController.isLogin) {
-    options.headers['id'] = userController.user?.value?.userId;
+    options.headers['id'] = userController.user.value.userId;
   }
   // options.contentType = Headers.formUrlEncodedContentType;
   // options.responseType = ResponseType.plain;
@@ -48,8 +47,7 @@ SessionInterceptorSendHandler _onRequest = (options) async {
 };
 
 /// 响应结果拦截处理
-Result _onValidResult(
-    Result result, bool validResult, BuildContext context) {
+Result _onValidResult(Result result, bool validResult) {
   logResponse(result);
   // 拦截处理一些错误
   if (validResult) {
@@ -57,20 +55,17 @@ Result _onValidResult(
       // case "${-3}":
       //   // 强更
       //   break;
-//      case "${-2}":
-//        // token过期
-//        if (UserUtil.isLogin) {
-//          UserUtil.logout().then((_) {
-//            // 跳转到登录页面
-//            if (context != null) {
-//              Navigator.of(context)
-//                  .pushNamedAndRemoveUntil('/', ModalRoute.withName(''));
-////    showToast(result.message);
-//              pushNamedToLogin(context);
-//            }
-//          });
-//        }
-//        break;
+      // case "${-2}":
+      //   // token过期
+      //   final userService = Get.find<UserService>();
+      //   if (userService.isLogin) {
+      //     userService.clean().then((_) async {
+      //       // 跳转到登录页面
+      //       await offAllNamed(Routes.root);
+      //       toLogin();
+      //     });
+      //   }
+      // break;
     }
   }
   return result;

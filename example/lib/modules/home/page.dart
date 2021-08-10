@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' hide GetStringUtils, GetNumUtils, GetDurationUtils;
+import 'package:get/get.dart'
+    hide GetStringUtils, GetNumUtils, GetDurationUtils;
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'controller.dart';
@@ -11,16 +12,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TableRow buildTableRow({@required String code, @required String value}) {
+    TableRow buildTableRow({required String code, required String value}) {
       return TableRow(
         children: [
-          Center(child: Container(margin: EdgeInsets.all(5), child: Text(code))),
-          Center(child: Container(margin: EdgeInsets.all(5), child: Text(value))),
+          Center(
+              child: Container(margin: EdgeInsets.all(5), child: Text(code))),
+          Center(
+              child: Container(margin: EdgeInsets.all(5), child: Text(value))),
         ],
       );
     }
 
-    Widget buildTableColumn({@required String code, @required String value}) {
+    Widget buildTableColumn({required String code, required String value}) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -34,14 +37,15 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    TableRow buildTableRowTop({@required String code, @required String value}) {
+    TableRow buildTableRowTop({required String code, required String value}) {
       return TableRow(
         //第一行样式 添加背景色
         decoration: BoxDecoration(
           color: Colors.grey,
         ),
         children: [
-          Center(child: Container(margin: EdgeInsets.all(5), child: Text(code))),
+          Center(
+              child: Container(margin: EdgeInsets.all(5), child: Text(code))),
           Center(child: Text(value)),
         ],
       );
@@ -51,11 +55,11 @@ class HomePage extends StatelessWidget {
       appBar: BaseAppBar(
         leading: isAppDebugFlag
             ? IconButton(
-          icon: Icon(Icons.developer_mode),
-          onPressed: () {
-            showSelectBaseURLTypeAlert(context: context);
-          },
-        )
+                icon: Icon(Icons.developer_mode),
+                onPressed: () {
+                  showSelectBaseURLTypeAlert(context: context);
+                },
+              )
             : null,
         title: BaseText(appName),
       ),
@@ -82,7 +86,7 @@ class HomePage extends StatelessWidget {
                 buildTableRow(
                     code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
                     value:
-                    "${timestampToNormal_yyyy_MM_dd_HH_mm_ss(timestampNow())}"),
+                        "${timestampToNormal_yyyy_MM_dd_HH_mm_ss(timestampNow())}"),
                 buildTableRowTop(code: "is", value: "value"),
                 buildTableRow(code: "isProduction", value: "$isProduction"),
                 buildTableRow(code: "isDebug", value: "$isDebug"),
@@ -100,7 +104,8 @@ class HomePage extends StatelessWidget {
                 buildTableRow(code: "isIPhoneX", value: "$isIPhoneX"),
                 buildTableRowTop(code: "adapt", value: "value"),
                 buildTableRow(code: "adaptDp(1)", value: "${adaptDp(1)}"),
-                buildTableRow(code: "100.adaptRatio", value: "${100.adaptRatio}"),
+                buildTableRow(
+                    code: "100.adaptRatio", value: "${100.adaptRatio}"),
                 buildTableRow(code: "adaptPx(2)", value: "${adaptPx(2)}"),
                 buildTableRow(code: "adaptOnePx()", value: "${adaptOnePx()}"),
                 buildTableRow(code: "screenWidthDp", value: "$screenWidthDp"),
@@ -135,7 +140,8 @@ class HomePage extends StatelessWidget {
                 buildTableRow(code: "\"OctMon\".md5", value: "${"OctMon".md5}"),
                 buildTableRowTop(code: "other", value: "value"),
                 buildTableRow(code: "webUserAgent", value: "$webUserAgent"),
-                buildTableRow(code: "randomInt(100)", value: '${randomInt(100)}'),
+                buildTableRow(
+                    code: "randomInt(100)", value: '${randomInt(100)}'),
                 buildTableRow(
                     code: "canLaunch(\"https://www.baidu.com\")",
                     value: '${canLaunch("https://www.baidu.com")}'),
@@ -143,7 +149,8 @@ class HomePage extends StatelessWidget {
                     code: "onLaunch(\"https://www.baidu.com\")", value: ""),
                 buildTableRow(
                     code: "setClipboard(\"https://www.baidu.com\")", value: ''),
-                buildTableRow(code: "getClipboard()", value: "${getClipboard()}"),
+                buildTableRow(
+                    code: "getClipboard()", value: "${getClipboard()}"),
                 buildTableRow(
                     code: "assetsImagesPath(\"button\")",
                     value: "${assetsImagesPath("button")}"),

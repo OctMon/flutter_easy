@@ -7,7 +7,7 @@ import 'package:palette_generator/palette_generator.dart';
 
 class ImageColorsController extends GetxController {
   final imagePath = "".obs;
-  Rx<PaletteGenerator> paletteGenerator;
+  Rx<PaletteGenerator>? paletteGenerator;
 
   Future<void> updateFile(File file) async {
     showLoading();

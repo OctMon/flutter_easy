@@ -11,7 +11,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     state.animationController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 2000));
     Future.delayed(
-        Duration.zero, () => state.animationController?.repeat(reverse: true));
+        Duration.zero, () => state.animationController.repeat(reverse: true));
     super.onInit();
   }
 

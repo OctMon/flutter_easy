@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 export 'constant.dart';
 export 'package:session/session.dart' show Result;
 
-Config _config(String baseURL) {
+Config _config(String? baseURL) {
   Config.logEnable = false;
 
   return Config(
@@ -25,7 +24,7 @@ SessionInterceptorSendHandler _onRequest = (options) async {
 
 /// 响应结果拦截处理
 Result _onValidResult<T>(
-    Result result, bool validResult, BuildContext context) {
+    Result result, bool validResult) {
   logResponse(result);
   return result;
 }
@@ -37,15 +36,13 @@ Result _onValidResult<T>(
 /// path: 请求路径
 /// queryParameters: URL携带请求参数
 /// validResult: 是否检验返回结果
-/// context: 上下文
 /// autoLoading: 展示Loading
 ///
 Future<Result> getAPI(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map<String, dynamic> queryParameters,
+    Map<String, dynamic>? queryParameters,
     bool validResult = true,
-    BuildContext context,
     bool autoLoading = false}) async {
   return requestAPI(
       baseUrl: baseUrl,
@@ -53,7 +50,6 @@ Future<Result> getAPI(
       queryParameters: queryParameters,
       options: Options(method: 'get'),
       validResult: validResult,
-      context: context,
       autoLoading: autoLoading);
 }
 
@@ -64,15 +60,13 @@ Future<Result> getAPI(
 /// path: 请求路径
 /// data: 请求参数
 /// validResult: 是否检验返回结果
-/// context: 上下文
 /// autoLoading: 展示Loading
 ///
 Future<Result> postAPI(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
     data,
     bool validResult = true,
-    BuildContext context,
     bool autoLoading = false}) async {
   return requestAPI(
       baseUrl: baseUrl,
@@ -80,7 +74,6 @@ Future<Result> postAPI(
       data: data,
       options: Options(method: 'post'),
       validResult: validResult,
-      context: context,
       autoLoading: autoLoading);
 }
 
@@ -92,17 +85,15 @@ Future<Result> postAPI(
 /// path: 请求路径
 /// data: 请求参数
 /// validResult: 是否检验返回结果
-/// context: 上下文
 /// autoLoading: 展示Loading
 ///
 Future<Result> requestAPI(
-    {String baseUrl,
+    {String? baseUrl,
     String path = '',
-    Map data,
-    Map<String, dynamic> queryParameters,
-    Options options,
+    data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
     bool validResult = true,
-    BuildContext context,
     bool autoLoading = false}) async {
   if (autoLoading) {
     showLoading();
@@ -117,5 +108,5 @@ Future<Result> requestAPI(
     // Dismiss loading
     dismissLoading();
   }
-  return _onValidResult(result, validResult, context);
+  return _onValidResult(result, validResult);
 }

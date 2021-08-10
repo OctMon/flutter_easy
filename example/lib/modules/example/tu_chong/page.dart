@@ -5,7 +5,7 @@ import 'package:flutter_easy_example/routes.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
-import 'package:flutter_easy_example/api/tu_chong/tu_chong_model.dart';
+import 'package:flutter_easy_example/api/tu_chong/model/tu_chong_model.dart';
 import 'controller.dart';
 
 const int _kCrossAxisCount = 2;
@@ -69,7 +69,7 @@ class TuChongPage extends StatelessWidget {
                                     ),
                                     SizedBox(width: 5),
                                     BaseTitle(
-                                      data?.tags?.join(","),
+                                      data.tags?.join(","),
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
@@ -83,27 +83,28 @@ class TuChongPage extends StatelessWidget {
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           crossAxisCount: _kCrossAxisCount,
-                          itemCount: data?.images?.length ?? 0,
-                          itemBuilder: (BuildContext context, int index) =>
-                              BaseButton(
-                            padding: EdgeInsets.zero,
-                            child: BaseWebImage(
-                              data?.images[index].imageURL,
-                              placeholder: Container(
-                                color: colorWithRandom(),
+                          itemCount: data.imageList?.length ?? 0,
+                          itemBuilder: (BuildContext context, int index) {
+                            return BaseButton(
+                              padding: EdgeInsets.zero,
+                              child: BaseWebImage(
+                                data.imageList![index].imageURL,
+                                placeholder: Container(
+                                  color: colorWithRandom(),
+                                ),
+                                fit: BoxFit.contain,
                               ),
-                              fit: BoxFit.contain,
-                            ),
-                            onPressed: () {
-                              toNamed(Routes.photoView, arguments: data);
-                            },
-                          ),
+                              onPressed: () {
+                                toNamed(Routes.photoView, arguments: data);
+                              },
+                            );
+                          },
                           staggeredTileBuilder: (int index) =>
                               new StaggeredTile.extent(
-                                  data.images[index].isSquare
+                                  data.imageList![index].isSquare == true
                                       ? _kCrossAxisCount
                                       : 1,
-                                  data.images[index].imageHeightInWidth(
+                                  data.imageList![index].imageHeightInWidth(
                                       constraints.maxWidth)),
                           mainAxisSpacing: _kSpacing,
                           crossAxisSpacing: _kSpacing,

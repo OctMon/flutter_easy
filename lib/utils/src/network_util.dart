@@ -59,8 +59,7 @@ String kPageSizeKey = 'pagesize';
 /// BaseURL变化回调
 VoidCallback? baseURLChangedCallback;
 
-typedef _ResultCallBack = Result Function(
-    Result result, bool validResult, BuildContext? context);
+typedef _ResultCallBack = Result Function(Result result, bool validResult);
 
 class NetworkUtil {
   NetworkUtil._();
@@ -83,7 +82,6 @@ _ResultCallBack? _onResult;
 /// queryParameters: URL携带请求参数
 /// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
-/// context: 上下文
 /// autoLoading: 展示Loading
 ///
 Future<Result> get(
@@ -92,7 +90,6 @@ Future<Result> get(
     Map<String, dynamic>? queryParameters,
     int? connectTimeout,
     bool validResult = true,
-    BuildContext? context,
     bool autoLoading = false}) async {
   return request(
       baseUrl: baseUrl,
@@ -101,7 +98,6 @@ Future<Result> get(
       options: Options(method: 'get'),
       connectTimeout: connectTimeout,
       validResult: validResult,
-      context: context,
       autoLoading: autoLoading);
 }
 
@@ -113,7 +109,6 @@ Future<Result> get(
 /// data: 请求参数
 /// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
-/// context: 上下文
 /// autoLoading: 展示Loading
 ///
 Future<Result> post(
@@ -122,7 +117,6 @@ Future<Result> post(
     data,
     int? connectTimeout,
     bool validResult = true,
-    BuildContext? context,
     bool autoLoading = false}) async {
   return request(
       baseUrl: baseUrl,
@@ -131,7 +125,6 @@ Future<Result> post(
       options: Options(method: 'post'),
       connectTimeout: connectTimeout,
       validResult: validResult,
-      context: context,
       autoLoading: autoLoading);
 }
 
@@ -143,7 +136,6 @@ Future<Result> post(
 /// data: 请求参数
 /// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
-/// context: 上下文
 /// autoLoading: 展示Loading
 ///
 Future<Result> request(
@@ -154,7 +146,6 @@ Future<Result> request(
     Options? options,
     int? connectTimeout,
     bool validResult = true,
-    BuildContext? context,
     bool autoLoading = false}) async {
   // Loading is show
   bool alreadyShowLoading = false;
@@ -196,7 +187,7 @@ Future<Result> request(
     // Dismiss loading
     dismissLoading();
   }
-  return _onResult != null ? _onResult!(result, validResult, context) : result;
+  return _onResult != null ? _onResult!(result, validResult) : result;
 }
 
 Future<String?> initSelectedBaseURLType() async {

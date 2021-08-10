@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy_example/modules/root/controller.dart';
 import 'package:flutter_easy_example/utils/user/service.dart';
 import 'package:get/get.dart';
 import 'package:flutter_easy_example/routes.dart';
@@ -42,7 +41,7 @@ class AccountPage extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 10, bottom: 18),
                           child: BaseText(
                             service.isLogin
-                                ? (service.user?.value?.nickname)
+                                ? (service.user.value.nickname)
                                 : S.of(context).login,
                             style: TextStyle(
                               color: Colors.white,
@@ -89,9 +88,9 @@ class AccountPage extends StatelessWidget {
                         return BaseActionSheet(
                           title: BaseText(S.of(context).language),
                           actions: S.delegate.supportedLocales.map((e) {
-                            final String localeString =
+                            final String? localeString =
                                 LocaleNames.of(context)?.nameOf(e.toString());
-                            final String nativeLocaleName =
+                            final String? nativeLocaleName =
                                 LocaleNamesLocalizationsDelegate
                                     .nativeLocaleNames[e.toString()];
                             return BaseActionSheetAction(

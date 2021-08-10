@@ -103,7 +103,7 @@ class LoginPage extends StatelessWidget {
                             fontSize: adaptDp(16),
                             fontWeight: FontWeight.normal,
                           ),
-                          onPressed: () => logic.onLoginPressed(),
+                          onPressed: () => logic.onLoginPressed(context),
                         ),
                       ],
                     ),

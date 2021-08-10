@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class HomeState {
 
-  AnimationController animationController;
+  late AnimationController animationController;
 
   HomeState() {
     ///Initialize variables

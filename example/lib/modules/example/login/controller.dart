@@ -26,37 +26,39 @@ class LoginLogic extends GetxController {
     super.onClose();
   }
 
-  Future<void> onLoginPressed() async {
+  Future<void> onLoginPressed(BuildContext context) async {
     String phone = state.phoneNumberController.text.trim();
     String password = state.passwordController.text.trim();
     if (phone.isEmpty) {
       // Get.snackbar(S.of(Get.context).example_InputPhoneNumber, "");
-      showToast(S.of(Get.context).example_InputPhoneNumber);
+      showToast(S.of(context).example_InputPhoneNumber);
       return;
     }
 
     if (!phone.isCNPhoneNumber) {
-      showToast(S.of(Get.context).example_ValidPhoneNumberTip);
+      showToast(S.of(context).example_ValidPhoneNumberTip);
       return;
     }
 
     if (password.isEmpty) {
-      showToast(S.of(Get.context).example_InputPassword);
+      showToast(S.of(context).example_InputPassword);
       return;
     }
 
     if (!state.isChecked) {
-      showToast(S.of(Get.context).example_AgreeToContinueTip);
+      showToast(S.of(context).example_AgreeToContinueTip);
       return;
     }
     Result result = await post(
         path: kApiLogin,
         data: {"phone": phone, "password": password.md5},
-        context: Get.context,
         autoLoading: true);
     // if (result.valid) {
-    result.fill(UserModel.fromJson(
-        {"userId": "1", "nickname": "flutter${colorWithRandom()}", "avatar": ""}));
+    result.fill(UserModel.fromJson({
+      "userId": "1",
+      "nickname": "flutter${colorWithRandom()}",
+      "avatar": ""
+    }));
 
     final service = Get.find<UserService>();
     await service.save(result.model);

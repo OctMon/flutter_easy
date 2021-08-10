@@ -7,7 +7,7 @@ import 'package:flutter_easy_example/routes.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 class ExampleListPage extends StatelessWidget {
-  const ExampleListPage({Key key}) : super(key: key);
+  const ExampleListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class ExampleListPage extends StatelessWidget {
                           child: Navigator(
                             initialRoute: '/',
                             onGenerateRoute: (RouteSettings settings) {
-                              WidgetBuilder builder;
+                              late WidgetBuilder builder;
                               switch (settings.name) {
                                 case '/':
                                   builder = (context) {
@@ -113,7 +113,7 @@ class ExampleListPage extends StatelessWidget {
                                                             int index) {
                                                       MapEntry locale =
                                                           locales[index];
-                                                      final String
+                                                      final String?
                                                           localeString =
                                                           LocaleNames.of(
                                                                   context)
