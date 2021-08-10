@@ -100,7 +100,7 @@ class AccountPage extends StatelessWidget {
                             return BaseActionSheetAction(
                               onPressed: () {
                                 back();
-                                // dispatch(AccountActionCreator.onLocaleChange(e));
+                                onLocaleChange(e);
                               },
                               child: BaseText(nativeLocaleName == localeString
                                   ? nativeLocaleName
@@ -112,9 +112,8 @@ class AccountPage extends StatelessWidget {
                                 BaseActionSheetAction(
                                   isDefaultAction: true,
                                   onPressed: () {
-                                    back(); // dispatch(AccountActionCreator.onLocaleChange(
-                                    //     null));
-                                    Get.forceAppUpdate();
+                                    back();
+                                    onLocaleChange(null);
                                   },
                                   child: BaseText(S.of(context).systemDefault),
                                 )),
