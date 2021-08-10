@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
+    show ImageRenderMethodForWeb;
 
 // import 'package:path_provider/path_provider.dart';
 // import 'package:path/path.dart' as p;
@@ -42,11 +44,14 @@ class BaseWebImage extends StatelessWidget {
     );
   }
 
-  static ImageProvider<CachedNetworkImageProvider> provider(String url,
-      {double scale = 1.0,
-      Map<String, String>? headers,
-      BaseCacheManager? cacheManager,
-      ImageRenderMethodForWeb? imageRenderMethodForWeb}) {
+  static ImageProvider<CachedNetworkImageProvider> provider(
+    String url, {
+    double scale = 1.0,
+    Map<String, String>? headers,
+    BaseCacheManager? cacheManager,
+    ImageRenderMethodForWeb imageRenderMethodForWeb =
+        ImageRenderMethodForWeb.HtmlImage,
+  }) {
     return CachedNetworkImageProvider(url,
         scale: scale,
         headers: headers,

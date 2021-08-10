@@ -67,7 +67,6 @@ class AccountPage extends StatelessWidget {
                           showLoading();
                           await service.clean();
                           dismissLoading();
-                          await Get.delete<RootController>();
                           offAllNamed(Routes.root);
                         },
                       ),
