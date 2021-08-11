@@ -20,26 +20,28 @@ class BasePlaceholderView extends StatelessWidget {
         child: BaseLoadingView(),
       );
     }
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 150,
-        child: Column(
-          children: <Widget>[
-            Image.asset(
-              assetsImagesPath(image),
-              width: 100,
-              height: 100,
-            ),
-            SizedBox(height: 15),
-            BaseText(
-              title,
-              style: TextStyle(
-                color: Colors.black38,
-                fontSize: 14,
+    return Center(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: 150,
+          child: Column(
+            children: <Widget>[
+              Image.asset(
+                assetsImagesPath(image),
+                width: 100,
+                height: 100,
               ),
-            ),
-          ],
+              SizedBox(height: 15),
+              BaseText(
+                title,
+                style: TextStyle(
+                  color: Colors.black38,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -3,16 +3,59 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
 
 import 'log_console.dart';
 
-enum BaseAction {
-  updateState,
-  onRequestData,
-}
+extension BaseStateExt<T> on StateMixin<T> {
+  Widget easy(
+    NotifierBuilder<T?> widget, {
+    Widget Function(String? error)? onError,
+    Widget? onLoading,
+    Widget? onEmpty,
+  }) {
+    return SimpleBuilder(builder: (_) {
+      if (status.isLoading) {
+        return onLoading ?? const Center(child: BaseLoadingView());
+      } else if (status.isError) {
+        return onError != null
+            ? onError(status.errorMessage)
+            : Center(
+                child: BasePlaceholderView(
+                title: "${status.errorMessage}",
+              ));
+      } else if (status.isEmpty) {
+        return onEmpty != null
+            ? onEmpty
+            : SizedBox.shrink(); // Also can be widget(null); but is risky
+      }
+      return widget(state);
+    });
+  }
 
-T updateBaseState<T>(T state, action) => action?.payload;
+  Widget baseRefresh(
+    NotifierBuilder<T?> widget, {
+    required EasyRefreshController refreshController,
+    OnRefreshCallback? onRefresh,
+    OnLoadCallback? onLoad,
+  }) {
+    return SimpleBuilder(builder: (_) {
+      return BaseRefresh(
+        controller: refreshController,
+        emptyWidget: (state.isEmptyOrNull)
+            ? BasePlaceholderView(
+                title: status.errorMessage,
+                onTap: onRefresh,
+              )
+            : null,
+        onRefresh: onRefresh,
+        onLoad: onLoad,
+        child: widget(state),
+      );
+    });
+  }
+}
 
 mixin BaseState<T> {
   Rx<String> get message;

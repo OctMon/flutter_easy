@@ -4,23 +4,12 @@ import 'package:flutter_easy_example/api/tu_chong/tu_chong_api.dart';
 import 'package:get/get.dart';
 
 class TuChongController extends GetxController
-    with BaseRefreshState<EasyRefreshController, TuChongModel> {
-  int? postId;
+    with StateMixin<List<TuChongModel>?> {
+  final refreshController = EasyRefreshController();
 
-  @override
-  late Rx<TuChongModel?> data;
-
-  @override
-  RxList<TuChongModel> list = <TuChongModel>[].obs;
-
-  @override
-  Rx<String> message = "".obs;
-
-  @override
-  EasyRefreshController refreshController = EasyRefreshController();
-
-  @override
   int page = kFirstPage;
+
+  int? postId;
 
   @override
   void onReady() {
@@ -34,12 +23,37 @@ class TuChongController extends GetxController
   }
 
   Future<void> onRequestData(int page) async {
-    this.page = page;
     Result result = await getAPI(
         path: kApiFeedApp,
-        queryParameters: {"page": this.page, "pose_id": this.postId ?? 0})
+        queryParameters: {"page": page, "pose_id": this.postId ?? 0})
       ..fillMap((json) => TuChongModel.fromJson(json));
-    updateResult(result, hasMore: result.valid);
-    postId = list.last?.postId;
+    dynamic _list = result.models.toList();
+    if (result.valid) {
+      if (_list.isNotEmpty) {
+        if (page > kFirstPage) {
+          change(state!..addAll(_list), status: RxStatus.success());
+          refreshController.finishLoad(
+              success: result.valid, noMore: _list.length < kLimitPage);
+        } else {
+          refreshController.finishRefresh(
+              success: result.valid, noMore: false);
+          refreshController.resetLoadState();
+          change(_list, status: RxStatus.success());
+        }
+        this.page = page;
+        postId = state?.last.postId;
+      }
+    } else {
+      refreshController.resetLoadState();
+      if (page > kFirstPage) {
+        refreshController.finishLoad(
+            success: result.valid);
+      } else {
+        refreshController.finishRefresh(
+            success: result.valid);
+      }
+      change(state, status: RxStatus.error(result.message));
+      showErrorToast(result.message);
+    }
   }
 }

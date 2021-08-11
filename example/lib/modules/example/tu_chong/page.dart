@@ -16,108 +16,98 @@ class TuChongPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetX<TuChongController>(
-      builder: (controller) {
-        return BaseScaffold(
-          appBar: BaseAppBar(
-            brightness: Brightness.dark,
-            title: BaseText(S.of(context).example_PictureWaterfallFlow),
-          ),
-          body: BaseRefresh(
-            controller: controller.refreshController,
-            emptyWidget: (controller.list.isEmptyOrNull)
-                ? BasePlaceholderView(
-                    title: controller.message.value,
-                    onTap: () => controller.refreshController.callRefresh(),
-                  )
-                : null,
-            onRefresh: () async => controller.onRequestData(kFirstPage),
-            onLoad: () async => controller.onRequestData(controller.page),
-            child: ListView.builder(
-              itemCount: controller.list.length,
-              itemBuilder: (BuildContext context, int index) {
-                final data = controller.list[index];
-                return LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    return Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: _kSpacing),
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          width: constraints.maxWidth - _kSpacing * 2,
-                          color: colorWithRandom(),
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                width: 50,
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(25),
-                                    child: Icon(Icons.eighteen_mp)),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    BaseTitle(
-                                      data.title,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    SizedBox(width: 5),
-                                    BaseTitle(
-                                      data.siteId,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    SizedBox(width: 5),
-                                    BaseTitle(
-                                      data.tags?.join(","),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
+    return BaseScaffold(
+      appBar: BaseAppBar(
+        brightness: Brightness.dark,
+        title: BaseText(S.of(context).example_PictureWaterfallFlow),
+      ),
+      body: controller.baseRefresh(
+        (state) => ListView.builder(
+          itemCount: state?.length ?? 0,
+          itemBuilder: (BuildContext context, int index) {
+            final data = state![index];
+            return LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: _kSpacing),
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      width: constraints.maxWidth - _kSpacing * 2,
+                      color: colorWithRandom(),
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            width: 50,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(25),
+                                child: Icon(Icons.eighteen_mp)),
                           ),
-                        ),
-                        StaggeredGridView.countBuilder(
-                          padding: EdgeInsets.symmetric(horizontal: _kSpacing),
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          crossAxisCount: _kCrossAxisCount,
-                          itemCount: data.imageList?.length ?? 0,
-                          itemBuilder: (BuildContext context, int index) {
-                            return BaseButton(
-                              padding: EdgeInsets.zero,
-                              child: BaseWebImage(
-                                data.imageList![index].imageURL,
-                                placeholder: Container(
-                                  color: colorWithRandom(),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                BaseTitle(
+                                  data.title,
+                                  textAlign: TextAlign.center,
                                 ),
-                                fit: BoxFit.contain,
-                              ),
-                              onPressed: () {
-                                toNamed(Routes.photoView, arguments: data);
-                              },
-                            );
+                                SizedBox(width: 5),
+                                BaseTitle(
+                                  data.siteId,
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(width: 5),
+                                BaseTitle(
+                                  data.tags?.join(","),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    StaggeredGridView.countBuilder(
+                      padding: EdgeInsets.symmetric(horizontal: _kSpacing),
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      crossAxisCount: _kCrossAxisCount,
+                      itemCount: data.imageList?.length ?? 0,
+                      itemBuilder: (BuildContext context, int index) {
+                        return BaseButton(
+                          padding: EdgeInsets.zero,
+                          child: BaseWebImage(
+                            data.imageList![index].imageURL,
+                            placeholder: Container(
+                              color: colorWithRandom(),
+                            ),
+                            fit: BoxFit.contain,
+                          ),
+                          onPressed: () {
+                            toNamed(Routes.photoView, arguments: data);
                           },
-                          staggeredTileBuilder: (int index) =>
-                              new StaggeredTile.extent(
-                                  data.imageList![index].isSquare == true
-                                      ? _kCrossAxisCount
-                                      : 1,
-                                  data.imageList![index].imageHeightInWidth(
-                                      constraints.maxWidth)),
-                          mainAxisSpacing: _kSpacing,
-                          crossAxisSpacing: _kSpacing,
-                        ),
-                      ],
-                    );
-                  },
+                        );
+                      },
+                      staggeredTileBuilder: (int index) =>
+                          new StaggeredTile.extent(
+                              data.imageList![index].isSquare == true
+                                  ? _kCrossAxisCount
+                                  : 1,
+                              data.imageList![index]
+                                  .imageHeightInWidth(constraints.maxWidth)),
+                      mainAxisSpacing: _kSpacing,
+                      crossAxisSpacing: _kSpacing,
+                    ),
+                  ],
                 );
               },
-            ),
-          ),
-        );
-      },
+            );
+          },
+        ),
+        refreshController: controller.refreshController,
+        onRefresh: () async => controller.onRequestData(kFirstPage),
+        onLoad: () async => controller.onRequestData(controller.page + 1),
+      ),
     );
   }
 }
