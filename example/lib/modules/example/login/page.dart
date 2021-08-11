@@ -9,8 +9,8 @@ import 'controller.dart';
 import 'state.dart';
 
 class LoginPage extends StatelessWidget {
-  final LoginLogic logic = Get.put(LoginLogic());
-  final LoginState state = Get.find<LoginLogic>().state;
+  final LoginController controller = Get.put(LoginController());
+  final LoginState state = Get.find<LoginController>().state;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     BaseTextField(
-                        controller: logic.state.phoneNumberController,
+                        controller: state.phoneNumberController,
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         maxLength: 11,
                         placeholder: S.of(context).example_InputPhoneNumber,
@@ -55,7 +55,7 @@ class LoginPage extends StatelessWidget {
                         ]),
                     SizedBox(height: 15),
                     BaseTextField(
-                      controller: logic.state.passwordController,
+                      controller: state.passwordController,
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       maxLength: 16,
                       placeholder: S.of(context).example_InputPassword,
@@ -103,7 +103,7 @@ class LoginPage extends StatelessWidget {
                             fontSize: adaptDp(16),
                             fontWeight: FontWeight.normal,
                           ),
-                          onPressed: () => logic.onLoginPressed(context),
+                          onPressed: () => controller.onLoginPressed(context),
                         ),
                       ],
                     ),
@@ -116,25 +116,21 @@ class LoginPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    GetX<LoginLogic>(
-                      init: logic,
-                      builder: (_) {
-                        return GestureDetector(
-                          onTap: () {
-                            state.update(!state.isChecked);
-                            // dispatch(LoginActionCreator.updateAgreementCheck(
-                            //     !state.isChecked));
-                          },
-                          child: Icon(
-                            state.isChecked
-                                ? Icons.check_circle
-                                : Icons.radio_button_unchecked,
-                            size: adaptDp(20),
-                            color:
-                                state.isChecked ? colorWithTint : colorWithHex9,
-                          ),
-                        );
-                      },
+                    ObxValue<Rx<bool>>(
+                      (checked) => GestureDetector(
+                        onTap: () {
+                          checked.toggle();
+                          state.update(checked.value);
+                        },
+                        child: Icon(
+                          checked.value
+                              ? Icons.check_circle
+                              : Icons.radio_button_unchecked,
+                          size: adaptDp(20),
+                          color: checked.value ? colorWithTint : colorWithHex9,
+                        ),
+                      ),
+                      false.obs,
                     ),
                     SizedBox(width: 2),
                     Flexible(
