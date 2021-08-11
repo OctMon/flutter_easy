@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 
 import 'log_console.dart';
 
+typedef ComputeResult<T> = void Function(T state, RxStatus status);
+
 extension BaseStateExt<T> on StateMixin<T> {
   Widget easy(
     NotifierBuilder<T?> widget, {
@@ -54,6 +56,36 @@ extension BaseStateExt<T> on StateMixin<T> {
         child: widget(state),
       );
     });
+  }
+
+  void updateResult<T>(Result result,
+      {required EasyRefreshController refreshController,
+      required int page,
+      required ComputeResult compute}) {
+    dynamic _list = result.models.toList();
+    if (result.valid) {
+      if (_list.isNotEmpty) {
+        if (page > kFirstPage) {
+          dynamic _tmp = state;
+          compute(_tmp..addAll(_list), RxStatus.success());
+          refreshController.finishLoad(
+              success: result.valid, noMore: _list.length < kLimitPage);
+        } else {
+          compute(_list, RxStatus.success());
+          refreshController.finishRefresh(success: result.valid, noMore: false);
+          refreshController.resetLoadState();
+        }
+      }
+    } else {
+      refreshController.resetLoadState();
+      if (page > kFirstPage) {
+        refreshController.finishLoad(success: result.valid);
+      } else {
+        refreshController.finishRefresh(success: result.valid);
+      }
+      dynamic tmp = state;
+      compute(tmp, RxStatus.error(result.message));
+    }
   }
 }
 

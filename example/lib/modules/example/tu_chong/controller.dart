@@ -27,33 +27,15 @@ class TuChongController extends GetxController
         path: kApiFeedApp,
         queryParameters: {"page": page, "pose_id": this.postId ?? 0})
       ..fillMap((json) => TuChongModel.fromJson(json));
-    dynamic _list = result.models.toList();
-    if (result.valid) {
-      if (_list.isNotEmpty) {
-        if (page > kFirstPage) {
-          change(state!..addAll(_list), status: RxStatus.success());
-          refreshController.finishLoad(
-              success: result.valid, noMore: _list.length < kLimitPage);
-        } else {
-          refreshController.finishRefresh(
-              success: result.valid, noMore: false);
-          refreshController.resetLoadState();
-          change(_list, status: RxStatus.success());
-        }
+    updateResult(result, refreshController: refreshController, page: page,
+        compute: (state, RxStatus status) {
+      change(state, status: status);
+      if (status.isSuccess) {
         this.page = page;
-        postId = state?.last.postId;
-      }
-    } else {
-      refreshController.resetLoadState();
-      if (page > kFirstPage) {
-        refreshController.finishLoad(
-            success: result.valid);
+        this.postId = state?.last.postId;
       } else {
-        refreshController.finishRefresh(
-            success: result.valid);
+        showErrorToast(result.message);
       }
-      change(state, status: RxStatus.error(result.message));
-      showErrorToast(result.message);
-    }
+    });
   }
 }
