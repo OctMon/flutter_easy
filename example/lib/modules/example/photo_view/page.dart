@@ -18,7 +18,7 @@ class PhotoViewPage extends StatelessWidget {
         builder: (BuildContext context, int index) {
           return PhotoViewGalleryPageOptions(
             imageProvider:
-                BaseWebImage.provider(data.imageList?[index]?.imageURL ?? ""),
+                BaseWebImage.provider(data.imageList?[index].imageURL ?? ""),
           );
         },
         itemCount: data.imageCount,

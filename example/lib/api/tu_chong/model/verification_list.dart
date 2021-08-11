@@ -1,15 +1,15 @@
 /// verification_type : 13
 /// verification_reason : "资深风光摄影师"
 
-class Verification_list {
+class VerificationList {
   int? verificationType;
   String? verificationReason;
 
-  Verification_list({
+  VerificationList({
       this.verificationType, 
       this.verificationReason});
 
-  Verification_list.fromJson(dynamic json) {
+  VerificationList.fromJson(dynamic json) {
     verificationType = json['verification_type'];
     verificationReason = json['verification_reason'];
   }

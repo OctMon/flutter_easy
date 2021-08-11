@@ -39,17 +39,20 @@ extension BaseStateExt<T> on StateMixin<T> {
   Widget baseRefresh(
     NotifierBuilder<T?> widget, {
     required EasyRefreshController refreshController,
+    Widget Function(String? message)? onEmptyWidget,
     OnRefreshCallback? onRefresh,
     OnLoadCallback? onLoad,
   }) {
     return SimpleBuilder(builder: (_) {
       return BaseRefresh(
         controller: refreshController,
-        emptyWidget: (state.isEmptyOrNull)
-            ? BasePlaceholderView(
-                title: status.errorMessage,
-                onTap: onRefresh,
-              )
+        emptyWidget: state.isEmptyOrNull
+            ? (onEmptyWidget != null
+                ? onEmptyWidget(status.errorMessage)
+                : BasePlaceholderView(
+                    title: status.errorMessage,
+                    onTap: onRefresh,
+                  ))
             : null,
         onRefresh: onRefresh,
         onLoad: onLoad,
@@ -86,86 +89,6 @@ extension BaseStateExt<T> on StateMixin<T> {
       dynamic tmp = state;
       compute(tmp, RxStatus.error(result.message));
     }
-  }
-}
-
-mixin BaseState<T> {
-  Rx<String> get message;
-
-  set message(Rx<String> message);
-
-  Rx<T?> get data;
-
-  set data(Rx<T?> data);
-
-  updateResult(Result? result) {
-    message.value = result?.message ?? '';
-    if (result != null && result.valid) {
-      data.value = result.model ?? result.models;
-    }
-  }
-}
-
-mixin BaseRefreshState<C, T> implements BaseState<T> {
-  C get refreshController;
-
-  set refreshController(C controller);
-
-  int get page;
-
-  set page(int page);
-
-  RxList<T> get list;
-
-  set list(RxList<T> data);
-
-  @override
-  updateResult(Result? result,
-      {bool hasMore = false, bool updateModel = false, String? emptyTitle}) {
-    if (result != null) {
-      bool loadMore = false;
-      message.value = result.message;
-      dynamic _list = result.models.toList();
-      if (result.valid) {
-        if (_list.isNotEmpty) {
-          if (page > kFirstPage) {
-            list.addAll(_list);
-          } else {
-            list.value = _list;
-          }
-          page++;
-          loadMore = _list.length >= kLimitPage;
-        } else if (emptyTitle != null) {
-          message.value = emptyTitle;
-        }
-        if (updateModel && result.model != null) {
-          data = result.model;
-        }
-      }
-
-      hasMore || loadMore
-          ? (refreshController as EasyRefreshController).resetLoadState()
-          : finishLoad(success: result.valid, noMore: true);
-    } else {
-      // 清空所有数据
-      message.value = '';
-      page = kFirstPage;
-      data.value = null;
-      list.clear();
-    }
-  }
-
-  /// 完成加载
-  void finishLoad({
-    required bool success,
-    required bool noMore,
-  }) {
-    Future.delayed(Duration(milliseconds: 100), () {
-      // TODO: 延迟100ms执行，首次自动刷新，数据只有一页，finishLoad(noMore: true)不生效，但是下拉刷新却生效. #197
-      // https://github.com/xuelongqy/flutter_easyrefresh/issues/197
-      (refreshController as EasyRefreshController)
-          .finishLoad(success: success, noMore: noMore);
-    });
   }
 }
 

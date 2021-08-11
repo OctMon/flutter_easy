@@ -46,10 +46,10 @@ class ImageColorsPage extends StatelessWidget {
       String? path;
       if (selected == 0) {
         // 调用相机
-        path = (await _picker.getImage(source: ImageSource.camera))?.path;
+        path = (await _picker.pickImage(source: ImageSource.camera))?.path;
       } else if (selected == 1) {
         // 调用相册
-        path = (await _picker.getImage(source: ImageSource.gallery))?.path;
+        path = (await _picker.pickImage(source: ImageSource.gallery))?.path;
       }
       if (path != null) {
         controller.updateFile(File(path));

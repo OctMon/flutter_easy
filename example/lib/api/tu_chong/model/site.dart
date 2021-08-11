@@ -30,7 +30,7 @@ class Site {
   int? videos;
   bool? verified;
   int? verifications;
-  List<Verification_list>? verificationList;
+  List<VerificationList>? verificationList;
   bool? isFollowing;
 
   Site({
@@ -67,7 +67,7 @@ class Site {
     if (json['verification_list'] != null) {
       verificationList = [];
       json['verification_list'].forEach((v) {
-        verificationList?.add(Verification_list.fromJson(v));
+        verificationList?.add(VerificationList.fromJson(v));
       });
     }
     isFollowing = json['is_following'];
