@@ -64,29 +64,36 @@ class RootPage extends StatelessWidget {
             AccountPage(),
           ];
 
-          return Scaffold(
-            backgroundColor: colorWithScaffoldBackground,
-            body: IndexedStack(
-                index: controller.currentIndex.value, children: children),
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              selectedFontSize: 12,
-              selectedItemColor: colorWithTint,
-              currentIndex: controller.currentIndex.value,
-              items: List.generate(titles.length, (index) {
-                return BottomNavigationBarItem(
-                  icon: Icon(icons[index]),
-                  activeIcon: Icon(
-                    icons[index],
-                    color: colorWithTint,
-                  ),
-                  label: titles[index],
-                  // title: Container(),
-                );
-              }),
-              onTap: (index) => controller.currentIndex.value = index,
-            ),
-          );
+          return ObxValue<Rx<int>>((data) {
+            return Scaffold(
+              backgroundColor: colorWithScaffoldBackground,
+              body: IndexedStack(
+                index: data.value,
+                children: children,
+              ),
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                selectedFontSize: 12,
+                selectedItemColor: colorWithTint,
+                currentIndex: data.value,
+                items: List.generate(titles.length, (index) {
+                  return BottomNavigationBarItem(
+                    icon: Icon(icons[index]),
+                    activeIcon: Icon(
+                      icons[index],
+                      color: colorWithTint,
+                    ),
+                    label: titles[index],
+                    // title: Container(),
+                  );
+                }),
+                onTap: (index) {
+                    data.value = index;
+                    controller.currentIndex.value = index;
+                },
+              ),
+            );
+          }, controller.currentIndex);
         }
       },
     );
