@@ -16,7 +16,6 @@ class RootPage extends StatelessWidget {
     String url =
         "https://picsum.photos/${(screenWidthDp * screenDevicePixelRatio).round()}/${(screenHeightDp * screenDevicePixelRatio).round()}";
     return GetX<RootController>(
-      init: controller,
       builder: (controller) {
         if (controller.countDown.value == -1 || controller.countDown > 0) {
           return Stack(
@@ -65,33 +64,28 @@ class RootPage extends StatelessWidget {
             AccountPage(),
           ];
 
-          return GetX<RootController>(
-            init: controller,
-            builder: (controller) {
-              return Scaffold(
-                backgroundColor: colorWithScaffoldBackground,
-                body: IndexedStack(
-                    index: controller.currentIndex.value, children: children),
-                bottomNavigationBar: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  selectedFontSize: 12,
-                  selectedItemColor: colorWithTint,
-                  currentIndex: controller.currentIndex.value,
-                  items: List.generate(titles.length, (index) {
-                    return BottomNavigationBarItem(
-                      icon: Icon(icons[index]),
-                      activeIcon: Icon(
-                        icons[index],
-                        color: colorWithTint,
-                      ),
-                      label: titles[index],
-                      // title: Container(),
-                    );
-                  }),
-                  onTap: (index) => controller.currentIndex.value = index,
-                ),
-              );
-            },
+          return Scaffold(
+            backgroundColor: colorWithScaffoldBackground,
+            body: IndexedStack(
+                index: controller.currentIndex.value, children: children),
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              selectedFontSize: 12,
+              selectedItemColor: colorWithTint,
+              currentIndex: controller.currentIndex.value,
+              items: List.generate(titles.length, (index) {
+                return BottomNavigationBarItem(
+                  icon: Icon(icons[index]),
+                  activeIcon: Icon(
+                    icons[index],
+                    color: colorWithTint,
+                  ),
+                  label: titles[index],
+                  // title: Container(),
+                );
+              }),
+              onTap: (index) => controller.currentIndex.value = index,
+            ),
           );
         }
       },
