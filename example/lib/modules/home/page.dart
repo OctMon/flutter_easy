@@ -7,7 +7,7 @@ import 'controller.dart';
 import 'state.dart';
 
 class HomePage extends StatelessWidget {
-  final HomeController logic = Get.put(HomeController());
+  final HomeController controller = Get.put(HomeController());
   final HomeState state = Get.find<HomeController>().state;
 
   @override
@@ -55,7 +55,10 @@ class HomePage extends StatelessWidget {
       appBar: BaseAppBar(
         leading: isAppDebugFlag
             ? IconButton(
-                icon: Icon(Icons.developer_mode),
+                icon: Icon(
+                  Icons.developer_mode,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   showSelectBaseURLTypeAlert(context: context);
                 },
