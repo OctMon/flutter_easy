@@ -21,8 +21,7 @@ class ExampleListPage extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () async {
-              final success = await toLogin();
-              logWTF(success);
+              offAllNamed(Routes.root);
             },
           ),
         ],

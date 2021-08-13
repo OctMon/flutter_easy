@@ -10,8 +10,6 @@ import 'api/api.dart';
 import 'generated/l10n.dart';
 import 'routes.dart';
 
-const _localeKey = "locale";
-
 Future<void> initApp() async {
   // 存储沙盒中的密钥
   StorageUtil.setEncrypt("963K3REfb30szs1n");
@@ -23,9 +21,6 @@ Future<void> initApp() async {
 
   EasyLoading.instance..maskType = EasyLoadingMaskType.black;
 
-  // 加载手动配置的locale
-  lastStorageLocale = await getStorageString(_localeKey);
-
   colorWithBrightness = Brightness.dark;
 }
 
@@ -35,37 +30,8 @@ Widget get initView {
   );
 }
 
-/// 创建应用的根 Widget
-/// 1. 创建一个简单的路由，并注册页面
-/// 2. 对所需的页面进行和 AppStore 的连接
-/// 3. 对所需的页面进行 AOP 的增强
-Widget createApp() {
-  return App();
-}
-
-class App extends StatefulWidget {
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  @override
-  void initState() {
-    onLocaleChange = (locale) async {
-      logWTF("$locale");
-      if (locale != null) {
-        lastStorageLocale = "$locale";
-        await setStorageString(_localeKey, lastStorageLocale!);
-      } else {
-        lastStorageLocale = null;
-        removeStorage(_localeKey);
-      }
-      setState(() {});
-      await Future.delayed(Duration(milliseconds: 500));
-      return;
-    };
-    super.initState();
-  }
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,13 +45,11 @@ class _AppState extends State<App> {
         LocaleNamesLocalizationsDelegate(),
       ],
       supportedLocales: S.delegate.supportedLocales,
-      locale: lastLocale,
+      locale: Get.deviceLocale,
       localeResolutionCallback:
           (Locale? locale, Iterable<Locale> supportedLocales) {
         logWTF("localeResolutionCallback: $locale");
-        if (lastLocale == null ||
-            locale == null ||
-            !S.delegate.isSupported(locale)) {
+        if (locale == null || !S.delegate.isSupported(locale)) {
           return null;
         }
         return locale;

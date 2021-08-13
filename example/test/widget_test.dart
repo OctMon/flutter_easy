@@ -17,7 +17,7 @@ void main() {
     await tester.pumpWidget(createEasyApp(
       initCallback: initApp,
       completionCallback: () {
-        runApp(createApp());
+        runApp(App());
         if (isAndroid) {
           SystemChrome.setPreferredOrientations([
             DeviceOrientation.portraitUp,

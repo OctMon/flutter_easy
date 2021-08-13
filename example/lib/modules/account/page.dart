@@ -79,7 +79,7 @@ class AccountPage extends StatelessWidget {
                 item: BaseKeyValue(
                     key: S.of(context).language,
                     value:
-                        "${lastLocale == null ? S.of(context).systemDefault : LocaleNames.of(context)?.nameOf("$lastLocale")} - ${Intl.getCurrentLocale()}",
+                        "${Get.deviceLocale == null ? S.of(context).systemDefault : LocaleNames.of(context)?.nameOf("${Get.deviceLocale}")} - ${Intl.getCurrentLocale()}",
                     extend: Icons.language),
                 onPressed: () {
                   showBaseModalBottomSheet(
@@ -87,16 +87,16 @@ class AccountPage extends StatelessWidget {
                       builder: (BuildContext context) {
                         return BaseActionSheet(
                           title: BaseText(S.of(context).language),
-                          actions: S.delegate.supportedLocales.map((e) {
+                          actions: S.delegate.supportedLocales.map((l) {
                             final String? localeString =
-                                LocaleNames.of(context)?.nameOf(e.toString());
+                                LocaleNames.of(context)?.nameOf(l.toString());
                             final String? nativeLocaleName =
                                 LocaleNamesLocalizationsDelegate
-                                    .nativeLocaleNames[e.toString()];
+                                    .nativeLocaleNames[l.toString()];
                             return BaseActionSheetAction(
                               onPressed: () {
                                 back();
-                                onLocaleChange(e);
+                                Get.updateLocale(l);
                               },
                               child: BaseText(nativeLocaleName == localeString
                                   ? nativeLocaleName
@@ -109,7 +109,7 @@ class AccountPage extends StatelessWidget {
                                   isDefaultAction: true,
                                   onPressed: () {
                                     back();
-                                    onLocaleChange(null);
+                                    Get.updateLocale(Get.deviceLocale!);
                                   },
                                   child: BaseText(S.of(context).systemDefault),
                                 )),
