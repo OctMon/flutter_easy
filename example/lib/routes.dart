@@ -6,9 +6,11 @@ import 'modules/example/login/page.dart';
 import 'modules/example/photo_view/page.dart';
 import 'modules/example/tu_chong/page.dart';
 import 'modules/root/page.dart';
+import 'modules/splash/page.dart';
 
 class Routes {
   static final String root = '/';
+  static final String splash = '/splash';
   static final String home = '/home';
   static final String example = '/example';
   static final String account = '/account';
@@ -22,6 +24,10 @@ class Routes {
     GetPage(
       name: Routes.root,
       page: () => RootPage(),
+    ),
+    GetPage(
+      name: Routes.splash,
+      page: () => SplashPage(),
     ),
     GetPage(
       name: routesLoginNamed,

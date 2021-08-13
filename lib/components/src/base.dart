@@ -193,6 +193,7 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
 
 class BaseApp extends StatefulWidget {
   final String title;
+  final String? initialRoute;
   final Widget? home;
   final TransitionBuilder? builder;
   final List<NavigatorObserver> navigatorObservers;
@@ -205,6 +206,7 @@ class BaseApp extends StatefulWidget {
 
   BaseApp({
     this.title = "",
+    this.initialRoute,
     this.home,
     this.builder,
     this.navigatorObservers = const <NavigatorObserver>[],
@@ -249,6 +251,7 @@ class _BaseAppState extends State<BaseApp> {
 
     return GetMaterialApp(
       title: widget.title,
+      initialRoute: widget.initialRoute,
       theme: ThemeData(
         platform: TargetPlatform.iOS,
         primarySwatch: Colors.grey,

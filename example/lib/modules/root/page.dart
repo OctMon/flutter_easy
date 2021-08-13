@@ -13,89 +13,49 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String url =
-        "https://picsum.photos/${(screenWidthDp * screenDevicePixelRatio).round()}/${(screenHeightDp * screenDevicePixelRatio).round()}";
-    return GetX<RootController>(
-      builder: (controller) {
-        if (controller.countDown.value == -1 || controller.countDown > 0) {
-          return Stack(
-            children: [
-              BaseLaunchRemote(
-                keepLogo: false,
-                url: url,
-                onTap: () {
-                  showToast(url);
-                },
-              ),
-              Visibility(
-                visible: controller.countDown.value != -1,
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: BaseButton(
-                    padding: EdgeInsets.only(top: 35, right: 20),
-                    child: Text(controller.countDown.value == -1
-                        ? ""
-                        : '${controller.timer?.isActive}: skip(${controller.countDown})'),
-                    onPressed: () {
-                      controller.countDown.value = 0;
-                      controller.timer?.cancel();
-                    },
-                  ),
-                ),
-              ),
-            ],
-          );
-        } else {
-          final List<String> titles = [
-            S.of(context).home,
-            S.of(context).example,
-            S.of(context).account
-          ];
+    final List<String> titles = [
+      S.of(context).home,
+      S.of(context).example,
+      S.of(context).account
+    ];
 
-          const List<IconData> icons = [
-            Icons.home,
-            Icons.apps,
-            Icons.account_circle
-          ];
+    const List<IconData> icons = [Icons.home, Icons.apps, Icons.account_circle];
 
-          final List<Widget> children = [
-            HomePage(),
-            ExampleListPage(),
-            AccountPage(),
-          ];
+    final List<Widget> children = [
+      HomePage(),
+      ExampleListPage(),
+      AccountPage(),
+    ];
 
-          return ObxValue<Rx<int>>((data) {
-            return Scaffold(
-              backgroundColor: colorWithScaffoldBackground,
-              body: IndexedStack(
-                index: data.value,
-                children: children,
+    return ObxValue<Rx<int>>((data) {
+      return Scaffold(
+        backgroundColor: colorWithScaffoldBackground,
+        body: IndexedStack(
+          index: data.value,
+          children: children,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedFontSize: 12,
+          selectedItemColor: colorWithTint,
+          currentIndex: data.value,
+          items: List.generate(titles.length, (index) {
+            return BottomNavigationBarItem(
+              icon: Icon(icons[index]),
+              activeIcon: Icon(
+                icons[index],
+                color: colorWithTint,
               ),
-              bottomNavigationBar: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                selectedFontSize: 12,
-                selectedItemColor: colorWithTint,
-                currentIndex: data.value,
-                items: List.generate(titles.length, (index) {
-                  return BottomNavigationBarItem(
-                    icon: Icon(icons[index]),
-                    activeIcon: Icon(
-                      icons[index],
-                      color: colorWithTint,
-                    ),
-                    label: titles[index],
-                    // title: Container(),
-                  );
-                }),
-                onTap: (index) {
-                    data.value = index;
-                    controller.currentIndex.value = index;
-                },
-              ),
+              label: titles[index],
+              // title: Container(),
             );
-          }, controller.currentIndex);
-        }
-      },
-    );
+          }),
+          onTap: (index) {
+            data.value = index;
+            controller.currentIndex.value = index;
+          },
+        ),
+      );
+    }, controller.currentIndex);
   }
 }
