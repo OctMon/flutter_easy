@@ -1,5 +1,4 @@
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:get/get.dart';
 
 import 'modules/example/image_colors/page.dart';
 import 'modules/example/login/page.dart';

@@ -1,7 +1,5 @@
-import 'dart:core';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_easy/flutter_easy.dart';
 
 /// 指定登录路由
 final routesLoginNamed = '/login';

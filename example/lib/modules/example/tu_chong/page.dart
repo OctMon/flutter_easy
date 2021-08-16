@@ -3,9 +3,8 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:flutter_easy_example/routes.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get/get.dart';
 
-import 'package:flutter_easy_example/api/tu_chong/model/tu_chong_model.dart';
+import 'package:flutter_easy_example/modules/example/tu_chong/model.dart';
 import 'controller.dart';
 
 const int _kCrossAxisCount = 2;

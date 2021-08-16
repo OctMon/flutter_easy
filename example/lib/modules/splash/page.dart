@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/routes.dart';
-import 'package:get/get.dart';
 
 import 'controller.dart';
 
@@ -11,8 +9,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String url =
-        "https://picsum.photos/${(screenWidthDp * screenDevicePixelRatio)
-        .round()}/${(screenHeightDp * screenDevicePixelRatio).round()}";
+        "https://picsum.photos/${(screenWidthDp * screenDevicePixelRatio).round()}/${(screenHeightDp * screenDevicePixelRatio).round()}";
     return Stack(
       children: [
         BaseLaunchRemote(
@@ -29,8 +26,7 @@ class SplashPage extends StatelessWidget {
               padding: EdgeInsets.only(top: 35, right: 20),
               child: Text(controller.countDown.value == -1
                   ? ""
-                  : '${controller.timer?.isActive}: skip(${controller
-                  .countDown})'),
+                  : '${controller.timer?.isActive}: skip(${controller.countDown})'),
               onPressed: () {
                 controller.countDown.value = 0;
                 controller.timer?.cancel();

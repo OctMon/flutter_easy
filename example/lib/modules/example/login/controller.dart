@@ -4,7 +4,6 @@ import 'package:flutter_easy_example/api/constant.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:flutter_easy_example/utils/user/model.dart';
 import 'package:flutter_easy_example/utils/user/service.dart';
-import 'package:get/get.dart';
 
 import 'state.dart';
 

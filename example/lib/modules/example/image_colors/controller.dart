@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 class ImageColorsController extends GetxController {

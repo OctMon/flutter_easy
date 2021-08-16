@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'
-    hide GetStringUtils, GetNumUtils, GetDurationUtils;
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'controller.dart';

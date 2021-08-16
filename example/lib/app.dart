@@ -4,7 +4,6 @@ import 'package:flutter_easy_example/utils/user/service.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
 
 import 'api/api.dart';
 import 'generated/l10n.dart';

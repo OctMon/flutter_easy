@@ -1,4 +1,4 @@
-import 'package:get/get.dart' hide GetNumUtils, GetDurationUtils;
+import 'package:flutter_easy/flutter_easy.dart';
 
 class RootController extends GetxController {
   /// 当前下标

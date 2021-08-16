@@ -1,7 +1,6 @@
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/api/http_bin/http_bin_api.dart';
 import 'package:flutter_easy_example/routes.dart';
-import 'package:get/get.dart' hide GetNumUtils, GetDurationUtils;
 
 class SplashController extends GetxController {
   /// 闪屏页倒计时

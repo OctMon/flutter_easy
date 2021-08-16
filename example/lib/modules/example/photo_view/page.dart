@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/api/tu_chong/model/tu_chong_model.dart';
-import 'package:get/get.dart';
+import 'package:flutter_easy_example/modules/example/tu_chong/model.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class PhotoViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TuChongModel data = Get.arguments;
+    final TCModel data = Get.arguments;
     return BaseScaffold(
       appBar: BaseAppBar(
         brightness: Brightness.light,

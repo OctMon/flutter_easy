@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'model.dart';

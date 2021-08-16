@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_example/utils/user/service.dart';
-import 'package:get/get.dart';
 import 'package:flutter_easy_example/routes.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_easy/flutter_easy.dart';
