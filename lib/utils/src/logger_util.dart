@@ -1,78 +1,127 @@
+import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:logger/logger.dart';
 
 import 'global_util.dart';
 
-void log(String tag, Object value) {
+void _log(String tag, dynamic value, {StackTrace? stackTrace}) {
   if (isDebug || isAppDebugFlag) {
-    print("$tag => $value");
+    developer.log("${DateTime.now()} $value",
+        time: DateTime.now(), name: tag, stackTrace: stackTrace);
   }
 }
 
-/// Log a message at level [Level.verbose].
-void logVerbose(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-  isWeb ? log("verbose", message) : logger.v(message, error, stackTrace);
+void logDebug(dynamic message) {
+  _log("DEBUG", message);
 }
 
-/// Log a message at level [Level.debug].
-void logDebug(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-  isWeb ? log("debug", message) : logger.d(message, error, stackTrace);
+void logInfo(dynamic message) {
+  _log("INFO", message);
 }
 
-/// Log a message at level [Level.info].
-void logInfo(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-  isWeb ? log("info", message) : logger.i(message, error, stackTrace);
+void logWarning(dynamic message) {
+  _log("WARNING", message);
 }
 
-/// Log a message at level [Level.warning].
-void logWarning(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-  isWeb ? log("warning", message) : logger.w(message, error, stackTrace);
+void logError(dynamic message) {
+  _log("ERROR", message, stackTrace: StackTrace.current);
 }
 
-/// Log a message at level [Level.error].
-void logError(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-  isWeb ? log("error", message) : logger.e(message, error, stackTrace);
-}
-
-/// Log a message at level [Level.wtf].
-void logWTF(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-  isWeb ? log("wtf", message) : logger.wtf(message, error, stackTrace);
+void logWTF(dynamic message) {
+  _log("WTF", message, stackTrace: StackTrace.current);
 }
 
 void logRequest(RequestOptions options) {
-  logInfo(
-      options.data,
-      "Request ${options.uri}",
-      StackTrace.fromString('method: ${options.method}\n' +
-          'responseType: ${options.responseType.toString()}\n' +
-          "followRedirects: ${options.followRedirects}\n" +
-          "connectTimeout: ${options.connectTimeout}\n" +
-          "receiveTimeout: ${options.receiveTimeout}\n" +
-          "extra: ${options.extra}\n" +
-          "headers: \n${options.headers}"));
+  var string = """
+\n->->->->->->->->->->Request->->->->->->->->->
+[URL] ${options.uri}
+[Method]		 ${options.method}
+[ConnectTimeout] ${options.connectTimeout / 1000}"
+[ReceiveTimeout] ${options.receiveTimeout / 1000}"
+[FollowRedirects] ${options.followRedirects}"
+""";
+  if (!options.headers.isEmptyOrNull) {
+    string += """
+[Header]
+${options.headers}
+""";
+  }
+  if (!options.extra.isEmptyOrNull) {
+    string += """
+[Extra]
+${options.extra}
+""";
+  }
+  if (options.data != null) {
+    string += """
+[Body]
+${options.data}
+""";
+  }
+  string += "->->->->->->->->->->Request->->->->->->->->->";
+  logInfo(string);
 }
 
 void logResponse(Result result) {
   if (result.error != null) {
-    logInfo(
-        result.response?.data,
-        "Response ${result.response?.requestOptions.uri}",
-        StackTrace.fromString('statusCode: ${result.response?.statusCode}\n' +
-            "${result.error}: ${result.message}"));
-  } else {
-    logInfo(
-        result.response?.data,
-        "Response ${result.response?.requestOptions.uri}",
-        StackTrace.fromString('statusCode: ${result.response?.statusCode}\n' +
-            (result.response?.isRedirect == true
-                ? "redirect: ${result.response?.realUri}\n"
-                : "") +
-            "connectTimeout: ${result.response?.requestOptions.connectTimeout}\n" +
-            (result.response?.headers != null
-                ? "headers: \n${result.response?.headers}"
-                : "")));
+    logWarning("""
+\n->->->->->->->->->->Response->->->->->->->->->
+[URL] ${result.response?.requestOptions.uri}
+----------------------${result.response?.statusCode}------------------->
+[Error] ${result.error}: ${result.message}
+->->->->->->->->->->Response->->->->->->->->->
+""");
+    return;
   }
+  var string = """
+\n->->->->->->->->->->Response->->->->->->->->->
+[URL] ${result.response?.requestOptions.uri}
+[Method]		 ${result.response?.requestOptions.method}
+[ConnectTimeout] ${(result.response?.requestOptions.connectTimeout ?? 0) / 1000}"
+[ReceiveTimeout] ${(result.response?.requestOptions.receiveTimeout ?? 0) / 1000}"
+[FollowRedirects] ${result.response?.requestOptions.followRedirects}"
+""";
+  if (result.response?.requestOptions.headers != null) {
+    string += """
+[Header]
+${result.response?.requestOptions.headers}
+""";
+  }
+  if (result.response?.requestOptions.extra != null) {
+    string += """
+[Extra]
+${result.response?.requestOptions.extra}
+""";
+  }
+  if (result.response?.requestOptions.data != null) {
+    string += """
+[Body]
+${result.response?.requestOptions.data}
+""";
+  }
+  string +=
+      "----------------------${result.response?.statusCode}------------------->";
+  if (result.response?.headers != null) {
+    string += """
+\n[Header]
+${result.response?.headers}
+""";
+  }
+  if (result.response?.extra != null && !result.response!.extra.isEmptyOrNull) {
+    string += """
+[Extra]
+${result.response?.extra}
+""";
+  }
+  if (result.response?.data != null) {
+    string += """
+[Data]
+${result.response?.data}
+""";
+  }
+  string += "->->->->->->->->->->Response->->->->->->->->->";
+  logInfo(string);
 }
 
 class _LogFilter extends LogFilter {

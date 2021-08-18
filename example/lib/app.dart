@@ -48,7 +48,7 @@ class App extends StatelessWidget {
       locale: Get.deviceLocale,
       localeResolutionCallback:
           (Locale? locale, Iterable<Locale> supportedLocales) {
-        logWTF("localeResolutionCallback: $locale");
+        logDebug("localeResolutionCallback: $locale");
         if (locale == null || !S.delegate.isSupported(locale)) {
           return null;
         }

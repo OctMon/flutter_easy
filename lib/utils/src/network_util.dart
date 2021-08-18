@@ -147,15 +147,8 @@ Future<Result> request(
     int? connectTimeout,
     bool validResult = true,
     bool autoLoading = false}) async {
-  // Loading is show
-  bool alreadyShowLoading = false;
   if (autoLoading) {
-    try {
-      showLoading();
-      alreadyShowLoading = true;
-    } catch (e) {
-      logError('showLoading()', e.toString());
-    }
+    showLoading();
   }
   Session session = Session(
       config: Config(
@@ -183,8 +176,7 @@ Future<Result> request(
     options: options,
     connectTimeout: connectTimeout,
   );
-  if (autoLoading && alreadyShowLoading) {
-    // Dismiss loading
+  if (autoLoading) {
     dismissLoading();
   }
   return _onResult != null ? _onResult!(result, validResult) : result;
