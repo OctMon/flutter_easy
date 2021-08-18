@@ -47,19 +47,19 @@ void logRequest(RequestOptions options) {
   if (!options.headers.isEmptyOrNull) {
     string += """
 [Header]
-${options.headers}
+${jsonEncode(options.headers)}
 """;
   }
   if (!options.extra.isEmptyOrNull) {
     string += """
 [Extra]
-${options.extra}
+${jsonEncode(options.extra)}
 """;
   }
   if (options.data != null) {
     string += """
 [Body]
-${options.data}
+${options.data is Map ? jsonEncode(options.data) : options.data}
 """;
   }
   string += "->->->->->->->->->->Request->->->->->->->->->";
@@ -85,27 +85,30 @@ void logResponse(Result result) {
 [ReceiveTimeout] ${(result.response?.requestOptions.receiveTimeout ?? 0) / 1000}
 [FollowRedirects] ${result.response?.requestOptions.followRedirects}
 """;
-  if (result.response?.requestOptions.headers != null) {
+  if (result.response?.requestOptions.headers != null &&
+      !result.response!.requestOptions.headers.isEmptyOrNull) {
     string += """
 [Header]
-${result.response?.requestOptions.headers}
+${jsonEncode(result.response?.requestOptions.headers)}
 """;
   }
-  if (result.response?.requestOptions.extra != null) {
+  if (result.response?.requestOptions.extra != null &&
+      !result.response!.requestOptions.extra.isEmptyOrNull) {
     string += """
 [Extra]
-${result.response?.requestOptions.extra}
+${jsonEncode(result.response?.requestOptions.extra)}
 """;
   }
   if (result.response?.requestOptions.data != null) {
     string += """
 [Body]
-${result.response?.requestOptions.data}
+${result.response?.requestOptions.data is Map ? jsonEncode(result.response?.requestOptions.data) : result.response?.requestOptions.data}
 """;
   }
   string +=
       "----------------------${result.response?.statusCode}------------------->";
-  if (result.response?.headers != null) {
+  if (result.response?.headers != null &&
+      !result.response!.headers.isEmptyOrNull) {
     string += """
 \n[Header]
 ${result.response?.headers}
@@ -114,13 +117,13 @@ ${result.response?.headers}
   if (result.response?.extra != null && !result.response!.extra.isEmptyOrNull) {
     string += """
 [Extra]
-${result.response?.extra}
+${jsonEncode(result.response?.extra)}
 """;
   }
   if (result.response?.data != null) {
     string += """
 [Data]
-${result.response?.data}
+${result.response?.data is Map ? jsonEncode(result.response?.data) : result.response?.data}
 """;
   }
   string += "->->->->->->->->->->Response->->->->->->->->->";
