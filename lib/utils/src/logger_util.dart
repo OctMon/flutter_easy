@@ -1,7 +1,7 @@
 import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:logger/logger.dart';
 
 import 'global_util.dart';
 
@@ -9,6 +9,9 @@ void _log(String tag, dynamic value, {StackTrace? stackTrace}) {
   if (isDebug || isAppDebugFlag) {
     developer.log("${DateTime.now()} $value",
         time: DateTime.now(), name: tag, stackTrace: stackTrace);
+    final EasyLogConsoleController controller =
+        Get.put(EasyLogConsoleController());
+    controller.logs.add("[$tag] ${DateTime.now()} $value\n");
   }
 }
 
@@ -37,9 +40,9 @@ void logRequest(RequestOptions options) {
 \n->->->->->->->->->->Request->->->->->->->->->
 [URL] ${options.uri}
 [Method]		 ${options.method}
-[ConnectTimeout] ${options.connectTimeout / 1000}"
-[ReceiveTimeout] ${options.receiveTimeout / 1000}"
-[FollowRedirects] ${options.followRedirects}"
+[ConnectTimeout] ${options.connectTimeout / 1000}
+[ReceiveTimeout] ${options.receiveTimeout / 1000}
+[FollowRedirects] ${options.followRedirects}
 """;
   if (!options.headers.isEmptyOrNull) {
     string += """
@@ -78,9 +81,9 @@ void logResponse(Result result) {
 \n->->->->->->->->->->Response->->->->->->->->->
 [URL] ${result.response?.requestOptions.uri}
 [Method]		 ${result.response?.requestOptions.method}
-[ConnectTimeout] ${(result.response?.requestOptions.connectTimeout ?? 0) / 1000}"
-[ReceiveTimeout] ${(result.response?.requestOptions.receiveTimeout ?? 0) / 1000}"
-[FollowRedirects] ${result.response?.requestOptions.followRedirects}"
+[ConnectTimeout] ${(result.response?.requestOptions.connectTimeout ?? 0) / 1000}
+[ReceiveTimeout] ${(result.response?.requestOptions.receiveTimeout ?? 0) / 1000}
+[FollowRedirects] ${result.response?.requestOptions.followRedirects}
 """;
   if (result.response?.requestOptions.headers != null) {
     string += """
@@ -124,21 +127,52 @@ ${result.response?.data}
   logInfo(string);
 }
 
-class _LogFilter extends LogFilter {
-  @override
-  bool shouldLog(LogEvent event) {
-    return isDebug || isAppDebugFlag;
-  }
+class EasyLogConsoleController extends GetxController {
+  var logs = [].obs;
 }
 
-var memoryOutput = MemoryOutput();
-var streamOutput = StreamOutput();
-var logger = Logger(
-  filter: _LogFilter(),
-  printer: PrettyPrinter(colors: false, printTime: true),
-  output: MultiOutput([
-    ConsoleOutput(),
-    memoryOutput,
-    streamOutput,
-  ]),
-);
+class EasyLogConsolePage extends StatelessWidget {
+  final EasyLogConsoleController controller =
+      Get.put(EasyLogConsoleController());
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseScaffold(
+      backgroundColor: Colors.black,
+      appBar: BaseAppBar(
+        backgroundColor: Colors.grey[900],
+        leading: IconButton(
+          icon: Icon(
+            Icons.developer_mode,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            if (!isAppDebugFlag) {
+              return;
+            }
+            showSelectBaseURLTypeAlert().then((success) {
+              if (success != null && success) {
+                if (baseURLChangedCallback != null) {
+                  baseURLChangedCallback!();
+                }
+              }
+            });
+          },
+        ),
+      ),
+      body: Obx(() {
+        return ListView.builder(
+          padding: EdgeInsets.all(15),
+          itemBuilder: (context, index) {
+            var log = controller.logs[index];
+            return BaseTitle(
+              log,
+              color: Colors.white,
+            );
+          },
+          itemCount: controller.logs.length,
+        );
+      }),
+    );
+  }
+}

@@ -5,8 +5,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-import 'log_console.dart';
-
 typedef ComputeResult<T> = void Function(T state, RxStatus status);
 
 extension BaseStateExt<T> on StateMixin<T> {
@@ -131,10 +129,6 @@ createEasyApp(
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = const bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
-
-  if (isAppDebugFlag) {
-    LogConsole.init();
-  }
   _appBaseURLChangedCallback = appBaseURLChangedCallback;
   void callback() {
     if (initCallback != null) {
@@ -242,7 +236,7 @@ class _BaseAppState extends State<BaseApp> {
           message:
               "${kBaseURLType == BaseURLType.release ? "Release" : "Test"}",
           location: BannerLocation.topEnd,
-          child: DebugPage(child: child),
+          child: _DebugPage(child: child),
         );
       }
       return child;
@@ -286,18 +280,18 @@ class _BaseAppState extends State<BaseApp> {
   }
 }
 
-class DebugPage extends StatefulWidget {
+class _DebugPage extends StatefulWidget {
   final Widget child;
 
-  const DebugPage({Key? key, required this.child}) : super(key: key);
+  const _DebugPage({Key? key, required this.child}) : super(key: key);
 
   @override
-  _DebugPageState createState() => _DebugPageState();
+  __DebugPageState createState() => __DebugPageState();
 }
 
 const double _kMenuSize = 40;
 
-class _DebugPageState extends State<DebugPage> {
+class __DebugPageState extends State<_DebugPage> {
   bool _flag = false;
 
   Offset _offset = Offset(0, 200);
@@ -310,7 +304,7 @@ class _DebugPageState extends State<DebugPage> {
         _flag
             ? Visibility(
                 visible: _flag,
-                child: LogConsole(dark: true),
+                child: EasyLogConsolePage(),
               )
             : SizedBox(),
         Positioned(

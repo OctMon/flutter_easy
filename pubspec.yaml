@@ -20,14 +20,6 @@ dependencies:
   # ===============================================================================
 
   # ===============================================================================
-  # Small, easy to use and extensible logger which prints beautiful logs.
-  # pub: https://pub.dev/packages/logger
-  # git: https://github.com/leisim/logger
-  # ———————————————————————————————————————————————————————————————————————————————
-  logger: ^1.0.0
-  # ===============================================================================
-
-  # ===============================================================================
   # Generate RFC4122(v1,v4,v5) UUIDs
   # pub: https://pub.dev/packages/uuid
   # git: https://github.com/Daegalus/dart-uuid
