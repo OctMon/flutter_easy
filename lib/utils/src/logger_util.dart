@@ -131,7 +131,42 @@ ${result.response?.data is Map ? jsonEncode(result.response?.data) : result.resp
 }
 
 class EasyLogConsoleController extends GetxController {
+  final scrollController = ScrollController();
+
   var logs = [].obs;
+  var followBottom = true.obs;
+
+  @override
+  void onInit() {
+    scrollController.addListener(() {
+      updateFollowBottom();
+    });
+    ever(logs, (value) {
+      scrollToBottom();
+    });
+    super.onInit();
+  }
+
+  void updateFollowBottom() {
+    if (scrollController.hasClients) {
+      var scrolledToBottom =
+          scrollController.offset >= scrollController.position.maxScrollExtent;
+      followBottom.value = scrolledToBottom;
+    }
+  }
+
+  void scrollToBottom() {
+    if (scrollController.hasClients) {
+      followBottom.value = true;
+
+      var scrollPosition = scrollController.position;
+      scrollController.animateTo(
+        scrollPosition.maxScrollExtent,
+        duration: new Duration(milliseconds: 400),
+        curve: Curves.easeOut,
+      );
+    }
+  }
 }
 
 class EasyLogConsolePage extends StatelessWidget {
@@ -165,7 +200,8 @@ class EasyLogConsolePage extends StatelessWidget {
       ),
       body: Obx(() {
         return ListView.builder(
-          padding: EdgeInsets.all(15),
+          controller: controller.scrollController,
+          padding: EdgeInsets.symmetric(horizontal: 15),
           itemBuilder: (context, index) {
             var log = controller.logs[index];
             return BaseTitle(
@@ -174,6 +210,24 @@ class EasyLogConsolePage extends StatelessWidget {
             );
           },
           itemCount: controller.logs.length,
+        );
+      }),
+      floatingActionButton: Obx(() {
+        return AnimatedOpacity(
+          opacity: controller.followBottom.value ? 0 : 1,
+          duration: Duration(milliseconds: 150),
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 60),
+            child: FloatingActionButton(
+              mini: true,
+              clipBehavior: Clip.antiAlias,
+              child: Icon(
+                Icons.arrow_downward,
+                color: Colors.white,
+              ),
+              onPressed: controller.scrollToBottom,
+            ),
+          ),
         );
       }),
     );

@@ -659,29 +659,36 @@ class BaseScaffold extends StatelessWidget {
   final Color? backgroundColor;
   final Widget? bottomNavigationBar;
 
+  final Widget? floatingActionButton;
+
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
+
+  final FloatingActionButtonAnimator? floatingActionButtonAnimator;
+
   BaseScaffold({
     this.appBar,
     this.body,
     this.backgroundColor,
     this.bottomNavigationBar,
+    this.floatingActionButton,
+    this.floatingActionButtonLocation,
+    this.floatingActionButtonAnimator,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (appBar == null) {
-      return Scaffold(
-        body: body,
-        backgroundColor: backgroundColor ?? colorWithScaffoldBackground,
-        bottomNavigationBar: bottomNavigationBar,
-      );
-    }
     return Scaffold(
-      appBar: isIOS
-          ? appBar?.buildCupertinoWidget(context)
-          : appBar?.buildMaterialWidget(context),
+      appBar: appBar != null
+          ? (isIOS
+              ? appBar?.buildCupertinoWidget(context)
+              : appBar?.buildMaterialWidget(context))
+          : null,
       body: body,
       backgroundColor: backgroundColor ?? colorWithScaffoldBackground,
       bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
+      floatingActionButtonLocation: floatingActionButtonLocation,
+      floatingActionButtonAnimator: floatingActionButtonAnimator,
     );
   }
 }
