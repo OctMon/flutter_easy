@@ -11,7 +11,7 @@ void _log(String tag, dynamic value, {StackTrace? stackTrace}) {
         time: DateTime.now(), name: tag, stackTrace: stackTrace);
     final EasyLogConsoleController controller =
         Get.put(EasyLogConsoleController());
-    controller.logs.add("[$tag] ${DateTime.now()} $value\n");
+    controller.logs.add("[$tag] ${DateTime.now()} $value");
   }
 }
 
@@ -204,9 +204,15 @@ class EasyLogConsolePage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15),
           itemBuilder: (context, index) {
             var log = controller.logs[index];
-            return BaseTitle(
-              log,
-              color: Colors.white,
+            return BaseButton(
+              padding: EdgeInsets.all(10),
+              child: BaseTitle(
+                log,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                setClipboard(log);
+              },
             );
           },
           itemCount: controller.logs.length,
