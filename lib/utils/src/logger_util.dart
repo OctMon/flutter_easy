@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
@@ -133,8 +134,14 @@ ${result.response?.data is Map ? jsonEncode(result.response?.data) : result.resp
 class EasyLogConsoleController extends GetxController {
   final scrollController = ScrollController();
 
+  /// 所有的日志
   var logs = [].obs;
+
+  /// 在最下面标志
   var followBottom = true.obs;
+
+  /// 自动滚动
+  var flowchart = true.obs;
 
   @override
   void onInit() {
@@ -156,7 +163,7 @@ class EasyLogConsoleController extends GetxController {
   }
 
   void scrollToBottom() {
-    if (scrollController.hasClients) {
+    if (scrollController.hasClients && flowchart.value) {
       followBottom.value = true;
 
       var scrollPosition = scrollController.position;
@@ -197,27 +204,47 @@ class EasyLogConsolePage extends StatelessWidget {
             });
           },
         ),
-      ),
-      body: Obx(() {
-        return ListView.builder(
-          controller: controller.scrollController,
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          itemBuilder: (context, index) {
-            var log = controller.logs[index];
-            return BaseButton(
-              padding: EdgeInsets.all(10),
-              child: BaseTitle(
-                log,
+        actions: [
+          IconButton(
+            icon: Obx(() {
+              return Icon(
+                controller.flowchart.value
+                    ? CupertinoIcons.flowchart_fill
+                    : CupertinoIcons.flowchart,
                 color: Colors.white,
-              ),
-              onPressed: () {
-                setClipboard(log);
-              },
-            );
-          },
-          itemCount: controller.logs.length,
-        );
-      }),
+              );
+            }),
+            onPressed: () {
+              controller.flowchart.toggle();
+            },
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Obx(() {
+          return ListView.builder(
+            controller: controller.scrollController,
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            itemBuilder: (context, index) {
+              var log = controller.logs[index];
+              return Container(
+                alignment: Alignment.centerLeft,
+                child: BaseButton(
+                  padding: EdgeInsets.zero,
+                  child: BaseTitle(
+                    log,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    setClipboard(log);
+                  },
+                ),
+              );
+            },
+            itemCount: controller.logs.length,
+          );
+        }),
+      ),
       floatingActionButton: Obx(() {
         return AnimatedOpacity(
           opacity: controller.followBottom.value ? 0 : 1,
