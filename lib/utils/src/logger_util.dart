@@ -206,6 +206,15 @@ class EasyLogConsolePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
+            icon: Icon(
+              CupertinoIcons.bin_xmark,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              controller.logs.clear();
+            },
+          ),
+          IconButton(
             icon: Obx(() {
               return Icon(
                 controller.flowchart.value
