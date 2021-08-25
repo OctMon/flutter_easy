@@ -26,18 +26,15 @@ flutter run --release --dart-define=app-debug-flag=true
 main.dart
 
 ```dart
-void main() {
-  createEasyApp(
+createEasyApp(
     initCallback: initApp,
     initView: initView,
     appBaseURLChangedCallback: () {
-      showToast("current: $kBaseURLType");
-      1.delay(() {
-        main();
-      });
+      // Reload API
+      configAPI(null);
     },
     completionCallback: () {
-      runApp(createApp());
+      runApp(App());
       if (isAndroid) {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
@@ -50,20 +47,15 @@ void main() {
       }
     },
   );
-}
 ```
 
 app.dart
 
 ```dart
-const _localeKey = "locale";
-
 Future<void> initApp() async {
   StorageUtil.setEncrypt("963K3REfb30szs1n");
-  await UserStore.load();
-  routesIsLogin = () => UserStore.store.getState().isLogin;
+  await Get.putAsync(() => UserService().load());
   configApi(null);
-  lastStorageLocale = await getStorageString(_localeKey);
   colorWithBrightness = Brightness.dark;
 }
 
@@ -73,39 +65,14 @@ Widget get initView {
   );
 }
 
-class App extends StatefulWidget {
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  @override
-  void initState() {
-    onLocaleChange = (locale) async {
-      logWTF("$locale");
-      if (locale != null) {
-        lastStorageLocale = "$locale";
-        await setStorageString(_localeKey, lastStorageLocale);
-      } else {
-        lastStorageLocale = null;
-        removeStorage(_localeKey);
-      }
-      setState(() {});
-      await Future.delayed(Duration(milliseconds: 500));
-      return;
-    };
-    super.initState();
-  }
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BaseApp(
-      // home: Routes.routes.buildPage(Routes.root, null),
-      onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute<Object>(builder: (BuildContext context) {
-          return Routes.routes.buildPage(settings.name, settings.arguments);
-        });
-      },
+      initialRoute: Routes.splash,
+      getPages: Routes.routes,
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -114,11 +81,11 @@ class _AppState extends State<App> {
         LocaleNamesLocalizationsDelegate(),
       ],
       supportedLocales: S.delegate.supportedLocales,
-      locale: lastLocale,
+      locale: Get.deviceLocale,
       localeResolutionCallback:
-          (Locale locale, Iterable<Locale> supportedLocales) {
-        logWTF("localeResolutionCallback: $locale");
-        if (lastLocale == null || !S.delegate.isSupported(locale)) {
+          (Locale? locale, Iterable<Locale> supportedLocales) {
+        logDebug("localeResolutionCallback: $locale");
+        if (locale == null || !S.delegate.isSupported(locale)) {
           return null;
         }
         return locale;
@@ -127,6 +94,33 @@ class _AppState extends State<App> {
   }
 }
 ```
+
+routes.dart
+
+```dart
+class Routes {
+  static final String root = '/';
+  static final String splash = '/splash';
+
+  Routes._();
+
+  static final List<GetPage> routes = [
+    GetPage(
+      name: Routes.root,
+      page: () => RootPage(),
+    ),
+    GetPage(
+      name: Routes.splash,
+      page: () => SplashPage(),
+    ),
+    GetPage(
+      name: routesLoginNamed,
+      page: () => LoginPage(),
+    ),
+}
+```
+
+
 
 # Installing
 

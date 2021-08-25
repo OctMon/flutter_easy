@@ -10,7 +10,6 @@ import 'modules/splash/page.dart';
 class Routes {
   static final String root = '/';
   static final String splash = '/splash';
-  static final String home = '/home';
   static final String example = '/example';
   static final String account = '/account';
   static final String tuChong = '$example/tu_chong';

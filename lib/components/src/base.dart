@@ -131,6 +131,19 @@ createEasyApp(
   isAppDebugFlag = appDebugFlag;
   _appBaseURLChangedCallback = appBaseURLChangedCallback;
   void callback() {
+    void localLogWriter(String text, {bool isError = false}) {
+      if (isError) {
+        logError(text);
+      } else {
+        logDebug(text);
+      }
+    }
+
+    Get.config(
+      enableLog: isDebug || isAppDebugFlag,
+      logWriterCallback: localLogWriter,
+    );
+
     if (initCallback != null) {
       initCallback().then((_) {
         completionCallback();
@@ -242,17 +255,6 @@ class _BaseAppState extends State<BaseApp> {
       return child;
     }
 
-    void localLogWriter(String text, {bool isError = false}) {
-      // 在这里把信息传递给你最喜欢的日志包。
-      // 请注意，即使enableLog: false，日志信息也会在这个回调中被推送。
-      // 如果你想的话，可以通过GetConfig.isLogEnable来检查这个标志。
-      if (isError) {
-        logError(text);
-      } else {
-        logDebug(text);
-      }
-    }
-
     return GetMaterialApp(
       title: widget.title,
       initialRoute: widget.initialRoute,
@@ -262,8 +264,6 @@ class _BaseAppState extends State<BaseApp> {
         splashColor: Colors.transparent,
       ),
       home: widget.home,
-      enableLog: isDebug || isAppDebugFlag,
-      logWriterCallback: localLogWriter,
       builder: widget.builder ??
           EasyLoading.init(
             builder: (context, child) {
