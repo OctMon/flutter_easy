@@ -17,6 +17,11 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   @override
   void onReady() {
     state.animationController.repeat(reverse: true);
+    getClipboard().then((value) {
+      if (value != null) {
+        state.clipboard.value = value;
+      }
+    });
     super.onReady();
   }
 
