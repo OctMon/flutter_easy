@@ -15,16 +15,17 @@ void configAPI(String? baseURL) {
 
   NetworkUtil.init(
     Session(
-        config: Config(
-          baseUrl: baseURL ??
-              (kBaseURLType == BaseURLType.release
-                  ? kReleaseBaseURL
-                  : kTestBaseURL),
+      config: Config(
+        baseUrl: baseURL ??
+            (kBaseURLType == BaseURLType.release
+                ? kReleaseBaseURL
+                : kTestBaseURL),
 //    proxy: 'PROXY localhost:8888',
-          connectTimeout: 10,
-          receiveTimeout: 10,
-        ),
-        onRequest: _onRequest),
+        connectTimeout: 10,
+        receiveTimeout: 10,
+      ),
+      onRequest: _onRequest,
+    ),
     onResult: _onValidResult,
   );
 }
