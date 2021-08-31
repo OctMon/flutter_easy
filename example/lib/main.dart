@@ -14,7 +14,7 @@ void main() {
       configAPI(null);
     },
     completionCallback: () {
-      runApp(App());
+      runApp(MyApp());
       if (isAndroid) {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
