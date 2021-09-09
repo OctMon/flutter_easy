@@ -13,6 +13,7 @@ extension BaseStateExt<T> on StateMixin<T> {
     Widget Function(String? error)? onError,
     Widget? onLoading,
     Widget? onEmpty,
+    void Function()? onLoadTap,
   }) {
     return SimpleBuilder(builder: (_) {
       if (status.isLoading) {
@@ -23,6 +24,7 @@ extension BaseStateExt<T> on StateMixin<T> {
             : Center(
                 child: BasePlaceholderView(
                 title: "${status.errorMessage}",
+                onTap: onLoadTap,
               ));
       } else if (status.isEmpty) {
         return onEmpty != null
@@ -39,6 +41,7 @@ extension BaseStateExt<T> on StateMixin<T> {
     Widget Function(String? message)? onEmptyWidget,
     OnRefreshCallback? onRefresh,
     OnLoadCallback? onLoad,
+    void Function()? onLoadTap,
   }) {
     return SimpleBuilder(builder: (_) {
       return BaseRefresh(
@@ -48,7 +51,7 @@ extension BaseStateExt<T> on StateMixin<T> {
                 ? onEmptyWidget(status.errorMessage)
                 : BasePlaceholderView(
                     title: status.errorMessage,
-                    onTap: onRefresh,
+                    onTap: onLoadTap ?? () => refreshController.callRefresh(),
                   ))
             : null,
         onRefresh: onRefresh,
