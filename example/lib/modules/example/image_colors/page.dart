@@ -9,6 +9,8 @@ import 'package:palette_generator/palette_generator.dart';
 import 'controller.dart';
 
 class ImageColorsPage extends StatelessWidget {
+  const ImageColorsPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ImageColorsController controller = Get.put(ImageColorsController());
@@ -19,20 +21,20 @@ class ImageColorsPage extends StatelessWidget {
         builder: (context) => BaseActionSheet(
           actions: <Widget>[
             BaseActionSheetAction(
-              child: BaseText('拍照'),
+              child: const BaseText('拍照'),
               onPressed: () {
                 back(0);
               },
             ),
             BaseActionSheetAction(
-              child: BaseText('从相册选择'),
+              child: const BaseText('从相册选择'),
               onPressed: () {
                 back(1);
               },
             ),
           ],
           cancelButton: BaseActionSheetAction(
-            child: BaseText('取消'),
+            child: const BaseText('取消'),
             isDestructiveAction: true,
             onPressed: () {
               back();
@@ -61,7 +63,7 @@ class ImageColorsPage extends StatelessWidget {
             BaseText(S.of(context).example_ExtractProminentColorsFromAnImage),
         actions: [
           BaseButton(
-            child: Icon(
+            child: const Icon(
               Icons.add,
               color: Colors.white,
             ),
@@ -86,14 +88,14 @@ class ImageColorsPage extends StatelessWidget {
                     width: screenWidthDp,
                   ),
                   Container(
-                      margin: EdgeInsets.all(15),
+                      margin: const EdgeInsets.all(15),
                       child: PaletteSwatches(
                           generator: controller.paletteGenerator!.value)),
                 ],
               ),
             );
           } else {
-            return Center(child: BaseText("Selected Image"));
+            return const Center(child: BaseText("Selected Image"));
           }
         },
       ),
@@ -213,7 +215,7 @@ class PaletteSwatch extends StatelessWidget {
       swatch = Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Spacer(),
+          const Spacer(),
           Expanded(
             flex: 2,
             child: Row(
@@ -225,7 +227,7 @@ class PaletteSwatch extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
         ],
       );
     }

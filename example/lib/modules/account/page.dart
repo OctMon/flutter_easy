@@ -8,6 +8,8 @@ import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 
 class AccountPage extends StatelessWidget {
+  const AccountPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final service = Get.find<UserService>();
@@ -23,7 +25,7 @@ class AccountPage extends StatelessWidget {
               brightness: Brightness.dark,
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
-                  margin: EdgeInsets.only(top: 50),
+                  margin: const EdgeInsets.only(top: 50),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -57,7 +59,7 @@ class AccountPage extends StatelessWidget {
               actions: service.isLogin
                   ? [
                       BaseButton(
-                        child: Icon(
+                        child: const Icon(
                           Icons.exit_to_app,
                           color: Colors.white,
                         ),
@@ -113,7 +115,7 @@ class AccountPage extends StatelessWidget {
                                   child: BaseText(S.of(context).systemDefault),
                                 )),
                           cancelButton: BaseActionSheetAction(
-                            child: BaseText('取消'),
+                            child: const BaseText('取消'),
                             isDestructiveAction: true,
                             onPressed: () {
                               Navigator.pop(context);

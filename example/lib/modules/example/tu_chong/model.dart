@@ -195,5 +195,5 @@ extension TuChongModelExtension on TCImageModel {
   }
 
   String get imageURL =>
-      "https://photo.tuchong.com/" + "$userId" + "/f/" + "$imgId" + ".jpg";
+      "https://photo.tuchong.com/" "$userId" "/f/" "$imgId" ".jpg";
 }

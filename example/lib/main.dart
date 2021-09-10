@@ -14,7 +14,7 @@ void main() {
       configAPI(null);
     },
     completionCallback: () {
-      runApp(MyApp());
+      runApp(const MyApp());
       if (isAndroid) {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
@@ -22,7 +22,7 @@ void main() {
         ]);
         // Set overlay style status bar. It must run after MyApp(), because MaterialApp may override it.
         SystemUiOverlayStyle systemUiOverlayStyle =
-            SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+            const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
         SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
       }
     },

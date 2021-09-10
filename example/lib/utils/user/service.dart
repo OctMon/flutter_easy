@@ -26,7 +26,7 @@ class UserService extends GetxService {
   Future<bool> clean() async {
     bool success = await removeStorage(_keyUser);
     if (success) {
-      this.user.value = UserModel();
+      user.value = UserModel();
     }
     return success;
   }

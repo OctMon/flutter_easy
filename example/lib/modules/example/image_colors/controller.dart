@@ -17,7 +17,7 @@ class ImageColorsController extends GetxController {
       region: null,
       maximumColorCount: 200,
     );
-    this.imagePath.value = file.path;
+    imagePath.value = file.path;
     this.paletteGenerator = paletteGenerator.obs;
     dismissLoading();
   }

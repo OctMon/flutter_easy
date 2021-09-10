@@ -8,15 +8,17 @@ class HomePage extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
   final HomeState state = Get.find<HomeController>().state;
 
+  HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     TableRow buildTableRow({required String code, required String value}) {
       return TableRow(
         children: [
           Center(
-              child: Container(margin: EdgeInsets.all(5), child: Text(code))),
+              child: Container(margin: const EdgeInsets.all(5), child: Text(code))),
           Center(
-              child: Container(margin: EdgeInsets.all(5), child: Text(value))),
+              child: Container(margin: const EdgeInsets.all(5), child: Text(value))),
         ],
       );
     }
@@ -24,12 +26,12 @@ class HomePage extends StatelessWidget {
     TableRow buildTableRowTop({required String code, required String value}) {
       return TableRow(
         //第一行样式 添加背景色
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.grey,
         ),
         children: [
           Center(
-              child: Container(margin: EdgeInsets.all(5), child: Text(code))),
+              child: Container(margin: const EdgeInsets.all(5), child: Text(code))),
           Center(child: Text(value)),
         ],
       );
@@ -39,7 +41,7 @@ class HomePage extends StatelessWidget {
       appBar: BaseAppBar(
         leading: isAppDebugFlag
             ? IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.developer_mode,
                   color: Colors.white,
                 ),
@@ -52,12 +54,12 @@ class HomePage extends StatelessWidget {
       ),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           children: <Widget>[
             Obx(() {
               return Table(
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                columnWidths: {
+                columnWidths: const {
                   // 0: FixedColumnWidth(adaptDp(130)),
                 },
                 border: TableBorder.all(
@@ -74,7 +76,7 @@ class HomePage extends StatelessWidget {
                   buildTableRow(
                       code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
                       value:
-                          "${timestampToNormal_yyyy_MM_dd_HH_mm_ss(timestampNow())}"),
+                          timestampToNormal_yyyy_MM_dd_HH_mm_ss(timestampNow())),
                   buildTableRowTop(code: "is", value: "value"),
                   buildTableRow(code: "isProduction", value: "$isProduction"),
                   buildTableRow(code: "isDebug", value: "$isDebug"),
@@ -122,16 +124,16 @@ class HomePage extends StatelessWidget {
                       value: "${"150102201203072197".getAgeFromIdentityCard}"),
                   buildTableRow(
                       code: "\"110101193703074649\".isIdentityCard",
-                      value: "${"110101193703074649".getSexFromIdentityCard}"),
+                      value: "110101193703074649".getSexFromIdentityCard),
                   buildTableRow(
                       code: "\"octmon#qq.com\".isEmail",
                       value: "${"octmon#qq.com".isEmail}"),
                   buildTableRow(
                       code: "\"\".isEmptyOrNull", value: "${"".isEmptyOrNull}"),
                   buildTableRow(
-                      code: "\"OctMon\".md5", value: "${"OctMon".md5}"),
+                      code: "\"OctMon\".md5", value: "OctMon".md5),
                   buildTableRowTop(code: "other", value: "value"),
-                  buildTableRow(code: "webUserAgent", value: "$webUserAgent"),
+                  buildTableRow(code: "webUserAgent", value: webUserAgent),
                   buildTableRow(
                       code: "randomInt(100)", value: '${randomInt(100)}'),
                   buildTableRow(
@@ -144,26 +146,26 @@ class HomePage extends StatelessWidget {
                       value: ''),
                   buildTableRow(
                       code: "getClipboard()",
-                      value: "${state.clipboard.value}"),
+                      value: state.clipboard.value),
                   buildTableRow(
                       code: "assetsImagesPath(\"button\")",
-                      value: "${assetsImagesPath("button")}"),
+                      value: assetsImagesPath("button")),
                   buildTableRow(
                       code: "assetsImagesPathWebP(\"button\")",
-                      value: "${assetsImagesPathWebP("button")}"),
+                      value: assetsImagesPathWebP("button")),
                   buildTableRow(
                       code: "appStoreUrl(\"1234567890\")",
-                      value: "${appStoreUrl("1234567890")}"),
+                      value: appStoreUrl("1234567890")),
                   buildTableRow(
                       code: "appStoreUserReviewsUrl(\"1234567890\")",
-                      value: "${appStoreUserReviewsUrl("1234567890")}"),
+                      value: appStoreUserReviewsUrl("1234567890")),
                 ],
               );
             }),
             // buildTableRowTop(code: "log", value: "output"),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             BaseBackgroundButton(
-              title: BaseTitle(
+              title: const BaseTitle(
                 "BaseBackgroundButton",
                 color: Colors.white,
               ),
@@ -174,9 +176,9 @@ class HomePage extends StatelessWidget {
                 });
               },
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             BaseGradientButton(
-              title: BaseTitle(
+              title: const BaseTitle(
                 "BaseGradientButton",
                 color: Colors.white,
               ),
@@ -191,11 +193,11 @@ class HomePage extends StatelessWidget {
               opacity: Tween(begin: 0.0, end: 1.0).animate(
                 CurvedAnimation(
                   parent: state.animationController,
-                  curve: Interval(0.2, 1, curve: Curves.ease),
+                  curve: const Interval(0.2, 1, curve: Curves.ease),
                 ),
               ),
               child: BaseButton(
-                child: BaseText("Powered by OctMon"),
+                child: const BaseText("Powered by OctMon"),
                 onPressed: () {
                   onLaunch("https://octmon.github.io");
                 },

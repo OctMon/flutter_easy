@@ -13,6 +13,8 @@ const double _kSpacing = 4;
 class TuChongPage extends StatelessWidget {
   final TuChongController controller = Get.put(TuChongController());
 
+  TuChongPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -30,18 +32,18 @@ class TuChongPage extends StatelessWidget {
                 return Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: _kSpacing),
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      margin: const EdgeInsets.symmetric(vertical: _kSpacing),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       width: constraints.maxWidth - _kSpacing * 2,
                       color: colorWithRandom(),
                       child: Row(
                         children: [
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             width: 50,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(25),
-                                child: Icon(Icons.eighteen_mp)),
+                                child: const Icon(Icons.eighteen_mp)),
                           ),
                           Expanded(
                             child: Column(
@@ -50,12 +52,12 @@ class TuChongPage extends StatelessWidget {
                                   data.title,
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
                                 BaseTitle(
                                   data.siteId,
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
                                 BaseTitle(
                                   data.tags?.join(","),
                                   textAlign: TextAlign.center,
@@ -67,9 +69,9 @@ class TuChongPage extends StatelessWidget {
                       ),
                     ),
                     StaggeredGridView.countBuilder(
-                      padding: EdgeInsets.symmetric(horizontal: _kSpacing),
+                      padding: const EdgeInsets.symmetric(horizontal: _kSpacing),
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: _kCrossAxisCount,
                       itemCount: data.imageList?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
@@ -88,7 +90,7 @@ class TuChongPage extends StatelessWidget {
                         );
                       },
                       staggeredTileBuilder: (int index) =>
-                          new StaggeredTile.extent(
+                          StaggeredTile.extent(
                               data.imageList![index].isSquare == true
                                   ? _kCrossAxisCount
                                   : 1,

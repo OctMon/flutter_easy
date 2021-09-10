@@ -8,13 +8,13 @@ import 'modules/root/page.dart';
 import 'modules/splash/page.dart';
 
 class Routes {
-  static final String root = '/';
-  static final String splash = '/splash';
-  static final String example = '/example';
-  static final String account = '/account';
-  static final String tuChong = '$example/tu_chong';
-  static final String photoView = '$example/photo_view';
-  static final String imageColors = '$example/image_colors';
+  static const String root = '/';
+  static const String splash = '/splash';
+  static const String example = '/example';
+  static const String account = '/account';
+  static const String tuChong = '$example/tu_chong';
+  static const String photoView = '$example/photo_view';
+  static const String imageColors = '$example/image_colors';
 
   Routes._();
 
@@ -33,7 +33,7 @@ class Routes {
     ),
     GetPage(
       name: Routes.imageColors,
-      page: () => ImageColorsPage(),
+      page: () => const ImageColorsPage(),
     ),
     GetPage(
       name: Routes.tuChong,
@@ -41,7 +41,7 @@ class Routes {
     ),
     GetPage(
       name: Routes.photoView,
-      page: () => PhotoViewPage(),
+      page: () => const PhotoViewPage(),
     ),
   ];
 }

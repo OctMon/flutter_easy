@@ -10,7 +10,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   void onInit() {
     state.animationController = AnimationController(
         vsync: this /*NavigatorState()*/,
-        duration: Duration(milliseconds: 2000));
+        duration: const Duration(milliseconds: 2000));
     super.onInit();
   }
 
@@ -25,9 +25,4 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     super.onReady();
   }
 
-  @override
-  void onClose() {
-    // state.animationController.dispose();
-    super.onClose();
-  }
 }

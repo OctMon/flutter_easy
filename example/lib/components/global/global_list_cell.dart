@@ -15,7 +15,7 @@ class GlobalListCell extends StatelessWidget {
       children: <Widget>[
         BaseInkWell(
           child: Container(
-            margin: EdgeInsets.only(left: 20, right: 15),
+            margin: const EdgeInsets.only(left: 20, right: 15),
             height: 50,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -23,11 +23,11 @@ class GlobalListCell extends StatelessWidget {
                 Flexible(
                   child: Row(
                     children: <Widget>[
-                      Container(
+                      SizedBox(
                         width: adaptDp(22),
                         child: Icon(item.extend, color: colorWithHex3),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 12,
                       ),
                       Flexible(
@@ -47,7 +47,7 @@ class GlobalListCell extends StatelessWidget {
                         item.value,
                         fontSize: adaptDp(14),
                       ),
-                      Icon(Icons.navigate_next),
+                      const Icon(Icons.navigate_next),
                     ],
                   ),
                 )
@@ -56,7 +56,7 @@ class GlobalListCell extends StatelessWidget {
           ),
           onPressed: onPressed,
         ),
-        BaseDivider(),
+        const BaseDivider(),
       ],
     );
   }

@@ -16,7 +16,7 @@ class ExampleListPage extends StatelessWidget {
         title: BaseText(S.of(context).example),
         actions: [
           BaseButton(
-            child: Icon(
+            child: const Icon(
               Icons.delete_forever_sharp,
               color: Colors.white,
             ),
@@ -61,7 +61,7 @@ class ExampleListPage extends StatelessWidget {
                     return Material(
                       type: MaterialType.transparency,
                       child: Center(
-                        child: Container(
+                        child: SizedBox(
                           height: adaptDp(350),
                           width: adaptDp(300),
                           child: Navigator(
@@ -80,7 +80,7 @@ class ExampleListPage extends StatelessWidget {
                                                 value: "",
                                                 extend: Icons.login),
                                           ),
-                                          BaseDivider(),
+                                          const BaseDivider(),
                                           GlobalListCell(
                                             item: BaseKeyValue(
                                                 key: "Flags",
@@ -100,7 +100,7 @@ class ExampleListPage extends StatelessWidget {
                                                   appBar: BaseAppBar(
                                                     brightness:
                                                         Brightness.light,
-                                                    title: BaseText("Flags"),
+                                                    title: const BaseText("Flags"),
                                                   ),
                                                   body: ListView.separated(
                                                     padding:
@@ -123,7 +123,7 @@ class ExampleListPage extends StatelessWidget {
                                                             EdgeInsets.zero,
                                                         child: Row(
                                                           children: [
-                                                            Container(
+                                                            SizedBox(
                                                               width:
                                                                   50.adaptRatio,
                                                               height:
@@ -132,10 +132,10 @@ class ExampleListPage extends StatelessWidget {
                                                                   BaseWebImage(
                                                                 "https://flagpedia.net/data/flags/h160/${(locale.key as String).split("_").last.toLowerCase()}.webp",
                                                                 placeholder:
-                                                                    SizedBox(),
+                                                                    const SizedBox(),
                                                               ),
                                                             ),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                                 width: 8.0),
                                                             Flexible(
                                                               child: Column(
@@ -177,7 +177,7 @@ class ExampleListPage extends StatelessWidget {
                                                                       EdgeInsets
                                                                           .zero,
                                                                   title:
-                                                                      SizedBox(),
+                                                                      const SizedBox(),
                                                                   content:
                                                                       GestureDetector(
                                                                     onTap: () {
@@ -208,7 +208,7 @@ class ExampleListPage extends StatelessWidget {
                                                     separatorBuilder:
                                                         (BuildContext context,
                                                             int index) {
-                                                      return BaseDivider();
+                                                      return const BaseDivider();
                                                     },
                                                   ),
                                                 );

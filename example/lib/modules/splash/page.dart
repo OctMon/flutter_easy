@@ -6,6 +6,8 @@ import 'controller.dart';
 class SplashPage extends StatelessWidget {
   final SplashController controller = Get.put(SplashController());
 
+  SplashPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     String url =
@@ -23,7 +25,7 @@ class SplashPage extends StatelessWidget {
           alignment: Alignment.topRight,
           child: Obx(() {
             return BaseButton(
-              padding: EdgeInsets.only(top: 35, right: 20),
+              padding: const EdgeInsets.only(top: 35, right: 20),
               child: Text(controller.countDown.value == -1
                   ? ""
                   : '${controller.timer?.isActive}: skip(${controller.countDown})'),

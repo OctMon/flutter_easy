@@ -18,7 +18,7 @@ Future<void> initApp() async {
   // 初始化Api
   configAPI(null);
 
-  EasyLoading.instance..maskType = EasyLoadingMaskType.black;
+  EasyLoading.instance.maskType = EasyLoadingMaskType.black;
 
   colorWithBrightness = Brightness.dark;
 }
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
     return BaseApp(
       initialRoute: Routes.splash,
       getPages: Routes.routes,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

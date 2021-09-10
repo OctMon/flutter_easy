@@ -11,6 +11,8 @@ class LoginPage extends StatelessWidget {
   final LoginController controller = Get.put(LoginController());
   final LoginState state = Get.find<LoginController>().state;
 
+  LoginPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -19,7 +21,7 @@ class LoginPage extends StatelessWidget {
         brightness: Brightness.light,
         actions: <Widget>[
           BaseButton(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
             child: BaseTitle(
               S.of(context).cancel,
               fontSize: 16,
@@ -40,22 +42,22 @@ class LoginPage extends StatelessWidget {
           Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: <Widget>[
                     BaseTextField(
                         controller: state.phoneNumberController,
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         maxLength: 11,
                         placeholder: S.of(context).example_InputPhoneNumber,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
                         ]),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     BaseTextField(
                       controller: state.passwordController,
-                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
                       maxLength: 16,
                       placeholder: S.of(context).example_InputPassword,
                       obscureText: true,
@@ -67,7 +69,7 @@ class LoginPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             BaseButton(
-                              padding: EdgeInsets.symmetric(vertical: 15),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               child: BaseTitle(
                                 S.of(context).example_NewUserRegister,
                                 fontSize: adaptDp(14),
@@ -76,7 +78,7 @@ class LoginPage extends StatelessWidget {
                               onPressed: () async {},
                             ),
                             BaseButton(
-                              padding: EdgeInsets.symmetric(vertical: 15),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               child: BaseTitle(
                                 S.of(context).example_ForgetPassword,
                                 fontSize: adaptDp(14),
@@ -88,7 +90,7 @@ class LoginPage extends StatelessWidget {
                         ),
                         BaseGradientButton(
                           borderRadius: 5,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               offset: Offset(0, 3),
                               blurRadius: 12,
@@ -110,7 +112,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(15),
+                margin: const EdgeInsets.all(15),
                 alignment: Alignment.center,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -131,13 +133,13 @@ class LoginPage extends StatelessWidget {
                       ),
                       false.obs,
                     ),
-                    SizedBox(width: 2),
+                    const SizedBox(width: 2),
                     Flexible(
                       child: Text.rich(
                         TextSpan(
                           style: TextStyle(
                             fontSize: adaptDp(12),
-                            color: Color(0xff7a7a7a),
+                            color: const Color(0xff7a7a7a),
                           ),
                           children: [
                             TextSpan(

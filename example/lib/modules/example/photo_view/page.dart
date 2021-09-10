@@ -4,6 +4,8 @@ import 'package:flutter_easy_example/modules/example/tu_chong/model.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class PhotoViewPage extends StatelessWidget {
+  const PhotoViewPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final TCModel data = Get.arguments;
@@ -22,7 +24,7 @@ class PhotoViewPage extends StatelessWidget {
         },
         itemCount: data.imageCount,
         loadingBuilder: (context, event) => Center(
-          child: Container(
+          child: SizedBox(
             width: 20.0,
             height: 20.0,
             child: CircularProgressIndicator(
@@ -33,7 +35,7 @@ class PhotoViewPage extends StatelessWidget {
             ),
           ),
         ),
-        backgroundDecoration: BoxDecoration(color: Colors.white),
+        backgroundDecoration: const BoxDecoration(color: Colors.white),
       ),
     );
   }

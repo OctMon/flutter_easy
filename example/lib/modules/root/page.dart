@@ -10,6 +10,8 @@ import 'controller.dart';
 class RootPage extends StatelessWidget {
   final RootController controller = Get.put(RootController());
 
+  RootPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final List<String> titles = [
@@ -22,8 +24,8 @@ class RootPage extends StatelessWidget {
 
     final List<Widget> children = [
       HomePage(),
-      ExampleListPage(),
-      AccountPage(),
+      const ExampleListPage(),
+      const AccountPage(),
     ];
 
     return ObxValue<Rx<int>>((data) {
