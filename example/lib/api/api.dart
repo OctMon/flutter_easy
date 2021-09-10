@@ -24,27 +24,25 @@ void configAPI(String? baseURL) {
         connectTimeout: 10,
         receiveTimeout: 10,
       ),
-      onRequest: _onRequest,
+      onRequest: (options) async {
+        var headers = {
+          'os': isIOS ? 'ios' : 'android',
+        };
+        options.headers.addAll(headers);
+        final userController = Get.find<UserService>();
+        if (userController.isLogin) {
+          options.headers['id'] = userController.user.value.userId;
+        }
+        // options.contentType = Headers.formUrlEncodedContentType;
+        // options.responseType = ResponseType.plain;
+
+        logRequest(options);
+        return options;
+      },
     ),
     onResult: _onValidResult,
   );
 }
-
-SessionInterceptorSendHandler _onRequest = (options) async {
-  var headers = {
-    'os': isIOS ? 'ios' : 'android',
-  };
-  options.headers.addAll(headers);
-  final userController = Get.find<UserService>();
-  if (userController.isLogin) {
-    options.headers['id'] = userController.user.value.userId;
-  }
-  // options.contentType = Headers.formUrlEncodedContentType;
-  // options.responseType = ResponseType.plain;
-
-  logRequest(options);
-  return options;
-};
 
 /// 响应结果拦截处理
 Result _onValidResult(Result result, bool validResult) {

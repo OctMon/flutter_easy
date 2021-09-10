@@ -29,17 +29,17 @@ class SplashController extends GetxController {
 
   void _startCountdownTimer() {
     int count = randomInt(5) + 3;
-    var callback = (current) {
-      logDebug(current);
-      countDown.value = current ~/ Duration.millisecondsPerSecond;
-
-      if (countDown.value == 0) {
-        toRoot();
-      }
-    };
 
     timer = TimerUtil(
-        totalTime: count * Duration.millisecondsPerSecond, callback: callback);
+        totalTime: count * Duration.millisecondsPerSecond,
+        callback: (current) {
+          logDebug(current);
+          countDown.value = current ~/ Duration.millisecondsPerSecond;
+
+          if (countDown.value == 0) {
+            toRoot();
+          }
+        });
     2.seconds.delay(() {
       timer?.run();
     });

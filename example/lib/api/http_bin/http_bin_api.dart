@@ -16,11 +16,6 @@ Config _config(String? baseURL) {
   );
 }
 
-SessionInterceptorSendHandler _onRequest = (options) async {
-  logRequest(options);
-  return options;
-};
-
 /// 响应结果拦截处理
 Result _onValidResult<T>(Result result, bool validResult) {
   logResponse(result);
@@ -98,7 +93,10 @@ Future<Result> requestHttpBin(
   }
   Session session = Session(
     config: _config(baseUrl),
-    onRequest: _onRequest,
+    onRequest: (options) async {
+      logRequest(options);
+      return options;
+    },
   );
   Result result = await session.request(path,
       data: data, queryParameters: queryParameters, options: options);
