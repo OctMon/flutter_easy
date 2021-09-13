@@ -80,7 +80,7 @@ class AccountPage extends StatelessWidget {
                 item: BaseKeyValue(
                     key: S.of(context).language,
                     value:
-                        "${Get.deviceLocale == null ? S.of(context).systemDefault : LocaleNames.of(context)?.nameOf("${Get.deviceLocale}")} - ${Intl.getCurrentLocale()}",
+                        "${appLocale == appDeviceLocale ? S.of(context).systemDefault : LocaleNames.of(context)?.nameOf("$appLocale")} - ${Intl.getCurrentLocale()}",
                     extend: Icons.language),
                 onPressed: () {
                   showBaseModalBottomSheet(
@@ -97,7 +97,7 @@ class AccountPage extends StatelessWidget {
                             return BaseActionSheetAction(
                               onPressed: () {
                                 back();
-                                Get.updateLocale(l);
+                                appUpdateLocale(l);
                               },
                               child: BaseText(nativeLocaleName == localeString
                                   ? nativeLocaleName
@@ -110,7 +110,9 @@ class AccountPage extends StatelessWidget {
                                   isDefaultAction: true,
                                   onPressed: () {
                                     back();
-                                    Get.updateLocale(Get.deviceLocale!);
+                                    if (appDeviceLocale != null) {
+                                      appUpdateLocale(appDeviceLocale!);
+                                    }
                                   },
                                   child: BaseText(S.of(context).systemDefault),
                                 )),

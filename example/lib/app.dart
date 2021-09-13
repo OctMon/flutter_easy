@@ -46,6 +46,9 @@ class MyApp extends StatelessWidget {
         if (locale == null || !S.delegate.isSupported(locale)) {
           return null;
         }
+        if (locale.languageCode == "zh") {
+          return const Locale("zh", "CN");
+        }
         return locale;
       },
     );

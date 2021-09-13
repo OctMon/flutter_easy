@@ -73,6 +73,8 @@ class HomePage extends StatelessWidget {
                   buildTableRow(code: "appPackageName", value: appPackageName),
                   buildTableRow(code: "appBuildNumber", value: appBuildNumber),
                   buildTableRow(code: "appVersion", value: appVersion),
+                  buildTableRow(code: "appLocale", value: "$appLocale"),
+                  buildTableRow(code: "appDeviceLocale", value: "$appDeviceLocale"),
                   buildTableRow(
                       code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
                       value:
