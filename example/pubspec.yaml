@@ -56,14 +56,14 @@ dependencies:
   # NSPhotoLibraryUsageDescription - describe why your app needs permission for the photo library. This is called Privacy - Photo Library Usage Description in the visual editor.
   # NSCameraUsageDescription - describe why your app needs access to the camera. This is called Privacy - Camera Usage Description in the visual editor.
   # NSMicrophoneUsageDescription - describe why your app needs access to the microphone, if you intend to record videos. This is called Privacy - Microphone Usage Description in the visual editor.
-  image_picker: ^0.8.3+2
+  image_picker: ^0.8.4
 
   # ===============================================================================
   # 名称：Palette Generator package
   # 来源：https://pub.dev/packages/palette_generator
   # GitHub：https://github.com/flutter/packages/tree/master/packages/palette_generator
   # 说明：A Flutter package to extract prominent colors from an Image, typically used to find colors for a user interface.
-  palette_generator: ^0.3.0
+  palette_generator: ^0.3.1
 
   # ===============================================================================
   # 名称： locale names from locale codes (ISO 639‑2 and ISO 639-3) for 563 locales.

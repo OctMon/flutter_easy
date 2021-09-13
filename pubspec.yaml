@@ -46,7 +46,7 @@ dependencies:
   # git：https://github.com/kokohuang/flutter_easyloading
   # desc： ✨A clean and lightweight loading/toast widget for Flutter, easy to use without context, support iOS、Android and Web
   # ===============================================================================
-  flutter_easyloading: ^3.0.0
+  flutter_easyloading: ^3.0.3
 
   # ===============================================================================
   # 共享首选项插件
@@ -72,7 +72,7 @@ dependencies:
   # pub: https://pub.dev/packages/url_launcher
   # git: https://github.com/flutter/plugins/tree/master/packages/url_launcher
   # ———————————————————————————————————————————————————————————————————————————————
-  url_launcher: ^6.0.9
+  url_launcher: ^6.0.10
   # ===============================================================================
 
   # ===============================================================================
