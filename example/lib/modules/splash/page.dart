@@ -14,9 +14,14 @@ class SplashPage extends StatelessWidget {
         "https://picsum.photos/${(screenWidthDp * screenDevicePixelRatio).round()}/${(screenHeightDp * screenDevicePixelRatio).round()}";
     return Stack(
       children: [
-        BaseLaunchRemote(
-          keepLogo: false,
-          url: url,
+        GestureDetector(
+          child: BaseWebImage(
+            url,
+            width: screenWidthDp,
+            height: screenHeightDp,
+            placeholder: const Center(child: BaseLoadingView()),
+            fit: BoxFit.fill,
+          ),
           onTap: () {
             showToast(url);
           },

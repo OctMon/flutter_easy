@@ -126,7 +126,6 @@ VoidCallback? _appBaseURLChangedCallback;
 /// flutter run --release --dart-define=app-debug-flag=true
 createEasyApp(
     {VoidCallback? appBaseURLChangedCallback,
-    Widget? initView,
     Future<void> Function()? initCallback,
     required VoidCallback completionCallback}) {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
@@ -155,13 +154,7 @@ createEasyApp(
       completionCallback();
     }
   }
-
-  runApp(
-    MaterialApp(
-      home: initView ?? Scaffold(backgroundColor: Colors.white),
-      debugShowCheckedModeBanner: false,
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
 
   Future.wait([
     PackageInfoUtil.init(),

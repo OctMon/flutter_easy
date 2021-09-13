@@ -8,7 +8,6 @@ import 'app.dart';
 void main() {
   createEasyApp(
     initCallback: initApp,
-    initView: initView,
     appBaseURLChangedCallback: () {
       // 刷新网络配置
       configAPI(null);

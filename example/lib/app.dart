@@ -23,12 +23,6 @@ Future<void> initApp() async {
   colorWithBrightness = Brightness.dark;
 }
 
-Widget get initView {
-  return BaseLaunchLocal(
-    child: Image.asset(assetsImagesPath("launch/flutter_logo_color")),
-  );
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
