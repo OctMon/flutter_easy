@@ -16,9 +16,11 @@ class HomePage extends StatelessWidget {
       return TableRow(
         children: [
           Center(
-              child: Container(margin: const EdgeInsets.all(5), child: Text(code))),
+              child: Container(
+                  margin: const EdgeInsets.all(5), child: Text(code))),
           Center(
-              child: Container(margin: const EdgeInsets.all(5), child: Text(value))),
+              child: Container(
+                  margin: const EdgeInsets.all(5), child: Text(value))),
         ],
       );
     }
@@ -26,12 +28,13 @@ class HomePage extends StatelessWidget {
     TableRow buildTableRowTop({required String code, required String value}) {
       return TableRow(
         //第一行样式 添加背景色
-        decoration: const BoxDecoration(
-          color: Colors.grey,
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         children: [
           Center(
-              child: Container(margin: const EdgeInsets.all(5), child: Text(code))),
+              child: Container(
+                  margin: const EdgeInsets.all(5), child: Text(code))),
           Center(child: Text(value)),
         ],
       );
@@ -51,6 +54,17 @@ class HomePage extends StatelessWidget {
               )
             : null,
         title: BaseText(appName),
+        actions: [
+          BaseButton(
+              child: const Icon(
+                Icons.volunteer_activism,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Get.changeTheme(
+                    Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
+              }),
+        ],
       ),
       body: SafeArea(
         child: ListView(
@@ -74,11 +88,12 @@ class HomePage extends StatelessWidget {
                   buildTableRow(code: "appBuildNumber", value: appBuildNumber),
                   buildTableRow(code: "appVersion", value: appVersion),
                   buildTableRow(code: "appLocale", value: "$appLocale"),
-                  buildTableRow(code: "appDeviceLocale", value: "$appDeviceLocale"),
+                  buildTableRow(
+                      code: "appDeviceLocale", value: "$appDeviceLocale"),
                   buildTableRow(
                       code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
-                      value:
-                          timestampToNormal_yyyy_MM_dd_HH_mm_ss(timestampNow())),
+                      value: timestampToNormal_yyyy_MM_dd_HH_mm_ss(
+                          timestampNow())),
                   buildTableRowTop(code: "is", value: "value"),
                   buildTableRow(code: "isProduction", value: "$isProduction"),
                   buildTableRow(code: "isDebug", value: "$isDebug"),
@@ -132,8 +147,7 @@ class HomePage extends StatelessWidget {
                       value: "${"octmon#qq.com".isEmail}"),
                   buildTableRow(
                       code: "\"\".isEmptyOrNull", value: "${"".isEmptyOrNull}"),
-                  buildTableRow(
-                      code: "\"OctMon\".md5", value: "OctMon".md5),
+                  buildTableRow(code: "\"OctMon\".md5", value: "OctMon".md5),
                   buildTableRowTop(code: "other", value: "value"),
                   buildTableRow(code: "webUserAgent", value: webUserAgent),
                   buildTableRow(
@@ -147,8 +161,7 @@ class HomePage extends StatelessWidget {
                       code: "setClipboard(\"https://www.baidu.com\")",
                       value: ''),
                   buildTableRow(
-                      code: "getClipboard()",
-                      value: state.clipboard.value),
+                      code: "getClipboard()", value: state.clipboard.value),
                   buildTableRow(
                       code: "assetsImagesPath(\"button\")",
                       value: assetsImagesPath("button")),

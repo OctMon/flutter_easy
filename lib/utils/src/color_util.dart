@@ -28,8 +28,6 @@ var colorWithAppBarLightBackground = Colors.white;
 
 var colorWithAppBarDarkBackground = colorWithTint;
 
-var colorWithScaffoldBackground = Colors.white;
-
 var colorWithDivider = Color(0xFFEFEFF4);
 
 const colorWithHex3 = Color(0xFF333333);

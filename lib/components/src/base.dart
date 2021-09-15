@@ -693,7 +693,7 @@ class BaseScaffold extends StatelessWidget {
               : appBar?.buildMaterialWidget(context))
           : null,
       body: body,
-      backgroundColor: backgroundColor ?? colorWithScaffoldBackground,
+      backgroundColor: backgroundColor ?? Get.theme.scaffoldBackgroundColor,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,

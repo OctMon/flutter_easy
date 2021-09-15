@@ -14,6 +14,7 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logInfo("Get.isDarkMode: ${Get.isDarkMode}");
     final List<String> titles = [
       S.of(context).home,
       S.of(context).example,
@@ -30,7 +31,7 @@ class RootPage extends StatelessWidget {
 
     return ObxValue<Rx<int>>((data) {
       return Scaffold(
-        backgroundColor: colorWithScaffoldBackground,
+        backgroundColor: Get.theme.scaffoldBackgroundColor,
         body: IndexedStack(
           index: data.value,
           children: children,
