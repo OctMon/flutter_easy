@@ -88,9 +88,6 @@ Future<int?> showModalPopupTitlesPicker(
                     },
                     child: BaseText(
                       '取消',
-                      style: TextStyle(
-                        color: colorWithTint,
-                      ),
                     ),
                   ),
                   BaseButton(
@@ -99,9 +96,6 @@ Future<int?> showModalPopupTitlesPicker(
                     },
                     child: BaseText(
                       '确认',
-                      style: TextStyle(
-                        color: colorWithTint,
-                      ),
                     ),
                   ),
                 ],

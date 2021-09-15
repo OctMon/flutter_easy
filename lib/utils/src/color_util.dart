@@ -21,8 +21,6 @@ var colorDarkAppBarBackground = Colors.black;
 var colorLightAppBarForegroundColor = colorWithHex3;
 var colorDarkAppBarForegroundColor = Colors.white;
 
-var colorWithTint = Color(0xFFFF4040);
-
 var colorWithPrimary1 = Color(0xFF00B247);
 
 var colorWithPrimary2 = Color(0xFF2B7CFF);
@@ -78,7 +76,8 @@ ThemeData getTheme({bool darkMode = false}) {
     splashColor: Colors.transparent,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       brightness: darkMode ? Brightness.dark : Brightness.light,
-      primary: darkMode ? colorDarkPrimarySwatchColor : colorLightPrimarySwatchColor,
+      primary:
+          darkMode ? colorDarkPrimarySwatchColor : colorLightPrimarySwatchColor,
     ),
     primaryColor: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
     // 页面背景色

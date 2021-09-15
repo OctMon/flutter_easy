@@ -23,7 +23,7 @@ class AccountPage extends StatelessWidget {
               pinned: true,
               expandedHeight: 211.0 + (isIPhoneX ? 0 : 24),
               tintColor: Colors.white,
-              backgroundColor: colorWithTint,
+              backgroundColor: Theme.of(context).primaryColor,
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   margin: const EdgeInsets.only(top: 50),

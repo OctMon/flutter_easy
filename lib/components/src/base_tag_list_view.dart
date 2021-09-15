@@ -33,7 +33,7 @@ class BaseTagListView extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   width: borderWidth,
-                  color: color ?? colorWithTint,
+                  color: color ?? Theme.of(context).primaryColor,
                 ),
                 borderRadius: borderRadius ??
                     BorderRadius.circular(

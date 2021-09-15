@@ -45,7 +45,7 @@ class BaseProgressBar extends StatelessWidget {
             color: backgroundColor ?? Color(0xFFEBEBEB),
           ),
           Container(
-            color: foregroundColor ?? colorWithTint,
+            color: foregroundColor ?? Theme.of(context).primaryColor,
             child:
                 aspectRatio <= 0 ? null : AspectRatio(aspectRatio: aspectRatio),
           ),

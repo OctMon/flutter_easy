@@ -64,8 +64,8 @@ class _BaseSegmentBarState extends State<BaseSegmentBar> {
   @override
   void initState() {
     selectItem = widget.selectIndex;
-    selectedColor = widget.selectedColor ?? colorWithTint;
-    borderColor = widget.borderColor ?? colorWithTint;
+    selectedColor = widget.selectedColor ?? Theme.of(context).primaryColor;
+    borderColor = widget.borderColor ?? Theme.of(context).primaryColor;
     super.initState();
   }
 

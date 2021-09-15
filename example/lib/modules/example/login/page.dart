@@ -70,7 +70,6 @@ class LoginPage extends StatelessWidget {
                               child: BaseTitle(
                                 S.of(context).example_NewUserRegister,
                                 fontSize: adaptDp(14),
-                                color: colorWithTint,
                               ),
                               onPressed: () async {},
                             ),
@@ -79,7 +78,6 @@ class LoginPage extends StatelessWidget {
                               child: BaseTitle(
                                 S.of(context).example_ForgetPassword,
                                 fontSize: adaptDp(14),
-                                color: colorWithTint,
                               ),
                               onPressed: () async {},
                             ),
@@ -125,7 +123,9 @@ class LoginPage extends StatelessWidget {
                               ? Icons.check_circle
                               : Icons.radio_button_unchecked,
                           size: adaptDp(20),
-                          color: checked.value ? colorWithTint : colorWithHex9,
+                          color: checked.value
+                              ? colorLightPrimaryColor
+                              : colorWithHex9,
                         ),
                       ),
                       false.obs,
@@ -146,7 +146,7 @@ class LoginPage extends StatelessWidget {
                             TextSpan(
                               text: S.of(context).example_UserAgreement,
                               style: TextStyle(
-                                color: colorWithTint,
+                                color: colorLightPrimaryColor,
                               ),
                               recognizer: TapGestureRecognizer()..onTap = () {},
                             ),
@@ -156,7 +156,7 @@ class LoginPage extends StatelessWidget {
                             TextSpan(
                               text: S.of(context).example_PrivacyPolicy,
                               style: TextStyle(
-                                color: colorWithTint,
+                                color: colorLightPrimaryColor,
                               ),
                               recognizer: TapGestureRecognizer()..onTap = () {},
                             ),

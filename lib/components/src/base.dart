@@ -327,7 +327,7 @@ class __DebugPageState extends State<_DebugPage> {
               height: _kMenuSize,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: colorWithTint,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(_kMenuSize / 2),
               ),
               child: GestureDetector(
@@ -955,7 +955,7 @@ class BaseBackgroundButton extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
         color: onPressed != null
-            ? (color ?? colorWithTint)
+            ? (color ?? Theme.of(context).primaryColor)
             : (disableColor ?? Colors.black12),
       ),
       child: TextButton(
@@ -1034,7 +1034,8 @@ class BaseOutlineButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             adaptDp(borderRadius),
           ),
-          border: Border.all(color: borderColor ?? colorWithTint),
+          border:
+              Border.all(color: borderColor ?? Theme.of(context).primaryColor),
           boxShadow: boxShadow,
         ),
         child: Center(
@@ -1126,7 +1127,7 @@ class BaseTextField extends StatelessWidget {
           obscureText: obscureText,
           autofocus: false,
           focusNode: focusNode,
-          cursorColor: colorWithTint,
+          cursorColor: Theme.of(context).primaryColor,
           style: style ??
               TextStyle(
                 fontSize: adaptDp(14),
