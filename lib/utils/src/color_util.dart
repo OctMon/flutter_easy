@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 var colorWithBrightness = Brightness.light;
@@ -11,6 +12,12 @@ var colorDarkScaffoldBackground = Colors.black;
 var colorLightPrimaryColor = Colors.red;
 var colorDarkPrimaryColor = Colors.purple;
 
+var colorLightAppBarBackground = Colors.white;
+var colorDarkAppBarBackground = Colors.black;
+
+var colorLightAppBarForegroundColor = colorWithHex3;
+var colorDarkAppBarForegroundColor = Colors.white;
+
 var colorWithTint = Color(0xFFFF4040);
 
 var colorWithPrimary1 = Color(0xFF00B247);
@@ -19,10 +26,6 @@ var colorWithPrimary2 = Color(0xFF2B7CFF);
 
 var colorWithPrimary3 = Color(0xFFE6A23C);
 
-var colorWithAppBarLightTint = colorWithHex3;
-
-var colorWithAppBarDartTint = Colors.white;
-
 var colorWithTitle = colorWithHex3;
 
 var colorWithText1 = Color(0xff303133);
@@ -30,10 +33,6 @@ var colorWithText1 = Color(0xff303133);
 var colorWithText2 = Color(0xff606266);
 
 var colorWithText3 = Color(0xff909399);
-
-var colorWithAppBarLightBackground = Colors.white;
-
-var colorWithAppBarDarkBackground = colorWithTint;
 
 var colorWithDivider = Color(0xFFEFEFF4);
 
@@ -76,6 +75,7 @@ ThemeData getTheme({bool darkMode = false}) {
     splashColor: Colors.transparent,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       brightness: darkMode ? Brightness.dark : Brightness.light,
+      primary: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
     ),
     primaryColor: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
     // 页面背景色
@@ -83,5 +83,14 @@ ThemeData getTheme({bool darkMode = false}) {
         darkMode ? colorDarkScaffoldBackground : colorLightScaffoldBackground,
     // Tab指示器颜色
     indicatorColor: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
+    appBarTheme: AppBarTheme(
+      elevation: 0.0,
+      foregroundColor: darkMode
+          ? colorDarkAppBarForegroundColor
+          : colorLightAppBarForegroundColor,
+      color: darkMode ? colorDarkAppBarBackground : colorLightAppBarBackground,
+      systemOverlayStyle:
+          darkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+    ),
   );
 }

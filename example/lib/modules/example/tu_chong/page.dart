@@ -19,7 +19,6 @@ class TuChongPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        brightness: Brightness.dark,
         title: BaseText(S.of(context).example_PictureWaterfallFlow),
       ),
       body: controller.baseRefresh(

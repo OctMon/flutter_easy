@@ -11,7 +11,6 @@ class PhotoViewPage extends StatelessWidget {
     final TCModel data = Get.arguments;
     return BaseScaffold(
       appBar: BaseAppBar(
-        brightness: Brightness.light,
         title: BaseText(data.title),
       ),
       body: PhotoViewGallery.builder(

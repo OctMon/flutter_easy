@@ -67,10 +67,7 @@ class HomePage extends StatelessWidget {
       appBar: BaseAppBar(
         leading: isAppDebugFlag
             ? IconButton(
-                icon: const Icon(
-                  Icons.developer_mode,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.developer_mode),
                 onPressed: () {
                   showSelectBaseURLTypeAlert(context: context);
                 },
@@ -79,10 +76,7 @@ class HomePage extends StatelessWidget {
         title: BaseText(appName),
         actions: [
           BaseButton(
-            child: const Icon(
-              Icons.volunteer_activism,
-              color: Colors.white,
-            ),
+            child: const Icon(Icons.volunteer_activism),
             onPressed: () {
               final mode = themeModes[(++themeModeCurrent) % 3];
               Get.changeThemeMode(mode);

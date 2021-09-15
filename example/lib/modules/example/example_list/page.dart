@@ -15,11 +15,8 @@ class ExampleListPage extends StatelessWidget {
       appBar: BaseAppBar(
         title: BaseText(S.of(context).example),
         actions: [
-          BaseButton(
-            child: const Icon(
-              Icons.delete_forever_sharp,
-              color: Colors.white,
-            ),
+          IconButton(
+            icon: const Icon(Icons.delete_forever_sharp),
             onPressed: () async {
               offAllNamed(Routes.root);
             },
@@ -98,9 +95,8 @@ class ExampleListPage extends StatelessWidget {
                                                         .toList();
                                                 return BaseScaffold(
                                                   appBar: BaseAppBar(
-                                                    brightness:
-                                                        Brightness.light,
-                                                    title: const BaseText("Flags"),
+                                                    title:
+                                                        const BaseText("Flags"),
                                                   ),
                                                   body: ListView.separated(
                                                     padding:

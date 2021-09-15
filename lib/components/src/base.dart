@@ -438,7 +438,7 @@ Widget? _buildLeading(
       } else {
         _leading = IconButton(
           icon: useCloseButton ? const Icon(Icons.close) : buildLeading(),
-          color: tintColor ?? colorWithAppBarLightTint,
+          color: tintColor ?? colorDarkAppBarForegroundColor,
           onPressed: leadingOnPressed ?? () => Navigator.maybePop(context),
         );
       }
@@ -456,7 +456,6 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final double? elevation;
   final Color? tintColor;
   final Color? backgroundColor;
-  final Brightness? brightness;
 
   BaseAppBar({
     this.automaticallyImplyLeading = true,
@@ -464,15 +463,13 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
     this.leading,
     this.leadingOnPressed,
     this.actions,
-    this.elevation = 0,
+    this.elevation,
     this.tintColor,
     this.backgroundColor,
-    this.brightness,
   });
 
   @override
   AppBar buildMaterialWidget(BuildContext context) {
-    Brightness brightness = this.brightness ?? colorWithBrightness;
     return AppBar(
       automaticallyImplyLeading: automaticallyImplyLeading,
       leading: automaticallyImplyLeading
@@ -480,37 +477,18 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
               context: context,
               leading: leading,
               leadingOnPressed: leadingOnPressed,
-              tintColor: tintColor ??
-                  (brightness == Brightness.light
-                      ? colorWithAppBarLightTint
-                      : colorWithAppBarDartTint))
-          : null,
-      title: title != null
-          ? DefaultTextStyle(
-              style: TextStyle(
-                fontSize: 17,
-                color: tintColor ??
-                    (brightness == Brightness.light
-                        ? colorWithAppBarLightTint
-                        : colorWithAppBarDartTint),
-                fontWeight: FontWeight.w500,
-              ),
-              child: title!,
+              tintColor: tintColor,
             )
           : null,
+      title: title,
       actions: actions == null ? [] : actions,
       elevation: elevation,
-      backgroundColor: backgroundColor ??
-          (brightness == Brightness.light
-              ? colorWithAppBarLightBackground
-              : colorWithAppBarDarkBackground),
-      brightness: brightness,
+      backgroundColor: backgroundColor,
     );
   }
 
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
-    Brightness brightness = this.brightness ?? colorWithBrightness;
     return PreferredSize(
       preferredSize: Size.fromHeight(screenToolbarHeightDp),
       child: AppBar(
@@ -520,31 +498,13 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
                 context: context,
                 leading: leading,
                 leadingOnPressed: leadingOnPressed,
-                tintColor: tintColor ??
-                    (brightness == Brightness.light
-                        ? colorWithAppBarLightTint
-                        : colorWithAppBarDartTint))
-            : null,
-        title: title != null
-            ? DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: 17,
-                  color: tintColor ??
-                      (brightness == Brightness.light
-                          ? colorWithAppBarLightTint
-                          : colorWithAppBarDartTint),
-                  fontWeight: FontWeight.w500,
-                ),
-                child: title!,
+                tintColor: tintColor,
               )
             : null,
+        title: title,
         actions: actions == null ? [] : actions,
         elevation: elevation,
-        backgroundColor: backgroundColor ??
-            (brightness == Brightness.light
-                ? colorWithAppBarLightBackground
-                : colorWithAppBarDarkBackground),
-        brightness: brightness,
+        backgroundColor: backgroundColor,
       ),
     );
   }
@@ -558,7 +518,6 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   final double? elevation;
   final Color? tintColor;
   final Color? backgroundColor;
-  final Brightness? brightness;
   final bool? centerTitle;
   final bool floating;
   final bool pinned;
@@ -573,7 +532,6 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
     this.elevation = 0,
     this.tintColor,
     this.backgroundColor,
-    this.brightness,
     this.centerTitle,
     this.floating = false,
     this.pinned = false,
@@ -583,36 +541,17 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 
   @override
   SliverAppBar buildMaterialWidget(BuildContext context) {
-    Brightness brightness = this.brightness ?? colorWithBrightness;
     return SliverAppBar(
       leading: _buildLeading(
-          context: context,
-          leading: this.leading,
-          leadingOnPressed: leadingOnPressed,
-          tintColor: tintColor ??
-              (brightness == Brightness.light
-                  ? colorWithAppBarLightTint
-                  : colorWithAppBarDartTint)),
-      title: title != null
-          ? DefaultTextStyle(
-              style: TextStyle(
-                fontSize: 17,
-                color: tintColor ??
-                    (brightness == Brightness.light
-                        ? colorWithAppBarLightTint
-                        : colorWithAppBarDartTint),
-                fontWeight: FontWeight.w500,
-              ),
-              child: title!,
-            )
-          : null,
+        context: context,
+        leading: this.leading,
+        leadingOnPressed: leadingOnPressed,
+        tintColor: tintColor,
+      ),
+      title: title,
       actions: actions == null ? [] : actions,
       elevation: elevation,
-      backgroundColor: backgroundColor ??
-          (brightness == Brightness.light
-              ? colorWithAppBarLightBackground
-              : colorWithAppBarDarkBackground),
-      brightness: brightness,
+      backgroundColor: backgroundColor,
       pinned: pinned,
       expandedHeight: expandedHeight,
       flexibleSpace: flexibleSpace,
@@ -621,38 +560,19 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
-    Brightness brightness = this.brightness ?? colorWithBrightness;
     return PreferredSize(
       preferredSize: Size.fromHeight(screenToolbarHeightDp),
       child: SliverAppBar(
         leading: _buildLeading(
-            context: context,
-            leading: this.leading,
-            leadingOnPressed: leadingOnPressed,
-            tintColor: tintColor ??
-                (brightness == Brightness.light
-                    ? colorWithAppBarLightTint
-                    : colorWithAppBarDartTint)),
-        title: title != null
-            ? DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: 17,
-                  color: tintColor ??
-                      (brightness == Brightness.light
-                          ? colorWithAppBarLightTint
-                          : colorWithAppBarDartTint),
-                  fontWeight: FontWeight.w500,
-                ),
-                child: title!,
-              )
-            : null,
+          context: context,
+          leading: this.leading,
+          leadingOnPressed: leadingOnPressed,
+          tintColor: tintColor,
+        ),
+        title: title,
         actions: actions == null ? [] : actions,
         elevation: elevation,
-        backgroundColor: backgroundColor ??
-            (brightness == Brightness.light
-                ? colorWithAppBarLightBackground
-                : colorWithAppBarDarkBackground),
-        brightness: brightness,
+        backgroundColor: backgroundColor,
         centerTitle: centerTitle,
         floating: floating,
         pinned: pinned,

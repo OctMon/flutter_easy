@@ -25,7 +25,7 @@ class GlobalListCell extends StatelessWidget {
                     children: <Widget>[
                       SizedBox(
                         width: adaptDp(22),
-                        child: Icon(item.extend, color: colorWithHex3),
+                        child: Icon(item.extend),
                       ),
                       const SizedBox(
                         width: 12,

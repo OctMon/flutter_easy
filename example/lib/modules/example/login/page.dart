@@ -18,7 +18,6 @@ class LoginPage extends StatelessWidget {
     return BaseScaffold(
       appBar: BaseAppBar(
         automaticallyImplyLeading: false,
-        brightness: Brightness.light,
         actions: <Widget>[
           BaseButton(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
