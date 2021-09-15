@@ -8,6 +8,14 @@ class HomePage extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
   final HomeState state = Get.find<HomeController>().state;
 
+  static const List<ThemeMode> themeModes = [
+    ThemeMode.system,
+    ThemeMode.light,
+    ThemeMode.dark,
+  ];
+
+  static var themeModeCurrent = 0;
+
   HomePage({Key? key}) : super(key: key);
 
   @override
@@ -29,13 +37,28 @@ class HomePage extends StatelessWidget {
       return TableRow(
         //第一行样式 添加背景色
         decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
+          color: Theme.of(context).primaryColor,
         ),
         children: [
           Center(
-              child: Container(
-                  margin: const EdgeInsets.all(5), child: Text(code))),
-          Center(child: Text(value)),
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              child: Text(
+                code,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: Text(
+              value,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       );
     }
@@ -56,14 +79,16 @@ class HomePage extends StatelessWidget {
         title: BaseText(appName),
         actions: [
           BaseButton(
-              child: const Icon(
-                Icons.volunteer_activism,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Get.changeTheme(
-                    appDarkMode ? ThemeData.light() : ThemeData.dark());
-              }),
+            child: const Icon(
+              Icons.volunteer_activism,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              final mode = themeModes[(++themeModeCurrent) % 3];
+              Get.changeThemeMode(mode);
+              showSuccessToast("$mode");
+            },
+          ),
         ],
       ),
       body: SafeArea(
@@ -77,7 +102,7 @@ class HomePage extends StatelessWidget {
                   // 0: FixedColumnWidth(adaptDp(130)),
                 },
                 border: TableBorder.all(
-                  color: colorWithTint,
+                  color: Theme.of(context).primaryColor,
                   width: 1.0,
                   style: BorderStyle.solid,
                 ),

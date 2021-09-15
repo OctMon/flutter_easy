@@ -196,6 +196,7 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
 
 class BaseApp extends StatefulWidget {
   final String title;
+  final ThemeMode themeMode;
   final String? initialRoute;
   final Widget? home;
   final TransitionBuilder? builder;
@@ -209,6 +210,7 @@ class BaseApp extends StatefulWidget {
 
   BaseApp({
     this.title = "",
+    this.themeMode = ThemeMode.system,
     this.initialRoute,
     this.home,
     this.builder,
@@ -255,11 +257,9 @@ class _BaseAppState extends State<BaseApp> {
     return GetMaterialApp(
       title: widget.title,
       initialRoute: widget.initialRoute,
-      theme: ThemeData(
-        platform: TargetPlatform.iOS,
-        primarySwatch: Colors.grey,
-        splashColor: Colors.transparent,
-      ),
+      theme: getTheme(),
+      darkTheme: getTheme(darkMode: true),
+      themeMode: widget.themeMode,
       home: widget.home,
       builder: widget.builder ??
           EasyLoading.init(
@@ -694,7 +694,7 @@ class BaseScaffold extends StatelessWidget {
               : appBar?.buildMaterialWidget(context))
           : null,
       body: body,
-      backgroundColor: backgroundColor ?? appTheme.scaffoldBackgroundColor,
+      backgroundColor: backgroundColor,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,

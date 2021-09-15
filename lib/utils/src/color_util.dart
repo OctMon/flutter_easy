@@ -5,6 +5,12 @@ import 'package:get/get.dart';
 
 var colorWithBrightness = Brightness.light;
 
+var colorLightScaffoldBackground = Colors.white;
+var colorDarkScaffoldBackground = Colors.black;
+
+var colorLightPrimaryColor = Colors.red;
+var colorDarkPrimaryColor = Colors.purple;
+
 var colorWithTint = Color(0xFFFF4040);
 
 var colorWithPrimary1 = Color(0xFF00B247);
@@ -55,8 +61,6 @@ const colorWithHexD = Color(0xFFDDDDDD);
 
 const colorWithHexE = Color(0xFFEEEEEE);
 
-ThemeData get appTheme => Get.theme;
-
 bool get appDarkMode => Get.isDarkMode;
 
 Color colorWithRandom() {
@@ -64,4 +68,20 @@ Color colorWithRandom() {
   int greed = Random.secure().nextInt(255);
   int blue = Random.secure().nextInt(255);
   return Color.fromARGB(255, red, greed, blue);
+}
+
+ThemeData getTheme({bool darkMode = false}) {
+  return ThemeData(
+    platform: TargetPlatform.iOS,
+    splashColor: Colors.transparent,
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      brightness: darkMode ? Brightness.dark : Brightness.light,
+    ),
+    primaryColor: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
+    // 页面背景色
+    scaffoldBackgroundColor:
+        darkMode ? colorDarkScaffoldBackground : colorLightScaffoldBackground,
+    // Tab指示器颜色
+    indicatorColor: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
+  );
 }

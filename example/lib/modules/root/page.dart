@@ -31,7 +31,6 @@ class RootPage extends StatelessWidget {
 
     return ObxValue<Rx<int>>((data) {
       return Scaffold(
-        backgroundColor: appTheme.scaffoldBackgroundColor,
         body: IndexedStack(
           index: data.value,
           children: children,
@@ -39,14 +38,14 @@ class RootPage extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedFontSize: 12,
-          // selectedItemColor: colorWithTint,
+          selectedItemColor: Theme.of(context).indicatorColor,
           currentIndex: data.value,
           items: List.generate(titles.length, (index) {
             return BottomNavigationBarItem(
               icon: Icon(icons[index]),
               activeIcon: Icon(
                 icons[index],
-                // color: colorWithTint,
+                color: Theme.of(context).indicatorColor,
               ),
               label: titles[index],
               // title: Container(),
