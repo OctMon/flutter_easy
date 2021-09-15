@@ -12,6 +12,9 @@ var colorDarkScaffoldBackground = Colors.black;
 var colorLightPrimaryColor = Colors.red;
 var colorDarkPrimaryColor = Colors.purple;
 
+var colorLightPrimarySwatchColor = colorWithHex3;
+var colorDarkPrimarySwatchColor = Colors.white;
+
 var colorLightAppBarBackground = Colors.white;
 var colorDarkAppBarBackground = Colors.black;
 
@@ -75,7 +78,7 @@ ThemeData getTheme({bool darkMode = false}) {
     splashColor: Colors.transparent,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       brightness: darkMode ? Brightness.dark : Brightness.light,
-      primary: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
+      primary: darkMode ? colorDarkPrimarySwatchColor : colorLightPrimarySwatchColor,
     ),
     primaryColor: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
     // 页面背景色

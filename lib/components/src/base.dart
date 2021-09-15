@@ -456,6 +456,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final double? elevation;
   final Color? tintColor;
   final Color? backgroundColor;
+  final SystemUiOverlayStyle? systemOverlayStyle;
 
   BaseAppBar({
     this.automaticallyImplyLeading = true,
@@ -466,6 +467,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
     this.elevation,
     this.tintColor,
     this.backgroundColor,
+    this.systemOverlayStyle,
   });
 
   @override
@@ -484,6 +486,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
       actions: actions == null ? [] : actions,
       elevation: elevation,
       backgroundColor: backgroundColor,
+      systemOverlayStyle: systemOverlayStyle,
     );
   }
 
@@ -505,6 +508,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
         actions: actions == null ? [] : actions,
         elevation: elevation,
         backgroundColor: backgroundColor,
+        systemOverlayStyle: systemOverlayStyle,
       ),
     );
   }
@@ -523,6 +527,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   final bool pinned;
   final double? expandedHeight;
   final Widget? flexibleSpace;
+  final SystemUiOverlayStyle? systemOverlayStyle;
 
   BaseSliverAppBar({
     this.title,
@@ -537,6 +542,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
     this.pinned = false,
     this.expandedHeight,
     this.flexibleSpace,
+    this.systemOverlayStyle,
   });
 
   @override
@@ -555,6 +561,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
       pinned: pinned,
       expandedHeight: expandedHeight,
       flexibleSpace: flexibleSpace,
+      systemOverlayStyle: systemOverlayStyle,
     );
   }
 
@@ -578,6 +585,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
         pinned: pinned,
         expandedHeight: expandedHeight,
         flexibleSpace: flexibleSpace,
+        systemOverlayStyle: systemOverlayStyle,
       ),
     );
   }

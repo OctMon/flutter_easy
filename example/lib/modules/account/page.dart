@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easy_example/utils/user/service.dart';
 import 'package:flutter_easy_example/routes.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +19,7 @@ class AccountPage extends StatelessWidget {
         slivers: <Widget>[
           Obx(() {
             return BaseSliverAppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
               pinned: true,
               expandedHeight: 211.0 + (isIPhoneX ? 0 : 24),
               tintColor: Colors.white,
