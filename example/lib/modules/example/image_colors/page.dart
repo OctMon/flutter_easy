@@ -63,10 +63,7 @@ class ImageColorsPage extends StatelessWidget {
             BaseText(S.of(context).example_ExtractProminentColorsFromAnImage),
         actions: [
           BaseButton(
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
+            child: const Icon(Icons.add),
             onPressed: () {
               _onImagePickerClicked();
             },

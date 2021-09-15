@@ -21,16 +21,14 @@ class LoginPage extends StatelessWidget {
         actions: <Widget>[
           BaseButton(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-            child: BaseTitle(
+            child: BaseText(
               S.of(context).cancel,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onPressed: () => Navigator.pop(context, false),
           ),
         ],
       ),
-      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[

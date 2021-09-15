@@ -30,9 +30,6 @@ Future<DateTime?> showModalPopupDatePicker(BuildContext context,
                     },
                     child: BaseText(
                       '取消',
-                      style: TextStyle(
-                        color: colorWithTint,
-                      ),
                     ),
                   ),
                   BaseButton(
@@ -41,9 +38,6 @@ Future<DateTime?> showModalPopupDatePicker(BuildContext context,
                     },
                     child: BaseText(
                       '确认',
-                      style: TextStyle(
-                        color: colorWithTint,
-                      ),
                     ),
                   ),
                 ],
