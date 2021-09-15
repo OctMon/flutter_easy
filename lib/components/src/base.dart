@@ -154,6 +154,7 @@ createEasyApp(
       completionCallback();
     }
   }
+
   WidgetsFlutterBinding.ensureInitialized();
 
   Future.wait([
@@ -693,7 +694,7 @@ class BaseScaffold extends StatelessWidget {
               : appBar?.buildMaterialWidget(context))
           : null,
       body: body,
-      backgroundColor: backgroundColor ?? Get.theme.scaffoldBackgroundColor,
+      backgroundColor: backgroundColor ?? appTheme.scaffoldBackgroundColor,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,

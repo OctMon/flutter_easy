@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 var colorWithBrightness = Brightness.light;
 
@@ -53,6 +54,10 @@ const colorWithHexC = Color(0xFFCCCCCC);
 const colorWithHexD = Color(0xFFDDDDDD);
 
 const colorWithHexE = Color(0xFFEEEEEE);
+
+ThemeData get appTheme => Get.theme;
+
+bool get appDarkMode => Get.isDarkMode;
 
 Color colorWithRandom() {
   int red = Random.secure().nextInt(255);

@@ -14,7 +14,7 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logInfo("Get.isDarkMode: ${Get.isDarkMode}");
+    logInfo("appDarkMode: $appDarkMode");
     final List<String> titles = [
       S.of(context).home,
       S.of(context).example,
@@ -31,7 +31,7 @@ class RootPage extends StatelessWidget {
 
     return ObxValue<Rx<int>>((data) {
       return Scaffold(
-        backgroundColor: Get.theme.scaffoldBackgroundColor,
+        backgroundColor: appTheme.scaffoldBackgroundColor,
         body: IndexedStack(
           index: data.value,
           children: children,
@@ -39,14 +39,14 @@ class RootPage extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedFontSize: 12,
-          selectedItemColor: colorWithTint,
+          // selectedItemColor: colorWithTint,
           currentIndex: data.value,
           items: List.generate(titles.length, (index) {
             return BottomNavigationBarItem(
               icon: Icon(icons[index]),
               activeIcon: Icon(
                 icons[index],
-                color: colorWithTint,
+                // color: colorWithTint,
               ),
               label: titles[index],
               // title: Container(),
