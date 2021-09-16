@@ -457,6 +457,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final Color? tintColor;
   final Color? backgroundColor;
   final SystemUiOverlayStyle? systemOverlayStyle;
+  final double? height;
 
   BaseAppBar({
     this.automaticallyImplyLeading = true,
@@ -468,6 +469,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
     this.tintColor,
     this.backgroundColor,
     this.systemOverlayStyle,
+    this.height,
   });
 
   @override
@@ -493,7 +495,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(screenToolbarHeightDp),
+      preferredSize: Size.fromHeight(height ?? screenToolbarHeightDp),
       child: AppBar(
         automaticallyImplyLeading: automaticallyImplyLeading,
         leading: automaticallyImplyLeading
