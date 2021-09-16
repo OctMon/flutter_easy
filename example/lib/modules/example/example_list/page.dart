@@ -139,13 +139,10 @@ class ExampleListPage extends StatelessWidget {
                                                                     CrossAxisAlignment
                                                                         .start,
                                                                 children: [
-                                                                  BaseTitle(
+                                                                  BaseText(
                                                                     '${locale.key}🌍${locale.value}',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
                                                                   ),
-                                                                  BaseTitle(
+                                                                  BaseText(
                                                                       localeString),
                                                                 ],
                                                               ),

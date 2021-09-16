@@ -47,17 +47,17 @@ class TuChongPage extends StatelessWidget {
                           Expanded(
                             child: Column(
                               children: [
-                                BaseTitle(
+                                BaseText(
                                   data.title,
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(width: 5),
-                                BaseTitle(
+                                BaseText(
                                   data.siteId,
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(width: 5),
-                                BaseTitle(
+                                BaseText(
                                   data.tags?.join(","),
                                   textAlign: TextAlign.center,
                                 ),
@@ -68,7 +68,8 @@ class TuChongPage extends StatelessWidget {
                       ),
                     ),
                     StaggeredGridView.countBuilder(
-                      padding: const EdgeInsets.symmetric(horizontal: _kSpacing),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: _kSpacing),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: _kCrossAxisCount,
@@ -88,13 +89,12 @@ class TuChongPage extends StatelessWidget {
                           },
                         );
                       },
-                      staggeredTileBuilder: (int index) =>
-                          StaggeredTile.extent(
-                              data.imageList![index].isSquare == true
-                                  ? _kCrossAxisCount
-                                  : 1,
-                              data.imageList![index]
-                                  .imageHeightInWidth(constraints.maxWidth)),
+                      staggeredTileBuilder: (int index) => StaggeredTile.extent(
+                          data.imageList![index].isSquare == true
+                              ? _kCrossAxisCount
+                              : 1,
+                          data.imageList![index]
+                              .imageHeightInWidth(constraints.maxWidth)),
                       mainAxisSpacing: _kSpacing,
                       crossAxisSpacing: _kSpacing,
                     ),

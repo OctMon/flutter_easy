@@ -19,8 +19,6 @@ Future<void> initApp() async {
   configAPI(null);
 
   EasyLoading.instance.maskType = EasyLoadingMaskType.black;
-
-  colorWithBrightness = Brightness.dark;
 }
 
 class MyApp extends StatelessWidget {

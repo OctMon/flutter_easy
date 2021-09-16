@@ -46,9 +46,9 @@ class AccountPage extends StatelessWidget {
                                 ? (service.user.value.nickname)
                                 : S.of(context).login,
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: adaptDp(20),
+                              fontSize: 30.adaptRatio,
                               fontWeight: FontWeight.w500,
+                              color: appDarkMode ? Colors.white : Colors.blue,
                             ),
                           ),
                         ),

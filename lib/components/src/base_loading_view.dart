@@ -21,10 +21,8 @@ class BaseLoadingView extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Container(
                     margin: EdgeInsets.only(top: 100),
-                    child: BaseTitle(
+                    child: BaseText(
                       message,
-                      fontSize: 14,
-                      color: colorWithHex9,
                     ),
                   ),
                 ),

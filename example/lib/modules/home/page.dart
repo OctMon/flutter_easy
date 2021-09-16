@@ -25,10 +25,10 @@ class HomePage extends StatelessWidget {
         children: [
           Center(
               child: Container(
-                  margin: const EdgeInsets.all(5), child: Text(code))),
+                  margin: const EdgeInsets.all(5), child: BaseText(code))),
           Center(
               child: Container(
-                  margin: const EdgeInsets.all(5), child: Text(value))),
+                  margin: const EdgeInsets.all(5), child: BaseText(value))),
         ],
       );
     }
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
           Center(
             child: Container(
               margin: const EdgeInsets.all(5),
-              child: Text(
+              child: BaseText(
                 code,
                 style: const TextStyle(
                   color: Colors.white,
@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Center(
-            child: Text(
+            child: BaseText(
               value,
               style: const TextStyle(
                 color: Colors.white,
@@ -196,12 +196,11 @@ class HomePage extends StatelessWidget {
                 ],
               );
             }),
-            // buildTableRowTop(code: "log", value: "output"),
             const SizedBox(height: 15),
             BaseBackgroundButton(
-              title: const BaseTitle(
+              title: const BaseText(
                 "BaseBackgroundButton",
-                color: Colors.white,
+                style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
                 showToast("status");
@@ -212,9 +211,9 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             BaseGradientButton(
-              title: const BaseTitle(
+              title: const BaseText(
                 "BaseGradientButton",
-                color: Colors.white,
+                style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
                 showLoading();

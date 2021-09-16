@@ -67,17 +67,15 @@ class LoginPage extends StatelessWidget {
                           children: <Widget>[
                             BaseButton(
                               padding: const EdgeInsets.symmetric(vertical: 15),
-                              child: BaseTitle(
+                              child: BaseText(
                                 S.of(context).example_NewUserRegister,
-                                fontSize: adaptDp(14),
                               ),
                               onPressed: () async {},
                             ),
                             BaseButton(
                               padding: const EdgeInsets.symmetric(vertical: 15),
-                              child: BaseTitle(
+                              child: BaseText(
                                 S.of(context).example_ForgetPassword,
-                                fontSize: adaptDp(14),
                               ),
                               onPressed: () async {},
                             ),
@@ -93,11 +91,8 @@ class LoginPage extends StatelessWidget {
                             ),
                           ],
                           height: 50,
-                          title: BaseTitle(
+                          title: BaseText(
                             S.of(context).login,
-                            color: Colors.white,
-                            fontSize: adaptDp(16),
-                            fontWeight: FontWeight.normal,
                           ),
                           onPressed: () => controller.onLoginPressed(context),
                         ),
@@ -124,7 +119,7 @@ class LoginPage extends StatelessWidget {
                               : Icons.radio_button_unchecked,
                           size: adaptDp(20),
                           color: checked.value
-                              ? colorLightPrimaryColor
+                              ? setLightPrimaryColor
                               : colorWithHex9,
                         ),
                       ),
@@ -146,7 +141,7 @@ class LoginPage extends StatelessWidget {
                             TextSpan(
                               text: S.of(context).example_UserAgreement,
                               style: TextStyle(
-                                color: colorLightPrimaryColor,
+                                color: setLightPrimaryColor,
                               ),
                               recognizer: TapGestureRecognizer()..onTap = () {},
                             ),
@@ -156,7 +151,7 @@ class LoginPage extends StatelessWidget {
                             TextSpan(
                               text: S.of(context).example_PrivacyPolicy,
                               style: TextStyle(
-                                color: colorLightPrimaryColor,
+                                color: setLightPrimaryColor,
                               ),
                               recognizer: TapGestureRecognizer()..onTap = () {},
                             ),

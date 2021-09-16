@@ -438,7 +438,7 @@ Widget? _buildLeading(
       } else {
         _leading = IconButton(
           icon: useCloseButton ? const Icon(Icons.close) : buildLeading(),
-          color: tintColor ?? colorDarkAppBarForegroundColor,
+          color: tintColor ?? setDarkAppBarForegroundColor,
           onPressed: leadingOnPressed ?? () => Navigator.maybePop(context),
         );
       }
@@ -725,47 +725,6 @@ class BaseText extends StatelessWidget {
   }
 }
 
-class BaseTitle extends StatelessWidget {
-  final String? title;
-  final TextAlign? textAlign;
-  final double fontSize;
-  final FontWeight? fontWeight;
-  final String? fontFamily;
-  final Color? color;
-  final int? maxLines;
-  final double? height;
-  final TextOverflow? overflow;
-
-  const BaseTitle(this.title,
-      {Key? key,
-      this.textAlign,
-      this.fontSize = 14,
-      this.fontWeight,
-      this.fontFamily,
-      this.color,
-      this.maxLines,
-      this.height,
-      this.overflow})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BaseText(
-      title ?? 'text is null',
-      textAlign: textAlign,
-      style: TextStyle(
-        fontSize: fontSize,
-        color: color ?? colorWithTitle,
-        fontWeight: fontWeight,
-        fontFamily: fontFamily,
-        height: height,
-      ),
-      maxLines: maxLines,
-      overflow: overflow,
-    );
-  }
-}
-
 class BaseInkWell extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
@@ -806,14 +765,7 @@ class BaseInkWell extends StatelessWidget {
               },
             ),
           ),
-          child: DefaultTextStyle(
-            style: TextStyle(
-              fontSize: 15,
-              color: colorWithHex3,
-              fontWeight: FontWeight.w400,
-            ),
-            child: child,
-          ),
+          child: child,
           onPressed: onPressed,
         ),
       ),
@@ -1178,10 +1130,7 @@ class BaseGeneralAlertDialog extends StatelessWidget {
     return CupertinoAlertDialog(
       key: key,
       title: title ?? baseDefaultGeneralAlertDialogTitle,
-      content: DefaultTextStyle(
-        style: TextStyle(fontSize: adaptDp(15), color: colorWithHex3),
-        child: Container(margin: EdgeInsets.only(top: 10), child: content),
-      ),
+      content: Container(margin: EdgeInsets.only(top: 10), child: content),
       actions: actions,
     );
   }

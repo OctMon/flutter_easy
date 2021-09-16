@@ -4,36 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-var colorWithBrightness = Brightness.light;
+var setLightScaffoldBackgroundColor = Colors.white;
+var setDarkScaffoldBackgroundColor = Colors.black;
 
-var colorLightScaffoldBackground = Colors.white;
-var colorDarkScaffoldBackground = Colors.black;
+var setLightPrimaryColor = Colors.red;
+var setDarkPrimaryColor = Colors.purple;
 
-var colorLightPrimaryColor = Colors.red;
-var colorDarkPrimaryColor = Colors.purple;
+var setLightPrimarySwatchColor = colorWithHex3;
+var setDarkPrimarySwatchColor = Colors.white;
 
-var colorLightPrimarySwatchColor = colorWithHex3;
-var colorDarkPrimarySwatchColor = Colors.white;
+var setLightAppBarBackgroundColor = Colors.white;
+var setDarkAppBarBackgroundColor = Colors.black;
 
-var colorLightAppBarBackground = Colors.white;
-var colorDarkAppBarBackground = Colors.black;
+var setLightAppBarForegroundColor = colorWithHex3;
+var setDarkAppBarForegroundColor = Colors.white;
 
-var colorLightAppBarForegroundColor = colorWithHex3;
-var colorDarkAppBarForegroundColor = Colors.white;
-
-var colorWithPrimary1 = Color(0xFF00B247);
-
-var colorWithPrimary2 = Color(0xFF2B7CFF);
-
-var colorWithPrimary3 = Color(0xFFE6A23C);
-
-var colorWithTitle = colorWithHex3;
-
-var colorWithText1 = Color(0xff303133);
-
-var colorWithText2 = Color(0xff606266);
-
-var colorWithText3 = Color(0xff909399);
+var setLightBodyText2Style = TextStyle(
+  color: colorWithHex3,
+);
+var setDarkBodyText2Style = TextStyle(
+  color: Colors.white,
+);
 
 var colorWithDivider = Color(0xFFEFEFF4);
 
@@ -77,22 +68,28 @@ ThemeData getTheme({bool darkMode = false}) {
     colorScheme: ColorScheme.fromSwatch().copyWith(
       brightness: darkMode ? Brightness.dark : Brightness.light,
       primary:
-          darkMode ? colorDarkPrimarySwatchColor : colorLightPrimarySwatchColor,
+          darkMode ? setDarkPrimarySwatchColor : setLightPrimarySwatchColor,
     ),
-    primaryColor: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
+    primaryColor: darkMode ? setDarkPrimaryColor : setLightPrimaryColor,
     // 页面背景色
-    scaffoldBackgroundColor:
-        darkMode ? colorDarkScaffoldBackground : colorLightScaffoldBackground,
+    scaffoldBackgroundColor: darkMode
+        ? setDarkScaffoldBackgroundColor
+        : setLightScaffoldBackgroundColor,
     // Tab指示器颜色
-    indicatorColor: darkMode ? colorDarkPrimaryColor : colorLightPrimaryColor,
+    indicatorColor: darkMode ? setDarkPrimaryColor : setLightPrimaryColor,
     appBarTheme: AppBarTheme(
       elevation: 0.0,
       foregroundColor: darkMode
-          ? colorDarkAppBarForegroundColor
-          : colorLightAppBarForegroundColor,
-      color: darkMode ? colorDarkAppBarBackground : colorLightAppBarBackground,
+          ? setDarkAppBarForegroundColor
+          : setLightAppBarForegroundColor,
+      color: darkMode
+          ? setDarkAppBarBackgroundColor
+          : setLightAppBarBackgroundColor,
       systemOverlayStyle:
           darkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+    ),
+    textTheme: TextTheme(
+      bodyText2: darkMode ? setDarkBodyText2Style : setLightBodyText2Style,
     ),
   );
 }

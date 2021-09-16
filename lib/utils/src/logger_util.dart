@@ -241,9 +241,8 @@ class EasyLogConsolePage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: BaseButton(
                   padding: EdgeInsets.zero,
-                  child: BaseTitle(
+                  child: BaseText(
                     log,
-                    color: Colors.white,
                   ),
                   onPressed: () {
                     setClipboard(log);
