@@ -184,13 +184,10 @@ class EasyLogConsolePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      backgroundColor: Colors.black,
       appBar: BaseAppBar(
-        backgroundColor: Colors.grey[900],
         leading: IconButton(
           icon: Icon(
             Icons.developer_mode,
-            color: Colors.white,
           ),
           onPressed: () {
             if (!isAppDebugFlag) {
@@ -209,7 +206,6 @@ class EasyLogConsolePage extends StatelessWidget {
           IconButton(
             icon: Icon(
               CupertinoIcons.bin_xmark,
-              color: Colors.white,
             ),
             onPressed: () {
               controller.logs.clear();
@@ -221,7 +217,6 @@ class EasyLogConsolePage extends StatelessWidget {
                 controller.flowchart.value
                     ? CupertinoIcons.flowchart_fill
                     : CupertinoIcons.flowchart,
-                color: Colors.white,
               );
             }),
             onPressed: () {
@@ -263,10 +258,8 @@ class EasyLogConsolePage extends StatelessWidget {
             child: FloatingActionButton(
               mini: true,
               clipBehavior: Clip.antiAlias,
-              child: Icon(
-                Icons.arrow_downward,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.arrow_downward),
+              backgroundColor: Theme.of(context).primaryColor,
               onPressed: controller.scrollToBottom,
             ),
           ),
