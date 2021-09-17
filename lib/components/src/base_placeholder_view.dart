@@ -33,8 +33,8 @@ class BasePlaceholderView extends StatelessWidget {
                 height: 100,
               ),
               SizedBox(height: 15),
-              BaseText(
-                title,
+              Text(
+                title ?? "",
                 style: TextStyle(
                   color: Colors.black38,
                   fontSize: 14,

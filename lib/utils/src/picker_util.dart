@@ -28,7 +28,7 @@ Future<DateTime?> showModalPopupDatePicker(BuildContext context,
                     onPressed: () {
                       Navigator.of(context).pop(null);
                     },
-                    child: BaseText(
+                    child: Text(
                       '取消',
                     ),
                   ),
@@ -36,7 +36,7 @@ Future<DateTime?> showModalPopupDatePicker(BuildContext context,
                     onPressed: () {
                       Navigator.of(context).pop(dateTime);
                     },
-                    child: BaseText(
+                    child: Text(
                       '确认',
                     ),
                   ),
@@ -86,7 +86,7 @@ Future<int?> showModalPopupTitlesPicker(
                     onPressed: () {
                       Navigator.of(context).pop(null);
                     },
-                    child: BaseText(
+                    child: Text(
                       '取消',
                     ),
                   ),
@@ -94,7 +94,7 @@ Future<int?> showModalPopupTitlesPicker(
                     onPressed: () {
                       Navigator.of(context).pop(index);
                     },
-                    child: BaseText(
+                    child: Text(
                       '确认',
                     ),
                   ),
@@ -109,7 +109,7 @@ Future<int?> showModalPopupTitlesPicker(
                 onSelectedItemChanged: (changed) {
                   index = changed;
                 },
-                children: titles.map((text) => BaseText(text)).toList(),
+                children: titles.map((text) => Text(text)).toList(),
               ),
             ),
           ],

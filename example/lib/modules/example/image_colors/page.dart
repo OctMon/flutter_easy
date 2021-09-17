@@ -21,20 +21,20 @@ class ImageColorsPage extends StatelessWidget {
         builder: (context) => BaseActionSheet(
           actions: <Widget>[
             BaseActionSheetAction(
-              child: const BaseText('拍照'),
+              child: const Text('拍照'),
               onPressed: () {
                 back(0);
               },
             ),
             BaseActionSheetAction(
-              child: const BaseText('从相册选择'),
+              child: const Text('从相册选择'),
               onPressed: () {
                 back(1);
               },
             ),
           ],
           cancelButton: BaseActionSheetAction(
-            child: const BaseText('取消'),
+            child: const Text('取消'),
             isDestructiveAction: true,
             onPressed: () {
               back();
@@ -59,8 +59,7 @@ class ImageColorsPage extends StatelessWidget {
 
     return BaseScaffold(
       appBar: BaseAppBar(
-        title:
-            BaseText(S.of(context).example_ExtractProminentColorsFromAnImage),
+        title: Text(S.of(context).example_ExtractProminentColorsFromAnImage),
         actions: [
           BaseButton(
             child: const Icon(Icons.add),
@@ -92,7 +91,7 @@ class ImageColorsPage extends StatelessWidget {
               ),
             );
           } else {
-            return const Center(child: BaseText("Selected Image"));
+            return const Center(child: Text("Selected Image"));
           }
         },
       ),

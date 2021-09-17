@@ -31,7 +31,7 @@ class GlobalListCell extends StatelessWidget {
                         width: 12,
                       ),
                       Flexible(
-                        child: BaseText(
+                        child: Text(
                           item.key,
                           style: const TextStyle(
                             fontSize: 16,
@@ -45,7 +45,7 @@ class GlobalListCell extends StatelessWidget {
                   visible: onPressed != null,
                   child: Row(
                     children: [
-                      BaseText(item.value),
+                      Text(item.value),
                       const Icon(Icons.navigate_next),
                     ],
                   ),

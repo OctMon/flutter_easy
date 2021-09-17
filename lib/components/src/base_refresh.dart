@@ -51,7 +51,7 @@ Footer baseRefreshFooter(
         if (noMore) {
           return Container(
             alignment: Alignment.center,
-            child: BaseText(
+            child: Text(
               noMoreText ?? baseDefaultRefreshFooterNoMoreText,
               style: TextStyle(color: colorWithHex9),
             ),
@@ -131,26 +131,7 @@ class BaseRefresh extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (child != null) {
-      return MediaQuery(
-        data: MediaQueryData(textScaleFactor: 1),
-        child: EasyRefresh(
-          controller: controller,
-          scrollController: scrollController,
-          header:
-              header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
-          footer: footer ?? (onLoad != null ? baseDefaultRefreshFooter : null),
-          firstRefresh: firstRefresh,
-          firstRefreshWidget: firstRefreshWidget,
-          emptyWidget: emptyWidget,
-          onRefresh: onRefresh,
-          onLoad: onLoad,
-          child: child,
-        ),
-      );
-    }
-    return MediaQuery(
-      data: MediaQueryData(textScaleFactor: 1),
-      child: EasyRefresh.custom(
+      return EasyRefresh(
         controller: controller,
         scrollController: scrollController,
         header: header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
@@ -160,8 +141,20 @@ class BaseRefresh extends StatelessWidget {
         emptyWidget: emptyWidget,
         onRefresh: onRefresh,
         onLoad: onLoad,
-        slivers: slivers,
-      ),
+        child: child,
+      );
+    }
+    return EasyRefresh.custom(
+      controller: controller,
+      scrollController: scrollController,
+      header: header ?? (onRefresh != null ? baseDefaultRefreshHeader : null),
+      footer: footer ?? (onLoad != null ? baseDefaultRefreshFooter : null),
+      firstRefresh: firstRefresh,
+      firstRefreshWidget: firstRefreshWidget,
+      emptyWidget: emptyWidget,
+      onRefresh: onRefresh,
+      onLoad: onLoad,
+      slivers: slivers,
     );
   }
 }

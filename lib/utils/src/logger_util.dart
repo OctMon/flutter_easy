@@ -236,7 +236,7 @@ class EasyLogConsolePage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: BaseButton(
                   padding: EdgeInsets.zero,
-                  child: BaseText(
+                  child: Text(
                     log,
                   ),
                   onPressed: () {

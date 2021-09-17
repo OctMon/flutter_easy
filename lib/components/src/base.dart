@@ -254,6 +254,17 @@ class _BaseAppState extends State<BaseApp> {
       return child;
     }
 
+    Widget _buildTextScaleFactor(
+        {required BuildContext context, required Widget child}) {
+      if (!isWeb) {
+        child = MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: child,
+        );
+      }
+      return child;
+    }
+
     return GetMaterialApp(
       title: widget.title,
       initialRoute: widget.initialRoute,
@@ -272,7 +283,8 @@ class _BaseAppState extends State<BaseApp> {
                     onTap: () {
                       hideKeyboard(context);
                     },
-                    child: child,
+                    child:
+                        _buildTextScaleFactor(context: context, child: child!),
                   ),
                 ),
               );
@@ -633,100 +645,6 @@ class BaseScaffold extends StatelessWidget {
   }
 }
 
-class BaseText extends StatelessWidget {
-  final String? data;
-  final InlineSpan? textSpan;
-  final TextStyle? style;
-  final StrutStyle? strutStyle;
-  final TextAlign? textAlign;
-  final TextDirection? textDirection;
-  final Locale? locale;
-  final bool? softWrap;
-  final TextOverflow? overflow;
-  final double? textScaleFactor;
-  final int? maxLines;
-  final String? semanticsLabel;
-  final TextWidthBasis? textWidthBasis;
-
-  const BaseText(
-    this.data, {
-    Key? key,
-    this.style,
-    this.strutStyle,
-    this.textAlign,
-    this.textDirection,
-    this.locale,
-    this.softWrap,
-    this.overflow,
-    this.textScaleFactor = 1.0,
-    this.maxLines,
-    this.semanticsLabel,
-    this.textWidthBasis,
-  })  : assert(
-          data != null,
-          'A non-null String must be provided to a Text widget.',
-        ),
-        textSpan = null,
-        super(key: key);
-
-  const BaseText.rich(
-    this.textSpan, {
-    Key? key,
-    this.style,
-    this.strutStyle,
-    this.textAlign,
-    this.textDirection,
-    this.locale,
-    this.softWrap,
-    this.overflow,
-    this.textScaleFactor = 1.0,
-    this.maxLines,
-    this.semanticsLabel,
-    this.textWidthBasis,
-  })  : assert(
-          textSpan != null,
-          'A non-null TextSpan must be provided to a Text.rich widget.',
-        ),
-        data = null,
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    if (data == null && textSpan != null) {
-      return Text.rich(
-        textSpan!,
-        key: key,
-        style: style,
-        strutStyle: strutStyle,
-        textAlign: textAlign,
-        textDirection: textDirection,
-        locale: locale,
-        softWrap: softWrap,
-        overflow: overflow,
-        textScaleFactor: textScaleFactor,
-        maxLines: maxLines,
-        semanticsLabel: semanticsLabel,
-        textWidthBasis: textWidthBasis,
-      );
-    }
-    return Text(
-      data!,
-      key: key,
-      style: style,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-    );
-  }
-}
-
 class BaseInkWell extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
@@ -747,15 +665,12 @@ class BaseInkWell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      child: Container(
-        margin: margin,
-        decoration: decoration,
-        child: InkWell(
-          child: child,
-          onTap: onPressed,
-        ),
+    return Container(
+      margin: margin,
+      decoration: decoration,
+      child: InkWell(
+        child: child,
+        onTap: onPressed,
       ),
     );
   }
@@ -1058,45 +973,42 @@ class BaseTextField extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius ?? adaptDp(5)),
       ),
-      child: MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-        child: CupertinoTextField(
-          controller: controller,
-          maxLines: maxLines,
-          readOnly: readOnly,
-          obscureText: obscureText,
-          autofocus: false,
-          focusNode: focusNode,
-          cursorColor: appTheme(context).primaryColor,
-          style: style ??
-              (appDarkMode(context)
-                  ? setDarkTextFieldStyle
-                  : setLightTextFieldStyle),
-          clearButtonMode:
-              readOnly ? OverlayVisibilityMode.never : clearButtonMode,
-          keyboardType: keyboardType,
-          textAlign: textAlign,
-          textInputAction: textInputAction,
-          inputFormatters: inputFormatters,
-          placeholder: placeholder,
-          placeholderStyle: placeholderStyle ??
-              (appDarkMode(context)
-                  ? setDarkPlaceholderTextFieldStyle
-                  : setLightPlaceholderTextFieldStyle),
-          prefix: prefix,
-          suffix: suffix,
-          decoration: decoration,
-          maxLength: maxLength,
-          onChanged: onChanged,
-          onSubmitted: onSubmitted,
-          onTap: onTap,
-        ),
+      child: CupertinoTextField(
+        controller: controller,
+        maxLines: maxLines,
+        readOnly: readOnly,
+        obscureText: obscureText,
+        autofocus: false,
+        focusNode: focusNode,
+        cursorColor: appTheme(context).primaryColor,
+        style: style ??
+            (appDarkMode(context)
+                ? setDarkTextFieldStyle
+                : setLightTextFieldStyle),
+        clearButtonMode:
+            readOnly ? OverlayVisibilityMode.never : clearButtonMode,
+        keyboardType: keyboardType,
+        textAlign: textAlign,
+        textInputAction: textInputAction,
+        inputFormatters: inputFormatters,
+        placeholder: placeholder,
+        placeholderStyle: placeholderStyle ??
+            (appDarkMode(context)
+                ? setDarkPlaceholderTextFieldStyle
+                : setLightPlaceholderTextFieldStyle),
+        prefix: prefix,
+        suffix: suffix,
+        decoration: decoration,
+        maxLength: maxLength,
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
+        onTap: onTap,
       ),
     );
   }
 }
 
-Widget baseDefaultGeneralAlertDialogTitle = BaseText('提示');
+Widget baseDefaultGeneralAlertDialogTitle = Text('提示');
 
 class BaseGeneralAlertDialog extends StatelessWidget {
   final Widget? title;
@@ -1139,7 +1051,7 @@ class BaseAlertDialog extends Dialog {
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 20.0),
     this.actionPadding = const EdgeInsets.fromLTRB(20, 24, 20, 34),
     this.actionsAxisAlignment = MainAxisAlignment.spaceAround,
-    this.title = const BaseText('提示'),
+    this.title = const Text('提示'),
     required this.content,
     this.actions = const <Widget>[],
   }) : super(key: key);

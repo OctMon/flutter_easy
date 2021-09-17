@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
         actions: <Widget>[
           BaseButton(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-            child: BaseText(
+            child: Text(
               S.of(context).cancel,
             ),
             onPressed: () => Navigator.pop(context, false),
@@ -72,14 +72,14 @@ class LoginPage extends StatelessWidget {
                           children: <Widget>[
                             BaseButton(
                               padding: const EdgeInsets.symmetric(vertical: 15),
-                              child: BaseText(
+                              child: Text(
                                 S.of(context).example_NewUserRegister,
                               ),
                               onPressed: () async {},
                             ),
                             BaseButton(
                               padding: const EdgeInsets.symmetric(vertical: 15),
-                              child: BaseText(
+                              child: Text(
                                 S.of(context).example_ForgetPassword,
                               ),
                               onPressed: () async {},
@@ -96,7 +96,7 @@ class LoginPage extends StatelessWidget {
                             ),
                           ],
                           height: 50,
-                          title: BaseText(
+                          title: Text(
                             S.of(context).login,
                           ),
                           onPressed: () => controller.onLoginPressed(context),

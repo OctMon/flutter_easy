@@ -21,8 +21,8 @@ class BaseLoadingView extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Container(
                     margin: EdgeInsets.only(top: 100),
-                    child: BaseText(
-                      message,
+                    child: Text(
+                      message ?? "",
                     ),
                   ),
                 ),
@@ -44,8 +44,8 @@ class BaseLoadingView extends StatelessWidget {
     if (message != null && message!.isNotEmpty) {
       list.add(Padding(
         padding: const EdgeInsets.only(top: 15),
-        child: BaseText(
-          message,
+        child: Text(
+          message ?? "",
           maxLines: 2,
           style: TextStyle(
             color: colorWithHex9,

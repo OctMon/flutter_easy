@@ -11,7 +11,7 @@ class PhotoViewPage extends StatelessWidget {
     final TCModel data = Get.arguments;
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: BaseText(data.title),
+        title: Text(data.title ?? ""),
       ),
       body: PhotoViewGallery.builder(
         scrollPhysics: const BouncingScrollPhysics(),

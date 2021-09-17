@@ -41,9 +41,9 @@ class AccountPage extends StatelessWidget {
                         onTap: service.isLogin ? null : () => toLogin(),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 18),
-                          child: BaseText(
+                          child: Text(
                             service.isLogin
-                                ? (service.user.value.nickname)
+                                ? (service.user.value.nickname ?? "")
                                 : S.of(context).login,
                             style: TextStyle(
                               fontSize: 30.adaptRatio,
@@ -90,7 +90,7 @@ class AccountPage extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return BaseActionSheet(
-                          title: BaseText(S.of(context).language),
+                          title: Text(S.of(context).language),
                           actions: S.delegate.supportedLocales.map((l) {
                             final String? localeString =
                                 LocaleNames.of(context)?.nameOf(l.toString());
@@ -102,8 +102,8 @@ class AccountPage extends StatelessWidget {
                                 back();
                                 appUpdateLocale(l);
                               },
-                              child: BaseText(nativeLocaleName == localeString
-                                  ? nativeLocaleName
+                              child: Text(nativeLocaleName == localeString
+                                  ? (nativeLocaleName ?? "")
                                   : "$nativeLocaleName - $localeString"),
                             );
                           }).toList()
@@ -117,10 +117,10 @@ class AccountPage extends StatelessWidget {
                                       appUpdateLocale(appDeviceLocale!);
                                     }
                                   },
-                                  child: BaseText(S.of(context).systemDefault),
+                                  child: Text(S.of(context).systemDefault),
                                 )),
                           cancelButton: BaseActionSheetAction(
-                            child: const BaseText('取消'),
+                            child: const Text('取消'),
                             isDestructiveAction: true,
                             onPressed: () {
                               Navigator.pop(context);

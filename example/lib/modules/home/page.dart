@@ -25,10 +25,10 @@ class HomePage extends StatelessWidget {
         children: [
           Center(
               child: Container(
-                  margin: const EdgeInsets.all(5), child: BaseText(code))),
+                  margin: const EdgeInsets.all(5), child: Text(code))),
           Center(
               child: Container(
-                  margin: const EdgeInsets.all(5), child: BaseText(value))),
+                  margin: const EdgeInsets.all(5), child: Text(value))),
         ],
       );
     }
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
           Center(
             child: Container(
               margin: const EdgeInsets.all(5),
-              child: BaseText(
+              child: Text(
                 code,
                 style: const TextStyle(
                   color: Colors.white,
@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Center(
-            child: BaseText(
+            child: Text(
               value,
               style: const TextStyle(
                 color: Colors.white,
@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
                 },
               )
             : null,
-        title: BaseText(appName),
+        title: Text(appName),
         actions: [
           BaseButton(
             child: const Icon(Icons.volunteer_activism),
@@ -198,7 +198,7 @@ class HomePage extends StatelessWidget {
             }),
             const SizedBox(height: 15),
             BaseBackgroundButton(
-              title: const BaseText(
+              title: const Text(
                 "BaseBackgroundButton",
                 style: TextStyle(color: Colors.white),
               ),
@@ -211,7 +211,7 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             BaseGradientButton(
-              title: const BaseText(
+              title: const Text(
                 "BaseGradientButton",
                 style: TextStyle(color: Colors.white),
               ),
@@ -230,7 +230,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               child: BaseButton(
-                child: const BaseText("Powered by OctMon"),
+                child: const Text("Powered by OctMon"),
                 onPressed: () {
                   onLaunch("https://octmon.github.io");
                 },

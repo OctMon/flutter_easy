@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'base.dart';
-
 /// 数字滚动效果
 class BaseAnimationNumberText extends StatefulWidget {
   final num number;
@@ -58,7 +56,7 @@ class _BaseAnimationNumberTextState extends State<BaseAnimationNumberText>
       animation: _animation,
       builder: (_, __) {
         // 数字默认从0增长。数据变化时，由之前数字为基础变化。
-        return BaseText(
+        return Text(
           (_fromNumber + (_animation.value * (widget.number - _fromNumber)))
               .toStringAsFixed(widget.fixed),
           style: widget.style,

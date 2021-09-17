@@ -19,7 +19,7 @@ class TuChongPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: BaseText(S.of(context).example_PictureWaterfallFlow),
+        title: Text(S.of(context).example_PictureWaterfallFlow),
       ),
       body: controller.baseRefresh(
         (state) => ListView.builder(
@@ -47,18 +47,18 @@ class TuChongPage extends StatelessWidget {
                           Expanded(
                             child: Column(
                               children: [
-                                BaseText(
-                                  data.title,
+                                Text(
+                                  data.title ?? "",
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(width: 5),
-                                BaseText(
-                                  data.siteId,
+                                Text(
+                                  data.siteId ?? "",
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(width: 5),
-                                BaseText(
-                                  data.tags?.join(","),
+                                Text(
+                                  data.tags?.join(",") ?? "",
                                   textAlign: TextAlign.center,
                                 ),
                               ],

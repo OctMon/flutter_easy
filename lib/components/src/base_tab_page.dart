@@ -14,14 +14,14 @@ mixin BaseTabState<T> {
 /*
 BaseScaffold(
   appBar: BaseAppBar(
-    title: BaseText("标题"),
+    title: Text("标题"),
   ),
   body: BaseTabPage(
     initialIndex: state.initialIndex,
     tabs: ["a", "b", "c"]
         .map(
           (e) => Tab(
-            child: BaseText(
+            child: Text(
               e,
               style: TextStyle(fontSize: adaptDp(18)),
             ),
@@ -30,7 +30,7 @@ BaseScaffold(
         .toList(),
     children: ["a", "b", "c"]
         .map(
-          (e) => keepAliveClientWrapper(Center(child: BaseText(e))),
+          (e) => keepAliveClientWrapper(Center(child: Text(e))),
         )
         .toList(),
   )

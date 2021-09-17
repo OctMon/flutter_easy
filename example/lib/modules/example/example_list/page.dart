@@ -13,7 +13,7 @@ class ExampleListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: BaseText(S.of(context).example),
+        title: Text(S.of(context).example),
         actions: [
           IconButton(
             icon: const Icon(Icons.delete_forever_sharp),
@@ -95,8 +95,7 @@ class ExampleListPage extends StatelessWidget {
                                                         .toList();
                                                 return BaseScaffold(
                                                   appBar: BaseAppBar(
-                                                    title:
-                                                        const BaseText("Flags"),
+                                                    title: const Text("Flags"),
                                                   ),
                                                   body: ListView.separated(
                                                     padding:
@@ -139,11 +138,12 @@ class ExampleListPage extends StatelessWidget {
                                                                     CrossAxisAlignment
                                                                         .start,
                                                                 children: [
-                                                                  BaseText(
+                                                                  Text(
                                                                     '${locale.key}🌍${locale.value}',
                                                                   ),
-                                                                  BaseText(
-                                                                      localeString),
+                                                                  Text(
+                                                                      localeString ??
+                                                                          ""),
                                                                 ],
                                                               ),
                                                             ),
