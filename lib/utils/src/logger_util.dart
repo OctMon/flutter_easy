@@ -259,7 +259,7 @@ class EasyLogConsolePage extends StatelessWidget {
               mini: true,
               clipBehavior: Clip.antiAlias,
               child: Icon(Icons.arrow_downward),
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: appTheme(context).primaryColor,
               onPressed: controller.scrollToBottom,
             ),
           ),

@@ -327,7 +327,7 @@ class __DebugPageState extends State<_DebugPage> {
               height: _kMenuSize,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: appTheme(context).primaryColor,
                 borderRadius: BorderRadius.circular(_kMenuSize / 2),
               ),
               child: GestureDetector(
@@ -761,7 +761,7 @@ class BaseInkWell extends StatelessWidget {
             backgroundColor: MaterialStateProperty.resolveWith(
               (states) {
                 if (states.contains(MaterialState.pressed)) {
-                  return Theme.of(context).highlightColor;
+                  return appTheme(context).highlightColor;
                 }
                 return color;
               },
@@ -909,7 +909,7 @@ class BaseBackgroundButton extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
         color: onPressed != null
-            ? (color ?? Theme.of(context).primaryColor)
+            ? (color ?? appTheme(context).primaryColor)
             : (disableColor ?? Colors.black12),
       ),
       child: TextButton(
@@ -989,7 +989,7 @@ class BaseOutlineButton extends StatelessWidget {
             adaptDp(borderRadius),
           ),
           border:
-              Border.all(color: borderColor ?? Theme.of(context).primaryColor),
+              Border.all(color: borderColor ?? appTheme(context).primaryColor),
           boxShadow: boxShadow,
         ),
         child: Center(
@@ -1069,7 +1069,7 @@ class BaseTextField extends StatelessWidget {
       padding: padding,
       height: height ?? adaptDp(40),
       decoration: BoxDecoration(
-        color: backgroundColor ?? Color(0xFFF5F5F5),
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius ?? adaptDp(5)),
       ),
       child: MediaQuery(
@@ -1081,13 +1081,11 @@ class BaseTextField extends StatelessWidget {
           obscureText: obscureText,
           autofocus: false,
           focusNode: focusNode,
-          cursorColor: Theme.of(context).primaryColor,
+          cursorColor: appTheme(context).primaryColor,
           style: style ??
-              TextStyle(
-                fontSize: adaptDp(14),
-                color: colorWithHex3,
-                textBaseline: TextBaseline.alphabetic,
-              ),
+              (appDarkMode(context)
+                  ? setDarkTextFieldStyle
+                  : setLightTextFieldStyle),
           clearButtonMode:
               readOnly ? OverlayVisibilityMode.never : clearButtonMode,
           keyboardType: keyboardType,
@@ -1096,13 +1094,9 @@ class BaseTextField extends StatelessWidget {
           inputFormatters: inputFormatters,
           placeholder: placeholder,
           placeholderStyle: placeholderStyle ??
-              TextStyle(
-                fontSize: adaptDp(14),
-                color: (readOnly && placeholder.isEmptyOrNull)
-                    ? colorWithHex3
-                    : Color(0xFFC1C0C8),
-                textBaseline: TextBaseline.alphabetic,
-              ),
+              (appDarkMode(context)
+                  ? setDarkPlaceholderTextFieldStyle
+                  : setLightPlaceholderTextFieldStyle),
           prefix: prefix,
           suffix: suffix,
           decoration: decoration,

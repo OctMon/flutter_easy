@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
 var setLightScaffoldBackgroundColor = Colors.white;
 var setDarkScaffoldBackgroundColor = Colors.black;
@@ -24,6 +23,19 @@ var setLightBodyText2Style = TextStyle(
 );
 var setDarkBodyText2Style = TextStyle(
   color: Colors.white,
+);
+
+var setLightTextFieldStyle = TextStyle(
+  color: colorWithHex3,
+);
+var setDarkTextFieldStyle = TextStyle(
+  color: Colors.white,
+);
+var setLightPlaceholderTextFieldStyle = TextStyle(
+  color: colorWithHex9,
+);
+var setDarkPlaceholderTextFieldStyle = TextStyle(
+  color: colorWithHex9,
 );
 
 var colorWithDivider = Color(0xFFEFEFF4);
@@ -52,7 +64,10 @@ const colorWithHexD = Color(0xFFDDDDDD);
 
 const colorWithHexE = Color(0xFFEEEEEE);
 
-bool get appDarkMode => Get.isDarkMode;
+ThemeData appTheme(BuildContext context) => Theme.of(context);
+
+bool appDarkMode(BuildContext context) =>
+    appTheme(context).brightness == Brightness.dark;
 
 Color colorWithRandom() {
   int red = Random.secure().nextInt(255);
@@ -89,6 +104,7 @@ ThemeData getTheme({bool darkMode = false}) {
           darkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
     ),
     textTheme: TextTheme(
+      // 默认 Text 样式
       bodyText2: darkMode ? setDarkBodyText2Style : setLightBodyText2Style,
     ),
   );

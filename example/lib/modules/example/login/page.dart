@@ -23,7 +23,6 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
             child: BaseText(
               S.of(context).cancel,
-              style: Theme.of(context).textTheme.bodyText1,
             ),
             onPressed: () => Navigator.pop(context, false),
           ),
@@ -43,6 +42,9 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     BaseTextField(
+                        backgroundColor: appDarkMode(context)
+                            ? Colors.white30
+                            : Colors.black12,
                         controller: state.phoneNumberController,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         maxLength: 11,
@@ -53,6 +55,9 @@ class LoginPage extends StatelessWidget {
                         ]),
                     const SizedBox(height: 15),
                     BaseTextField(
+                      backgroundColor: appDarkMode(context)
+                          ? Colors.white30
+                          : Colors.black12,
                       controller: state.passwordController,
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       maxLength: 16,

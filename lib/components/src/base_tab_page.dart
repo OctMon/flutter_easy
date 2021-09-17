@@ -78,10 +78,10 @@ class _BaseTabPageState extends State<BaseTabPage> {
             child: TabBar(
               isScrollable: widget.isScrollable,
               indicatorColor:
-                  widget.indicatorColor ?? Theme.of(context).primaryColor,
+                  widget.indicatorColor ?? appTheme(context).primaryColor,
               indicatorSize: TabBarIndicatorSize.label,
               labelPadding: EdgeInsets.symmetric(horizontal: 6),
-              labelColor: widget.labelColor ?? Theme.of(context).primaryColor,
+              labelColor: widget.labelColor ?? appTheme(context).primaryColor,
               labelStyle: widget.labelStyle,
               unselectedLabelColor:
                   widget.unselectedLabelColor ?? colorWithHex3,

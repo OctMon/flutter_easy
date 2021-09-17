@@ -38,14 +38,14 @@ class RootPage extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedFontSize: 12,
-          selectedItemColor: Theme.of(context).indicatorColor,
+          selectedItemColor: appTheme(context).indicatorColor,
           currentIndex: data.value,
           items: List.generate(titles.length, (index) {
             return BottomNavigationBarItem(
               icon: Icon(icons[index]),
               activeIcon: Icon(
                 icons[index],
-                color: Theme.of(context).indicatorColor,
+                color: appTheme(context).indicatorColor,
               ),
               label: titles[index],
               // title: Container(),

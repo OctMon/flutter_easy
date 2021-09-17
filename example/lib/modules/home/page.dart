@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
       return TableRow(
         //第一行样式 添加背景色
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: appTheme(context).primaryColor,
         ),
         children: [
           Center(
@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
                   // 0: FixedColumnWidth(adaptDp(130)),
                 },
                 border: TableBorder.all(
-                  color: Theme.of(context).primaryColor,
+                  color: appTheme(context).primaryColor,
                   width: 1.0,
                   style: BorderStyle.solid,
                 ),
