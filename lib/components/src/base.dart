@@ -752,23 +752,9 @@ class BaseInkWell extends StatelessWidget {
       child: Container(
         margin: margin,
         decoration: decoration,
-        child: TextButton(
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all(padding),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius))),
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
-            backgroundColor: MaterialStateProperty.resolveWith(
-              (states) {
-                if (states.contains(MaterialState.pressed)) {
-                  return appTheme(context).highlightColor;
-                }
-                return color;
-              },
-            ),
-          ),
+        child: InkWell(
           child: child,
-          onPressed: onPressed,
+          onTap: onPressed,
         ),
       ),
     );
