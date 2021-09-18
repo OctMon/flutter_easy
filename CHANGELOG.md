@@ -1,3 +1,9 @@
+## 2.5.0
+
+* depend on GetX
+* upgrade flutter 2.5.0
+* upgrade dependencies.
+
 ## 2.0.3
 
 * upgrade dependencies.
