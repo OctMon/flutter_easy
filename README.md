@@ -26,15 +26,15 @@ flutter run --release --dart-define=app-debug-flag=true
 main.dart
 
 ```dart
-createEasyApp(
+void main() {
+  createEasyApp(
     initCallback: initApp,
-    initView: initView,
     appBaseURLChangedCallback: () {
       // Reload API
       configAPI(null);
     },
     completionCallback: () {
-      runApp(App());
+      runApp(const MyApp());
       if (isAndroid) {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
@@ -42,38 +42,35 @@ createEasyApp(
         ]);
         // Set overlay style status bar. It must run after MyApp(), because MaterialApp may override it.
         SystemUiOverlayStyle systemUiOverlayStyle =
-            SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+            const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
         SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
       }
     },
   );
+}
 ```
 
 app.dart
 
 ```dart
 Future<void> initApp() async {
+  // Encrypt password
   StorageUtil.setEncrypt("963K3REfb30szs1n");
+  // Load user info
   await Get.putAsync(() => UserService().load());
-  configApi(null);
-  colorWithBrightness = Brightness.dark;
+  // Load API
+  configAPI(null);
 }
 
-Widget get initView {
-  return BaseLaunchLocal(
-    child: Image.asset(assetsImagesPath("launch/flutter_logo_color")),
-  );
-}
-
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BaseApp(
       initialRoute: Routes.splash,
       getPages: Routes.routes,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -87,6 +84,9 @@ class App extends StatelessWidget {
         logDebug("localeResolutionCallback: $locale");
         if (locale == null || !S.delegate.isSupported(locale)) {
           return null;
+        }
+        if (locale.languageCode == "zh") {
+          return const Locale("zh", "CN");
         }
         return locale;
       },

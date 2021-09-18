@@ -9,7 +9,7 @@ void main() {
   createEasyApp(
     initCallback: initApp,
     appBaseURLChangedCallback: () {
-      // 刷新网络配置
+      // Reload API
       configAPI(null);
     },
     completionCallback: () {

@@ -10,12 +10,11 @@ import 'routes.dart';
 import 'utils/user/service.dart';
 
 Future<void> initApp() async {
-  // 存储沙盒中的密钥
+  // Encrypt password
   StorageUtil.setEncrypt("963K3REfb30szs1n");
-  // 加载用户信息
+  // Load user info
   await Get.putAsync(() => UserService().load());
-
-  // 初始化Api
+  // Load API
   configAPI(null);
 
   EasyLoading.instance.maskType = EasyLoadingMaskType.black;
