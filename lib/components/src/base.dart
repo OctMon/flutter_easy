@@ -124,53 +124,39 @@ VoidCallback? _appBaseURLChangedCallback;
 /// 可切环境、查看日志 additional arguments:
 /// --dart-define=app-debug-flag=true
 /// flutter run --release --dart-define=app-debug-flag=true
-createEasyApp(
-    {VoidCallback? appBaseURLChangedCallback,
-    Future<void> Function()? initCallback,
-    required VoidCallback completionCallback}) {
+Future<void> initEasyApp({VoidCallback? appBaseURLChangedCallback}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = const bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
   _appBaseURLChangedCallback = appBaseURLChangedCallback;
-  void callback() {
-    void localLogWriter(String text, {bool isError = false}) {
-      if (isError) {
-        logError(text);
-      } else {
-        logDebug(text);
-      }
-    }
-
-    Get.config(
-      enableLog: isDebug || isAppDebugFlag,
-      logWriterCallback: localLogWriter,
-    );
-
-    if (initCallback != null) {
-      initCallback().then((_) {
-        completionCallback();
-      });
-    } else {
-      completionCallback();
-    }
-  }
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  Future.wait([
+  final utils = await Future.wait([
     PackageInfoUtil.init(),
     SharedPreferencesUtil.init(),
-  ]).then((e) {
-    logInfo("init: $e");
-    if (isAppDebugFlag) {
-      initSelectedBaseURLType().then((value) {
-        logInfo("network: $value");
-        callback();
-      });
+  ]);
+
+  Get.put(EasyLogConsoleController());
+
+  void localLogWriter(String text, {bool isError = false}) {
+    if (isError) {
+      logError(text);
     } else {
-      callback();
+      logDebug(text);
     }
-  });
+  }
+
+  Get.config(
+    enableLog: isDebug || isAppDebugFlag,
+    logWriterCallback: localLogWriter,
+  );
+
+  logInfo("Init: $utils");
+  if (isAppDebugFlag) {
+    final network = await initSelectedBaseURLType();
+    logInfo("Network: $network");
+  }
 }
 
 /// 默认返回按钮的样式

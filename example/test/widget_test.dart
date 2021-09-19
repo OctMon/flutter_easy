@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/app.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,22 +14,9 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('Verify Platform version', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(createEasyApp(
-      initCallback: initApp,
-      completionCallback: () {
-        runApp(const MyApp());
-        if (isAndroid) {
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown,
-          ]);
-          // Set overlay style status bar. It must run after MyApp(), because MaterialApp may override it.
-          SystemUiOverlayStyle systemUiOverlayStyle =
-              const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-          SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-        }
-      },
-    ));
+    await initEasyApp();
+    await initApp();
+    await tester.pumpWidget(const MyApp());
 
     // Verify that platform version is retrieved.
     expect(

@@ -6,14 +6,11 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 import 'global_util.dart';
 
-final EasyLogConsoleController _controller =
-    Get.put(EasyLogConsoleController());
-
 void _log(String tag, dynamic value, {StackTrace? stackTrace}) {
   if (isDebug || isAppDebugFlag) {
     developer.log("${DateTime.now()} $value",
         time: DateTime.now(), name: tag, stackTrace: stackTrace);
-    _controller.logs.add("[$tag] ${DateTime.now()} $value");
+    Get.find<EasyLogConsoleController>().logs.add("[$tag] ${DateTime.now()} $value");
   }
 }
 

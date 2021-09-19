@@ -14,7 +14,7 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logInfo("appDarkMode: $appDarkMode");
+    logInfo("appDarkMode: ${appDarkMode(context)}");
     final List<String> titles = [
       S.of(context).home,
       S.of(context).example,
