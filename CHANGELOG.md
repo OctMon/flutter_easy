@@ -1,3 +1,8 @@
+## 2.6.0
+
+* Update README.md
+* Update minimum dart SDK to 2.14.0
+
 ## 2.5.0
 
 * depend on GetX
