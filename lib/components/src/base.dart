@@ -1223,7 +1223,7 @@ class BaseDivider extends StatelessWidget {
     return Container(
       margin: margin,
       height: thickness ?? 0.5,
-      color: color ?? colorWithDivider,
+      color: color ?? appTheme(context).dividerColor,
     );
   }
 }

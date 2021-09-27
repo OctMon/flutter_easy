@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 var setLightScaffoldBackgroundColor = Colors.white;
 var setDarkScaffoldBackgroundColor = Colors.black;
 
-var setLightPrimaryColor = Colors.red;
-var setDarkPrimaryColor = Colors.purple;
+Color setLightPrimaryColor = Colors.red;
+Color setDarkPrimaryColor = Colors.purple;
 
 var setLightPrimarySwatchColor = colorWithHex3;
 var setDarkPrimarySwatchColor = Colors.white;
@@ -17,6 +17,9 @@ var setDarkAppBarBackgroundColor = Colors.black;
 
 var setLightAppBarForegroundColor = colorWithHex3;
 var setDarkAppBarForegroundColor = Colors.white;
+
+var setLightDividerColor = Color(0x1FFFFFFF);
+var setDarkDividerColor = Color(0xFFEFEFF4);
 
 var setLightBodyText2Style = TextStyle(
   color: colorWithHex3,
@@ -38,7 +41,8 @@ var setDarkPlaceholderTextFieldStyle = TextStyle(
   color: colorWithHex9,
 );
 
-var colorWithDivider = Color(0xFFEFEFF4);
+Color colorWithLightSecondary = Colors.tealAccent;
+Color colorWithDarkSecondary = Colors.blueAccent;
 
 const colorWithHex3 = Color(0xFF333333);
 
@@ -92,6 +96,7 @@ ThemeData getTheme({bool darkMode = false}) {
         : setLightScaffoldBackgroundColor,
     // Tab指示器颜色
     indicatorColor: darkMode ? setDarkPrimaryColor : setLightPrimaryColor,
+    dividerColor: darkMode ? setDarkDividerColor : setLightDividerColor,
     appBarTheme: AppBarTheme(
       elevation: 0.0,
       foregroundColor: darkMode
