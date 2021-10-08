@@ -23,13 +23,13 @@ class ImageColorsPage extends StatelessWidget {
             BaseActionSheetAction(
               child: const Text('拍照'),
               onPressed: () {
-                back(0);
+                offBack(0);
               },
             ),
             BaseActionSheetAction(
               child: const Text('从相册选择'),
               onPressed: () {
-                back(1);
+                offBack(1);
               },
             ),
           ],
@@ -37,7 +37,7 @@ class ImageColorsPage extends StatelessWidget {
             child: const Text('取消'),
             isDestructiveAction: true,
             onPressed: () {
-              back();
+              offBack();
             },
           ),
         ),

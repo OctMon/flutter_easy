@@ -99,7 +99,7 @@ class AccountPage extends StatelessWidget {
                                     .nativeLocaleNames[l.toString()];
                             return BaseActionSheetAction(
                               onPressed: () {
-                                back();
+                                offBack();
                                 appUpdateLocale(l);
                               },
                               child: Text(nativeLocaleName == localeString
@@ -112,7 +112,7 @@ class AccountPage extends StatelessWidget {
                                 BaseActionSheetAction(
                                   isDefaultAction: true,
                                   onPressed: () {
-                                    back();
+                                    offBack();
                                     if (appDeviceLocale != null) {
                                       appUpdateLocale(appDeviceLocale!);
                                     }

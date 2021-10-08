@@ -80,6 +80,6 @@ Future<T?>? offAllNamed<T>(
 }
 
 /// 关闭SnackBars、Dialogs、BottomSheets或任何你通常会用Navigator.pop(context)关闭的东西
-void back<T>([T? result]) {
+void offBack<T>([T? result]) {
   return Get.back<T>(result: result);
 }

@@ -61,7 +61,7 @@ class LoginController extends GetxController {
 
     final service = Get.find<UserService>();
     await service.save(result.model);
-    back(true);
+    offBack(true);
     // } else {
     //   showToast(result.message);
     // }

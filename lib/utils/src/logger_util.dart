@@ -10,7 +10,9 @@ void _log(String tag, dynamic value, {StackTrace? stackTrace}) {
   if (isDebug || isAppDebugFlag) {
     developer.log("${DateTime.now()} $value",
         time: DateTime.now(), name: tag, stackTrace: stackTrace);
-    Get.find<EasyLogConsoleController>().logs.add("[$tag] ${DateTime.now()} $value");
+    Get.find<EasyLogConsoleController>()
+        .logs
+        .add("[$tag] ${DateTime.now()} $value");
   }
 }
 
@@ -147,9 +149,17 @@ class EasyLogConsoleController extends GetxController {
       updateFollowBottom();
     });
     ever(logs, (value) {
-      scrollToBottom();
+      0.25.seconds.delay(() {
+        scrollToBottom();
+      });
     });
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
   }
 
   void updateFollowBottom() {
@@ -165,11 +175,12 @@ class EasyLogConsoleController extends GetxController {
       followBottom.value = true;
 
       var scrollPosition = scrollController.position;
-      scrollController.animateTo(
-        scrollPosition.maxScrollExtent,
-        duration: new Duration(milliseconds: 400),
-        curve: Curves.easeOut,
-      );
+      scrollController.jumpTo(scrollPosition.maxScrollExtent);
+      // scrollController.animateTo(
+      //   scrollPosition.maxScrollExtent,
+      //   duration: new Duration(milliseconds: 400),
+      //   curve: Curves.easeOut,
+      // );
     }
   }
 }
@@ -224,15 +235,15 @@ class EasyLogConsolePage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Obx(() {
-          return ListView.builder(
+          return ListView.separated(
             controller: controller.scrollController,
-            padding: EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(vertical: 15),
             itemBuilder: (context, index) {
               var log = controller.logs[index];
               return Container(
                 alignment: Alignment.centerLeft,
                 child: BaseButton(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     log,
                   ),
@@ -243,6 +254,12 @@ class EasyLogConsolePage extends StatelessWidget {
               );
             },
             itemCount: controller.logs.length,
+            separatorBuilder: (BuildContext context, int index) {
+              return Divider(
+                height: 1,
+                color: colorWithHex9,
+              );
+            },
           );
         }),
       ),

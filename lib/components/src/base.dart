@@ -217,7 +217,6 @@ class _BaseAppState extends State<BaseApp> {
   @override
   void initState() {
     baseURLChangedCallback = () {
-      setState(() {});
       if (_appBaseURLChangedCallback != null) {
         _appBaseURLChangedCallback!();
       }
@@ -288,6 +287,8 @@ class _BaseAppState extends State<BaseApp> {
   }
 }
 
+const double _kDebugIconSize = 50;
+
 class _DebugPage extends StatefulWidget {
   final Widget child;
 
@@ -297,78 +298,113 @@ class _DebugPage extends StatefulWidget {
   __DebugPageState createState() => __DebugPageState();
 }
 
-const double _kMenuSize = 40;
-
 class __DebugPageState extends State<_DebugPage> {
   bool _flag = false;
 
-  Offset _offset = Offset(0, 200);
+  late Offset _offset = Offset(0, screenHeightDp - 100);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        widget.child,
-        _flag
-            ? Visibility(
-                visible: _flag,
-                child: EasyLogConsolePage(),
-              )
-            : SizedBox(),
-        Positioned(
-          left: _offset.dx,
-          top: _offset.dy,
-          child: Opacity(
-            opacity: 0.6,
-            child: Container(
-              width: _kMenuSize,
-              height: _kMenuSize,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: appTheme(context).primaryColor,
-                borderRadius: BorderRadius.circular(_kMenuSize / 2),
-              ),
-              child: GestureDetector(
-                onPanEnd: _onPanEnd,
-                onPanUpdate: _onPanUpdate,
-                child: BaseButton(
-                  padding: EdgeInsets.zero,
-                  child: Icon(
-                    _flag ? Icons.clear : Icons.connect_without_contact,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _flag = !_flag;
-                    });
-                  },
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // 显示悬浮按钮
+        if (WidgetsBinding.instance != null) {
+          WidgetsBinding.instance!
+              .addPostFrameCallback((_) => _insertOverlay(context));
+        }
+        return widget.child;
+      },
     );
   }
 
+  /// 悬浮按钮，可以拖拽
+  void _insertOverlay(BuildContext context) {
+    final overlayContext = Get.overlayContext;
+    if (overlayContext != null) {
+      Overlay.of(overlayContext)?.insert(
+        OverlayEntry(builder: (context) {
+          return Positioned(
+            left: _offset.dx,
+            top: _offset.dy,
+            child: Opacity(
+              opacity: 0.6,
+              child: Container(
+                width: _kDebugIconSize,
+                height: _kDebugIconSize,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: appTheme(context).primaryColor,
+                  borderRadius: BorderRadius.circular(_kDebugIconSize / 2),
+                ),
+                child: GestureDetector(
+                  onPanEnd: _onPanEnd,
+                  onPanUpdate: _onPanUpdate,
+                  child: BaseButton(
+                    padding: EdgeInsets.zero,
+                    child: Icon(
+                      _flag ? Icons.clear : Icons.connect_without_contact,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      if (!mounted) {
+                        return;
+                      }
+                      setState(() {
+                        _flag = !_flag;
+                      });
+                      final context = Get.context;
+                      if (context != null) {
+                        if (_flag) {
+                          await Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            final EasyLogConsoleController controller =
+                                Get.put(EasyLogConsoleController());
+                            if (controller.flowchart.value) {
+                              0.25.seconds.delay(() {
+                                controller.scrollToBottom();
+                              });
+                            }
+                            return EasyLogConsolePage();
+                          }));
+                        } else {
+                          offBack();
+                        }
+                        setState(() {
+                          _flag = !_flag;
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ),
+          );
+        }),
+      );
+    }
+  }
+
   void _onPanUpdate(DragUpdateDetails details) {
-    final double circleRadius = _kMenuSize / 2;
+    final double circleRadius = _kDebugIconSize / 2;
     double y = details.globalPosition.dy - circleRadius;
     double x = details.globalPosition.dx - circleRadius;
-    if (x < _kMenuSize / 2 - circleRadius) {
-      x = _kMenuSize / 2 - circleRadius;
+    if (x < _kDebugIconSize / 2 - circleRadius) {
+      x = _kDebugIconSize / 2 - circleRadius;
     }
 
-    if (y < _kMenuSize / 2 - circleRadius) {
-      y = _kMenuSize / 2 - circleRadius;
+    if (y < _kDebugIconSize / 2 - circleRadius) {
+      y = _kDebugIconSize / 2 - circleRadius;
     }
 
-    if (x > screenWidthDp - _kMenuSize / 2 - circleRadius) {
-      x = screenWidthDp - _kMenuSize / 2 - circleRadius;
+    if (x > screenWidthDp - _kDebugIconSize / 2 - circleRadius) {
+      x = screenWidthDp - _kDebugIconSize / 2 - circleRadius;
     }
 
-    if (y > screenHeightDp - _kMenuSize / 2 - circleRadius) {
-      y = screenHeightDp - _kMenuSize / 2 - circleRadius;
+    if (y > screenHeightDp - _kDebugIconSize / 2 - circleRadius) {
+      y = screenHeightDp - _kDebugIconSize / 2 - circleRadius;
+    }
+    if (!mounted) {
+      return;
     }
     setState(() {
       _offset = Offset(x, y);
@@ -377,11 +413,14 @@ class __DebugPageState extends State<_DebugPage> {
 
   void _onPanEnd(DragEndDetails details) {
     double px;
-    final double circleRadius = _kMenuSize / 2;
+    final double circleRadius = _kDebugIconSize / 2;
     if (_offset.dx < screenWidthDp / 2 - circleRadius) {
       px = 0; //begin + (end - begin) * t;
     } else {
-      px = screenWidthDp - _kMenuSize; //begin + (end - begin) * t;
+      px = screenWidthDp - _kDebugIconSize; //begin + (end - begin) * t;
+    }
+    if (!mounted) {
+      return;
     }
     setState(() {
       _offset = Offset(px, _offset.dy);

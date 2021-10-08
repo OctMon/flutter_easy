@@ -174,7 +174,7 @@ class ExampleListPage extends StatelessWidget {
                                                                   content:
                                                                       GestureDetector(
                                                                     onTap: () {
-                                                                      back();
+                                                                      offBack();
                                                                     },
                                                                     child:
                                                                         Container(
