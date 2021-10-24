@@ -671,32 +671,30 @@ class BaseScaffold extends StatelessWidget {
 }
 
 class BaseInkWell extends StatelessWidget {
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry? padding;
   final Color? color;
-  final double borderRadius;
-  final Decoration? decoration;
   final Widget child;
   final VoidCallback? onPressed;
 
-  BaseInkWell(
-      {this.margin = EdgeInsets.zero,
-      this.padding = EdgeInsets.zero,
-      this.color,
-      this.borderRadius = 0,
-      this.decoration,
-      required this.child,
-      this.onPressed});
+  BaseInkWell({this.padding, this.color, required this.child, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: margin,
-      decoration: decoration,
-      child: InkWell(
-        child: child,
-        onTap: onPressed,
+    return TextButton(
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(padding),
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        backgroundColor: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.pressed)) {
+              return color?.withOpacity(0.6) ?? Colors.black12;
+            }
+            return color;
+          },
+        ),
       ),
+      onPressed: onPressed,
+      child: child,
     );
   }
 }
