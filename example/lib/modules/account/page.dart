@@ -13,7 +13,6 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = Get.find<UserService>();
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -31,19 +30,19 @@ class AccountPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: service.isLogin ? null : () => toLogin(),
+                        onTap: UserService.find.isLogin ? null : () => toLogin(),
                         child: FlutterLogo(
                           size: adaptDp(80),
                           style: FlutterLogoStyle.markOnly,
                         ),
                       ),
                       GestureDetector(
-                        onTap: service.isLogin ? null : () => toLogin(),
+                        onTap: UserService.find.isLogin ? null : () => toLogin(),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 18),
                           child: Text(
-                            service.isLogin
-                                ? (service.user.value.nickname ?? "")
+                            UserService.find.isLogin
+                                ? (UserService.find.user.value.nickname ?? "")
                                 : S.of(context).login,
                             style: TextStyle(
                               fontSize: 30.adaptRatio,
@@ -59,7 +58,7 @@ class AccountPage extends StatelessWidget {
                   ),
                 ),
               ),
-              actions: service.isLogin
+              actions: UserService.find.isLogin
                   ? [
                       BaseButton(
                         child: const Icon(
@@ -68,7 +67,7 @@ class AccountPage extends StatelessWidget {
                         ),
                         onPressed: () async {
                           showLoading();
-                          await service.clean();
+                          await UserService.find.clean();
                           dismissLoading();
                           offAllNamed(Routes.root);
                         },

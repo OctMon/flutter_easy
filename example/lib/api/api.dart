@@ -29,9 +29,8 @@ void configAPI(String? baseURL) {
           'os': isIOS ? 'ios' : 'android',
         };
         options.headers.addAll(headers);
-        final userController = Get.find<UserService>();
-        if (userController.isLogin) {
-          options.headers['id'] = userController.user.value.userId;
+        if (UserService.find.isLogin) {
+          options.headers['id'] = UserService.find.user.value.userId;
         }
         // options.contentType = Headers.formUrlEncodedContentType;
         // options.responseType = ResponseType.plain;
@@ -55,9 +54,8 @@ Result _onValidResult(Result result, bool validResult) {
       //   break;
       // case "${-2}":
       //   // token过期
-      //   final userService = Get.find<UserService>();
-      //   if (userService.isLogin) {
-      //     userService.clean().then((_) async {
+      //   if (UserService.find.isLogin) {
+      //     UserService.find.clean().then((_) async {
       //       // 跳转到登录页面
       //       await offAllNamed(Routes.root);
       //       toLogin();

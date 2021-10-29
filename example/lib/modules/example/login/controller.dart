@@ -59,8 +59,7 @@ class LoginController extends GetxController {
       "avatar": ""
     }));
 
-    final service = Get.find<UserService>();
-    await service.save(result.model);
+    await UserService.find.save(result.model);
     offBack(true);
     // } else {
     //   showToast(result.message);
