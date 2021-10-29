@@ -30,14 +30,14 @@ class AccountPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: UserService.find.isLogin ? null : () => toLogin(),
+                        onTap: () => toNamed(Routes.profile),
                         child: FlutterLogo(
-                          size: adaptDp(80),
+                          size: 80.adaptRatio,
                           style: FlutterLogoStyle.markOnly,
                         ),
                       ),
                       GestureDetector(
-                        onTap: UserService.find.isLogin ? null : () => toLogin(),
+                        onTap: () => toNamed(Routes.profile),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 18),
                           child: Text(
