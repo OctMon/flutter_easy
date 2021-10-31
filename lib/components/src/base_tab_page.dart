@@ -15,12 +15,16 @@ BaseTabPage(
       ),
  */
 class BaseTabPage extends StatefulWidget {
+  final double? tabBarHeight;
   final int initialIndex;
   final bool isScrollable;
   final Decoration? indicator;
   final Color? indicatorColor;
   final TabBarIndicatorSize? indicatorSize;
-  final TextStyle labelStyle;
+  final EdgeInsetsGeometry? labelPadding;
+  final TextStyle? labelStyle;
+  final TextStyle? unselectedLabelStyle;
+  final ScrollPhysics? physics;
   final Widget divider;
   final List<Widget> tabs;
   final List<Widget> children;
@@ -30,12 +34,16 @@ class BaseTabPage extends StatefulWidget {
 
   const BaseTabPage({
     Key? key,
+    this.tabBarHeight,
     this.initialIndex = 0,
     this.isScrollable = false,
     this.indicator,
     this.indicatorColor,
     this.indicatorSize,
-    this.labelStyle = const TextStyle(fontWeight: FontWeight.normal),
+    this.labelPadding,
+    this.labelStyle,
+    this.unselectedLabelStyle,
+    this.physics,
     this.divider = const Divider(height: 1),
     required this.tabs,
     required this.children,
@@ -57,6 +65,7 @@ class _BaseTabPageState extends State<BaseTabPage> {
       child: Column(
         children: <Widget>[
           Container(
+            height: widget.tabBarHeight,
             color: widget.backgroundColor,
             child: TabBar(
               indicator: widget.indicator,
@@ -65,9 +74,10 @@ class _BaseTabPageState extends State<BaseTabPage> {
                   widget.indicatorColor ?? appTheme(context).primaryColor,
               indicatorSize:
                   widget.indicatorSize ?? TabBarTheme.of(context).indicatorSize,
-              labelPadding: EdgeInsets.symmetric(horizontal: 6),
+              labelPadding: widget.labelPadding,
               labelColor: widget.labelColor ?? appTheme(context).primaryColor,
               labelStyle: widget.labelStyle,
+              unselectedLabelStyle: widget.unselectedLabelStyle,
               unselectedLabelColor:
                   widget.unselectedLabelColor ?? colorWithHex3,
               tabs: widget.tabs,
@@ -77,6 +87,7 @@ class _BaseTabPageState extends State<BaseTabPage> {
           widget.divider,
           Expanded(
             child: TabBarView(
+              physics: widget.physics,
               children: widget.children,
             ),
           ),
