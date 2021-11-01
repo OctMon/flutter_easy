@@ -67,30 +67,42 @@ extension BaseStateExt<T> on StateMixin<T> {
       {required EasyRefreshController refreshController,
       required int page,
       required ComputeResult compute}) {
-    dynamic _list = result.models.toList();
-    if (result.valid) {
-      if (_list.isNotEmpty) {
-        if (page > kFirstPage) {
-          dynamic _tmp = state;
-          compute(_tmp..addAll(_list), RxStatus.success());
-          refreshController.finishLoad(
-              success: result.valid, noMore: _list.length < kLimitPage);
-        } else {
-          compute(_list, RxStatus.success());
-          refreshController.finishRefresh(success: result.valid, noMore: false);
-          refreshController.resetLoadState();
-        }
-      }
-    } else {
-      refreshController.resetLoadState();
+    updateState<T>(state,
+        result: result,
+        refreshController: refreshController,
+        page: page,
+        compute: compute);
+  }
+}
+
+void updateState<T>(dynamic state,
+    {required Result result,
+    required EasyRefreshController refreshController,
+    required int page,
+    required ComputeResult compute}) {
+  dynamic _list = result.models.toList();
+  if (result.valid) {
+    if (_list.isNotEmpty) {
       if (page > kFirstPage) {
-        refreshController.finishLoad(success: result.valid);
+        dynamic _tmp = state;
+        compute(_tmp..addAll(_list), RxStatus.success());
+        refreshController.finishLoad(
+            success: result.valid, noMore: _list.length < kLimitPage);
       } else {
-        refreshController.finishRefresh(success: result.valid);
+        compute(_list, RxStatus.success());
+        refreshController.finishRefresh(success: result.valid, noMore: false);
+        refreshController.resetLoadState();
       }
-      dynamic tmp = state;
-      compute(tmp, RxStatus.error(result.message));
     }
+  } else {
+    refreshController.resetLoadState();
+    if (page > kFirstPage) {
+      refreshController.finishLoad(success: result.valid);
+    } else {
+      refreshController.finishRefresh(success: result.valid);
+    }
+    dynamic tmp = state;
+    compute(tmp, RxStatus.error(result.message));
   }
 }
 
