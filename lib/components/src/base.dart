@@ -39,6 +39,7 @@ extension BaseStateExt<T> on StateMixin<T> {
     NotifierBuilder<T?> widget, {
     required EasyRefreshController refreshController,
     Widget Function(String? message)? onEmptyWidget,
+    bool firstRefresh = false,
     OnRefreshCallback? onRefresh,
     OnLoadCallback? onLoad,
     void Function()? onLoadTap,
@@ -54,6 +55,7 @@ extension BaseStateExt<T> on StateMixin<T> {
                     onTap: onLoadTap ?? () => refreshController.callRefresh(),
                   ))
             : null,
+        firstRefresh: firstRefresh,
         onRefresh: onRefresh,
         onLoad: onLoad,
         child: widget(state),
