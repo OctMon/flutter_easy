@@ -105,9 +105,7 @@ void updateState<T>(dynamic state,
         // 下拉刷新第1页数据
         compute(models, RxStatus.success());
         refreshController.finishRefresh(success: result.valid);
-        if (noMore) {
-          refreshController.resetLoadState();
-        }
+        refreshController.resetLoadState();
       }
     } else if (state == null) {
       // 未约定的无数据
