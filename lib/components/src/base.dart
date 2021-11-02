@@ -93,6 +93,8 @@ void updateState<T>(dynamic state,
         refreshController.finishRefresh(success: result.valid, noMore: false);
         refreshController.resetLoadState();
       }
+    } else{
+      compute(_list, RxStatus.error(kEmptyList));
     }
   } else {
     refreshController.resetLoadState();
