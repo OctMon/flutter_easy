@@ -57,7 +57,7 @@ extension BaseStateExt<T> on StateMixin<T> {
             : null,
         firstRefresh: firstRefresh,
         onRefresh: onRefresh,
-        onLoad: onLoad,
+        onLoad: state != null ? onLoad : null,
         child: widget(state),
       );
     });
@@ -66,11 +66,13 @@ extension BaseStateExt<T> on StateMixin<T> {
   void updateResult<T>(Result result,
       {required EasyRefreshController refreshController,
       required int page,
+      int? limitPage,
       required ComputeResult compute}) {
     updateState<T>(state,
         result: result,
         refreshController: refreshController,
         page: page,
+        limitPage: limitPage,
         compute: compute);
   }
 }
@@ -79,6 +81,7 @@ void updateState<T>(dynamic state,
     {required Result result,
     required EasyRefreshController refreshController,
     required int page,
+    int? limitPage,
     required ComputeResult compute}) {
   dynamic _list = result.models.toList();
   if (result.valid) {
@@ -87,14 +90,19 @@ void updateState<T>(dynamic state,
         dynamic _tmp = state;
         compute(_tmp..addAll(_list), RxStatus.success());
         refreshController.finishLoad(
-            success: result.valid, noMore: _list.length < kLimitPage);
+            success: result.valid,
+            noMore: _list.length < (limitPage ?? kLimitPage));
       } else {
         compute(_list, RxStatus.success());
         refreshController.finishRefresh(success: result.valid, noMore: false);
         refreshController.resetLoadState();
       }
-    } else{
-      compute(_list, RxStatus.error(kEmptyList));
+    } else if (state == null) {
+      // 无数据
+      compute(null, RxStatus.error(kEmptyList));
+    } else {
+      // 更多无数据
+      refreshController.finishLoad(success: result.valid, noMore: true);
     }
   } else {
     refreshController.resetLoadState();
