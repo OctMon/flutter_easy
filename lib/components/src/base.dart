@@ -67,12 +67,14 @@ extension BaseStateExt<T> on StateMixin<T> {
       {required EasyRefreshController refreshController,
       required int page,
       int? limitPage,
+      int? pageCount,
       required ComputeResult compute}) {
     updateState<T>(state,
         result: result,
         refreshController: refreshController,
         page: page,
         limitPage: limitPage,
+        pageCount: pageCount,
         compute: compute);
   }
 }
@@ -82,26 +84,36 @@ void updateState<T>(dynamic state,
     required EasyRefreshController refreshController,
     required int page,
     int? limitPage,
+    int? pageCount,
     required ComputeResult compute}) {
-  dynamic _list = result.models.toList();
+  dynamic models = result.models.toList();
   if (result.valid) {
-    if (_list.isNotEmpty) {
-      if (page > kFirstPage) {
-        dynamic _tmp = state;
-        compute(_tmp..addAll(_list), RxStatus.success());
-        refreshController.finishLoad(
-            success: result.valid,
-            noMore: _list.length < (limitPage ?? kLimitPage));
+    if (models.isNotEmpty) {
+      /// 有无加载更多
+      var noMore = false;
+      if (pageCount != null) {
+        noMore = page < pageCount;
       } else {
-        compute(_list, RxStatus.success());
-        refreshController.finishRefresh(success: result.valid, noMore: false);
-        refreshController.resetLoadState();
+        noMore = models.length < (limitPage ?? kLimitPage);
+      }
+      if (page > kFirstPage) {
+        // 上拉加载第2页数据
+        dynamic _tmp = state;
+        compute(_tmp..addAll(models), RxStatus.success());
+        refreshController.finishLoad(success: result.valid, noMore: noMore);
+      } else {
+        // 下拉刷新第1页数据
+        compute(models, RxStatus.success());
+        refreshController.finishRefresh(success: result.valid);
+        if (noMore) {
+          refreshController.resetLoadState();
+        }
       }
     } else if (state == null) {
-      // 无数据
+      // 未约定的无数据
       compute(null, RxStatus.error(kEmptyList));
     } else {
-      // 更多无数据
+      // 已经有1页数据再次卡拉加载 无更多数据
       refreshController.finishLoad(success: result.valid, noMore: true);
     }
   } else {
