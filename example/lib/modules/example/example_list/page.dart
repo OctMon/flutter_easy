@@ -47,6 +47,15 @@ class ExampleListPage extends StatelessWidget {
           ),
           GlobalListCell(
             item: BaseKeyValue(
+                key: "BaseTabPage",
+                value: "",
+                extend: Icons.view_list),
+            onPressed: () {
+              toNamed(Routes.photosTab);
+            },
+          ),
+          GlobalListCell(
+            item: BaseKeyValue(
               key: S.of(context).example_Navigator,
               value: "",
               extend: Icons.navigation_outlined,
