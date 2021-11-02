@@ -1,5 +1,4 @@
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/modules/example/photos_tab/photo/binding.dart';
 
 import 'modules/example/image_colors/page.dart';
 import 'modules/example/login/page.dart';
