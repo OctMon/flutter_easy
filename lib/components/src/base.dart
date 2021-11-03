@@ -5,9 +5,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-typedef ComputeResult<T> = void Function(T state, RxStatus status);
+typedef BaseComputeResult<T> = void Function(T state, RxStatus status);
 
-extension BaseStateExt<T> on StateMixin<T> {
+typedef BaseStateMixin<T> = StateMixin<T>;
+
+extension BaseStateMixinExt<T> on BaseStateMixin<T> {
   Widget easy(
     NotifierBuilder<T?> widget, {
     Widget Function(String? error)? onError,
@@ -27,9 +29,8 @@ extension BaseStateExt<T> on StateMixin<T> {
                 onTap: onLoadTap,
               ));
       } else if (status.isEmpty) {
-        return onEmpty != null
-            ? onEmpty
-            : SizedBox.shrink(); // Also can be widget(null); but is risky
+        return onEmpty ??
+            const SizedBox.shrink(); // Also can be widget(null); but is risky
       }
       return widget(state);
     });
@@ -68,7 +69,7 @@ extension BaseStateExt<T> on StateMixin<T> {
       required int page,
       int? limitPage,
       int? pageCount,
-      required ComputeResult compute}) {
+      required BaseComputeResult compute}) {
     updateState<T>(state,
         result: result,
         refreshController: refreshController,
@@ -85,7 +86,7 @@ void updateState<T>(dynamic state,
     required int page,
     int? limitPage,
     int? pageCount,
-    required ComputeResult compute}) {
+    required BaseComputeResult compute}) {
   dynamic models = result.models.toList();
   if (result.valid) {
     if (models.isNotEmpty) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:get/get.dart';
 
@@ -17,19 +18,30 @@ class PhotosTabPage extends StatelessWidget {
           (screenWidthDp * screenDevicePixelRatio * index * 0.1).round();
       return "https://picsum.photos/$width/$width";
     });
-    return BaseTabPage(
-      tabBarHeight: 44,
-      isScrollable: true,
-      tabs: tabs.map(
-        (e) {
-          return Text(e.split("/").last);
-        },
-      ).toList(),
-      children: tabs.map(
-        (url) {
-          return PhotoComponent(url: url);
-        },
-      ).toList(),
+    return BaseScaffold(
+      backgroundColor: Colors.white,
+      appBar: BaseAppBar(
+        height: 0,
+        backgroundColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
+      body: SafeArea(
+        bottom: false,
+        child: BaseTabPage(
+          tabBarHeight: 44,
+          isScrollable: true,
+          tabs: tabs.map(
+            (e) {
+              return Text(e.split("/").last);
+            },
+          ).toList(),
+          children: tabs.map(
+            (url) {
+              return PhotoComponent(url: url);
+            },
+          ).toList(),
+        ),
+      ),
     );
   }
 }
