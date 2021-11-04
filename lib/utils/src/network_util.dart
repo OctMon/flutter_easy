@@ -17,14 +17,14 @@ enum BaseURLType { test, release }
 String _baseURLTypeKey = "$BaseURLType".md5;
 
 /// 当前环境
-String _baseURLTypeString = "";
+var _baseURLTypeString = "".obs;
 
 /// 上线环境
 BaseURLType get kBaseURLType {
-  if (isAppDebugFlag && _baseURLTypeString.isNotEmpty) {
-    if (_baseURLTypeString == "${BaseURLType.test}") {
+  if (isAppDebugFlag && _baseURLTypeString.value.isNotEmpty) {
+    if (_baseURLTypeString.value == "${BaseURLType.test}") {
       return BaseURLType.test;
-    } else if (_baseURLTypeString == "${BaseURLType.release}") {
+    } else if (_baseURLTypeString.value == "${BaseURLType.release}") {
       return BaseURLType.release;
     }
   }
@@ -186,7 +186,7 @@ Future<String?> initSelectedBaseURLType() async {
   String? urlType =
       await SharedPreferencesUtil.getSharedPrefsString(_baseURLTypeKey);
   if (urlType?.isNotEmpty ?? false) {
-    _baseURLTypeString = urlType ?? "";
+    _baseURLTypeString.value = urlType ?? "";
   }
   return urlType;
 }
@@ -199,10 +199,10 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
 
   /// 保存选择的环境
   Future<bool> save(BaseURLType urlType) {
-    _baseURLTypeString = "$urlType";
-    logInfo("$_baseURLTypeKey = " + _baseURLTypeString);
+    _baseURLTypeString.value = "$urlType";
+    logInfo("$_baseURLTypeKey = " + _baseURLTypeString.value);
     return SharedPreferencesUtil.setSharedPrefsString(
-        _baseURLTypeKey, _baseURLTypeString);
+        _baseURLTypeKey, _baseURLTypeString.value);
   }
 
   if (context == null) {
@@ -217,7 +217,7 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
     builder: (BuildContext ctx) {
       return BaseGeneralAlertDialog(
         title: Text(
-            _baseURLTypeString.isEmpty ? "$kBaseURLType" : _baseURLTypeString),
+            _baseURLTypeString.value.isEmpty ? "$kBaseURLType" : _baseURLTypeString.value),
         content: Text(
           "${BaseURLType.test}" +
               "=\n" +

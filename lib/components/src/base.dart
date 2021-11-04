@@ -263,13 +263,15 @@ class _BaseAppState extends State<BaseApp> {
   Widget build(BuildContext context) {
     Widget _buildBannerUrlType({required Widget child}) {
       if (isAppDebugFlag) {
-        return Banner(
-          color: Colors.deepPurple,
-          message:
-              "${kBaseURLType == BaseURLType.release ? "Release" : "Test"}",
-          location: BannerLocation.topEnd,
-          child: _DebugPage(child: child),
-        );
+        return Obx(() {
+          return Banner(
+            color: Colors.deepPurple,
+            message:
+                "${kBaseURLType == BaseURLType.release ? "Release" : "Test"}",
+            location: BannerLocation.topEnd,
+            child: _DebugPage(child: child),
+          );
+        });
       }
       return child;
     }
