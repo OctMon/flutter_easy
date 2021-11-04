@@ -230,6 +230,46 @@ class S {
     );
   }
 
+  /// `agree`
+  String get exampleAgree {
+    return Intl.message(
+      'agree',
+      name: 'exampleAgree',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `disagree`
+  String get exampleDisagree {
+    return Intl.message(
+      'disagree',
+      name: 'exampleDisagree',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We take your personal information and privacy very seriously. Please read this product and service carefully before you use it`
+  String get exampleCheckPrivacyAlertBegin {
+    return Intl.message(
+      'We take your personal information and privacy very seriously. Please read this product and service carefully before you use it',
+      name: 'exampleCheckPrivacyAlertBegin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `, we will use your personal information in strict accordance with the terms and conditions in order to provide you with better services./nIf you click “Agree”, you have read and agreed`
+  String get exampleCheckPrivacyAlertEnd {
+    return Intl.message(
+      ', we will use your personal information in strict accordance with the terms and conditions in order to provide you with better services./nIf you click “Agree”, you have read and agreed',
+      name: 'exampleCheckPrivacyAlertEnd',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Need to agree to continue using`
   String get example_AgreeToContinueTip {
     return Intl.message(

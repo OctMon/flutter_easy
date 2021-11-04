@@ -17,6 +17,10 @@
   "example_UserAgreement": "\"User Agreement\"",
   "example_And": "and",
   "example_PrivacyPolicy": "\"Privacy Policy\"",
+  "exampleAgree": "agree",
+  "exampleDisagree": "disagree",
+  "exampleCheckPrivacyAlertBegin": "We take your personal information and privacy very seriously. Please read this product and service carefully before you use it",
+  "exampleCheckPrivacyAlertEnd": ", we will use your personal information in strict accordance with the terms and conditions in order to provide you with better services./nIf you click “Agree”, you have read and agreed",
   "example_AgreeToContinueTip": "Need to agree to continue using",
   "example_ValidPhoneNumberTip": "Please enter a valid phone number"
 }

@@ -24,6 +24,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "account": MessageLookupByLibrary.simpleMessage("Account"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "example": MessageLookupByLibrary.simpleMessage("Example"),
+        "exampleAgree": MessageLookupByLibrary.simpleMessage("agree"),
+        "exampleCheckPrivacyAlertBegin": MessageLookupByLibrary.simpleMessage(
+            "We take your personal information and privacy very seriously. Please read this product and service carefully before you use it"),
+        "exampleCheckPrivacyAlertEnd": MessageLookupByLibrary.simpleMessage(
+            ", we will use your personal information in strict accordance with the terms and conditions in order to provide you with better services./nIf you click “Agree”, you have read and agreed"),
+        "exampleDisagree": MessageLookupByLibrary.simpleMessage("disagree"),
         "example_AgreeToContinueTip": MessageLookupByLibrary.simpleMessage(
             "Need to agree to continue using"),
         "example_And": MessageLookupByLibrary.simpleMessage("and"),
