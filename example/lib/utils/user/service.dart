@@ -4,7 +4,7 @@ import 'model.dart';
 
 const String _keyUser = "w351kMZwl21f1pYd";
 
-class UserService extends GetxService {
+class UserService extends GetxController {
   static UserService get find => Get.find();
 
   bool get isLogin => user.value.userId != null;

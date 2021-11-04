@@ -31,9 +31,18 @@ class AccountPage extends StatelessWidget {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () => toNamed(Routes.profile),
-                        child: FlutterLogo(
-                          size: 80.adaptRatio,
-                          style: FlutterLogoStyle.markOnly,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50.adaptRatio),
+                          child: BaseWebImage(
+                            UserService.find.user.value.avatar,
+                            width: 80.adaptRatio,
+                            height: 80.adaptRatio,
+                            fit: BoxFit.cover,
+                            placeholder: FlutterLogo(
+                              size: 80.adaptRatio,
+                              style: FlutterLogoStyle.markOnly,
+                            ),
+                          ),
                         ),
                       ),
                       GestureDetector(

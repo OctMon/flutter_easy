@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/utils/user/service.dart';
 import 'package:get/get.dart';
 
 import 'controller.dart';
@@ -30,6 +31,12 @@ class PhotoComponent extends StatelessWidget {
           ],
         ),
         onTap: () {
+          UserService.find.user.update((user) {
+            if (user != null) {
+              user.avatar = url;
+              UserService.find.save(user);
+            }
+          });
           showToast(url);
         },
       );
