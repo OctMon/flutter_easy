@@ -4,14 +4,14 @@ import 'model.dart';
 
 const String _keyUser = "w351kMZwl21f1pYd";
 
-class UserService extends GetxController {
-  static UserService get find => Get.find();
+class UserStore extends GetxController {
+  static UserStore get find => Get.find();
 
   bool get isLogin => user.value.userId != null;
 
   final user = UserModel().obs;
 
-  Future<UserService> load() async {
+  Future<UserStore> load() async {
     String? storage = await getStorageString(_keyUser);
     if (storage != null) {
       user.value = UserModel.fromJson(jsonDecode(storage));

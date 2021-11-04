@@ -9,7 +9,7 @@ import 'modules/profile/page.dart';
 import 'modules/root/page.dart';
 import 'modules/splash/page.dart';
 
-import 'utils/middleware/login_middleware.dart';
+import 'middleware/login_middleware.dart';
 
 class Routes {
   static const String root = '/';

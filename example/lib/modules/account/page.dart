@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easy_example/utils/user/service.dart';
+import 'package:flutter_easy_example/store/user/store.dart';
 import 'package:flutter_easy_example/routes.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_easy/flutter_easy.dart';
@@ -34,7 +34,7 @@ class AccountPage extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50.adaptRatio),
                           child: BaseWebImage(
-                            UserService.find.user.value.avatar,
+                            UserStore.find.user.value.avatar,
                             width: 80.adaptRatio,
                             height: 80.adaptRatio,
                             fit: BoxFit.cover,
@@ -50,8 +50,8 @@ class AccountPage extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 18),
                           child: Text(
-                            UserService.find.isLogin
-                                ? (UserService.find.user.value.nickname ?? "")
+                            UserStore.find.isLogin
+                                ? (UserStore.find.user.value.nickname ?? "")
                                 : S.of(context).login,
                             style: TextStyle(
                               fontSize: 30.adaptRatio,
@@ -67,7 +67,7 @@ class AccountPage extends StatelessWidget {
                   ),
                 ),
               ),
-              actions: UserService.find.isLogin
+              actions: UserStore.find.isLogin
                   ? [
                       BaseButton(
                         child: const Icon(
@@ -76,7 +76,7 @@ class AccountPage extends StatelessWidget {
                         ),
                         onPressed: () async {
                           showLoading();
-                          await UserService.find.clean();
+                          await UserStore.find.clean();
                           dismissLoading();
                           offAllNamed(Routes.root);
                         },

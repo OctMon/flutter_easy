@@ -7,13 +7,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'api/api.dart';
 import 'generated/l10n.dart';
 import 'routes.dart';
-import 'utils/user/service.dart';
+import 'store/user/store.dart';
 
 Future<void> initApp() async {
   // Encrypt password
   StorageUtil.setEncrypt("963K3REfb30szs1n");
   // Load user info
-  await Get.putAsync(() => UserService().load());
+  await Get.putAsync(() => UserStore().load());
   // Load API
   configAPI(null);
 

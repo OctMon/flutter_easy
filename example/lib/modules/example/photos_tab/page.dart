@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/utils/user/service.dart';
+import 'package:flutter_easy_example/store/user/store.dart';
 import 'package:get/get.dart';
 
 import 'controller.dart';
@@ -50,7 +50,7 @@ class PhotosTabPage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: BaseWebImage(
-                    UserService.find.user.value.avatar,
+                    UserStore.find.user.value.avatar,
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,

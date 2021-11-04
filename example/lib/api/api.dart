@@ -1,5 +1,5 @@
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/utils/user/service.dart';
+import 'package:flutter_easy_example/store/user/store.dart';
 
 export 'constant.dart';
 export 'package:session/session.dart' show Result;
@@ -29,8 +29,8 @@ void configAPI(String? baseURL) {
           'os': isIOS ? 'ios' : 'android',
         };
         options.headers.addAll(headers);
-        if (UserService.find.isLogin) {
-          options.headers['id'] = UserService.find.user.value.userId;
+        if (UserStore.find.isLogin) {
+          options.headers['id'] = UserStore.find.user.value.userId;
         }
         // options.contentType = Headers.formUrlEncodedContentType;
         // options.responseType = ResponseType.plain;

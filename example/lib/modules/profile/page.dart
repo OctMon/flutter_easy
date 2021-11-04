@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/utils/user/service.dart';
+import 'package:flutter_easy_example/store/user/store.dart';
 import 'package:get/get.dart';
 
 import 'controller.dart';
@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
       appBar: BaseAppBar(),
       body: Center(
           child: Text(
-        "${UserService.find.user.value.toJson()}",
+        "${UserStore.find.user.value.toJson()}",
         style: appTheme(context).textTheme.headline3,
       )),
     );
