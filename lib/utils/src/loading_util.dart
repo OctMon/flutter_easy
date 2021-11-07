@@ -10,7 +10,10 @@ void showLoading({
   EasyLoading.show(
       status: status,
       indicator: indicator,
-      maskType: maskType,
+      maskType: (maskType == null &&
+              EasyLoading.instance.maskType == EasyLoadingMaskType.none)
+          ? EasyLoadingMaskType.clear
+          : EasyLoading.instance.maskType,
       dismissOnTap: dismissOnTap);
 }
 
