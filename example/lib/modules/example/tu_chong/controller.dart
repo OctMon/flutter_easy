@@ -2,10 +2,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/modules/example/tu_chong/model.dart';
 import 'package:flutter_easy_example/api/tu_chong/tu_chong_api.dart';
 
-class TuChongController extends GetxController with BaseStateMixin<List<TCModel>?> {
-  final refreshController = EasyRefreshController();
-
-  int page = kFirstPage;
+class TuChongController extends BaseStateController<List<TCModel>?> {
 
   int? postId;
 

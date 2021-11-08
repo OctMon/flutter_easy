@@ -1,6 +1,6 @@
 import 'package:flutter_easy/flutter_easy.dart';
 
-class PhotoController extends GetxController with BaseStateMixin<int?> {
+class PhotoController extends BaseStateController<int?> {
   @override
   void onReady() {
     final random = randomInt(3);

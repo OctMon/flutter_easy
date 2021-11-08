@@ -16,8 +16,6 @@ Future<void> initApp() async {
   await Get.putAsync(() => UserStore().load());
   // Load API
   configAPI(null);
-
-  EasyLoading.instance.maskType = EasyLoadingMaskType.black;
 }
 
 class MyApp extends StatelessWidget {
