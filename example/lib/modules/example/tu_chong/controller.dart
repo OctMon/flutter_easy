@@ -2,7 +2,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/modules/example/tu_chong/model.dart';
 import 'package:flutter_easy_example/api/tu_chong/tu_chong_api.dart';
 
-class TuChongController extends BaseStateController<List<TCModel>?> {
+class TuChongController extends BaseRefreshStateController<List<TCModel>?> {
 
   int? postId;
 

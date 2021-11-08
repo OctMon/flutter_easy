@@ -124,7 +124,9 @@ void updateState<T>(dynamic state,
   }
 }
 
-class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
+class BaseStateController<T> extends GetxController with BaseStateMixin<T> {}
+
+class BaseRefreshStateController<T> extends BaseStateController<T> {
   final refreshController = EasyRefreshController();
   int page = kFirstPage;
 }
