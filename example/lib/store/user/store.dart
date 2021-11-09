@@ -12,15 +12,15 @@ class UserStore extends GetxController {
   final user = UserModel().obs;
 
   Future<UserStore> load() async {
-    String? storage = await getStorageString(_keyUser);
-    if (storage != null) {
-      user.value = UserModel.fromJson(jsonDecode(storage));
+    final json = await getStorageMap(_keyUser);
+    if (json != null) {
+      user.value = UserModel.fromJson(json);
     }
     return this;
   }
 
   Future<bool> save(UserModel user) async {
-    bool success = await setStorageString(_keyUser, jsonEncode(user));
+    bool success = await setStorageMap(_keyUser, user.toJson());
     this.user.value = user;
     return success;
   }
