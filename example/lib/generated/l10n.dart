@@ -260,10 +260,10 @@ class S {
     );
   }
 
-  /// `, we will use your personal information in strict accordance with the terms and conditions in order to provide you with better services./nIf you click “Agree”, you have read and agreed`
+  /// `, we will use your personal information in strict accordance with the terms and conditions in order to provide you with better services.`
   String get exampleCheckPrivacyAlertEnd {
     return Intl.message(
-      ', we will use your personal information in strict accordance with the terms and conditions in order to provide you with better services./nIf you click “Agree”, you have read and agreed',
+      ', we will use your personal information in strict accordance with the terms and conditions in order to provide you with better services.',
       name: 'exampleCheckPrivacyAlertEnd',
       desc: '',
       args: [],

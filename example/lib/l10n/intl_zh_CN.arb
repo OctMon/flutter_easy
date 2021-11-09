@@ -20,7 +20,7 @@
   "exampleAgree": "同意",
   "exampleDisagree": "不同意",
   "exampleCheckPrivacyAlertBegin": "我们非常重视您的个人信息和隐私保护，在您使用本产品和服务之前，请仔细阅读",
-  "exampleCheckPrivacyAlertEnd": "，我们将严格按照各项条款使用您的个人信息，以便为您提供更好的服务。\n如果您点击“同意”即表示您已阅读并同意",
+  "exampleCheckPrivacyAlertEnd": "，我们将严格按照各项条款使用您的个人信息，以便为您提供更好的服务。",
   "example_AgreeToContinueTip": "需同意才能继续使用",
   "example_ValidPhoneNumberTip": "请输入正确的手机号"
 }

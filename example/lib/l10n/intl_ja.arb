@@ -20,7 +20,7 @@
   "exampleAgree": "同意する",
   "exampleDisagree": "同意しない",
   "exampleCheckPrivacyAlertBegin": "個人情報やプライバシー保護は大切にしておりますので、本製品やサービスをご利用いただく前に、よくご確認ください",
-  "exampleCheckPrivacyAlertEnd": "より良いサービスを提供できるよう、個人情報を厳格に活用していきたいと考えております。/n「同意」をクリックすると、読んで同意したことになります",
+  "exampleCheckPrivacyAlertEnd": "より良いサービスを提供できるよう、個人情報を厳格に活用していきたいと考えております。",
   "example_AgreeToContinueTip": "使用を継続することに同意する必要があります",
   "example_ValidPhoneNumberTip": "有効な電話番号を入力して下さい"
 }

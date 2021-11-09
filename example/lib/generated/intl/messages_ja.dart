@@ -28,7 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exampleCheckPrivacyAlertBegin": MessageLookupByLibrary.simpleMessage(
             "個人情報やプライバシー保護は大切にしておりますので、本製品やサービスをご利用いただく前に、よくご確認ください"),
         "exampleCheckPrivacyAlertEnd": MessageLookupByLibrary.simpleMessage(
-            "より良いサービスを提供できるよう、個人情報を厳格に活用していきたいと考えております。/n「同意」をクリックすると、読んで同意したことになります"),
+            "より良いサービスを提供できるよう、個人情報を厳格に活用していきたいと考えております。"),
         "exampleDisagree": MessageLookupByLibrary.simpleMessage("同意しない"),
         "example_AgreeToContinueTip":
             MessageLookupByLibrary.simpleMessage("使用を継続することに同意する必要があります"),

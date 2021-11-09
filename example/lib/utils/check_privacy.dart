@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 
+import '../routes.dart';
+
 Future<bool> checkPrivacy(BuildContext context) async {
   final kPrivacy = "checkPrivacy".md5;
   if (await getStorageBool(kPrivacy) == true) {
@@ -48,8 +50,8 @@ Future<bool> checkPrivacy(BuildContext context) async {
                             color: appTheme(context).primaryColor,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () =>
-                                showToast(S.of(context).example_UserAgreement),
+                            ..onTap = () => toNamed(Routes.photosTab,
+                                preventDuplicates: false),
                         ),
                         TextSpan(
                           text: S.of(context).example_And,
@@ -60,35 +62,11 @@ Future<bool> checkPrivacy(BuildContext context) async {
                             color: appTheme(context).primaryColor,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () =>
-                                showToast(S.of(context).example_PrivacyPolicy),
+                            ..onTap = () => toNamed(Routes.photosTab,
+                                preventDuplicates: false),
                         ),
                         TextSpan(
                           text: S.of(context).exampleCheckPrivacyAlertEnd,
-                        ),
-                        TextSpan(
-                          text: S.of(context).example_UserAgreement,
-                          style: TextStyle(
-                            color: appTheme(context).primaryColor,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () =>
-                                showToast(S.of(context).example_UserAgreement),
-                        ),
-                        TextSpan(
-                          text: S.of(context).example_And,
-                        ),
-                        TextSpan(
-                          text: S.of(context).example_PrivacyPolicy,
-                          style: TextStyle(
-                            color: appTheme(context).primaryColor,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () =>
-                                showToast(S.of(context).example_PrivacyPolicy),
-                        ),
-                        const TextSpan(
-                          text: '。',
                         ),
                       ],
                     ),
