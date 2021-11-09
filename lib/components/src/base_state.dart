@@ -54,6 +54,9 @@ void updateState<T>(dynamic state,
 }
 
 class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
+  /// 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
+  String? placeholderImagePath;
+
   Widget baseState(
     NotifierBuilder<T?> widget, {
     Widget Function(String? errorMessage)? onEmptyWidget,
@@ -65,6 +68,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
             ? onEmptyWidget(status.errorMessage)
             : BasePlaceholderView(
                 title: status.isLoading ? null : status.errorMessage,
+                image: placeholderImagePath,
                 onTap: onLoadTap,
               );
       }
@@ -113,6 +117,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
                 ? onEmptyWidget(status.errorMessage)
                 : BasePlaceholderView(
                     title: status.errorMessage,
+                    image: placeholderImagePath,
                     onTap: onLoadTap ?? () => refreshController.callRefresh(),
                   ))
             : null,

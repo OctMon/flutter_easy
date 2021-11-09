@@ -3,11 +3,11 @@ import 'package:flutter_easy_example/modules/example/tu_chong/model.dart';
 import 'package:flutter_easy_example/api/tu_chong/tu_chong_api.dart';
 
 class TuChongController extends BaseRefreshStateController<List<TCModel>?> {
-
   int? postId;
 
   @override
   void onReady() {
+    placeholderImagePath = assetsImagesPath("placeholder_appstore");
     onRequestData(page);
     super.onReady();
   }
