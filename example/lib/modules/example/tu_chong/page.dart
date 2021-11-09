@@ -21,7 +21,7 @@ class TuChongPage extends StatelessWidget {
       appBar: BaseAppBar(
         title: Text(S.of(context).example_PictureWaterfallFlow),
       ),
-      body: controller.baseRefresh(
+      body: controller.baseRefreshState(
         (state) => ListView.builder(
           itemCount: state?.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
@@ -104,7 +104,6 @@ class TuChongPage extends StatelessWidget {
             );
           },
         ),
-        refreshController: controller.refreshController,
         onRefresh: () async => controller.onRequestData(kFirstPage),
         onLoad: () async => controller.onRequestData(controller.page + 1),
       ),

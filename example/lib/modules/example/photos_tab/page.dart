@@ -20,7 +20,6 @@ class PhotosTabPage extends StatelessWidget {
       return "https://picsum.photos/$width/$width";
     });
     return BaseScaffold(
-      backgroundColor: Colors.white,
       appBar: BaseAppBar(
         height: 0,
         backgroundColor: Colors.transparent,

@@ -6,77 +6,6 @@ typedef BaseComputeResult<T> = void Function(T state, RxStatus status);
 
 typedef BaseStateMixin<T> = StateMixin<T>;
 
-extension BaseStateMixinExt<T> on BaseStateMixin<T> {
-  Widget easy(
-    NotifierBuilder<T?> widget, {
-    Widget Function(String? error)? onError,
-    Widget? onLoading,
-    Widget? onEmpty,
-    void Function()? onLoadTap,
-  }) {
-    return SimpleBuilder(builder: (_) {
-      if (status.isLoading) {
-        return onLoading ?? const Center(child: BaseLoadingView());
-      } else if (status.isError) {
-        return onError != null
-            ? onError(status.errorMessage)
-            : Center(
-                child: BasePlaceholderView(
-                title: "${status.errorMessage}",
-                onTap: onLoadTap,
-              ));
-      } else if (status.isEmpty) {
-        return onEmpty ??
-            const SizedBox.shrink(); // Also can be widget(null); but is risky
-      }
-      return widget(state);
-    });
-  }
-
-  Widget baseRefresh(
-    NotifierBuilder<T?> widget, {
-    required EasyRefreshController refreshController,
-    Widget Function(String? message)? onEmptyWidget,
-    bool firstRefresh = false,
-    OnRefreshCallback? onRefresh,
-    OnLoadCallback? onLoad,
-    void Function()? onLoadTap,
-  }) {
-    return SimpleBuilder(builder: (_) {
-      return BaseRefresh(
-        controller: refreshController,
-        emptyWidget: state.isEmptyOrNull
-            ? (onEmptyWidget != null
-                ? onEmptyWidget(status.errorMessage)
-                : BasePlaceholderView(
-                    title: status.errorMessage,
-                    onTap: onLoadTap ?? () => refreshController.callRefresh(),
-                  ))
-            : null,
-        firstRefresh: firstRefresh,
-        onRefresh: onRefresh,
-        onLoad: state != null ? onLoad : null,
-        child: widget(state),
-      );
-    });
-  }
-
-  void updateResult<T>(Result result,
-      {required EasyRefreshController refreshController,
-      required int page,
-      int? limitPage,
-      int? pageCount,
-      required BaseComputeResult compute}) {
-    updateState<T>(state,
-        result: result,
-        refreshController: refreshController,
-        page: page,
-        limitPage: limitPage,
-        pageCount: pageCount,
-        compute: compute);
-  }
-}
-
 void updateState<T>(dynamic state,
     {required Result result,
     required EasyRefreshController refreshController,
@@ -124,9 +53,74 @@ void updateState<T>(dynamic state,
   }
 }
 
-class BaseStateController<T> extends GetxController with BaseStateMixin<T> {}
+class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
+  Widget baseState(
+    NotifierBuilder<T?> widget, {
+    Widget Function(String? errorMessage)? onEmptyWidget,
+    void Function()? onLoadTap,
+  }) {
+    return SimpleBuilder(builder: (_) {
+      if (status.isLoading || status.isError || state.isEmptyOrNull) {
+        return onEmptyWidget != null
+            ? onEmptyWidget(status.errorMessage)
+            : BasePlaceholderView(
+                title: status.isLoading ? null : status.errorMessage,
+                onTap: onLoadTap,
+              );
+      }
+      return widget(state);
+    });
+  }
+}
+
+extension BaseStateControllerUpdate<T> on BaseStateController<T> {
+  void updateResult<T>(Result result,
+      {required EasyRefreshController refreshController,
+      required int page,
+      int? limitPage,
+      int? pageCount,
+      required BaseComputeResult compute}) {
+    updateState<T>(state,
+        result: result,
+        refreshController: refreshController,
+        page: page,
+        limitPage: limitPage,
+        pageCount: pageCount,
+        compute: compute);
+  }
+}
 
 class BaseRefreshStateController<T> extends BaseStateController<T> {
+  /// 刷新控制器
   final refreshController = EasyRefreshController();
+
+  /// 当前页码
   int page = kFirstPage;
+
+  Widget baseRefreshState(
+    NotifierBuilder<T?> widget, {
+    Widget Function(String? status)? onEmptyWidget,
+    bool firstRefresh = false,
+    OnRefreshCallback? onRefresh,
+    OnLoadCallback? onLoad,
+    void Function()? onLoadTap,
+  }) {
+    return SimpleBuilder(builder: (_) {
+      return BaseRefresh(
+        controller: refreshController,
+        emptyWidget: state.isEmptyOrNull
+            ? (onEmptyWidget != null
+                ? onEmptyWidget(status.errorMessage)
+                : BasePlaceholderView(
+                    title: status.errorMessage,
+                    onTap: onLoadTap ?? () => refreshController.callRefresh(),
+                  ))
+            : null,
+        firstRefresh: firstRefresh,
+        onRefresh: onRefresh,
+        onLoad: state != null ? onLoad : null,
+        child: widget(state),
+      );
+    });
+  }
 }

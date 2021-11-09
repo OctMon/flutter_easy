@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+/// 网络错误的占位图
+var kPlaceholderImageRemote = assetsImagesPath("placeholder_remote");
+
 class BasePlaceholderView extends StatelessWidget {
   final String? title;
-  final String image;
+  final String? image;
   final VoidCallback? onTap;
 
   const BasePlaceholderView({
     Key? key,
     this.title = '暂无数据',
-    this.image = 'empty',
+    this.image,
     this.onTap,
   }) : super(key: key);
 
@@ -20,6 +23,12 @@ class BasePlaceholderView extends StatelessWidget {
         child: BaseLoadingView(),
       );
     }
+    var placeholderImagePath = image ?? assetsImagesPath("placeholder_empty");
+    switch (title) {
+      case kPlaceholderTitleRemote:
+        placeholderImagePath = kPlaceholderImageRemote;
+        break;
+    }
     return Center(
       child: GestureDetector(
         onTap: onTap,
@@ -28,7 +37,7 @@ class BasePlaceholderView extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Image.asset(
-                assetsImagesPath(image),
+                placeholderImagePath,
                 width: 100,
                 height: 100,
               ),
@@ -36,7 +45,7 @@ class BasePlaceholderView extends StatelessWidget {
               Text(
                 title ?? "",
                 style: TextStyle(
-                  color: Colors.black38,
+                  color: appTheme(context).progressIndicatorTheme.color,
                   fontSize: 14,
                 ),
               ),

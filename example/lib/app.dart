@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'api/api.dart';
 import 'generated/l10n.dart';

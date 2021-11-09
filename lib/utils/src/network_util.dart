@@ -10,6 +10,9 @@ import 'shared_preferences_util.dart';
 
 export 'package:session/session.dart';
 
+/// 网络错误的提示语
+const kPlaceholderTitleRemote = "网络连接出错，请检查网络连接";
+
 /// URL环境
 enum BaseURLType { test, release }
 
@@ -216,8 +219,9 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
     barrierDismissible: true,
     builder: (BuildContext ctx) {
       return BaseGeneralAlertDialog(
-        title: Text(
-            _baseURLTypeString.value.isEmpty ? "$kBaseURLType" : _baseURLTypeString.value),
+        title: Text(_baseURLTypeString.value.isEmpty
+            ? "$kBaseURLType"
+            : _baseURLTypeString.value),
         content: Text(
           "${BaseURLType.test}" +
               "=\n" +
