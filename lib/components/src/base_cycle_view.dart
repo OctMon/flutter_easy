@@ -10,6 +10,7 @@ class BaseBannerView extends StatelessWidget {
   final double? height;
   final int? playDelay;
   final bool showPagination;
+  final Widget placeholder;
   final ValueChanged<int>? onTap;
 
   const BaseBannerView(
@@ -19,6 +20,7 @@ class BaseBannerView extends StatelessWidget {
       this.height,
       this.playDelay,
       this.showPagination = true,
+      required this.placeholder,
       this.onTap})
       : super(key: key);
 
@@ -34,7 +36,7 @@ class BaseBannerView extends StatelessWidget {
           return BaseWebImage(
             url,
             fit: BoxFit.fill,
-            placeholder: Container(),
+            placeholder: placeholder,
           );
         } else {
           return Image.asset(
