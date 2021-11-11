@@ -41,6 +41,15 @@ var setDarkPlaceholderTextFieldStyle = TextStyle(
   color: colorWithHex9,
 );
 
+var setLightPlaceholderTextStyle = TextStyle(
+  color: colorWithHex9,
+  fontSize: 15,
+);
+var setDarkPlaceholderTextStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 15,
+);
+
 Color colorWithLightSecondary = Colors.tealAccent;
 Color colorWithDarkSecondary = Colors.blueAccent;
 

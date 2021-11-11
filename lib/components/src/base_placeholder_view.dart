@@ -4,6 +4,9 @@ import 'package:flutter_easy/flutter_easy.dart';
 /// 网络错误的占位图
 var kPlaceholderImageRemote = assetsImagesPath("placeholder_remote");
 
+/// 占位图默认宽高
+double kPlaceholderImageWidth = 180.adaptRatio;
+
 class BasePlaceholderView extends StatelessWidget {
   final String? title;
   final String? image;
@@ -32,22 +35,20 @@ class BasePlaceholderView extends StatelessWidget {
     return Center(
       child: GestureDetector(
         onTap: onTap,
-        child: Container(
-          height: 150,
+        child: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
                 placeholderImagePath,
-                width: 100,
-                height: 100,
+                width: kPlaceholderImageWidth,
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 30),
               Text(
                 title ?? "",
-                style: TextStyle(
-                  color: appTheme(context).progressIndicatorTheme.color,
-                  fontSize: 14,
-                ),
+                style: appDarkMode(context)
+                    ? setDarkPlaceholderTextStyle
+                    : setLightPlaceholderTextStyle,
               ),
             ],
           ),
