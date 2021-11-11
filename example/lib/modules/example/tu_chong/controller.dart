@@ -8,11 +8,12 @@ class TuChongController extends BaseRefreshStateController<List<TCModel>?> {
   @override
   void onReady() {
     placeholderImagePath = assetsImagesPath("placeholder_appstore");
-    onRequestData(page);
+    onRequestPage(page);
     super.onReady();
   }
 
-  Future<void> onRequestData(int page) async {
+  @override
+  Future<void> onRequestPage(int page) async {
     Result result = await getAPI(
         path: kApiFeedApp,
         queryParameters: {"page": page, "pose_id": postId ?? 0})

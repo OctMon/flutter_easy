@@ -104,8 +104,8 @@ class TuChongPage extends StatelessWidget {
             );
           },
         ),
-        onRefresh: () async => controller.onRequestData(kFirstPage),
-        onLoad: () async => controller.onRequestData(controller.page + 1),
+        onRefresh: () async => controller.onRequestPage(kFirstPage),
+        onLoad: () async => controller.onRequestPage(controller.page + 1),
       ),
     );
   }

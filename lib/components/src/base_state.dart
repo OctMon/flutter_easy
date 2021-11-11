@@ -75,6 +75,8 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
       return widget(state);
     });
   }
+
+  Future<void> onRequestData() async {}
 }
 
 extension BaseStateControllerUpdate<T> on BaseStateController<T> {
@@ -128,4 +130,6 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
       );
     });
   }
+
+  Future<void> onRequestPage(int page) async {}
 }
