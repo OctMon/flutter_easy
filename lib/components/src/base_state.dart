@@ -6,53 +6,6 @@ typedef BaseComputeResult<T> = void Function(T state, RxStatus status);
 
 typedef BaseStateMixin<T> = StateMixin<T>;
 
-void updateState<T>(dynamic state,
-    {required Result result,
-    required EasyRefreshController refreshController,
-    required int page,
-    int? limitPage,
-    int? pageCount,
-    required BaseComputeResult compute}) {
-  dynamic models = result.models.toList();
-  if (result.valid) {
-    if (models.isNotEmpty) {
-      /// 有无加载更多 true: 无更多 false: 有更多
-      var noMore = true;
-      if (pageCount != null) {
-        noMore = page < pageCount;
-      } else {
-        noMore = models.length < (limitPage ?? kLimitPage);
-      }
-      if (page > kFirstPage) {
-        // 上拉加载第2页数据
-        dynamic _tmp = state;
-        compute(_tmp..addAll(models), RxStatus.success());
-        refreshController.finishLoad(success: result.valid, noMore: noMore);
-      } else {
-        // 下拉刷新第1页数据
-        compute(models, RxStatus.success());
-        refreshController.finishRefresh(success: result.valid);
-        refreshController.resetLoadState();
-      }
-    } else if (state == null) {
-      // 未约定的无数据
-      compute(null, RxStatus.error(kEmptyList));
-    } else {
-      // 已经有1页数据再次上拉加载 无更多数据
-      refreshController.finishLoad(success: result.valid, noMore: true);
-    }
-  } else {
-    refreshController.resetLoadState();
-    if (page > kFirstPage) {
-      refreshController.finishLoad(success: result.valid);
-    } else {
-      refreshController.finishRefresh(success: result.valid);
-    }
-    dynamic tmp = state;
-    compute(tmp, RxStatus.error(result.message));
-  }
-}
-
 class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   /// 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
   String? placeholderImagePath;
@@ -86,19 +39,14 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
 }
 
 extension BaseStateControllerUpdate<T> on BaseStateController<T> {
-  void updateResult<T>(Result result,
-      {required EasyRefreshController refreshController,
-      required int page,
-      int? limitPage,
-      int? pageCount,
-      required BaseComputeResult compute}) {
-    updateState<T>(state,
-        result: result,
-        refreshController: refreshController,
-        page: page,
-        limitPage: limitPage,
-        pageCount: pageCount,
-        compute: compute);
+  void updateResult<T>(
+      {required Result result, required BaseComputeResult compute}) {
+    if (result.valid) {
+      dynamic models = result.models.toList();
+      compute(models, RxStatus.success());
+    } else {
+      compute(null, RxStatus.error(result.message));
+    }
   }
 }
 
@@ -154,4 +102,52 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   }
 
   Future<void> onRequestPage(int page) async {}
+}
+
+extension BaseStateRefreshControllerUpdate<T> on BaseRefreshStateController<T> {
+  void updateRefreshResult<T>(Result result,
+      {required EasyRefreshController refreshController,
+      required int page,
+      int? limitPage,
+      int? pageCount,
+      required BaseComputeResult compute}) {
+    dynamic models = result.models.toList();
+    if (result.valid) {
+      if (models.isNotEmpty) {
+        /// 有无加载更多 true: 无更多 false: 有更多
+        var noMore = true;
+        if (pageCount != null) {
+          noMore = page < pageCount;
+        } else {
+          noMore = models.length < (limitPage ?? kLimitPage);
+        }
+        if (page > kFirstPage) {
+          // 上拉加载第2页数据
+          dynamic _tmp = state;
+          compute(_tmp..addAll(models), RxStatus.success());
+          refreshController.finishLoad(success: result.valid, noMore: noMore);
+        } else {
+          // 下拉刷新第1页数据
+          compute(models, RxStatus.success());
+          refreshController.finishRefresh(success: result.valid);
+          refreshController.resetLoadState();
+        }
+      } else if (state == null) {
+        // 未约定的无数据
+        compute(null, RxStatus.error(kEmptyList));
+      } else {
+        // 已经有1页数据再次上拉加载 无更多数据
+        refreshController.finishLoad(success: result.valid, noMore: true);
+      }
+    } else {
+      refreshController.resetLoadState();
+      if (page > kFirstPage) {
+        refreshController.finishLoad(success: result.valid);
+      } else {
+        refreshController.finishRefresh(success: result.valid);
+      }
+      dynamic tmp = state;
+      compute(tmp, RxStatus.error(result.message));
+    }
+  }
 }
