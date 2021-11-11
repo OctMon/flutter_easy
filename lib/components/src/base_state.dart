@@ -57,6 +57,12 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   /// 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
   String? placeholderImagePath;
 
+  @override
+  void onInit() {
+    onRequestData();
+    super.onInit();
+  }
+
   Widget baseState(
     NotifierBuilder<T?> widget, {
     Widget Function(String? errorMessage)? onEmptyWidget,
@@ -108,6 +114,12 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
 
   /// 需要上拉加载更多
   bool implementationOnLoad = true;
+
+  @override
+  void onInit() {
+    onRequestPage(page);
+    super.onInit();
+  }
 
   Widget baseRefreshState(
     NotifierBuilder<T?> widget, {

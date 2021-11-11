@@ -85,7 +85,8 @@ class TuChongPage extends StatelessWidget {
                             fit: BoxFit.contain,
                           ),
                           onPressed: () {
-                            toNamed(Routes.photoView, arguments: data);
+                            toNamed(Routes.photoView,
+                                arguments: {"data": data.imageList!, "index": index});
                           },
                         );
                       },

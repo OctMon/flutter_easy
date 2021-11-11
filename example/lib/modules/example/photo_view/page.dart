@@ -8,20 +8,22 @@ class PhotoViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TCModel data = Get.arguments;
+    final List<TCImageModel> data = Get.arguments["data"];
+    final int index = Get.arguments["index"];
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: Text(data.title ?? ""),
+        title: Text(data[index].title ?? ""),
       ),
       body: PhotoViewGallery.builder(
+        pageController: PageController(initialPage: index),
         scrollPhysics: const BouncingScrollPhysics(),
         builder: (BuildContext context, int index) {
           return PhotoViewGalleryPageOptions(
             imageProvider:
-                BaseWebImage.provider(data.imageList?[index].imageURL ?? ""),
+                BaseWebImage.provider(data[index].imageURL),
           );
         },
-        itemCount: data.imageCount,
+        itemCount: data.length,
         loadingBuilder: (context, event) => Center(
           child: SizedBox(
             width: 20.0,

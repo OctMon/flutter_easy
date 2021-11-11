@@ -8,7 +8,6 @@ class TuChongController extends BaseRefreshStateController<List<TCModel>?> {
   @override
   void onInit() {
     placeholderImagePath = assetsImagesPath("placeholder_appstore");
-    onRequestPage(page);
     super.onInit();
   }
 
