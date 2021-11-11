@@ -13,35 +13,50 @@ class PhotoComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(PhotoController(), tag: url);
-    return controller.baseState(
-      (state) {
-        return GestureDetector(
-          child: Stack(
-            children: [
-              BaseWebImage(
-                url,
-                width: screenWidthDp,
-                height: screenHeightDp,
-                placeholder: const Center(child: BaseLoadingView()),
-                fit: BoxFit.fill,
-              ),
-              Align(
+    return Column(
+      children: [
+        Text(
+          "random:${controller.state}",
+          style: appTheme(context).textTheme.headline2,
+        ),
+        controller.baseState(
+          (state) {
+            return GestureDetector(
+              child: Stack(
                 alignment: Alignment.center,
-                child: Text("$state"),
+                children: [
+                  BaseWebImage(
+                    url,
+                    placeholder: const Center(child: BaseLoadingView()),
+                    fit: BoxFit.fill,
+                  ),
+                  Text("$url}"),
+                ],
               ),
-            ],
-          ),
-          onTap: () {
-            UserStore.find.user.update((user) {
-              if (user != null) {
-                user.avatar = url;
-                UserStore.find.save(user);
-              }
-            });
-            showToast(url);
+              onTap: () {
+                UserStore.find.user.update((user) {
+                  if (user != null) {
+                    user.avatar = url;
+                    UserStore.find.save(user);
+                  }
+                });
+                showToast(url);
+              },
+            );
           },
-        );
-      },
+        ),
+        Expanded(
+          child: ListView(
+            children: List.generate(
+              100,
+              (index) {
+                final size = (randomInt(screenWidthDp.toInt()) + 100) * 3;
+                return BaseWebImage("http://placekitten.com/$size/$size");
+              },
+            ).toList(),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -2,7 +2,13 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 class PhotoController extends BaseStateController<int?> {
   @override
-  void onReady() {
+  void onInit() {
+    onRequestData();
+    super.onInit();
+  }
+
+  @override
+  Future<void> onRequestData() async {
     final random = randomInt(3);
     logDebug(random);
     change(random, status: RxStatus.loading());
@@ -11,6 +17,5 @@ class PhotoController extends BaseStateController<int?> {
           status:
               randomInt(2) == 1 ? RxStatus.error("error") : RxStatus.success());
     });
-    super.onReady();
   }
 }

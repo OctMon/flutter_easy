@@ -16,8 +16,8 @@ void updateState<T>(dynamic state,
   dynamic models = result.models.toList();
   if (result.valid) {
     if (models.isNotEmpty) {
-      /// 有无加载更多
-      var noMore = false;
+      /// 有无加载更多 true: 无更多 false: 有更多
+      var noMore = true;
       if (pageCount != null) {
         noMore = page < pageCount;
       } else {
@@ -38,7 +38,7 @@ void updateState<T>(dynamic state,
       // 未约定的无数据
       compute(null, RxStatus.error(kEmptyList));
     } else {
-      // 已经有1页数据再次卡拉加载 无更多数据
+      // 已经有1页数据再次上拉加载 无更多数据
       refreshController.finishLoad(success: result.valid, noMore: true);
     }
   } else {
@@ -69,7 +69,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
             : BasePlaceholderView(
                 title: status.isLoading ? null : status.errorMessage,
                 image: placeholderImagePath,
-                onTap: onLoadTap,
+                onTap: onLoadTap ?? () => onRequestData(),
               );
       }
       return widget(state);
@@ -103,6 +103,12 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   /// 当前页码
   int page = kFirstPage;
 
+  /// 需要下拉刷新
+  bool implementationOnRefresh = true;
+
+  /// 需要上拉加载更多
+  bool implementationOnLoad = true;
+
   Widget baseRefreshState(
     NotifierBuilder<T?> widget, {
     Widget Function(String? status)? onEmptyWidget,
@@ -120,12 +126,16 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
                 : BasePlaceholderView(
                     title: status.errorMessage,
                     image: placeholderImagePath,
-                    onTap: onLoadTap ?? () => refreshController.callRefresh(),
+                    onTap: onLoadTap ?? () => onRequestPage(page),
                   ))
             : null,
         firstRefresh: firstRefresh,
-        onRefresh: onRefresh,
-        onLoad: state != null ? onLoad : null,
+        onRefresh: implementationOnRefresh
+            ? (onRefresh ?? () async => onRequestPage(kFirstPage))
+            : null,
+        onLoad: implementationOnLoad && state != null
+            ? (onLoad ?? () async => onRequestPage(page + 1))
+            : null,
         child: widget(state),
       );
     });

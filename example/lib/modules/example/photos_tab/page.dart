@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/store/user/store.dart';
 import 'package:get/get.dart';
@@ -14,34 +13,85 @@ class PhotosTabPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tabs = List.generate(10, (index) {
-      final width =
-          (screenWidthDp * screenDevicePixelRatio * index * 0.1).round();
-      return "https://picsum.photos/$width/$width";
-    });
+    final List<Color> colorList = [
+      Colors.red,
+      Colors.orange,
+      Colors.green,
+      Colors.purple,
+      Colors.blue,
+      Colors.yellow,
+      Colors.pink,
+      Colors.teal,
+      Colors.deepPurpleAccent
+    ];
     return BaseScaffold(
-      appBar: BaseAppBar(
-        height: 0,
-        backgroundColor: Colors.transparent,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-      ),
+      appBar: BaseAppBar(),
       body: SafeArea(
         bottom: false,
         child: Stack(
           children: [
-            BaseTabPage(
-              tabBarHeight: 44,
-              isScrollable: true,
-              tabs: tabs.map(
-                (e) {
-                  return Text(e.split("/").last);
-                },
-              ).toList(),
-              children: tabs.map(
-                (url) {
-                  return PhotoComponent(url: url);
-                },
-              ).toList(),
+            CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: FlutterLogo(
+                    size: screenWidthDp * 0.25,
+                  ),
+                ),
+                SliverGrid.count(
+                  crossAxisCount: 3,
+                  children: colorList
+                      .map((color) => Container(color: color))
+                      .toList(),
+                ),
+                SliverFixedExtentList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => Container(color: colorList[index]),
+                    childCount: colorList.length,
+                  ),
+                  itemExtent: 100,
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: BaseSliverPersistentHeaderDelegate(
+                    extent: 44,
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      color: appTheme(context).scaffoldBackgroundColor,
+                      child: TabBar(
+                        controller: controller.tabController,
+                        isScrollable: true,
+                        labelStyle: TextStyle(
+                          fontSize: 18.adaptRatio,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        unselectedLabelStyle: TextStyle(
+                          fontSize: 18.adaptRatio,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        labelColor: appTheme(context).primaryColor,
+                        unselectedLabelColor: colorWithHex6,
+                        tabs: controller.tabs.map(
+                          (e) {
+                            return Text(e.split("/").last);
+                          },
+                        ).toList(),
+                        // onTap: (index) {},
+                      ),
+                    ),
+                  ),
+                ),
+                SliverFillRemaining(
+                  child: TabBarView(
+                    controller: controller.tabController,
+                    children: controller.tabs.map(
+                      (url) {
+                        return PhotoComponent(url: url);
+                      },
+                    ).toList(),
+                  ),
+                ),
+              ],
             ),
             Obx(() {
               return Align(
