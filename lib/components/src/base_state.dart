@@ -19,7 +19,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   Widget baseState(
     NotifierBuilder<T?> widget, {
     Widget Function(String? errorMessage)? onEmptyWidget,
-    void Function()? onLoadTap,
+    void Function()? onReloadTap,
   }) {
     return SimpleBuilder(builder: (_) {
       if (status.isLoading || status.isError || state.isEmptyOrNull) {
@@ -28,7 +28,11 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
             : BasePlaceholderView(
                 title: status.isLoading ? null : status.errorMessage,
                 image: placeholderImagePath,
-                onTap: onLoadTap ?? () => onRequestData(),
+                onTap: onReloadTap ??
+                    () {
+                      change(null, status: RxStatus.loading());
+                      onRequestData();
+                    },
               );
       }
       return widget(state);
@@ -76,7 +80,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     bool firstRefresh = false,
     OnRefreshCallback? onRefresh,
     OnLoadCallback? onLoad,
-    void Function()? onLoadTap,
+    void Function()? onReloadTap,
   }) {
     return SimpleBuilder(builder: (_) {
       return BaseRefresh(
@@ -87,7 +91,11 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
                 : BasePlaceholderView(
                     title: status.errorMessage,
                     image: placeholderImagePath,
-                    onTap: onLoadTap ?? () => onRequestPage(page),
+                    onTap: onReloadTap ??
+                        () {
+                          change(state, status: RxStatus.loading());
+                          onRequestPage(page);
+                        },
                   ))
             : null,
         firstRefresh: firstRefresh,
