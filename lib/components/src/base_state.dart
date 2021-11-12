@@ -106,8 +106,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
 
 extension BaseStateRefreshControllerUpdate<T> on BaseRefreshStateController<T> {
   void updateRefreshResult<T>(Result result,
-      {required EasyRefreshController refreshController,
-      required int page,
+      {required int page,
       int? limitPage,
       int? pageCount,
       required BaseComputeResult compute}) {
@@ -121,6 +120,7 @@ extension BaseStateRefreshControllerUpdate<T> on BaseRefreshStateController<T> {
         } else {
           noMore = models.length < (limitPage ?? kLimitPage);
         }
+        this.page = page;
         if (page > kFirstPage) {
           // 上拉加载第2页数据
           dynamic _tmp = state;

@@ -17,13 +17,10 @@ class TuChongController extends BaseRefreshStateController<List<TCModel>?> {
         path: kApiFeedApp,
         queryParameters: {"page": page, "pose_id": postId ?? 0})
       ..fillMap((json) => TCModel.fromJson(json));
-    updateRefreshResult(result,
-        refreshController: refreshController,
-        page: page,
-        limitPage: 5, compute: (state, RxStatus status) {
+    updateRefreshResult(result, page: page, limitPage: 5,
+        compute: (state, RxStatus status) {
       change(state, status: status);
       if (status.isSuccess) {
-        this.page = page;
         postId = state?.last.postId;
       } else {
         showErrorToast(result.message);
