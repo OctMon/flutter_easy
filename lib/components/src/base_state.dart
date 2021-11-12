@@ -36,16 +36,17 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   }
 
   Future<void> onRequestData() async {}
-}
 
-extension BaseStateControllerUpdate<T> on BaseStateController<T> {
-  void updateResult<T>(
-      {required Result result, required BaseComputeResult compute}) {
+  void updateResult<T>({required Result result, BaseComputeResult? compute}) {
     if (result.valid) {
-      dynamic models = result.models.toList();
-      compute(models, RxStatus.success());
+      dynamic data = result.model ?? result.models.toList();
+      compute != null
+          ? compute(data, RxStatus.success())
+          : change(data, status: RxStatus.success());
     } else {
-      compute(null, RxStatus.error(result.message));
+      compute != null
+          ? compute(null, RxStatus.error(result.message))
+          : change(null, status: RxStatus.error(result.message));
     }
   }
 }
@@ -102,14 +103,12 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   }
 
   Future<void> onRequestPage(int page) async {}
-}
 
-extension BaseStateRefreshControllerUpdate<T> on BaseRefreshStateController<T> {
   void updateRefreshResult<T>(Result result,
       {required int page,
       int? limitPage,
       int? pageCount,
-      required BaseComputeResult compute}) {
+      BaseComputeResult? compute}) {
     dynamic models = result.models.toList();
     if (result.valid) {
       if (models.isNotEmpty) {
@@ -124,17 +123,25 @@ extension BaseStateRefreshControllerUpdate<T> on BaseRefreshStateController<T> {
         if (page > kFirstPage) {
           // 上拉加载第2页数据
           dynamic _tmp = state;
-          compute(_tmp..addAll(models), RxStatus.success());
+          _tmp.addAll(models);
+          compute != null
+              ? compute(_tmp, RxStatus.success())
+              : change(_tmp, status: RxStatus.success());
           refreshController.finishLoad(success: result.valid, noMore: noMore);
         } else {
           // 下拉刷新第1页数据
-          compute(models, RxStatus.success());
+          compute != null
+              ? compute(models, RxStatus.success())
+              : change(models, status: RxStatus.success());
+          ;
           refreshController.finishRefresh(success: result.valid);
           refreshController.resetLoadState();
         }
       } else if (state == null) {
         // 未约定的无数据
-        compute(null, RxStatus.error(kEmptyList));
+        compute != null
+            ? compute(null, RxStatus.error(kEmptyList))
+            : change(null, status: RxStatus.error(kEmptyList));
       } else {
         // 已经有1页数据再次上拉加载 无更多数据
         refreshController.finishLoad(success: result.valid, noMore: true);
@@ -147,7 +154,9 @@ extension BaseStateRefreshControllerUpdate<T> on BaseRefreshStateController<T> {
         refreshController.finishRefresh(success: result.valid);
       }
       dynamic tmp = state;
-      compute(tmp, RxStatus.error(result.message));
+      compute != null
+          ? compute(tmp, RxStatus.error(result.message))
+          : change(tmp, status: RxStatus.error(result.message));
     }
   }
 }
