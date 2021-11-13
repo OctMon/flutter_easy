@@ -85,8 +85,10 @@ class TuChongPage extends StatelessWidget {
                             fit: BoxFit.contain,
                           ),
                           onPressed: () {
-                            toNamed(Routes.photoView,
-                                arguments: {"data": data.imageList!, "index": index});
+                            toNamed(Routes.photoView, arguments: {
+                              "data": data.imageList!,
+                              "index": index
+                            });
                           },
                         );
                       },
@@ -105,6 +107,7 @@ class TuChongPage extends StatelessWidget {
             );
           },
         ),
+        placeholderImagePath: assetsImagesPath("placeholder_appstore"),
       ),
     );
   }

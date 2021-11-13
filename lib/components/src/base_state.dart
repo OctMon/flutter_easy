@@ -7,9 +7,6 @@ typedef BaseComputeResult<T> = void Function(T state, RxStatus status);
 typedef BaseStateMixin<T> = StateMixin<T>;
 
 class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
-  /// 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
-  String? placeholderImagePath;
-
   @override
   void onInit() {
     onRequestData();
@@ -19,14 +16,18 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   Widget baseState(
     NotifierBuilder<T?> widget, {
     Widget Function(String? errorMessage)? onEmptyWidget,
+    String? placeholderImagePath,
+    String? placeholderTitle,
     void Function()? onReloadTap,
   }) {
     return SimpleBuilder(builder: (_) {
       if (status.isLoading || status.isError || state.isEmptyOrNull) {
         return onEmptyWidget != null
-            ? onEmptyWidget(status.errorMessage)
+            ? onEmptyWidget(placeholderTitle ?? status.errorMessage)
             : BasePlaceholderView(
-                title: status.isLoading ? null : status.errorMessage,
+                title: status.isLoading
+                    ? null
+                    : (placeholderTitle ?? status.errorMessage),
                 image: placeholderImagePath,
                 onTap: onReloadTap ??
                     () {
@@ -68,6 +69,9 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   /// 需要上拉加载更多
   bool implementationOnLoad = true;
 
+  /// 指定当前页面无数据时的占位标题
+  String? _placeholderEmptyTitle;
+
   @override
   void onInit() {
     onRequestPage(page);
@@ -77,11 +81,14 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   Widget baseRefreshState(
     NotifierBuilder<T?> widget, {
     Widget Function(String? status)? onEmptyWidget,
+    String? placeholderImagePath,
+    String? placeholderEmptyTitle,
     bool firstRefresh = false,
     OnRefreshCallback? onRefresh,
     OnLoadCallback? onLoad,
     void Function()? onReloadTap,
   }) {
+    _placeholderEmptyTitle = placeholderEmptyTitle;
     return SimpleBuilder(builder: (_) {
       return BaseRefresh(
         controller: refreshController,
@@ -90,6 +97,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
                 ? onEmptyWidget(status.errorMessage)
                 : BasePlaceholderView(
                     title: status.errorMessage,
+                    // 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
                     image: placeholderImagePath,
                     onTap: onReloadTap ??
                         () {
@@ -148,8 +156,10 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
       } else if (state == null) {
         // 未约定的无数据
         compute != null
-            ? compute(null, RxStatus.error(kEmptyList))
-            : change(null, status: RxStatus.error(kEmptyList));
+            ? compute(
+                null, RxStatus.error(_placeholderEmptyTitle ?? kEmptyList))
+            : change(null,
+                status: RxStatus.error(_placeholderEmptyTitle ?? kEmptyList));
       } else {
         // 已经有1页数据再次上拉加载 无更多数据
         refreshController.finishLoad(success: result.valid, noMore: true);

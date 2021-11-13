@@ -6,12 +6,6 @@ class TuChongController extends BaseRefreshStateController<List<TCModel>?> {
   int? postId;
 
   @override
-  void onInit() {
-    placeholderImagePath = assetsImagesPath("placeholder_appstore");
-    super.onInit();
-  }
-
-  @override
   Future<void> onRequestPage(int page) async {
     Result result = await getAPI(
         path: kApiFeedApp,
