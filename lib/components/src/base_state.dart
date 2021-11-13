@@ -17,27 +17,36 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
     NotifierBuilder<T?> widget, {
     Widget Function(String? errorMessage)? onEmptyWidget,
     String? placeholderImagePath,
-    String? placeholderTitle,
+    String? placeholderEmptyTitle,
     void Function()? onReloadTap,
   }) {
-    return SimpleBuilder(builder: (_) {
-      if (status.isLoading || status.isError || state.isEmptyOrNull) {
-        return onEmptyWidget != null
-            ? onEmptyWidget(placeholderTitle ?? status.errorMessage)
-            : BasePlaceholderView(
-                title: status.isLoading
-                    ? null
-                    : (placeholderTitle ?? status.errorMessage),
-                image: placeholderImagePath,
-                onTap: onReloadTap ??
-                    () {
-                      change(null, status: RxStatus.loading());
-                      onRequestData();
-                    },
-              );
-      }
-      return widget(state);
-    });
+    return SimpleBuilder(
+      builder: (_) {
+        if (status.isLoading ||
+            status.isEmpty ||
+            status.isError ||
+            state.isEmptyOrNull) {
+          return onEmptyWidget != null
+              ? onEmptyWidget(status.isEmpty
+                  ? (placeholderEmptyTitle ?? kEmptyList)
+                  : status.errorMessage)
+              : BasePlaceholderView(
+                  title: status.isLoading
+                      ? null
+                      : (status.isEmpty
+                          ? (placeholderEmptyTitle ?? kEmptyList)
+                          : status.errorMessage),
+                  image: placeholderImagePath,
+                  onTap: onReloadTap ??
+                      () {
+                        change(null, status: RxStatus.loading());
+                        onRequestData();
+                      },
+                );
+        }
+        return widget(state);
+      },
+    );
   }
 
   Future<void> onRequestData() async {}

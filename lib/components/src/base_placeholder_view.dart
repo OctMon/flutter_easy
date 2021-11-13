@@ -49,6 +49,7 @@ class BasePlaceholderView extends StatelessWidget {
                 style: appDarkMode(context)
                     ? setDarkPlaceholderTextStyle
                     : setLightPlaceholderTextStyle,
+                textAlign: TextAlign.center,
               ),
             ],
           ),
