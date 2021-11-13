@@ -166,7 +166,8 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
             refreshController.resetLoadState();
           }
         }
-      } else if (page == kFirstPage) {
+      } else if (page == kFirstPage && state != null) {
+        // 下野刷新时已有数据
         if (force) {
           // 强制下拉刷新时,无数时会清除数据
           compute != null
