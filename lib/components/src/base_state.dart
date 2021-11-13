@@ -131,6 +131,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
 
   void updateRefreshResult<T>(Result result,
       {required int page,
+      bool force = false,
       int? limitPage,
       int? pageCount,
       BaseComputeResult? compute}) {
@@ -158,10 +159,23 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
           compute != null
               ? compute(models, RxStatus.success())
               : change(models, status: RxStatus.success());
-          ;
           refreshController.finishRefresh(success: result.valid);
-          refreshController.resetLoadState();
+          if (noMore) {
+            refreshController.finishLoad(success: result.valid, noMore: noMore);
+          } else {
+            refreshController.resetLoadState();
+          }
         }
+      } else if (page == kFirstPage) {
+        if (force) {
+          // 强制下拉刷新时,无数时会清除数据
+          compute != null
+              ? compute(
+                  null, RxStatus.error(_placeholderEmptyTitle ?? kEmptyList))
+              : change(null,
+                  status: RxStatus.error(_placeholderEmptyTitle ?? kEmptyList));
+        }
+        refreshController.finishRefresh(success: result.valid);
       } else if (state == null) {
         // 未约定的无数据
         compute != null
