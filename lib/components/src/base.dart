@@ -586,22 +586,29 @@ class BaseScaffold extends StatelessWidget {
 
 class BaseInkWell extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
+  final OutlinedBorder? shape;
   final Color? color;
   final Widget child;
   final VoidCallback? onPressed;
 
-  BaseInkWell({this.padding, this.color, required this.child, this.onPressed});
+  BaseInkWell(
+      {this.padding,
+      this.shape,
+      this.color,
+      required this.child,
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
         padding: MaterialStateProperty.all(padding),
+        shape: MaterialStateProperty.all(shape),
         overlayColor: MaterialStateProperty.all(Colors.transparent),
         backgroundColor: MaterialStateProperty.resolveWith(
           (states) {
             if (states.contains(MaterialState.pressed)) {
-              return color?.withOpacity(0.6) ?? Colors.black12;
+              return Colors.black12;
             }
             return color;
           },
