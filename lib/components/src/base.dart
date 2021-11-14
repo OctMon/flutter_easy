@@ -1180,7 +1180,7 @@ class BaseDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin,
-      height: thickness ?? 0.5,
+      height: thickness ?? 1,
       color: color ?? appTheme(context).dividerColor,
     );
   }
