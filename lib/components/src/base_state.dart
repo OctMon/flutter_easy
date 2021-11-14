@@ -7,9 +7,14 @@ typedef BaseComputeResult<T> = void Function(T state, RxStatus status);
 typedef BaseStateMixin<T> = StateMixin<T>;
 
 class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
+  /// 在onInit自动调用onRequestPage(page)
+  bool implementationOnInit = true;
+
   @override
   void onInit() {
-    onRequestData();
+    if (implementationOnInit) {
+      onRequestData();
+    }
     super.onInit();
   }
 
@@ -83,7 +88,9 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
 
   @override
   void onInit() {
-    onRequestPage(page);
+    if (implementationOnInit) {
+      onRequestPage(page);
+    }
     super.onInit();
   }
 
