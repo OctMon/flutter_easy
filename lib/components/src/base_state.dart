@@ -6,6 +6,9 @@ typedef BaseComputeResult<T> = void Function(T state, RxStatus status);
 
 typedef BaseStateMixin<T> = StateMixin<T>;
 
+abstract class BaseLifeCycleController extends FullLifeCycleController
+    with FullLifeCycle {}
+
 class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   /// 在onInit自动调用onRequestPage(page)
   bool implementationOnInit = true;
