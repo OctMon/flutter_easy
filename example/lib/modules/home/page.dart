@@ -81,6 +81,45 @@ class HomePage extends StatelessWidget {
               final mode = themeModes[(++themeModeCurrent) % 3];
               Get.changeThemeMode(mode);
               showSuccessToast("$mode");
+              showBaseDialog<bool>(
+                    context: context,
+                    builder: (context) {
+                      return WillPopScope(
+                        onWillPop: () async {
+                          return false;
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            BaseCustomAlertDialog(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 38),
+                              content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: FlutterLogo(
+                                  size: 100.adaptRatio,
+                                  style: FlutterLogoStyle.stacked,
+                                ),
+                              ),
+                            ),
+                            // const SizedBox(height: 15),
+                            BaseButton(
+                              child: const Icon(
+                                Icons.access_time_filled_outlined,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                offBack();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ) ??
+                  false;
             },
           ),
         ],

@@ -974,6 +974,32 @@ class BaseGeneralAlertDialog extends StatelessWidget {
   }
 }
 
+class BaseCustomAlertDialog extends Dialog {
+  final BorderRadiusGeometry borderRadius;
+  final EdgeInsets margin;
+  final Widget content;
+
+  const BaseCustomAlertDialog({
+    Key? key,
+    this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
+    this.margin = const EdgeInsets.all(38.0),
+    required this.content,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseAlertDialog(
+      titlePadding: EdgeInsets.zero,
+      actionPadding: EdgeInsets.zero,
+      contentPadding: EdgeInsets.zero,
+      title: const SizedBox(),
+      borderRadius: borderRadius,
+      margin: margin,
+      content: content,
+    );
+  }
+}
+
 class BaseAlertDialog extends Dialog {
   final bool barrierDismissible;
   final BorderRadiusGeometry borderRadius;
