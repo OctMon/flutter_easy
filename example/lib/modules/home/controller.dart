@@ -6,6 +6,8 @@ import 'state.dart';
 class HomeController extends GetxController with SingleGetTickerProviderMixin {
   final state = HomeState();
 
+  var color = colorWithDarkSecondary.obs;
+
   @override
   void onInit() {
     state.animationController = AnimationController(
@@ -24,5 +26,4 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     });
     super.onReady();
   }
-
 }

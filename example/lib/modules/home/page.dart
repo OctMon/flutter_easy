@@ -82,44 +82,62 @@ class HomePage extends StatelessWidget {
               Get.changeThemeMode(mode);
               showSuccessToast("$mode");
               showBaseDialog<bool>(
-                    context: context,
-                    builder: (context) {
-                      return WillPopScope(
-                        onWillPop: () async {
-                          return false;
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            BaseCustomAlertDialog(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 38),
-                              content: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: FlutterLogo(
-                                  size: 100.adaptRatio,
-                                  style: FlutterLogoStyle.stacked,
-                                ),
-                              ),
-                            ),
-                            // const SizedBox(height: 15),
-                            BaseButton(
-                              child: const Icon(
-                                Icons.access_time_filled_outlined,
-                                size: 30,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                offBack();
-                              },
-                            ),
-                          ],
-                        ),
-                      );
+                context: context,
+                builder: (context) {
+                  return WillPopScope(
+                    onWillPop: () async {
+                      return false;
                     },
-                  ) ??
-                  false;
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        BaseCustomAlertDialog(
+                          margin: const EdgeInsets.symmetric(horizontal: 38),
+                          content: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Obx(() {
+                              return Column(
+                                children: [
+                                  FlutterLogo(
+                                    size: 200.adaptRatio,
+                                    style: FlutterLogoStyle.horizontal,
+                                    textColor: controller.color.value,
+                                  ),
+                                  BaseButton(
+                                      child: Icon(
+                                        Icons.access_time_filled,
+                                        color: controller.color.value,
+                                      ),
+                                      onPressed: () {
+                                        showLoading();
+                                        1.seconds.delay(() {
+                                          dismissLoading();
+                                          controller.color.value =
+                                              colorWithRandom();
+                                        });
+                                      })
+                                ],
+                              );
+                            }),
+                          ),
+                        ),
+                        // const SizedBox(height: 15),
+                        BaseButton(
+                          child: const Icon(
+                            Icons.power_settings_new_outlined,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            offBack();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
             },
           ),
         ],
