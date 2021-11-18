@@ -9,14 +9,6 @@ class HomePage extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
   final HomeState state = Get.find<HomeController>().state;
 
-  static const List<ThemeMode> themeModes = [
-    ThemeMode.system,
-    ThemeMode.light,
-    ThemeMode.dark,
-  ];
-
-  static var themeModeCurrent = 0;
-
   HomePage({Key? key}) : super(key: key);
 
   @override
@@ -75,24 +67,25 @@ class HomePage extends StatelessWidget {
               )
             : null,
         title: Obx(() {
-          return Text(
-            appName,
-            style: TextStyle(color: controller.color.value),
-          );
-        }),
-        actions: [
-          BaseButton(
-            child: const Icon(Icons.volunteer_activism),
-            onPressed: () {
-              final mode = themeModes[(++themeModeCurrent) % 3];
-              Get.changeThemeMode(mode);
-              showSuccessToast("$mode");
-              showChangeThemeDialog(context, controller.color.value,
+          return GestureDetector(
+            child: Text(
+              appName,
+              style: TextStyle(color: controller.color.value),
+            ),
+            onTap: () {
+              showChangeColorDialog(context, controller.color.value,
                   completion: (Color value) {
                 controller.color.value = value;
               });
             },
-          ),
+          );
+        }),
+        actions: [
+          BaseButton(
+              child: const Icon(Icons.volunteer_activism),
+              onPressed: () {
+                showChangeThemeDialog(context);
+              }),
         ],
       ),
       body: SafeArea(

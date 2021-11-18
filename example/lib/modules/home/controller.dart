@@ -6,7 +6,7 @@ import 'state.dart';
 class HomeController extends GetxController with SingleGetTickerProviderMixin {
   final state = HomeState();
 
-  var color = colorWithDarkSecondary.obs;
+  var color = setLightPrimaryColor.obs;
 
   @override
   void onInit() {
