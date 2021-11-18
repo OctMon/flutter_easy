@@ -607,14 +607,14 @@ class BaseInkWell extends StatelessWidget {
         overlayColor: MaterialStateProperty.all(Colors.transparent),
         backgroundColor: MaterialStateProperty.resolveWith(
           (states) {
-            if (states.contains(MaterialState.pressed)) {
+            if (onPressed != null && states.contains(MaterialState.pressed)) {
               return Colors.black12;
             }
             return color;
           },
         ),
       ),
-      onPressed: onPressed,
+      onPressed: onPressed ?? () {},
       child: child,
     );
   }
