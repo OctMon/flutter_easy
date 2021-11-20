@@ -71,6 +71,10 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
           : change(null, status: RxStatus.error(result.message));
     }
   }
+
+  void cleanState() {
+    change(null);
+  }
 }
 
 class BaseRefreshStateController<T> extends BaseStateController<T> {
