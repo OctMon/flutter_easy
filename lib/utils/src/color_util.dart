@@ -21,6 +21,17 @@ var setDarkAppBarForegroundColor = Colors.white;
 var setLightDividerColor = Color(0x1FFFFFFF);
 var setDarkDividerColor = Color(0xFFEFEFF4);
 
+var setLightAppBarTitleTextStyle = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w500,
+  color: colorWithHex3,
+);
+var setDarkAppBarTitleTextStyle = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w500,
+  color: Colors.white,
+);
+
 var setLightBodyText2Style = TextStyle(
   color: colorWithHex3,
 );
@@ -34,6 +45,7 @@ var setLightTextFieldStyle = TextStyle(
 var setDarkTextFieldStyle = TextStyle(
   color: Colors.white,
 );
+
 var setLightPlaceholderTextFieldStyle = TextStyle(
   color: colorWithHex9,
 );
@@ -116,6 +128,8 @@ ThemeData getTheme({bool darkMode = false}) {
           : setLightAppBarBackgroundColor,
       systemOverlayStyle:
           darkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+      titleTextStyle:
+          darkMode ? setDarkAppBarTitleTextStyle : setLightAppBarTitleTextStyle,
     ),
     textTheme: TextTheme(
       // 默认 Text 样式

@@ -70,7 +70,10 @@ class HomePage extends StatelessWidget {
           return GestureDetector(
             child: Text(
               appName,
-              style: TextStyle(color: controller.color.value),
+              style: appTheme(context)
+                  .appBarTheme
+                  .titleTextStyle
+                  ?.copyWith(color: controller.color.value),
             ),
             onTap: () {
               showChangeColorDialog(context, controller.color.value,
