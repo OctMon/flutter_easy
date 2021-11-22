@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy_example/components/theme_menu_popup_view.dart';
 
 void showChangeColorDialog(BuildContext context, Color color,
     {required ValueChanged<Color> completion}) {
@@ -63,72 +64,21 @@ void showChangeColorDialog(BuildContext context, Color color,
 }
 
 void showChangeThemeDialog(BuildContext context) {
-  const List<ThemeMode> themeModes = [
-    ThemeMode.system,
-    ThemeMode.light,
-    ThemeMode.dark,
-  ];
-  showBaseDialog<bool>(
-    context: context,
-    builder: (context) {
-      return WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            BaseCustomAlertDialog(
-              borderRadius: BorderRadius.zero,
-              margin: EdgeInsets.zero,
-              content: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ObxValue<Rx<ThemeMode>>((mode) {
-                  return Column(
-                    children: [
-                      Text(
-                        "${mode.value}",
-                        style: appTheme(context)
-                            .textTheme
-                            .headline5!
-                            .copyWith(color: appTheme(context).primaryColor),
-                      ),
-                      Column(
-                        children: themeModes.map((e) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: BaseBackgroundButton(
-                                title: Text("$e"),
-                                onPressed: () {
-                                  showLoading();
-                                  mode.value = e;
-                                  Get.changeThemeMode(mode.value);
-                                  showSuccessToast("$mode");
-                                  offBack();
-                                }),
-                          );
-                        }).toList(),
-                      )
-                    ],
-                  );
-                }, ThemeMode.system.obs),
-              ),
-            ),
-            // const SizedBox(height: 15),
-            BaseButton(
-              child: const Icon(
-                Icons.power_settings_new_outlined,
-                size: 30,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                offBack();
-              },
-            ),
-          ],
-        ),
-      );
-    },
+  Navigator.of(context).push(
+    PageRouteBuilder(
+      opaque: false,
+      pageBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return const ThemeMenuPopupView();
+      },
+      transitionsBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation, Widget child) {
+        return FadeTransition(
+          opacity: Tween<double>(begin: 0.0, end: 1.0).animate(animation),
+          child: child,
+        );
+      },
+    ),
   );
 }
+

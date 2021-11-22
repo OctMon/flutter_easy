@@ -73,10 +73,7 @@ class HomePage extends StatelessWidget {
               style: TextStyle(color: controller.color.value),
             ),
             onTap: () {
-              showChangeColorDialog(context, controller.color.value,
-                  completion: (Color value) {
-                controller.color.value = value;
-              });
+              showChangeThemeDialog(context);
             },
           );
         }),
@@ -84,7 +81,10 @@ class HomePage extends StatelessWidget {
           BaseButton(
               child: const Icon(Icons.volunteer_activism),
               onPressed: () {
-                showChangeThemeDialog(context);
+                showChangeColorDialog(context, controller.color.value,
+                    completion: (Color value) {
+                  controller.color.value = value;
+                });
               }),
         ],
       ),
