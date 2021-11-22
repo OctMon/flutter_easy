@@ -5,8 +5,12 @@ import 'package:flutter_easy/flutter_easy.dart';
 final routesLoginNamed = '/login';
 
 /// 导航到默认的登录页面
-Future<bool> toLogin() async {
-  final success = (await toNamed(routesLoginNamed)) ?? false;
+Future<bool> toLogin({
+  bool preventDuplicates = true,
+}) async {
+  final success =
+      (await toNamed(routesLoginNamed, preventDuplicates: preventDuplicates)) ??
+          false;
   return success;
 }
 
