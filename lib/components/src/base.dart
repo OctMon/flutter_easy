@@ -735,7 +735,7 @@ class BaseBackgroundButton extends StatelessWidget {
       this.borderRadius = 22,
       this.color,
       this.disableColor,
-      required this.onPressed})
+      this.onPressed})
       : super(key: key);
 
   @override
@@ -810,7 +810,7 @@ class BaseOutlineButton extends StatelessWidget {
       this.borderRadius = 22,
       this.borderColor,
       this.boxShadow,
-      required this.onPressed})
+      this.onPressed})
       : super(key: key);
 
   @override
