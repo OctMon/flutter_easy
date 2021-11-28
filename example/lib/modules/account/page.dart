@@ -30,7 +30,13 @@ class AccountPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: () => toNamed(Routes.profile),
+                        onTap: () {
+                          toNamed(Routes.profile)?.then((success) {
+                            if (success) {
+                              toNamed(Routes.profile);
+                            }
+                          });
+                        },
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50.adaptRatio),
                           child: BaseWebImage(
@@ -46,7 +52,13 @@ class AccountPage extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => toNamed(Routes.profile),
+                        onTap: () {
+                          toNamed(Routes.profile)?.then((success) {
+                            if (success) {
+                              toNamed(Routes.profile);
+                            }
+                          });
+                        },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 18),
                           child: Text(
