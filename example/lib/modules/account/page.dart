@@ -32,7 +32,7 @@ class AccountPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           toNamed(Routes.profile)?.then((success) {
-                            if (success) {
+                            if (success ?? false) {
                               toNamed(Routes.profile);
                             }
                           });
@@ -54,7 +54,7 @@ class AccountPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           toNamed(Routes.profile)?.then((success) {
-                            if (success) {
+                            if (success ?? false) {
                               toNamed(Routes.profile);
                             }
                           });
