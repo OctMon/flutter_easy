@@ -143,6 +143,18 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
 
   Future<void> onRequestPage(int page) async {}
 
+  /// 完成加载
+  void _finishLoad({
+    required bool success,
+    required bool noMore,
+  }) {
+    Future.delayed(Duration(milliseconds: 100), () {
+      // TODO: 延迟100ms执行，首次自动刷新，数据只有一页，finishLoad(noMore: true)不生效，但是下拉刷新却生效. #197
+      // https://github.com/xuelongqy/flutter_easyrefresh/issues/197
+      refreshController.finishLoad(success: success, noMore: noMore);
+    });
+  }
+
   void updateRefreshResult<T>(Result result,
       {required int page,
       bool force = false,
@@ -167,7 +179,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
           compute != null
               ? compute(_tmp, RxStatus.success())
               : change(_tmp, status: RxStatus.success());
-          refreshController.finishLoad(success: result.valid, noMore: noMore);
+          _finishLoad(success: result.valid, noMore: noMore);
         } else {
           // 下拉刷新第1页数据
           compute != null
@@ -175,7 +187,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
               : change(models, status: RxStatus.success());
           refreshController.finishRefresh(success: result.valid);
           if (noMore) {
-            refreshController.finishLoad(success: result.valid, noMore: noMore);
+            _finishLoad(success: result.valid, noMore: noMore);
           } else {
             refreshController.resetLoadState();
           }
@@ -200,12 +212,12 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
                 status: RxStatus.error(_placeholderEmptyTitle ?? kEmptyList));
       } else {
         // 已经有1页数据再次上拉加载 无更多数据
-        refreshController.finishLoad(success: result.valid, noMore: true);
+        _finishLoad(success: result.valid, noMore: true);
       }
     } else {
       refreshController.resetLoadState();
       if (page > kFirstPage) {
-        refreshController.finishLoad(success: result.valid);
+        _finishLoad(success: result.valid, noMore: true);
       } else {
         refreshController.finishRefresh(success: result.valid);
       }
