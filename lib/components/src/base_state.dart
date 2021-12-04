@@ -143,16 +143,20 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
 
   Future<void> onRequestPage(int page) async {}
 
-  /// 完成加载
+  /// 完成下拉刷新
+  void _finishRefresh({
+    required bool success,
+    bool noMore = false,
+  }) {
+    refreshController.finishRefresh(success: success, noMore: noMore);
+  }
+
+  /// 完成上拉加载
   void _finishLoad({
     required bool success,
-    required bool noMore,
+    bool noMore = false,
   }) {
-    Future.delayed(Duration(milliseconds: 100), () {
-      // TODO: 延迟100ms执行，首次自动刷新，数据只有一页，finishLoad(noMore: true)不生效，但是下拉刷新却生效. #197
-      // https://github.com/xuelongqy/flutter_easyrefresh/issues/197
-      refreshController.finishLoad(success: success, noMore: noMore);
-    });
+    refreshController.finishLoad(success: success, noMore: noMore);
   }
 
   void updateRefreshResult<T>(Result result,
@@ -185,7 +189,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
           compute != null
               ? compute(models, RxStatus.success())
               : change(models, status: RxStatus.success());
-          refreshController.finishRefresh(success: result.valid);
+          _finishRefresh(success: result.valid);
           if (noMore) {
             _finishLoad(success: result.valid, noMore: noMore);
           } else {
@@ -202,7 +206,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
               : change(null,
                   status: RxStatus.error(_placeholderEmptyTitle ?? kEmptyList));
         }
-        refreshController.finishRefresh(success: result.valid);
+        _finishRefresh(success: result.valid);
       } else if (state == null) {
         // 未约定的无数据
         compute != null
@@ -219,7 +223,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
       if (page > kFirstPage) {
         _finishLoad(success: result.valid, noMore: true);
       } else {
-        refreshController.finishRefresh(success: result.valid);
+        _finishRefresh(success: result.valid);
       }
       dynamic tmp = state;
       compute != null
