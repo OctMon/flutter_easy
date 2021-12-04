@@ -3,7 +3,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:get/get.dart';
 
 class PhotosTabController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetSingleTickerProviderStateMixin {
   late TabController tabController;
 
   final tabs = List.generate(10, (index) {

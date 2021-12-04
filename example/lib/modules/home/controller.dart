@@ -3,7 +3,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 import 'state.dart';
 
-class HomeController extends GetxController with SingleGetTickerProviderMixin {
+class HomeController extends GetxController with GetSingleTickerProviderStateMixin {
   final state = HomeState();
 
   var color = setLightPrimaryColor.obs;
