@@ -113,22 +113,24 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   }) {
     _placeholderEmptyTitle = placeholderEmptyTitle;
     return SimpleBuilder(builder: (_) {
+      Widget? emptyWidget() {
+        return onEmptyWidget != null
+            ? onEmptyWidget(status.errorMessage)
+            : BasePlaceholderView(
+                title: status.errorMessage,
+                // 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
+                image: placeholderImagePath,
+                onTap: onReloadTap ??
+                    () {
+                      change(state, status: RxStatus.loading());
+                      onRequestPage(page);
+                    },
+              );
+      }
+
       return BaseRefresh(
         controller: refreshController,
-        emptyWidget: state.isEmptyOrNull
-            ? (onEmptyWidget != null
-                ? onEmptyWidget(status.errorMessage)
-                : BasePlaceholderView(
-                    title: status.errorMessage,
-                    // 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
-                    image: placeholderImagePath,
-                    onTap: onReloadTap ??
-                        () {
-                          change(state, status: RxStatus.loading());
-                          onRequestPage(page);
-                        },
-                  ))
-            : null,
+        emptyWidget: state.isEmptyOrNull ? emptyWidget() : null,
         firstRefresh: firstRefresh,
         onRefresh: implementationOnRefresh
             ? (onRefresh ?? () async => onRequestPage(kFirstPage))
@@ -136,7 +138,9 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
         onLoad: implementationOnLoad && state != null
             ? (onLoad ?? () async => onRequestPage(page + 1))
             : null,
-        child: widget(state),
+        child: (!status.isSuccess || state.isEmptyOrNull)
+            ? emptyWidget() ?? SizedBox()
+            : widget(state),
       );
     });
   }
