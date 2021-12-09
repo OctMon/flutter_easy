@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/store/user/store.dart';
-import 'package:get/get.dart';
 
 import 'controller.dart';
 import 'photo/component.dart';

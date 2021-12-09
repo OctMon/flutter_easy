@@ -26,7 +26,7 @@ class AdaptUtil {
     }
   }
 
-  static init(int number) {
+  static init(int? number) {
     int uiWidth = number is int ? number : 750;
     _ratio = _width / uiWidth;
   }

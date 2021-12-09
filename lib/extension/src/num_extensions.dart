@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-import 'duration_extensions.dart';
-
 extension NumExtensions on num {
   double get adaptRatio => adaptDp(this);
 

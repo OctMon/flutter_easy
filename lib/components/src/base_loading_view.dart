@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_easy/components/export.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 class BaseLoadingView extends StatelessWidget {

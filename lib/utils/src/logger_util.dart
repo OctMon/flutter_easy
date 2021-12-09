@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-import 'global_util.dart';
-
 void _log(String tag, dynamic value, {StackTrace? stackTrace}) {
   if (isDebug || isAppDebugFlag) {
     developer.log("${DateTime.now()} $value",

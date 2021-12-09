@@ -1,12 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:session/session.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-
-import 'global_util.dart';
-import 'loading_util.dart';
-import 'logger_util.dart';
-import 'shared_preferences_util.dart';
 
 export 'package:session/session.dart';
 
