@@ -119,7 +119,7 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.4"
   encrypt:
     dependency: transitive
     description:
@@ -244,7 +244,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.1"
+    version: "4.6.1"
   http:
     dependency: transitive
     description:
@@ -384,7 +384,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.7"
+    version: "2.0.8"
   path_provider_android:
     dependency: transitive
     description:
@@ -482,14 +482,14 @@ packages:
       name: session
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3+2"
+    version: "1.0.5"
   shared_preferences:
     dependency: transitive
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.11"
   shared_preferences_android:
     dependency: transitive
     description:
