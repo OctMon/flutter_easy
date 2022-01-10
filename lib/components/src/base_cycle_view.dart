@@ -59,6 +59,7 @@ class BaseCycleView extends StatelessWidget {
   final int? playDelay;
   final bool showPagination;
   final ValueChanged<int>? onTap;
+  final ValueChanged<int>? onIndexChanged;
 
   const BaseCycleView(
       {Key? key,
@@ -69,7 +70,8 @@ class BaseCycleView extends StatelessWidget {
       this.physics,
       this.playDelay,
       this.showPagination = true,
-      this.onTap})
+      this.onTap,
+      this.onIndexChanged})
       : super(key: key);
 
   @override
@@ -91,6 +93,7 @@ class BaseCycleView extends StatelessWidget {
         itemBuilder: (context, index) {
           return items[index];
         },
+        onIndexChanged: onIndexChanged,
         pagination: (showPagination && items.length > 1)
             ? SwiperPagination(
                 margin: EdgeInsets.all(5),
