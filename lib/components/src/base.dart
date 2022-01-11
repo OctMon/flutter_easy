@@ -625,7 +625,7 @@ class BaseButton extends StatelessWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  BaseButton({this.padding, required this.child, required this.onPressed});
+  BaseButton({this.padding, required this.child, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
