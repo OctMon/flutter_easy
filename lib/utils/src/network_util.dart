@@ -38,6 +38,8 @@ late String kTestBaseURL;
 /// 生产环境
 late String kReleaseBaseURL;
 
+String kApiPath = "";
+
 /// 列表无数据
 String kEmptyList = "暂无内容";
 
