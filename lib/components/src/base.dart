@@ -580,6 +580,7 @@ class BaseScaffold extends StatelessWidget {
       backgroundColor: backgroundColor,
       bottomNavigationBar: bottomNavigationBar,
       extendBody: extendBody,
+      resizeToAvoidBottomInset: false,
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
       floatingActionButtonAnimator: floatingActionButtonAnimator,
