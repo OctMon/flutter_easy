@@ -163,22 +163,27 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     refreshController.finishLoad(success: success, noMore: noMore);
   }
 
+  /// [noMore] - 没有更多? 没有更多数据: true, 有更多数据: false
   void updateRefreshResult<T>(Result result,
       {required int page,
       bool force = false,
       int? limitPage,
       int? pageCount,
+      bool? noMore,
       BaseComputeResult? compute}) {
     dynamic models = result.models.toList();
     if (result.valid) {
       if (models.isNotEmpty) {
-        /// 有无加载更多 true: 无更多 false: 有更多
-        var noMore = true;
-        if (pageCount != null) {
-          noMore = page < pageCount;
-        } else {
-          noMore = models.length < (limitPage ?? kLimitPage);
+        bool noMoreJudge = noMore ?? true;
+        if (noMore == null) {
+          if (pageCount != null) {
+            noMoreJudge = page < pageCount;
+          } else {
+            noMoreJudge = models.length < (limitPage ?? kLimitPage);
+          }
         }
+        logDebug("$noMore, $noMoreJudge");
+
         this.page = page;
         if (page > kFirstPage) {
           // 上拉加载第2页数据
@@ -187,15 +192,15 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
           compute != null
               ? compute(_tmp, RxStatus.success())
               : change(_tmp, status: RxStatus.success());
-          _finishLoad(success: result.valid, noMore: noMore);
+          _finishLoad(success: result.valid, noMore: noMoreJudge);
         } else {
           // 下拉刷新第1页数据
           compute != null
               ? compute(models, RxStatus.success())
               : change(models, status: RxStatus.success());
           _finishRefresh(success: result.valid);
-          if (noMore) {
-            _finishLoad(success: result.valid, noMore: noMore);
+          if (noMoreJudge) {
+            _finishLoad(success: result.valid, noMore: noMoreJudge);
           } else {
             refreshController.resetLoadState();
           }
