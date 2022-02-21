@@ -653,7 +653,7 @@ class BaseGradientButton extends StatelessWidget {
       {Key? key,
       this.width = double.infinity,
       this.height = 44,
-      this.padding,
+      this.padding = EdgeInsets.zero,
       this.icon,
       this.title,
       this.borderRadius = 22,
@@ -676,7 +676,6 @@ class BaseGradientButton extends StatelessWidget {
       children.add(title!);
     }
     return Container(
-      padding: padding,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
         gradient: onPressed != null ? gradient : disableGradient,
@@ -687,6 +686,7 @@ class BaseGradientButton extends StatelessWidget {
         height: height,
         child: TextButton(
           style: ButtonStyle(
+            padding: MaterialStateProperty.all(padding),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius))),
             overlayColor: MaterialStateProperty.all(Colors.transparent),
