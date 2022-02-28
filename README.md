@@ -8,6 +8,7 @@
 [![build](https://github.com/OctMon/flutter_easy/workflows/build/badge.svg)](https://github.com/OctMon/flutter_easy/actions)
 
 A common Flutter package.
+[Example](https://octmon.github.io/flutter_easy/)
 
 ## Getting Started
 
