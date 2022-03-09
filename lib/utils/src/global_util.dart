@@ -58,6 +58,12 @@ bool get isWebInWeChat => userAgent.contains("Micro" + "Messenger");
 
 bool isPhone = isIOS || isAndroid;
 
+/// flutter run --dart-define=app-channel=official
+/// 多渠道打包
+/// Android Studio可以配置运行Flutter参数 --dart-define=app-channel=official
+const appChannel =
+    String.fromEnvironment('app-channel', defaultValue: '');
+
 /// 将文本内容复制到剪贴板
 Future<void> setClipboard(String text) =>
     Clipboard.setData(ClipboardData(text: text));

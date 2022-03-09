@@ -116,6 +116,8 @@ class HomePage extends StatelessWidget {
                   buildTableRow(
                       code: "appDeviceLocale", value: "$appDeviceLocale"),
                   buildTableRow(
+                      code: "appChannel", value: appChannel),
+                  buildTableRow(
                       code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
                       value: timestampToNormal_yyyy_MM_dd_HH_mm_ss(
                           timestampNow())),
