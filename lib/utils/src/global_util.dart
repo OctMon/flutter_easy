@@ -61,8 +61,7 @@ bool isPhone = isIOS || isAndroid;
 /// flutter run --dart-define=app-channel=official
 /// 多渠道打包
 /// Android Studio可以配置运行Flutter参数 --dart-define=app-channel=official
-const appChannel =
-    String.fromEnvironment('app-channel', defaultValue: '');
+const appChannel = String.fromEnvironment('app-channel', defaultValue: '');
 
 /// 将文本内容复制到剪贴板
 Future<void> setClipboard(String text) =>
@@ -89,6 +88,16 @@ String assetsImagesPath(String name, {String format = "png"}) =>
 
 /// 随机数(0-max)小于max
 int randomInt(int max) => Random().nextInt(max);
+
+/// 长振动
+void hapticFeedbackVibrate() {
+  HapticFeedback.vibrate;
+}
+
+/// 碰撞振动
+void hapticFeedbackHeavyImpact() {
+  HapticFeedback.heavyImpact();
+}
 
 String appStoreUrl(String appId) => "https://apps.apple.com/cn/app/id" + appId;
 
