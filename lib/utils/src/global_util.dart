@@ -94,7 +94,17 @@ void hapticFeedbackVibrate() {
   HapticFeedback.vibrate;
 }
 
-/// 碰撞振动
+/// 较轻碰撞振动
+void hapticFeedbackLightImpact() {
+  HapticFeedback.lightImpact();
+}
+
+/// 中等碰撞振动
+void hapticFeedbackMediumImpact() {
+  HapticFeedback.mediumImpact();
+}
+
+/// 较重碰撞振动
 void hapticFeedbackHeavyImpact() {
   HapticFeedback.heavyImpact();
 }
