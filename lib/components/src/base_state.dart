@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 typedef BaseComputeResult<T> = void Function(T state, RxStatus status);
 
@@ -79,7 +78,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
 
 class BaseRefreshStateController<T> extends BaseStateController<T> {
   /// 刷新控制器
-  final refreshController = EasyRefreshController();
+  final refreshController = BaseRefreshController();
 
   /// 当前页码
   int page = kFirstPage;
@@ -107,8 +106,8 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     String? placeholderImagePath,
     String? placeholderEmptyTitle,
     bool firstRefresh = false,
-    OnRefreshCallback? onRefresh,
-    OnLoadCallback? onLoad,
+    VoidCallback? onRefresh,
+    VoidCallback? onLoading,
     void Function()? onReloadTap,
   }) {
     _placeholderEmptyTitle = placeholderEmptyTitle;
@@ -135,8 +134,8 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
         onRefresh: implementationOnRefresh
             ? (onRefresh ?? () async => onRequestPage(kFirstPage))
             : null,
-        onLoad: implementationOnLoad && state != null
-            ? (onLoad ?? () async => onRequestPage(page + 1))
+        onLoading: implementationOnLoad && state != null
+            ? (onLoading ?? () async => onRequestPage(page + 1))
             : null,
         child: (!status.isSuccess || state.isEmptyOrNull)
             ? emptyWidget() ?? SizedBox()
@@ -148,19 +147,31 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   Future<void> onRequestPage(int page) async {}
 
   /// 完成下拉刷新
-  void _finishRefresh({
+  void finishRefresh({
     required bool success,
-    bool noMore = false,
+    required bool noMore,
   }) {
-    refreshController.finishRefresh(success: success, noMore: noMore);
+    if (success) {
+      refreshController.refreshCompleted(resetFooterState: !noMore);
+    } else {
+      refreshController.refreshFailed();
+    }
   }
 
   /// 完成上拉加载
-  void _finishLoad({
+  void finishLoad({
     required bool success,
-    bool noMore = false,
+    required bool noMore,
   }) {
-    refreshController.finishLoad(success: success, noMore: noMore);
+    if (success) {
+      if (noMore) {
+        refreshController.loadNoData();
+      } else {
+        refreshController.loadComplete();
+      }
+    } else {
+      refreshController.loadFailed();
+    }
   }
 
   /// [noMore] - 没有更多? 没有更多数据: true, 有更多数据: false
@@ -192,18 +203,13 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
           compute != null
               ? compute(_tmp, RxStatus.success())
               : change(_tmp, status: RxStatus.success());
-          _finishLoad(success: result.valid, noMore: noMoreJudge);
+          finishLoad(success: result.valid, noMore: noMoreJudge);
         } else {
           // 下拉刷新第1页数据
           compute != null
               ? compute(models, RxStatus.success())
               : change(models, status: RxStatus.success());
-          _finishRefresh(success: result.valid);
-          if (noMoreJudge) {
-            _finishLoad(success: result.valid, noMore: noMoreJudge);
-          } else {
-            refreshController.resetLoadState();
-          }
+          finishRefresh(success: result.valid, noMore: noMoreJudge);
         }
       } else if (page == kFirstPage && state != null) {
         // 下野刷新时已有数据
@@ -215,7 +221,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
               : change(null,
                   status: RxStatus.error(_placeholderEmptyTitle ?? kEmptyList));
         }
-        _finishRefresh(success: result.valid);
+        finishRefresh(success: result.valid, noMore: false);
       } else if (state == null) {
         // 未约定的无数据
         compute != null
@@ -225,14 +231,13 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
                 status: RxStatus.error(_placeholderEmptyTitle ?? kEmptyList));
       } else {
         // 已经有1页数据再次上拉加载 无更多数据
-        _finishLoad(success: result.valid, noMore: true);
+        finishLoad(success: result.valid, noMore: true);
       }
     } else {
-      refreshController.resetLoadState();
       if (page > kFirstPage) {
-        _finishLoad(success: result.valid, noMore: true);
+        finishLoad(success: result.valid, noMore: true);
       } else {
-        _finishRefresh(success: result.valid);
+        finishRefresh(success: result.valid, noMore: false);
       }
       dynamic tmp = state;
       compute != null

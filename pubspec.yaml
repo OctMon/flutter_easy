@@ -88,11 +88,11 @@ dependencies:
   # ===============================================================================
 
   # ===============================================================================
-  # A widget provided to the flutter scroll component pull-refresh and push-load.
-  # pub: https://pub.dev/packages/flutter_easyrefresh
-  # git: https://github.com/xuelongqy/flutter_easyrefresh
+  # a widget provided to the flutter scroll component drop-down refresh and pull up load.
+  # pub: https://pub.dev/packages/pull_to_refresh
+  # git: https://github.com/peng8350/flutter_pulltorefresh
   # ———————————————————————————————————————————————————————————————————————————————
-  flutter_easyrefresh: ^2.2.1
+  pull_to_refresh: ^2.0.0
   # ===============================================================================
 
   # ===============================================================================
