@@ -152,6 +152,9 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     required bool noMore,
   }) {
     if (success) {
+      if (noMore) {
+        refreshController.loadNoData();
+      }
       refreshController.refreshCompleted(resetFooterState: !noMore);
     } else {
       refreshController.refreshFailed();
@@ -229,6 +232,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
                 null, RxStatus.error(_placeholderEmptyTitle ?? kEmptyList))
             : change(null,
                 status: RxStatus.error(_placeholderEmptyTitle ?? kEmptyList));
+        finishRefresh(success: true, noMore: true);
       } else {
         // 已经有1页数据再次上拉加载 无更多数据
         finishLoad(success: result.valid, noMore: true);
