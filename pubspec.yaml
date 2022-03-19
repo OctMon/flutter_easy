@@ -101,7 +101,7 @@ dependencies:
   # git: https://github.com/TheAnkurPanchani/card_swiper
   # desc：flutter最强大的swiper, 多种布局方式，无限轮播，Android和IOS双端适配.
   # ===============================================================================
-  card_swiper: ^2.0.1
+  card_swiper: ^2.0.3
 
   # ===============================================================================
   # 名称： GetX
