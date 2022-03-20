@@ -137,7 +137,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
         onLoading: implementationOnLoad && state != null
             ? (onLoading ?? () async => onRequestPage(page + 1))
             : null,
-        child: (!status.isSuccess || state.isEmptyOrNull)
+        child: (state == null && !status.isSuccess || state.isEmptyOrNull)
             ? emptyWidget() ?? SizedBox()
             : widget(state),
       );
@@ -247,6 +247,9 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
       compute != null
           ? compute(tmp, RxStatus.error(result.message))
           : change(tmp, status: RxStatus.error(result.message));
+      if (!status.isSuccess) {
+        showToast(status.errorMessage ?? "");
+      }
     }
   }
 }
