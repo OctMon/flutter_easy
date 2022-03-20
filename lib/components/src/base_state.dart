@@ -247,7 +247,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
       compute != null
           ? compute(tmp, RxStatus.error(result.message))
           : change(tmp, status: RxStatus.error(result.message));
-      if (!status.isSuccess) {
+      if (!status.isSuccess && status.errorMessage != null) {
         showToast(status.errorMessage ?? "");
       }
     }
