@@ -10,6 +10,7 @@ class BaseBannerView extends StatelessWidget {
   final double? height;
   final int? playDelay;
   final bool showPagination;
+  final SwiperPlugin? pagination;
   final Widget placeholder;
   final ValueChanged<int>? onTap;
 
@@ -20,6 +21,7 @@ class BaseBannerView extends StatelessWidget {
       this.height,
       this.playDelay,
       this.showPagination = true,
+      this.pagination,
       required this.placeholder,
       this.onTap})
       : super(key: key);
@@ -31,6 +33,7 @@ class BaseBannerView extends StatelessWidget {
       height: height,
       playDelay: playDelay,
       showPagination: showPagination,
+      pagination: pagination,
       items: urls.map((url) {
         if (url.startsWith("http")) {
           return BaseWebImage(
@@ -58,6 +61,7 @@ class BaseCycleView extends StatelessWidget {
   final ScrollPhysics? physics;
   final int? playDelay;
   final bool showPagination;
+  final SwiperPlugin? pagination;
   final ValueChanged<int>? onTap;
   final ValueChanged<int>? onIndexChanged;
 
@@ -71,7 +75,8 @@ class BaseCycleView extends StatelessWidget {
       this.playDelay,
       this.showPagination = true,
       this.onTap,
-      this.onIndexChanged})
+      this.onIndexChanged,
+      this.pagination})
       : super(key: key);
 
   @override
@@ -94,18 +99,19 @@ class BaseCycleView extends StatelessWidget {
           return items[index];
         },
         onIndexChanged: onIndexChanged,
-        pagination: (showPagination && items.length > 1)
-            ? SwiperPagination(
-                margin: EdgeInsets.all(5),
-                alignment: Alignment.bottomRight,
-                builder: DotSwiperPaginationBuilder(
-                  size: 5,
-                  activeSize: 5,
-                  color: Color(0xFF999999),
-                  activeColor: Colors.white,
-                ),
-              )
-            : null,
+        pagination: pagination ??
+            ((showPagination && items.length > 1)
+                ? SwiperPagination(
+                    margin: EdgeInsets.all(5),
+                    alignment: Alignment.bottomRight,
+                    builder: DotSwiperPaginationBuilder(
+                      size: 5,
+                      activeSize: 5,
+                      color: Color(0xFF999999),
+                      activeColor: Colors.white,
+                    ),
+                  )
+                : null),
         onTap: onTap,
       ),
     );
