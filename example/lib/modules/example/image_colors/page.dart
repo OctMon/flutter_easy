@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math' as math;
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
@@ -50,7 +51,20 @@ class ImageColorsPage extends StatelessWidget {
         path = (await _picker.pickImage(source: ImageSource.camera))?.path;
       } else if (selected == 1) {
         // 调用相册
-        path = (await _picker.pickImage(source: ImageSource.gallery))?.path;
+        if (isPhone) {
+          path = (await _picker.pickImage(source: ImageSource.gallery))?.path;
+        } else {
+          const label = 'multiImage';
+          final xType = XTypeGroup(label: label, extensions: ["bmp", "gif", "jpeg", "jpg", "png"]);
+          final List<XFile> files = await openFiles(acceptedTypeGroups: [xType]);
+          if (files.isNotEmpty) {
+            List<String> paths = files.map((e) => e.path).toList();
+            if (paths.isNotEmpty) {
+              File file = File(paths.first);
+              path = file.path;
+            }
+          }
+        }
       }
       if (path != null) {
         controller.updateFile(File(path));
