@@ -3,6 +3,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 typedef BaseRefreshController = RefreshController;
 typedef BaseRefreshLocalizations = RefreshLocalizations;
+typedef BaseRefreshConfiguration = RefreshConfiguration;
 
 class BaseRefresh extends StatelessWidget {
   final BaseRefreshController controller;
@@ -34,10 +35,15 @@ class BaseRefresh extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final configuration = BaseRefreshConfiguration.of(context);
     return SmartRefresher(
       controller: controller,
       scrollController: scrollController,
-      header: header,
+      header: header ??
+          (configuration?.headerBuilder != null
+              ? configuration?.headerBuilder!()
+              : null) ??
+          ClassicHeader(),
       footer: footer,
       enablePullDown: onRefresh != null,
       enablePullUp: onLoading != null,
