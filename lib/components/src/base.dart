@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -171,6 +173,7 @@ class _BaseAppState extends State<BaseApp> {
       darkTheme: getTheme(darkMode: true),
       themeMode: widget.themeMode,
       home: widget.home,
+      scrollBehavior: isPhone ? null : _MyCustomScrollBehavior(),
       builder: widget.builder ??
           EasyLoading.init(
             builder: (context, child) {
@@ -199,6 +202,15 @@ class _BaseAppState extends State<BaseApp> {
       debugShowCheckedModeBanner: false,
     );
   }
+}
+
+/// https://github.com/peng8350/flutter_pulltorefresh/issues/544#issuecomment-953643946
+class _MyCustomScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }
 
 const double _kDebugIconSize = 50;
