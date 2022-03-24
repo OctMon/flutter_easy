@@ -55,6 +55,9 @@ String kPageKey = 'page';
 /// 每页数量
 String kPageSizeKey = 'pagesize';
 
+/// 每页数量
+String kPageCountKey = '';
+
 /// BaseURL变化回调
 VoidCallback? baseURLChangedCallback;
 

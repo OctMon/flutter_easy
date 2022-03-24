@@ -76,6 +76,28 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   }
 }
 
+extension CountResult on Result {
+  /// 分页总页数
+  int get count {
+    dynamic value;
+    if (body.containsKey(kPageCountKey)) {
+      value = body[kPageCountKey];
+    } else if (data.containsKey(kPageCountKey)) {
+      value = data[kPageCountKey];
+    }
+    if (value == null) {
+      return kFirstPage;
+    }
+    if (!(value is int)) {
+      value = int.tryParse("$value") ?? 0;
+    }
+    if (kFirstPage == 0) {
+      --value;
+    }
+    return value;
+  }
+}
+
 class BaseRefreshStateController<T> extends BaseStateController<T> {
   /// 刷新控制器
   final refreshController = BaseRefreshController();
@@ -191,7 +213,9 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
         bool noMoreJudge = noMore ?? true;
         if (noMore == null) {
           if (pageCount != null) {
-            noMoreJudge = page < pageCount;
+            noMoreJudge = page >= pageCount;
+          } else if (kPageCountKey.isNotEmpty) {
+            noMoreJudge = page >= result.count;
           } else {
             noMoreJudge = models.length < (limitPage ?? kLimitPage);
           }
