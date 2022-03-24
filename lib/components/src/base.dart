@@ -1227,3 +1227,39 @@ class BaseDivider extends StatelessWidget {
     );
   }
 }
+
+class BaseBlurFilter extends StatelessWidget {
+  final EdgeInsetsGeometry? padding;
+  final BorderRadius? borderRadius;
+  final ImageFilter? filter;
+  final Color? backgroundColor;
+  final Widget child;
+
+  const BaseBlurFilter(
+      {Key? key,
+      this.padding,
+      this.borderRadius = BorderRadius.zero,
+      this.filter,
+      this.backgroundColor = Colors.white10,
+      required this.child})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: BackdropFilter(
+        filter: filter ??
+            ImageFilter.blur(
+              sigmaX: 10,
+              sigmaY: 10,
+            ),
+        child: Container(
+          color: backgroundColor,
+          padding: padding,
+          child: child,
+        ),
+      ),
+    );
+  }
+}
