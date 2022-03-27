@@ -638,15 +638,17 @@ class BaseInkWell extends StatelessWidget {
 
 class BaseButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
+  final double? minSize;
   final Widget child;
   final VoidCallback? onPressed;
 
-  BaseButton({this.padding, required this.child, this.onPressed});
+  BaseButton({this.padding, this.minSize, required this.child, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
       padding: padding,
+      minSize: minSize,
       child: child,
       onPressed: onPressed,
     );
