@@ -34,7 +34,11 @@ bool isMacOS = kIsWeb ? false : Platform.isMacOS;
 
 bool isWindows = kIsWeb ? false : Platform.isWindows;
 
+bool isLinux = kIsWeb ? false : Platform.isLinux;
+
 bool isAndroid = kIsWeb ? false : Platform.isAndroid;
+
+bool isDesktop = (kIsWeb || isPhone) ? false : true;
 
 bool isWeb = kIsWeb;
 
