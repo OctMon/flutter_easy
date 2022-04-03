@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shared_preferences_windows/shared_preferences_windows.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
 
 import 'package:flutter_easy/flutter_easy.dart';
 
@@ -9,7 +9,7 @@ String get webOrigin => "";
 
 dynamic sharedPreferencesInstance() {
   if (isWindows) {
-    return SharedPreferencesWindows.instance;
+    return SharedPreferencesStorePlatform.instance;
   } else {
     return SharedPreferences.getInstance();
   }
