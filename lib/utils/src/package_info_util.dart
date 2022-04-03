@@ -7,7 +7,12 @@ class PackageInfoUtil {
 
   /// 初始化应用信息
   static Future<PackageInfo> init() async {
-    packageInfo = await PackageInfo.fromPlatform();
+    try {
+      packageInfo = await PackageInfo.fromPlatform();
+    } catch (e) {
+      packageInfo = PackageInfo(
+          appName: '', packageName: '', version: '', buildNumber: '');
+    }
     return packageInfo;
   }
 }
