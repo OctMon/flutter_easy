@@ -28,10 +28,8 @@ class BasePlaceholderView extends StatelessWidget {
       );
     }
     var placeholderImagePath = image ?? kPlaceholderImageEmpty;
-    switch (title) {
-      case kPlaceholderTitleRemote:
-        placeholderImagePath = kPlaceholderImageRemote;
-        break;
+    if (title == kPlaceholderTitleRemote) {
+      placeholderImagePath = kPlaceholderImageRemote;
     }
     return Center(
       child: GestureDetector(
