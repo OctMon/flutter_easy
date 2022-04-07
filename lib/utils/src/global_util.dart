@@ -42,6 +42,9 @@ bool isDesktop = (kIsWeb || isPhone) ? false : true;
 
 bool isWeb = kIsWeb;
 
+String get operatingSystem => Platform.operatingSystem;
+String get operatingSystemVersion => Platform.operatingSystemVersion;
+
 String get userAgent => webUserAgent.toLowerCase();
 
 /// https://www.jianshu.com/p/40430596e3ab
