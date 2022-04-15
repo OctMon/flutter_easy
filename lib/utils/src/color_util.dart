@@ -10,7 +10,7 @@ Color setLightPrimaryColor = Colors.red;
 Color setDarkPrimaryColor = Colors.purple;
 
 var setLightPrimarySwatchColor = colorWithHex3;
-var setDarkPrimarySwatchColor = Colors.white;
+var setDarkPrimarySwatchColor = Colors.blue;
 
 var setLightAppBarBackgroundColor = Colors.white;
 var setDarkAppBarBackgroundColor = Colors.black;
