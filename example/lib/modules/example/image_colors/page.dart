@@ -35,24 +35,24 @@ class ImageColorsPage extends StatelessWidget {
             ),
           ],
           cancelButton: BaseActionSheetAction(
-            child: const Text('取消'),
             isDestructiveAction: true,
             onPressed: () {
               offBack();
             },
+            child: const Text('取消'),
           ),
         ),
       );
 
-      final ImagePicker _picker = ImagePicker();
+      final ImagePicker picker = ImagePicker();
       String? path;
       if (selected == 0) {
         // 调用相机
-        path = (await _picker.pickImage(source: ImageSource.camera))?.path;
+        path = (await picker.pickImage(source: ImageSource.camera))?.path;
       } else if (selected == 1) {
         // 调用相册
         if (isPhone) {
-          path = (await _picker.pickImage(source: ImageSource.gallery))?.path;
+          path = (await picker.pickImage(source: ImageSource.gallery))?.path;
         } else {
           const label = 'multiImage';
           final xType = XTypeGroup(label: label, extensions: ["bmp", "gif", "jpeg", "jpg", "png"]);

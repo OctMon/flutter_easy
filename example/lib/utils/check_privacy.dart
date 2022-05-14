@@ -21,11 +21,7 @@ Future<bool> checkPrivacy(BuildContext context) async {
             },
             child: BaseAlertDialog(
               title: Text(
-                appName +
-                    S.of(context).example_UserAgreement +
-                    S.of(context).example_And +
-                    "\n" +
-                    S.of(context).example_PrivacyPolicy,
+                "$appName${S.of(context).example_UserAgreement}${S.of(context).example_And}\n${S.of(context).example_PrivacyPolicy}",
                 textAlign: TextAlign.center,
               ),
               titlePadding: const EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),

@@ -140,11 +140,11 @@ class AccountPage extends StatelessWidget {
                                   child: Text(S.of(context).systemDefault),
                                 )),
                           cancelButton: BaseActionSheetAction(
-                            child: const Text('取消'),
                             isDestructiveAction: true,
                             onPressed: () {
                               Navigator.pop(context);
                             },
+                            child: const Text('取消'),
                           ),
                         );
                       });

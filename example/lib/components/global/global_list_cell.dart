@@ -14,6 +14,7 @@ class GlobalListCell extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         BaseInkWell(
+          onPressed: onPressed,
           child: Container(
             margin: const EdgeInsets.only(left: 20, right: 15),
             height: 50,
@@ -53,7 +54,6 @@ class GlobalListCell extends StatelessWidget {
               ],
             ),
           ),
-          onPressed: onPressed,
         ),
         const BaseDivider(),
       ],

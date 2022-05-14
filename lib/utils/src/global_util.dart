@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
+import 'package:url_launcher/url_launcher.dart';
 
 import 'hw/hw_mp.dart' as mp;
 
@@ -43,6 +44,7 @@ bool isDesktop = (kIsWeb || isPhone) ? false : true;
 bool isWeb = kIsWeb;
 
 String get operatingSystem => Platform.operatingSystem;
+
 String get operatingSystemVersion => Platform.operatingSystemVersion;
 
 String get userAgent => webUserAgent.toLowerCase();
@@ -125,26 +127,19 @@ String appStoreUserReviewsUrl(String appId) =>
 String appStoreWriteReview(String name, String appId) =>
     "itms-apps://itunes.apple.com/us/app/$name/id$appId?mt=8&action=write-review";
 
-Future<bool> canLaunch(String urlString) => urlLauncher.canLaunch(urlString);
+Future<bool> canLaunch(String urlString) =>
+    urlLauncher.canLaunchUrl(Uri.parse(urlString));
 
 Future<bool> onLaunch(
   String urlString, {
-  bool forceSafariVC = false,
-  bool forceWebView = false,
-  bool enableJavaScript = false,
-  bool enableDomStorage = false,
-  bool universalLinksOnly = false,
-  Map<String, String> headers = const <String, String>{},
-  Brightness? statusBarBrightness,
+  LaunchMode mode = LaunchMode.platformDefault,
+  WebViewConfiguration webViewConfiguration = const WebViewConfiguration(),
+  String? webOnlyWindowName,
 }) =>
-    urlLauncher.launch(urlString,
-        forceSafariVC: forceSafariVC,
-        forceWebView: forceWebView,
-        enableJavaScript: enableJavaScript,
-        enableDomStorage: enableDomStorage,
-        universalLinksOnly: universalLinksOnly,
-        headers: headers,
-        statusBarBrightness: statusBarBrightness);
+    urlLauncher.launchUrl(Uri.parse(urlString),
+        mode: mode,
+        webViewConfiguration: webViewConfiguration,
+        webOnlyWindowName: webOnlyWindowName);
 
 /// 全局隐藏键盘
 void hideKeyboard(BuildContext context) {

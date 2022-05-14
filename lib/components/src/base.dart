@@ -234,10 +234,8 @@ class __DebugPageState extends State<_DebugPage> {
     return LayoutBuilder(
       builder: (context, constraints) {
         // 显示悬浮按钮
-        if (WidgetsBinding.instance != null) {
-          WidgetsBinding.instance!
-              .addPostFrameCallback((_) => _insertOverlay(context));
-        }
+        WidgetsBinding.instance
+            .addPostFrameCallback((_) => _insertOverlay(context));
         return widget.child;
       },
     );
