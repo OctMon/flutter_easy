@@ -67,12 +67,14 @@ class TuChongPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    StaggeredGridView.countBuilder(
+                    MasonryGridView.count(
                       padding:
                           const EdgeInsets.symmetric(horizontal: _kSpacing),
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: _kCrossAxisCount,
+                      physics: const NeverScrollableScrollPhysics(),
+                      mainAxisSpacing: _kSpacing,
+                      crossAxisSpacing: _kSpacing,
                       itemCount: data.imageList?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
                         return BaseButton(
@@ -92,14 +94,6 @@ class TuChongPage extends StatelessWidget {
                           },
                         );
                       },
-                      staggeredTileBuilder: (int index) => StaggeredTile.extent(
-                          data.imageList![index].isSquare == true
-                              ? _kCrossAxisCount
-                              : 1,
-                          data.imageList![index]
-                              .imageHeightInWidth(constraints.maxWidth)),
-                      mainAxisSpacing: _kSpacing,
-                      crossAxisSpacing: _kSpacing,
                     ),
                   ],
                 );
