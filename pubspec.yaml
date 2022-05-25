@@ -46,7 +46,7 @@ dependencies:
   # git：https://github.com/kokohuang/flutter_easyloading
   # desc： ✨A clean and lightweight loading/toast widget for Flutter, easy to use without context, support iOS、Android and Web
   # ===============================================================================
-  flutter_easyloading: ^3.0.3
+  flutter_easyloading: ^3.0.5
 
   # ===============================================================================
   # 共享首选项插件
@@ -80,7 +80,7 @@ dependencies:
   # pub: https://pub.dartlang.org/packages/cached_network_image
   # git: https://github.com/renefloor/flutter_cached_network_image
   # ———————————————————————————————————————————————————————————————————————————————
-  cached_network_image: ^3.2.0
+  cached_network_image: ^3.2.1
   cached_network_image_platform_interface: ^1.0.0
   flutter_cache_manager: ^3.3.0
   path_provider: ^2.0.10
@@ -109,7 +109,7 @@ dependencies:
   # get：https://github.com/jonataslaw/getx
   # desc：Open screens/snackbars/dialogs without context, manage states and inject dependencies easily with GetX
   # ===============================================================================
-  get: ^4.6.3
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
