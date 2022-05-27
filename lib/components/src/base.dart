@@ -20,10 +20,10 @@ class BaseKeyValue {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['key'] = this.key;
-    data['value'] = this.value;
-    data['extend'] = this.extend;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['key'] = key;
+    data['value'] = value;
+    data['extend'] = extend;
     return data;
   }
 
@@ -40,7 +40,7 @@ VoidCallback? _appBaseURLChangedCallback;
 /// flutter run --release --dart-define=app-debug-flag=true
 Future<void> initEasyApp({VoidCallback? appBaseURLChangedCallback}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
-  const appDebugFlag = const bool.fromEnvironment("app-debug-flag");
+  const appDebugFlag = bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
   _appBaseURLChangedCallback = appBaseURLChangedCallback;
 
@@ -81,6 +81,8 @@ dynamic initAppBarLeading;
 
 abstract class PlatformWidget<M extends Widget, C extends Widget>
     extends StatelessWidget {
+  const PlatformWidget({Key? key}) : super(key: key);
+
   M buildMaterialWidget(BuildContext context);
 
   C buildCupertinoWidget(BuildContext context);
@@ -146,7 +148,7 @@ class _BaseAppState extends State<BaseApp> {
           return Banner(
             color: Colors.deepPurple,
             message:
-                "${kBaseURLType == BaseURLType.release ? "Release" : "Test"}",
+                kBaseURLType == BaseURLType.release ? "Release" : "Test",
             location: BannerLocation.topEnd,
             child: _DebugPage(child: child),
           );
@@ -337,7 +339,7 @@ class __DebugPageState extends State<_DebugPage> {
 
   void _onPanEnd(DragEndDetails details) {
     double px;
-    final double circleRadius = _kDebugIconSize / 2;
+    const double circleRadius = _kDebugIconSize / 2;
     if (_offset.dx < screenWidthDp / 2 - circleRadius) {
       px = 0; //begin + (end - begin) * t;
     } else {
@@ -381,20 +383,20 @@ Widget? _buildLeading(
       if (isIOS) {
         _leading = useCloseButton
             ? CupertinoButton(
-                child: Icon(
-                  Icons.close,
-                  color: tintColor,
-                ),
                 padding: EdgeInsets.zero,
                 onPressed: () {
                   Navigator.maybePop(context);
                 },
+                child: Icon(
+                  Icons.close,
+                  color: tintColor,
+                ),
               )
             : BaseButton(
                 padding: EdgeInsets.zero,
-                child: buildLeading(),
                 onPressed:
                     leadingOnPressed ?? () => Navigator.maybePop(context),
+                child: buildLeading(),
               );
       } else {
         _leading = IconButton(
@@ -446,7 +448,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
             )
           : null,
       title: title,
-      actions: actions == null ? [] : actions,
+      actions: actions ?? [],
       elevation: elevation,
       backgroundColor: backgroundColor,
       systemOverlayStyle: systemOverlayStyle,
@@ -468,7 +470,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
               )
             : null,
         title: title,
-        actions: actions == null ? [] : actions,
+        actions: actions ?? [],
         elevation: elevation,
         backgroundColor: backgroundColor,
         systemOverlayStyle: systemOverlayStyle,
@@ -513,12 +515,12 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
     return SliverAppBar(
       leading: _buildLeading(
         context: context,
-        leading: this.leading,
+        leading: leading,
         leadingOnPressed: leadingOnPressed,
         tintColor: tintColor,
       ),
       title: title,
-      actions: actions == null ? [] : actions,
+      actions: actions ?? [],
       elevation: elevation,
       backgroundColor: backgroundColor,
       pinned: pinned,
@@ -535,12 +537,12 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
       child: SliverAppBar(
         leading: _buildLeading(
           context: context,
-          leading: this.leading,
+          leading: leading,
           leadingOnPressed: leadingOnPressed,
           tintColor: tintColor,
         ),
         title: title,
-        actions: actions == null ? [] : actions,
+        actions: actions ?? [],
         elevation: elevation,
         backgroundColor: backgroundColor,
         centerTitle: centerTitle,
@@ -686,7 +688,7 @@ class BaseGradientButton extends StatelessWidget {
     List<Widget> children = [];
     if (icon != null) {
       children.add(icon!);
-      children.add(SizedBox(width: 10));
+      children.add(const SizedBox(width: 10));
     }
     if (title != null) {
       children.add(title!);
@@ -697,7 +699,7 @@ class BaseGradientButton extends StatelessWidget {
         gradient: onPressed != null ? gradient : disableGradient,
         boxShadow: boxShadow,
       ),
-      child: Container(
+      child: SizedBox(
         width: width,
         height: height,
         child: TextButton(
@@ -716,14 +718,12 @@ class BaseGradientButton extends StatelessWidget {
               },
             ),
           ),
-          child: Center(
-            child: Container(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: children),
-            ),
-          ),
           onPressed: onPressed,
+          child: Center(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: children),
+          ),
         ),
       ),
     );
@@ -759,7 +759,7 @@ class BaseBackgroundButton extends StatelessWidget {
     List<Widget> children = [];
     if (icon != null) {
       children.add(icon!);
-      children.add(SizedBox(width: 10));
+      children.add(const SizedBox(width: 10));
     }
     if (title != null) {
       children.add(title!);
@@ -788,14 +788,12 @@ class BaseBackgroundButton extends StatelessWidget {
             },
           ),
         ),
-        child: Center(
-          child: Container(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: children),
-          ),
-        ),
         onPressed: onPressed,
+        child: Center(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children),
+        ),
       ),
     );
   }
@@ -834,13 +832,14 @@ class BaseOutlineButton extends StatelessWidget {
     List<Widget> children = [];
     if (icon != null) {
       children.add(icon!);
-      children.add(SizedBox(width: 10));
+      children.add(const SizedBox(width: 10));
     }
     if (title != null) {
       children.add(title!);
     }
     return BaseButton(
       padding: EdgeInsets.zero,
+      onPressed: onPressed,
       child: Container(
         width: width,
         height: height,
@@ -854,15 +853,12 @@ class BaseOutlineButton extends StatelessWidget {
           boxShadow: boxShadow,
         ),
         child: Center(
-          child: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: children,
           ),
         ),
       ),
-      onPressed: onPressed,
     );
   }
 }
@@ -968,7 +964,7 @@ class BaseTextField extends StatelessWidget {
   }
 }
 
-Widget baseDefaultGeneralAlertDialogTitle = Text('提示');
+Widget baseDefaultGeneralAlertDialogTitle = const Text('提示');
 
 class BaseGeneralAlertDialog extends StatelessWidget {
   final Widget? title;
@@ -984,7 +980,7 @@ class BaseGeneralAlertDialog extends StatelessWidget {
     return CupertinoAlertDialog(
       key: key,
       title: title ?? baseDefaultGeneralAlertDialogTitle,
-      content: Container(margin: EdgeInsets.only(top: 10), child: content),
+      content: Container(margin: const EdgeInsets.only(top: 10), child: content),
       actions: actions,
     );
   }
@@ -1186,9 +1182,9 @@ class BaseActionSheetAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoActionSheetAction(
       onPressed: onPressed,
-      child: child,
       isDefaultAction: isDefaultAction,
       isDestructiveAction: isDestructiveAction,
+      child: child,
     );
   }
 }
