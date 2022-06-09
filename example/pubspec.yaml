@@ -27,7 +27,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.5
 
   # ===============================================================================
   # 名称：支持多列和不同大小的行的交错网格视图。
@@ -69,7 +69,7 @@ dependencies:
   # 来源：https://pub.dev/packages/palette_generator
   # GitHub：https://github.com/flutter/packages/tree/master/packages/palette_generator
   # 说明：A Flutter package to extract prominent colors from an Image, typically used to find colors for a user interface.
-  palette_generator: ^0.3.3
+  palette_generator: ^0.3.3+1
 
   # ===============================================================================
   # 名称： locale names from locale codes (ISO 639‑2 and ISO 639-3) for 563 locales.
@@ -93,7 +93,7 @@ dev_dependencies:
   # pub: https://pub.dev/packages/flutter_launcher_icons
   # git: https://github.com/fluttercommunity/flutter_launcher_icons
   # ===============================================================================
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.9.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
