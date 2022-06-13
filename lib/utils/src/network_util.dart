@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:xml/xml.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
@@ -202,7 +203,7 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
   /// 保存选择的环境
   Future<bool> save(BaseURLType urlType) {
     _baseURLTypeString.value = "$urlType";
-    logInfo("$_baseURLTypeKey = " + _baseURLTypeString.value);
+    logInfo("$_baseURLTypeKey = ${_baseURLTypeString.value}");
     return SharedPreferencesUtil.setSharedPrefsString(
         _baseURLTypeKey, _baseURLTypeString.value);
   }
@@ -222,13 +223,7 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
             ? "$kBaseURLType"
             : _baseURLTypeString.value),
         content: Text(
-          "${BaseURLType.test}" +
-              "=\n" +
-              (kTestBaseURL) +
-              "\n\n"
-                  "${BaseURLType.release}" +
-              "=\n" +
-              (kReleaseBaseURL),
+          "${BaseURLType.test}=\n$kTestBaseURL\n\n${BaseURLType.release}=\n$kReleaseBaseURL",
         ),
         actions: <Widget>[
           BaseDialogAction(
@@ -254,7 +249,7 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
             },
           ),
           BaseDialogAction(
-            child: Text("取消"),
+            child: const Text("取消"),
             onPressed: () {
               Navigator.pop(ctx, false);
             },
@@ -263,4 +258,55 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
       );
     },
   );
+}
+
+checkVersion(String action, String baseUrl) async {
+  _handleElem(XmlElement el) {
+    switch (el.name.local) {
+      case 'string':
+        return el.text;
+      case 'real':
+        return double.parse(el.text);
+      case 'integer':
+        return int.parse(el.text);
+      case 'true':
+        return true;
+      case 'false':
+        return false;
+      case 'date':
+        return DateTime.parse(el.text);
+    }
+  }
+
+  Future<int> parseBuild(String xmlString) async {
+    XmlDocument xmlDoc = XmlDocument.parse(xmlString);
+    XmlElement elPlist = xmlDoc.getElement('plist')!;
+    XmlElement elDict = elPlist.getElement('dict')!;
+
+    List<String> keys = elDict.childElements
+        .where((e) => e.name.local == 'key')
+        .map((e) => e.text)
+        .toList();
+    List<dynamic> values = elDict.childElements
+        .where((e) => e.name.local != 'key')
+        .map(_handleElem)
+        .toList();
+    Map dict = Map.fromIterables(keys, values);
+    return int.parse(dict['build']);
+  }
+
+  if (isAppDebugFlag) {
+    final result = await get(baseUrl: baseUrl);
+    if (result.response?.statusCode == 200) {
+      final xmlString = result.response?.data ?? "";
+      final build = await parseBuild(xmlString);
+      if (build > int.parse(appBuildNumber)) {
+        final app = "$action$baseUrl";
+        final success = await canLaunch(app);
+        if (success) {
+          onLaunch(app);
+        }
+      }
+    }
+  }
 }

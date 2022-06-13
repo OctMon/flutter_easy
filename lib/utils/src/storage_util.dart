@@ -16,20 +16,28 @@ class StorageUtil {
 final _encrypt = Encrypter(AES(Key.fromUtf8(_secret ?? ""), mode: AESMode.ecb));
 final _iv = IV.fromLength(16);
 
+String encryptString(String string) {
+  return _encrypt.encrypt(string, iv: _iv).base64;
+}
+
+String decryptString(String string) {
+  return _encrypt.decrypt(Encrypted.fromBase64(string), iv: _iv);
+}
+
 Future<String?> getStorageString(String key) async {
   String? string = await SharedPreferencesUtil.getSharedPrefsString(key);
   if (_secret == null || string == null) {
     return string;
   }
 //  if (isWeb) {
-  return _encrypt.decrypt(Encrypted.fromBase64(string), iv: _iv);
+  return decryptString(string);
 //  }
 //  return await FlutterDes.decryptFromBase64(string, _secret);
 }
 
 Future<bool> setStorageString(String key, String value) async {
   String string = value;
-  string = _encrypt.encrypt(value, iv: _iv).base64;
+  string = encryptString(string);
   return SharedPreferencesUtil.setSharedPrefsString(key, string);
 }
 

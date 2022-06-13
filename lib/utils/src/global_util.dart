@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'hw/hw_mp.dart' as mp;
 
-const bool isProduction = const bool.fromEnvironment("dart.vm.product");
+const bool isProduction = bool.fromEnvironment("dart.vm.product");
 
 final bool isDebug = _isDebug();
 
@@ -118,11 +118,10 @@ void hapticFeedbackHeavyImpact() {
   HapticFeedback.heavyImpact();
 }
 
-String appStoreUrl(String appId) => "https://apps.apple.com/cn/app/id" + appId;
+String appStoreUrl(String appId) => "https://apps.apple.com/cn/app/id$appId";
 
 String appStoreUserReviewsUrl(String appId) =>
-    "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&id=" +
-    appId;
+    "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&id=$appId";
 
 String appStoreWriteReview(String name, String appId) =>
     "itms-apps://itunes.apple.com/us/app/$name/id$appId?mt=8&action=write-review";
