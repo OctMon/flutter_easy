@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:xml/xml.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
@@ -261,50 +260,18 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
 }
 
 checkVersion(String action, String baseUrl) async {
-  _handleElem(XmlElement el) {
-    switch (el.name.local) {
-      case 'string':
-        return el.text;
-      case 'real':
-        return double.parse(el.text);
-      case 'integer':
-        return int.parse(el.text);
-      case 'true':
-        return true;
-      case 'false':
-        return false;
-      case 'date':
-        return DateTime.parse(el.text);
-    }
-  }
-
-  Future<int> parseBuild(String xmlString) async {
-    XmlDocument xmlDoc = XmlDocument.parse(xmlString);
-    XmlElement elPlist = xmlDoc.getElement('plist')!;
-    XmlElement elDict = elPlist.getElement('dict')!;
-
-    List<String> keys = elDict.childElements
-        .where((e) => e.name.local == 'key')
-        .map((e) => e.text)
-        .toList();
-    List<dynamic> values = elDict.childElements
-        .where((e) => e.name.local != 'key')
-        .map(_handleElem)
-        .toList();
-    Map dict = Map.fromIterables(keys, values);
-    return int.parse(dict['build']);
-  }
-
   if (isAppDebugFlag) {
-    final result = await get(baseUrl: baseUrl);
+    final result = await get(baseUrl: "$baseUrl.version");
     if (result.response?.statusCode == 200) {
-      final xmlString = result.response?.data ?? "";
-      final build = await parseBuild(xmlString);
-      if (build > int.parse(appBuildNumber)) {
-        final app = "$action$baseUrl";
-        final success = await canLaunch(app);
-        if (success) {
-          onLaunch(app);
+      final version = result.body["version"] as String;
+      if (version.contains("+")) {
+        final build = int.parse(version.split("+").last);
+        if (build > int.parse(appBuildNumber)) {
+          final app = "$action$baseUrl.plist";
+          final success = await canLaunch(app);
+          if (success) {
+            onLaunch(app);
+          }
         }
       }
     }
