@@ -267,10 +267,15 @@ checkVersion(String action, String baseUrl) async {
       if (version.contains("+")) {
         final build = int.parse(version.split("+").last);
         if (build > int.parse(appBuildNumber)) {
-          final app = "$action$baseUrl.plist";
-          final success = await canLaunch(app);
-          if (success) {
-            onLaunch(app);
+          final app = isIOS ? "$action$baseUrl.plist" : "$baseUrl.apk";
+          logDebug(app);
+          if (isIOS) {
+            final success = await canLaunch(app);
+            if (success) {
+              onLaunch(app);
+            }
+          } else {
+            // TODO:
           }
         }
       }
