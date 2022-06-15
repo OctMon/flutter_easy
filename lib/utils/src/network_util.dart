@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 export 'package:session/session.dart';
 
@@ -266,17 +267,39 @@ checkVersion(String action, String baseUrl) async {
       final version = result.body["version"] as String;
       if (version.contains("+")) {
         final build = int.parse(version.split("+").last);
-        if (build > int.parse(appBuildNumber)) {
-          final app = isIOS ? "$action$baseUrl.plist" : "$baseUrl.apk";
-          logDebug(app);
-          if (isIOS) {
-            final success = await canLaunch(app);
-            if (success) {
-              onLaunch(app);
-            }
-          } else {
-            // TODO:
-          }
+        if (Get.context != null && build > int.parse(appBuildNumber)) {
+          showBaseDialog(
+              context: Get.context!,
+              builder: (BuildContext context) {
+                return BaseGeneralAlertDialog(
+                  title: Text("新版本"),
+                  actions: [
+                    BaseDialogAction(
+                      child: Text("立即更新"),
+                      onPressed: () async {
+                        offBack();
+                        final app =
+                            isIOS ? "$action$baseUrl.plist" : "$baseUrl.apk";
+                        logDebug(app);
+                        if (isIOS) {
+                          final success = await canLaunch(app);
+                          if (success) {
+                            onLaunch(app);
+                          }
+                        } else {
+                          onLaunch(app, mode: LaunchMode.externalApplication);
+                        }
+                      },
+                    ),
+                    BaseDialogAction(
+                      child: Text("以后再说"),
+                      onPressed: () {
+                        offBack();
+                      },
+                    ),
+                  ],
+                );
+              });
         }
       }
     }
