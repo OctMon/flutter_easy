@@ -261,7 +261,8 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
 }
 
 checkVersion(String action, String baseUrl) async {
-  if (isAppDebugFlag) {
+  await 3.delay();
+  if (isPhone && isAppDebugFlag) {
     final result = await get(baseUrl: "$baseUrl.version");
     if (result.response?.statusCode == 200) {
       final version = result.body["version"] as String;
