@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
-import 'package:url_launcher/url_launcher.dart';
 
 import 'hw/hw_mp.dart' as mp;
 
@@ -131,8 +130,9 @@ Future<bool> canLaunch(String urlString) =>
 
 Future<bool> onLaunch(
   String urlString, {
-  LaunchMode mode = LaunchMode.platformDefault,
-  WebViewConfiguration webViewConfiguration = const WebViewConfiguration(),
+  urlLauncher.LaunchMode mode = urlLauncher.LaunchMode.platformDefault,
+  urlLauncher.WebViewConfiguration webViewConfiguration =
+      const urlLauncher.WebViewConfiguration(),
   String? webOnlyWindowName,
 }) =>
     urlLauncher.launchUrl(Uri.parse(urlString),
