@@ -65,6 +65,8 @@ var setDarkPlaceholderTextStyle = TextStyle(
 Color colorWithLightSecondary = Colors.tealAccent;
 Color colorWithDarkSecondary = Colors.blueAccent;
 
+const colorWithHex2 = Color(0xFF222222);
+
 const colorWithHex3 = Color(0xFF333333);
 
 const colorWithHex4 = Color(0xFF444444);
