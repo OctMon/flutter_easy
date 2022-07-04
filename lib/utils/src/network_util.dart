@@ -263,7 +263,8 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
 checkVersion(String action, String baseUrl) async {
   await 3.delay();
   if (isPhone && isAppDebugFlag) {
-    final result = await get(baseUrl: "$baseUrl.version");
+    final result =
+        await get(baseUrl: "${baseUrl}_${isAndroid ? "apk" : "ipa"}.version");
     if (result.response?.statusCode == 200) {
       final version = result.body["version"] as String;
       if (version.contains("+")) {
