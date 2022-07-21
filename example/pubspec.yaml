@@ -35,7 +35,7 @@ dependencies:
   # GitHub：https://github.com/letsar/flutter_staggered_grid_view
   # 说明：A Flutter staggered grid view which supports multiple columns with rows of varying sizes.
   # ===============================================================================
-  flutter_staggered_grid_view: ^0.6.1
+  flutter_staggered_grid_view: ^0.6.2
 
   # ===============================================================================
   # 名称：A simple zoomable image
@@ -51,7 +51,7 @@ dependencies:
   # 名称：File picker plugin for Flutter, compatible with mobile (iOS & Android), Web, Desktop (Mac, Linux, Windows) platforms with Flutter Go support.
   # 来源：https://pub.dev/packages/file_selector
   # GitHub：https://github.com/flutter/plugins/tree/main/packages/file_selector/file_selector
-  file_selector: ^0.8.4+1
+  file_selector: ^0.9.0
 
   # ===============================================================================
   # 名称：适用于iOS和Android的Flutter插件，用于从图像库中选择图像，并使用相机拍摄新照片。
