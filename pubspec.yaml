@@ -64,7 +64,7 @@ dependencies:
   # pub: https://pub.dev/packages/package_info_plus
   # git: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus
   # ———————————————————————————————————————————————————————————————————————————————
-  package_info_plus: ^1.4.2
+  package_info_plus: ^1.4.3
   # ===============================================================================
 
   # ===============================================================================
