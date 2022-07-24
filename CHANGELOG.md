@@ -1,3 +1,8 @@
+## 3.0.0
+
+* upgrade flutter 3.0.0
+* upgrade dependencies.
+
 ## 2.6.0
 
 * Update README.md

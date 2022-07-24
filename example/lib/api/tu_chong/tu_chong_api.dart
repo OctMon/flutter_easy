@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 export 'constant.dart';
-export 'package:session/session.dart' show Result;
 
 Config _config(String? baseURL) {
   Config.logEnable = false;

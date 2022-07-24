@@ -29,6 +29,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
 
+  # ===================消除警告⚠️===================
+  intl:
+  get:
+  dio:
+  # ===================消除警告⚠️===================
+
   # ===============================================================================
   # 名称：支持多列和不同大小的行的交错网格视图。
   # 来源：https://pub.dev/packages/flutter_staggered_grid_view
@@ -78,6 +84,7 @@ dependencies:
   # 说明： Flutter plugin which provides locale code to name mappings for 563 locales.
   # ===============================================================================
   flutter_localized_locales: ^2.0.3
+
 
 dev_dependencies:
   flutter_test:
