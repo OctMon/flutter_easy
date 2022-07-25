@@ -1,3 +1,7 @@
+## 3.0.1
+
+* add getAppDirectory
+
 ## 3.0.0
 
 * upgrade flutter 3.0.0
