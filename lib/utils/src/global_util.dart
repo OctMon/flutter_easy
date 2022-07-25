@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
 
 import 'hw/hw_mp.dart' as mp;
@@ -78,6 +79,19 @@ Future<void> setClipboard(String text) =>
 /// 获取剪贴板内容
 Future<String?> getClipboard() =>
     Clipboard.getData(Clipboard.kTextPlain).then((data) => data?.text);
+
+/// 设备上临时目录的路径，该临时目录未备份且。适用于存储下载文件的缓存
+Future<Directory> getAppTemporaryDirectory() => getTemporaryDirectory();
+
+/// 放置数据的目录的路径
+Future<Directory> getAppDocumentsDirectory() =>
+    getApplicationDocumentsDirectory();
+
+/// 应用程序可以存储持久文件的目录的路径
+Future<Directory> getAppLibraryDirectory() => getLibraryDirectory();
+
+/// 应用程序可以放置应用程序支持的目录的路径
+Future<Directory> getAppSupportDirectory() => getApplicationSupportDirectory();
 
 const kPathIcons = "icons/";
 const kPathOthers = "others/";
