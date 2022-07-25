@@ -1,3 +1,7 @@
+## 3.0.2
+
+* add drawer
+
 ## 3.0.1
 
 * add getAppDirectory
