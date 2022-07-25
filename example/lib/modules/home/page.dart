@@ -91,6 +91,30 @@ class HomePage extends StatelessWidget {
               }),
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: const Text('OctMon'),
+              accountEmail: const Text('octmon@qq.com'),
+              currentAccountPicture: const CircleAvatar(
+                child: Icon(Icons.home),
+              ),
+              onDetailsPressed: () {},
+              otherAccountsPictures: const <Widget>[
+                CircleAvatar(child: Icon(Icons.settings)),
+              ],
+              decoration: const BoxDecoration(color: Colors.green),
+            ),
+            const ListTile(
+              title: Text('设置'),
+              leading: Icon(Icons.settings),
+              trailing: Icon(Icons.arrow_forward_ios),
+            )
+          ],
+        ),
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(15),
@@ -115,8 +139,7 @@ class HomePage extends StatelessWidget {
                   buildTableRow(code: "appLocale", value: "$appLocale"),
                   buildTableRow(
                       code: "appDeviceLocale", value: "$appDeviceLocale"),
-                  buildTableRow(
-                      code: "appChannel", value: appChannel),
+                  buildTableRow(code: "appChannel", value: appChannel),
                   buildTableRow(
                       code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
                       value: timestampToNormal_yyyy_MM_dd_HH_mm_ss(

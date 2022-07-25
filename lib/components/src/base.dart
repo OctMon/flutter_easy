@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -147,8 +148,7 @@ class _BaseAppState extends State<BaseApp> {
         return Obx(() {
           return Banner(
             color: Colors.deepPurple,
-            message:
-                kBaseURLType == BaseURLType.release ? "Release" : "Test",
+            message: kBaseURLType == BaseURLType.release ? "Release" : "Test",
             location: BannerLocation.topEnd,
             child: _DebugPage(child: child),
           );
@@ -558,6 +558,18 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 
 class BaseScaffold extends StatelessWidget {
   final BaseAppBar? appBar;
+
+  final Widget? drawer;
+  final DrawerCallback? onDrawerChanged;
+  final Widget? endDrawer;
+  final DrawerCallback? onEndDrawerChanged;
+  final Color? drawerScrimColor;
+
+  final DragStartBehavior drawerDragStartBehavior;
+  final double? drawerEdgeDragWidth;
+  final bool drawerEnableOpenDragGesture;
+  final bool endDrawerEnableOpenDragGesture;
+
   final Widget? body;
   final Color? backgroundColor;
   final Widget? bottomNavigationBar;
@@ -571,6 +583,15 @@ class BaseScaffold extends StatelessWidget {
 
   BaseScaffold({
     this.appBar,
+    this.drawer,
+    this.onDrawerChanged,
+    this.endDrawer,
+    this.onEndDrawerChanged,
+    this.drawerScrimColor,
+    this.drawerDragStartBehavior = DragStartBehavior.start,
+    this.drawerEdgeDragWidth,
+    this.drawerEnableOpenDragGesture = true,
+    this.endDrawerEnableOpenDragGesture = true,
     this.body,
     this.backgroundColor,
     this.bottomNavigationBar,
@@ -588,6 +609,15 @@ class BaseScaffold extends StatelessWidget {
               ? appBar?.buildCupertinoWidget(context)
               : appBar?.buildMaterialWidget(context))
           : null,
+      drawer: drawer,
+      onDrawerChanged: onDrawerChanged,
+      endDrawer: endDrawer,
+      onEndDrawerChanged: onEndDrawerChanged,
+      drawerScrimColor: drawerScrimColor,
+      drawerDragStartBehavior: drawerDragStartBehavior,
+      drawerEdgeDragWidth: drawerEdgeDragWidth,
+      drawerEnableOpenDragGesture: drawerEnableOpenDragGesture,
+      endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture,
       body: body,
       backgroundColor: backgroundColor,
       bottomNavigationBar: bottomNavigationBar,
@@ -791,8 +821,7 @@ class BaseBackgroundButton extends StatelessWidget {
         onPressed: onPressed,
         child: Center(
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children),
+              mainAxisAlignment: MainAxisAlignment.center, children: children),
         ),
       ),
     );
@@ -980,7 +1009,8 @@ class BaseGeneralAlertDialog extends StatelessWidget {
     return CupertinoAlertDialog(
       key: key,
       title: title ?? baseDefaultGeneralAlertDialogTitle,
-      content: Container(margin: const EdgeInsets.only(top: 10), child: content),
+      content:
+          Container(margin: const EdgeInsets.only(top: 10), child: content),
       actions: actions,
     );
   }
