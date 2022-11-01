@@ -16,7 +16,7 @@ class ImageColorsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ImageColorsController controller = Get.put(ImageColorsController());
 
-    void _onImagePickerClicked() async {
+    void onImagePickerClicked() async {
       final selected = await showBaseModalBottomSheet<int>(
         context: context,
         builder: (context) => BaseActionSheet(
@@ -55,7 +55,7 @@ class ImageColorsPage extends StatelessWidget {
           path = (await picker.pickImage(source: ImageSource.gallery))?.path;
         } else {
           const label = 'multiImage';
-          final xType = XTypeGroup(label: label, extensions: ["bmp", "gif", "jpeg", "jpg", "png"]);
+          const xType = XTypeGroup(label: label, extensions: ["bmp", "gif", "jpeg", "jpg", "png"]);
           final List<XFile> files = await openFiles(acceptedTypeGroups: [xType]);
           if (files.isNotEmpty) {
             List<String> paths = files.map((e) => e.path).toList();
@@ -78,7 +78,7 @@ class ImageColorsPage extends StatelessWidget {
           BaseButton(
             child: const Icon(Icons.add),
             onPressed: () {
-              _onImagePickerClicked();
+              onImagePickerClicked();
             },
           ),
         ],
