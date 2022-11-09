@@ -364,11 +364,15 @@ Widget? _buildLeading(
         ? Image.asset(
             initAppBarLeading,
             width: 24,
-            color: tintColor,
+            color: tintColor ?? appTheme(context).appBarTheme.foregroundColor,
           )
         : initAppBarLeading is IconData
-            ? Icon(initAppBarLeading, color: tintColor)
-            : Icon(Icons.arrow_back_ios, color: tintColor);
+            ? Icon(initAppBarLeading,
+                color:
+                    tintColor ?? appTheme(context).appBarTheme.foregroundColor)
+            : Icon(Icons.arrow_back_ios,
+                color:
+                    tintColor ?? appTheme(context).appBarTheme.foregroundColor);
   }
 
   final ModalRoute<Object?>? parentRoute = ModalRoute.of(context);
@@ -451,7 +455,8 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
       actions: actions ?? [],
       elevation: elevation,
       backgroundColor: backgroundColor,
-      systemOverlayStyle: systemOverlayStyle,
+      systemOverlayStyle:
+          systemOverlayStyle ?? AppBarTheme.of(context).systemOverlayStyle,
     );
   }
 
@@ -473,7 +478,8 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
         actions: actions ?? [],
         elevation: elevation,
         backgroundColor: backgroundColor,
-        systemOverlayStyle: systemOverlayStyle,
+        systemOverlayStyle:
+            systemOverlayStyle ?? AppBarTheme.of(context).systemOverlayStyle,
       ),
     );
   }
@@ -526,7 +532,8 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
       pinned: pinned,
       expandedHeight: expandedHeight,
       flexibleSpace: flexibleSpace,
-      systemOverlayStyle: systemOverlayStyle,
+      systemOverlayStyle:
+          systemOverlayStyle ?? AppBarTheme.of(context).systemOverlayStyle,
     );
   }
 
@@ -550,7 +557,8 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
         pinned: pinned,
         expandedHeight: expandedHeight,
         flexibleSpace: flexibleSpace,
-        systemOverlayStyle: systemOverlayStyle,
+        systemOverlayStyle:
+            systemOverlayStyle ?? AppBarTheme.of(context).systemOverlayStyle,
       ),
     );
   }

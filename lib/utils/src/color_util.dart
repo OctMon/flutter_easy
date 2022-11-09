@@ -12,6 +12,9 @@ Color setDarkPrimaryColor = Colors.purple;
 var setLightPrimarySwatchColor = colorWithHex3;
 var setDarkPrimarySwatchColor = Colors.blue;
 
+var setLightAppBarSystemOverlayStyle = SystemUiOverlayStyle.dark;
+var setDarkAppBarSystemOverlayStyle = SystemUiOverlayStyle.light;
+
 var setLightAppBarBackgroundColor = Colors.white;
 var setDarkAppBarBackgroundColor = Colors.black;
 
@@ -128,8 +131,9 @@ ThemeData getTheme({bool darkMode = false}) {
       color: darkMode
           ? setDarkAppBarBackgroundColor
           : setLightAppBarBackgroundColor,
-      systemOverlayStyle:
-          darkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+      systemOverlayStyle: darkMode
+          ? setDarkAppBarSystemOverlayStyle
+          : setLightAppBarSystemOverlayStyle,
       titleTextStyle:
           darkMode ? setDarkAppBarTitleTextStyle : setLightAppBarTitleTextStyle,
     ),
