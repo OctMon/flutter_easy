@@ -8,7 +8,7 @@ class BaseAnimationNumberText extends StatefulWidget {
   final int fixed;
 
   const BaseAnimationNumberText(this.number,
-      {Key? key, this.style, this.duration: 1200, this.fixed: 2})
+      {Key? key, this.style, this.duration = 1200, this.fixed = 2})
       : super(key: key);
 
   @override

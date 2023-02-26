@@ -35,10 +35,10 @@ var setDarkAppBarTitleTextStyle = TextStyle(
   color: Colors.white,
 );
 
-var setLightBodyText2Style = TextStyle(
+var setLightBodyMediumStyle = TextStyle(
   color: colorWithHex3,
 );
-var setDarkBodyText2Style = TextStyle(
+var setDarkBodyMediumStyle = TextStyle(
   color: Colors.white,
 );
 
@@ -139,7 +139,7 @@ ThemeData getTheme({bool darkMode = false}) {
     ),
     textTheme: TextTheme(
       // 默认 Text 样式
-      bodyText2: darkMode ? setDarkBodyText2Style : setLightBodyText2Style,
+      bodyMedium: darkMode ? setDarkBodyMediumStyle : setLightBodyMediumStyle,
     ),
   );
 }

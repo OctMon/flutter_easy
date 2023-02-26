@@ -247,7 +247,7 @@ class __DebugPageState extends State<_DebugPage> {
   void _insertOverlay(BuildContext context) {
     final overlayContext = Get.overlayContext;
     if (overlayContext != null) {
-      Overlay.of(overlayContext)?.insert(
+      Overlay.of(overlayContext).insert(
         OverlayEntry(builder: (context) {
           return Positioned(
             left: _offset.dx,

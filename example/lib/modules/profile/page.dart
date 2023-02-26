@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
       body: Center(
           child: Text(
         "${UserStore.find.user.value.toJson()}",
-        style: appTheme(context).textTheme.headline3,
+        style: appTheme(context).textTheme.displaySmall,
       )),
     );
   }
