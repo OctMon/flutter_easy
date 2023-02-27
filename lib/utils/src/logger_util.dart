@@ -39,8 +39,8 @@ void logRequest(RequestOptions options) {
 \n->->->->->->->->->->Request->->->->->->->->->
 [URL] ${options.uri}
 [Method]		 ${options.method}
-[ConnectTimeout] ${options.connectTimeout / 1000}
-[ReceiveTimeout] ${options.receiveTimeout / 1000}
+[ConnectTimeout] ${options.connectTimeout}
+[ReceiveTimeout] ${options.receiveTimeout}
 [FollowRedirects] ${options.followRedirects}
 """;
   if (!options.headers.isEmptyOrNull) {
@@ -80,8 +80,8 @@ void logResponse(Result result) {
 \n->->->->->->->->->->Response->->->->->->->->->
 [URL] ${result.response?.requestOptions.uri}
 [Method]		 ${result.response?.requestOptions.method}
-[ConnectTimeout] ${(result.response?.requestOptions.connectTimeout ?? 0) / 1000}
-[ReceiveTimeout] ${(result.response?.requestOptions.receiveTimeout ?? 0) / 1000}
+[ConnectTimeout] ${result.response?.requestOptions.connectTimeout}
+[ReceiveTimeout] ${result.response?.requestOptions.receiveTimeout}
 [FollowRedirects] ${result.response?.requestOptions.followRedirects}
 """;
   if (result.response?.requestOptions.headers != null &&

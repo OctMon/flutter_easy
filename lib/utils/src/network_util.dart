@@ -91,7 +91,7 @@ Future<Result> get(
     {String? baseUrl,
     String path = '',
     Map<String, dynamic>? queryParameters,
-    int? connectTimeout,
+    Duration? connectTimeout,
     bool validResult = true,
     bool autoLoading = false}) async {
   return request(
@@ -118,7 +118,7 @@ Future<Result> post(
     {String? baseUrl,
     String path = '',
     data,
-    int? connectTimeout,
+    Duration? connectTimeout,
     bool validResult = true,
     bool autoLoading = false}) async {
   return request(
@@ -147,7 +147,7 @@ Future<Result> request(
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
-    int? connectTimeout,
+    Duration? connectTimeout,
     bool validResult = true,
     bool autoLoading = false}) async {
   if (autoLoading) {
@@ -169,7 +169,7 @@ Future<Result> request(
           errorTimeout: _session.config.errorTimeout,
           errorResponse: _session.config.errorResponse,
           errorCancel: _session.config.errorCancel,
-          errorOther: _session.config.errorOther),
+          errorUnknown: _session.config.errorUnknown),
       onRequest: _session.onRequest,
       onResult: validResult ? _session.onResult : null);
   Result result = await session.request(

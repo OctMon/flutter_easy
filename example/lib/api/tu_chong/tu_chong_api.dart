@@ -9,12 +9,12 @@ Config _config(String? baseURL) {
   return Config(
       baseUrl: baseURL ?? "https://api.tuchong.com/",
 //    proxy: 'PROXY localhost:8888',
-      connectTimeout: 10,
-      receiveTimeout: 10,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
       errorTimeout: kPlaceholderTitleRemote,
       errorResponse: kPlaceholderTitleRemote,
       errorCancel: kPlaceholderTitleRemote,
-      errorOther: kPlaceholderTitleRemote,
+      errorUnknown: kPlaceholderTitleRemote,
       code: "result",
       validCode: "SUCCESS",
       list: "feedList");

@@ -10,8 +10,8 @@ Config _config(String? baseURL) {
     baseUrl: baseURL ??
         "http${kBaseURLType == BaseURLType.release ? 's' : ''}://httpbin.org/",
 //    proxy: 'PROXY localhost:8888',
-    connectTimeout: 10,
-    receiveTimeout: 10,
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
   );
 }
 

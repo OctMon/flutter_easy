@@ -20,8 +20,8 @@ void configAPI(String? baseURL) {
                 ? kReleaseBaseURL
                 : kTestBaseURL),
 //    proxy: 'PROXY localhost:8888',
-        connectTimeout: 10,
-        receiveTimeout: 10,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
       ),
       onRequest: (options) async {
         var headers = {
