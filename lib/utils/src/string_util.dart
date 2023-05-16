@@ -27,7 +27,7 @@ String formatDigitPatternEnd(String text,
     reverse(formatDigitPattern(reverse(text), digit: digit, pattern: pattern));
 
 /// 每隔n位 加逗号
-String formatDigitNum(Object num, {int digit: 3}) =>
+String formatDigitNum(Object num, {int digit = 3}) =>
     formatDigitPatternEnd(num.toString(), digit: digit, pattern: ',');
 
 /// 保留n位小数

@@ -29,7 +29,7 @@ class ThemeMenuPopupView extends StatelessWidget {
                   "${mode.value}",
                   style: appTheme(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(color: appTheme(context).primaryColor),
                 ),
                 const SizedBox(height: 15),

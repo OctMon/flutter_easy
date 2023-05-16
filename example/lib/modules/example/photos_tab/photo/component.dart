@@ -16,7 +16,7 @@ class PhotoComponent extends StatelessWidget {
       children: [
         Text(
           "random:${controller.state}",
-          style: appTheme(context).textTheme.headline2,
+          style: appTheme(context).textTheme.displayMedium,
         ),
         controller.baseState(
           (state) {
