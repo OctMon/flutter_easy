@@ -632,10 +632,10 @@ packages:
     dependency: transitive
     description:
       name: session
-      sha256: "97c0109e5786b0a9c8352c27e1011889b5b6a39d6eadb7428d602eb2ca4af95e"
+      sha256: "0eb380b6340fa1dd93fedfcc1220f4c9638bbbabc270dcad1d0556bc3fbd2327"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   shared_preferences:
     dependency: transitive
     description:
@@ -709,10 +709,10 @@ packages:
     dependency: transitive
     description:
       name: sqflite
-      sha256: "3a82c9a216b46b88617e3714dd74227eaca20c501c4abcc213e56db26b9caa00"
+      sha256: b4d6710e1200e96845747e37338ea8a819a12b51689a3bcf31eff0003b37a0b9
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.8+2"
+    version: "2.2.8+4"
   sqflite_common:
     dependency: transitive
     description:
