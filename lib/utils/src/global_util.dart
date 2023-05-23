@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easy/utils/src/package_info_util.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
 
@@ -131,7 +132,9 @@ void hapticFeedbackHeavyImpact() {
   HapticFeedback.heavyImpact();
 }
 
-String appStoreUrl(String appId) => "https://apps.apple.com/cn/app/id$appId";
+String appStoreUrl(String appId) => isIOS
+    ? "https://apps.apple.com/app/id$appId"
+    : "https://play.google.com/store/apps/details?id=$appPackageName";
 
 String appStoreUserReviewsUrl(String appId) =>
     "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&id=$appId";
