@@ -1207,12 +1207,15 @@ class BaseActionSheetAction extends StatelessWidget {
 
   final bool isDestructiveAction;
 
+  final bool isEnable;
+
   final Widget child;
 
   const BaseActionSheetAction({
     required this.onPressed,
     this.isDefaultAction = false,
     this.isDestructiveAction = false,
+    this.isEnable = true,
     required this.child,
   });
 
@@ -1230,8 +1233,9 @@ class BaseActionSheetAction extends StatelessWidget {
 Future<T?> showBaseModalBottomSheet<T>({
   required BuildContext context,
   required WidgetBuilder builder,
+  bool barrierDismissible = false,
 }) {
-  return showCupertinoModalPopup(context: context, builder: builder);
+  return showCupertinoModalPopup(context: context, builder: builder, barrierDismissible: barrierDismissible);
 }
 
 class BaseDivider extends StatelessWidget {
