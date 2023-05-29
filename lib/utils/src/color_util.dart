@@ -3,26 +3,26 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-var setLightScaffoldBackgroundColor = Colors.white;
-var setDarkScaffoldBackgroundColor = Colors.black;
+Color setLightScaffoldBackgroundColor = Colors.white;
+Color setDarkScaffoldBackgroundColor = Colors.black;
 
 Color setLightPrimaryColor = Colors.red;
 Color setDarkPrimaryColor = Colors.purple;
 
-var setLightPrimarySwatchColor = colorWithHex3;
-var setDarkPrimarySwatchColor = Colors.blue;
+Color setLightPrimarySwatchColor = colorWithHex3;
+Color setDarkPrimarySwatchColor = Colors.blue;
 
 var setLightAppBarSystemOverlayStyle = SystemUiOverlayStyle.dark;
 var setDarkAppBarSystemOverlayStyle = SystemUiOverlayStyle.light;
 
-var setLightAppBarBackgroundColor = Colors.white;
-var setDarkAppBarBackgroundColor = Colors.black;
+Color setLightAppBarBackgroundColor = Colors.white;
+Color setDarkAppBarBackgroundColor = Colors.black;
 
-var setLightAppBarForegroundColor = colorWithHex3;
-var setDarkAppBarForegroundColor = Colors.white;
+Color setLightAppBarForegroundColor = colorWithHex3;
+Color setDarkAppBarForegroundColor = Colors.white;
 
-var setLightDividerColor = Color(0x1FFFFFFF);
-var setDarkDividerColor = Color(0xFFEFEFF4);
+Color setLightDividerColor = Color(0x1FFFFFFF);
+Color setDarkDividerColor = Color(0xFFEFEFF4);
 
 var setLightAppBarTitleTextStyle = TextStyle(
   fontSize: 20,
