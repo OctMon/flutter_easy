@@ -677,16 +677,32 @@ class BaseInkWell extends StatelessWidget {
 class BaseButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final double? minSize;
+  final Color? color;
+  final Color disabledColor;
+  final BorderRadius? borderRadius;
+  final double? pressedOpacity;
   final Widget child;
   final VoidCallback? onPressed;
 
-  BaseButton({this.padding, this.minSize, required this.child, this.onPressed});
+  BaseButton(
+      {this.padding,
+      this.minSize,
+      this.color,
+      this.disabledColor = CupertinoColors.quaternarySystemFill,
+      this.pressedOpacity = 0.4,
+      this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+      required this.child,
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
       padding: padding,
       minSize: minSize,
+      color: onPressed == null ? disabledColor : color,
+      disabledColor: disabledColor,
+      pressedOpacity: pressedOpacity,
+      borderRadius: borderRadius,
       child: child,
       onPressed: onPressed,
     );
@@ -1235,7 +1251,10 @@ Future<T?> showBaseModalBottomSheet<T>({
   required WidgetBuilder builder,
   bool barrierDismissible = false,
 }) {
-  return showCupertinoModalPopup(context: context, builder: builder, barrierDismissible: barrierDismissible);
+  return showCupertinoModalPopup(
+      context: context,
+      builder: builder,
+      barrierDismissible: barrierDismissible);
 }
 
 class BaseDivider extends StatelessWidget {
