@@ -181,16 +181,7 @@ class _BaseAppState extends State<BaseApp> {
             builder: (context, child) {
               AdaptUtil.initContext(context);
               return _buildBannerUrlType(
-                child: Scaffold(
-                  // Global GestureDetector that will dismiss the keyboard
-                  body: GestureDetector(
-                    onTap: () {
-                      hideKeyboard(context);
-                    },
-                    child:
-                        _buildTextScaleFactor(context: context, child: child!),
-                  ),
-                ),
+                child: _buildTextScaleFactor(context: context, child: child!),
               );
             },
           ),
