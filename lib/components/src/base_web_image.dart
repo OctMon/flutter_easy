@@ -7,6 +7,8 @@ import 'package:cached_network_image_platform_interface/cached_network_image_pla
 // import 'package:path_provider/path_provider.dart';
 // import 'package:path/path.dart' as p;
 
+Color? baseDefaultPlaceholderColor = const Color(0xFF373839);
+
 class BaseWebImage extends StatelessWidget {
   final String? imageUrl;
   final Widget placeholder;
@@ -26,6 +28,48 @@ class BaseWebImage extends StatelessWidget {
 
   static void clean(String url) {
     DefaultCacheManager().removeFile(url);
+  }
+
+  static Widget clip({
+    String? url,
+    Widget? placeholder,
+    Widget? errorWidget,
+    double? width,
+    double? height,
+    BoxFit? fit,
+    double? borderRadius,
+    Color? placeholderColor,
+    bool round = false,
+  }) {
+    Widget image() {
+      return Container(
+        width: width,
+        height: height,
+        color: placeholder == null
+            ? (placeholderColor ?? baseDefaultPlaceholderColor)
+            : null,
+        child: BaseWebImage(
+          url,
+          fit: fit,
+          placeholder: placeholder ??
+              Container(
+                width: width,
+                height: height,
+                color: placeholderColor ?? baseDefaultPlaceholderColor,
+              ),
+        ),
+      );
+    }
+
+    if (round || borderRadius != null) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(
+          (round && width != null) ? width * 0.5 : (borderRadius ?? 0),
+        ),
+        child: image(),
+      );
+    }
+    return image();
   }
 
   @override
