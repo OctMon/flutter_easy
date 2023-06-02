@@ -1172,6 +1172,7 @@ class BaseDialogAction extends StatelessWidget {
 ///  只针对[BaseGeneralAlertDialog]设置[barrierDismissible]有效
 Future<T?> showBaseDialog<T>({
   required BuildContext context,
+  Color? barrierColor = Colors.black54,
   bool barrierDismissible = false,
   bool useSafeArea = true,
   required WidgetBuilder builder,
@@ -1179,6 +1180,7 @@ Future<T?> showBaseDialog<T>({
   return showDialog<T>(
       context: context,
       useSafeArea: useSafeArea,
+      barrierColor: barrierColor,
       barrierDismissible: barrierDismissible,
       builder: builder);
 }
