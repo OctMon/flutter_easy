@@ -1173,10 +1173,12 @@ class BaseDialogAction extends StatelessWidget {
 Future<T?> showBaseDialog<T>({
   required BuildContext context,
   bool barrierDismissible = false,
+  bool useSafeArea = true,
   required WidgetBuilder builder,
 }) {
   return showDialog<T>(
       context: context,
+      useSafeArea: useSafeArea,
       barrierDismissible: barrierDismissible,
       builder: builder);
 }
