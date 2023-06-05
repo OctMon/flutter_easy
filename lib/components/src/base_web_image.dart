@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
     show ImageRenderMethodForWeb;
+import 'package:flutter_easy/flutter_easy.dart';
 
 // import 'package:path_provider/path_provider.dart';
 // import 'package:path/path.dart' as p;
@@ -25,10 +28,6 @@ class BaseWebImage extends StatelessWidget {
       this.height,
       this.fit})
       : super(key: key);
-
-  static void clean(String url) {
-    DefaultCacheManager().removeFile(url);
-  }
 
   static Widget clip({
     String? url,
@@ -101,6 +100,21 @@ class BaseWebImage extends StatelessWidget {
         headers: headers,
         cacheManager: cacheManager,
         imageRenderMethodForWeb: imageRenderMethodForWeb);
+  }
+
+  /// 手动缓存文件
+  static Future<File> cachePutFile(
+      {required String url, required File file}) async {
+    final fileBytes = await file.readAsBytesSync();
+
+    File cacheImage = await DefaultCacheManager().putFile(url, fileBytes);
+    logDebug('手动缓存的图URL: $url => ${cacheImage.path}');
+    return cacheImage;
+  }
+
+  /// 删除缓存图片
+  static void clean(String url) {
+    DefaultCacheManager().removeFile(url);
   }
 }
 
