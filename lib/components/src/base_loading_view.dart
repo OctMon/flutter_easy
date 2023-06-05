@@ -30,7 +30,7 @@ class BaseLoadingView extends StatelessWidget {
           : baseDefaultAnimationImage!;
     }
     return Padding(
-      padding: EdgeInsets.all((message == null) ? 30 : 15),
+      padding: EdgeInsets.all((message == null) ? 0 : 15),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: _buildChildren(),
