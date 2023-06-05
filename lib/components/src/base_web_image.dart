@@ -102,19 +102,21 @@ class BaseWebImage extends StatelessWidget {
         imageRenderMethodForWeb: imageRenderMethodForWeb);
   }
 
+  static ImageCacheManager get defaultCacheManager => DefaultCacheManager();
+
   /// 手动缓存文件
   static Future<File> cachePutFile(
       {required String url, required File file}) async {
     final fileBytes = await file.readAsBytesSync();
 
-    File cacheImage = await DefaultCacheManager().putFile(url, fileBytes);
+    File cacheImage = await defaultCacheManager.putFile(url, fileBytes);
     logDebug('手动缓存的图URL: $url => ${cacheImage.path}');
     return cacheImage;
   }
 
   /// 删除缓存图片
   static void clean(String url) {
-    DefaultCacheManager().removeFile(url);
+    defaultCacheManager.removeFile(url);
   }
 }
 
