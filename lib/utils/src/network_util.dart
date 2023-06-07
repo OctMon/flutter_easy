@@ -19,8 +19,9 @@ var _baseURLTypeString = "".obs;
 
 /// 上线环境
 BaseURLType get kBaseURLType {
-  if (isAppDebugFlag && _baseURLTypeString.value.isNotEmpty) {
-    if (_baseURLTypeString.value == "${BaseURLType.test}") {
+  final urlType = _baseURLTypeString.value;
+  if (isAppDebugFlag) {
+    if (urlType.isEmpty || urlType == "${BaseURLType.test}") {
       return BaseURLType.test;
     } else if (_baseURLTypeString.value == "${BaseURLType.release}") {
       return BaseURLType.release;
