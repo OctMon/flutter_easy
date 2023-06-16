@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easy/components/src/base_animation_image.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void showLoading({
@@ -9,7 +10,7 @@ void showLoading({
 }) {
   EasyLoading.show(
       status: status,
-      indicator: indicator,
+      indicator: indicator ?? baseDefaultAnimationImage,
       maskType: (maskType == null &&
               EasyLoading.instance.maskType == EasyLoadingMaskType.none)
           ? EasyLoadingMaskType.clear
