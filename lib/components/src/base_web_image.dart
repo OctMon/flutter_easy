@@ -14,7 +14,7 @@ Color? baseDefaultPlaceholderColor = const Color(0xFF373839);
 
 class BaseWebImage extends StatelessWidget {
   final String? imageUrl;
-  final Widget placeholder;
+  final Widget? placeholder;
   final Widget? errorWidget;
   final double? width;
   final double? height;
@@ -22,7 +22,7 @@ class BaseWebImage extends StatelessWidget {
 
   const BaseWebImage(this.imageUrl,
       {Key? key,
-      this.placeholder = const Center(child: CircularProgressIndicator()),
+      this.placeholder,
       this.errorWidget,
       this.width,
       this.height,
@@ -73,6 +73,9 @@ class BaseWebImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final placeholder = this.placeholder ??
+        (Center(
+            child: baseDefaultAnimationImage ?? CircularProgressIndicator()));
     if (imageUrl == null || imageUrl?.isEmpty == true) {
       return placeholder;
     }
