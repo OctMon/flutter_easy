@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:convert/convert.dart' as convert;
 import 'package:crypto/crypto.dart' as crypto;
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_easy/flutter_easy.dart';
 
@@ -172,5 +173,11 @@ extension IdentityCardExtensions on String {
       }
     }
     return sex;
+  }
+}
+
+extension FixAutoLinesExtensions on String {
+  String get fixAutoLines {
+    return Characters(this).join('\u200B');
   }
 }

@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+double? baseDefaultTextScaleFactor;
+
 class BaseKeyValue {
   late String key;
   late String value;
@@ -161,7 +163,9 @@ class _BaseAppState extends State<BaseApp> {
         {required BuildContext context, required Widget child}) {
       if (!isWeb) {
         child = MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          data: MediaQuery.of(context).copyWith(
+            textScaleFactor: baseDefaultTextScaleFactor ?? 1.adaptRatio,
+          ),
           child: child,
         );
       }
