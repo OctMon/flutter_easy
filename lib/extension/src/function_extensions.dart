@@ -2,15 +2,28 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+/// 事件目标操作
+/// void increase() {
+///   count += 1;
+/// }
 extension FunctionExtensions on Function {
+  /// 节流
+  /// () async{
+  ///   await Future.delayed(Duration(seconds: 1));
+  ///   increase();
+  /// }.throttle()
   VoidCallback throttle() {
     return FunctionProxy(this).throttle;
   }
 
+  /// 指定时间节流
+  /// increase.throttleWithTimeout(2000)
   VoidCallback throttleWithTimeout({int? timeout}) {
     return FunctionProxy(this, timeout: timeout).throttleWithTimeout;
   }
 
+  ///防抖
+  /// increase.debounce(timeout: 1000)
   VoidCallback debounce({int? timeout}) {
     return FunctionProxy(this, timeout: timeout).debounce;
   }
