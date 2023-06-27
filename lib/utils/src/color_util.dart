@@ -68,6 +68,8 @@ var setDarkPlaceholderTextStyle = TextStyle(
 Color colorWithLightSecondary = Colors.tealAccent;
 Color colorWithDarkSecondary = Colors.blueAccent;
 
+String? setThemeDataFontFamily;
+
 const colorWithHex2 = Color(0xFF222222);
 
 const colorWithHex3 = Color(0xFF333333);
@@ -137,6 +139,7 @@ ThemeData getTheme({bool darkMode = false}) {
       titleTextStyle:
           darkMode ? setDarkAppBarTitleTextStyle : setLightAppBarTitleTextStyle,
     ),
+    fontFamily: setThemeDataFontFamily,
     textTheme: TextTheme(
       // 默认 Text 样式
       bodyMedium: darkMode ? setDarkBodyMediumStyle : setLightBodyMediumStyle,
