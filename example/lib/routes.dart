@@ -1,5 +1,6 @@
 import 'package:flutter_easy/flutter_easy.dart';
 
+import 'modules/example/connectivity/view.dart';
 import 'modules/example/image_colors/page.dart';
 import 'modules/example/login/page.dart';
 import 'modules/example/photo_view/page.dart';
@@ -20,6 +21,7 @@ class Routes {
   static const String photoView = '$example/photo_view';
   static const String imageColors = '$example/image_colors';
   static const String photosTab = '$example/photos_tab';
+  static const String connectivity = '$example/connectivity';
 
   Routes._();
 
@@ -42,6 +44,10 @@ class Routes {
       middlewares: [
         LoginMiddleware(),
       ],
+    ),
+    GetPage(
+      name: Routes.connectivity,
+      page: () => ConnectivityPage(),
     ),
     GetPage(
       name: Routes.imageColors,

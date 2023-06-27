@@ -27,6 +27,16 @@ class ExampleListPage extends StatelessWidget {
         children: [
           GlobalListCell(
             item: BaseKeyValue(
+              key: "Connectivity",
+              value: "",
+              extend: Icons.earbuds,
+            ),
+            onPressed: () {
+              toNamed(Routes.connectivity);
+            },
+          ),
+          GlobalListCell(
+            item: BaseKeyValue(
                 key: S.of(context).example_PictureWaterfallFlow,
                 value: "",
                 extend: Icons.image),
@@ -47,9 +57,7 @@ class ExampleListPage extends StatelessWidget {
           ),
           GlobalListCell(
             item: BaseKeyValue(
-                key: "BaseTabPage",
-                value: "",
-                extend: Icons.view_list),
+                key: "BaseTabPage", value: "", extend: Icons.view_list),
             onPressed: () {
               toNamed(Routes.photosTab);
             },
