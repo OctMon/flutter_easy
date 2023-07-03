@@ -149,6 +149,8 @@ Future<Result> request(
     Map<String, dynamic>? queryParameters,
     Options? options,
     Duration? connectTimeout,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
     bool validResult = true,
     bool autoLoading = false}) async {
   if (autoLoading) {
@@ -179,6 +181,8 @@ Future<Result> request(
     queryParameters: queryParameters,
     options: options,
     connectTimeout: connectTimeout,
+    onSendProgress: onSendProgress,
+    onReceiveProgress: onReceiveProgress,
   );
   if (autoLoading) {
     dismissLoading();

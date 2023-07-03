@@ -29,6 +29,7 @@ class Routes {
     GetPage(
       name: Routes.root,
       page: () => RootPage(),
+      transition: Transition.noTransition,
     ),
     GetPage(
       name: Routes.splash,
