@@ -5,6 +5,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 export 'package:session/session.dart';
 
+typedef BaseCancelToken = CancelToken;
+
 /// 网络错误的提示语
 String? kPlaceholderTitleRemote = "网络连接出错，请检查网络连接";
 
@@ -147,6 +149,7 @@ Future<Result> request(
     String path = '',
     data,
     Map<String, dynamic>? queryParameters,
+    BaseCancelToken? cancelToken,
     Options? options,
     Duration? connectTimeout,
     ProgressCallback? onSendProgress,
@@ -179,6 +182,7 @@ Future<Result> request(
     path,
     data: data,
     queryParameters: queryParameters,
+    cancelToken: cancelToken,
     options: options,
     connectTimeout: connectTimeout,
     onSendProgress: onSendProgress,
