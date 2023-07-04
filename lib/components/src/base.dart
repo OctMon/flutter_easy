@@ -888,6 +888,8 @@ class BaseOutlineButton extends StatelessWidget {
     return BaseButton(
       padding: EdgeInsets.zero,
       onPressed: onPressed,
+      color: Colors.transparent,
+      disabledColor: Colors.transparent,
       child: Container(
         width: width,
         height: height,
