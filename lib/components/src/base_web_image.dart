@@ -117,6 +117,12 @@ class BaseWebImage extends StatelessWidget {
     return cacheImage;
   }
 
+  static Future<FileInfo?> cacheGetFile(String url,
+      {bool ignoreMemCache = false}) {
+    return defaultCacheManager.getFileFromCache(url,
+        ignoreMemCache: ignoreMemCache);
+  }
+
   /// 删除缓存图片
   static void clean(String url) {
     defaultCacheManager.removeFile(url);
