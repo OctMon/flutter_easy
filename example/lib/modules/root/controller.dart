@@ -7,9 +7,7 @@ class RootController extends BaseLifeCycleController {
 
   @override
   void onReady() {
-    if (Get.context != null) {
-      checkPrivacy(Get.context!);
-    }
+    checkPrivacy();
     super.onReady();
   }
 

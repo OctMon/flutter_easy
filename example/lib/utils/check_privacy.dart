@@ -7,13 +7,17 @@ import 'package:flutter_easy_example/generated/l10n.dart';
 
 import '../routes.dart';
 
-Future<bool> checkPrivacy(BuildContext context) async {
+Future<bool> checkPrivacy() async {
   final kPrivacy = "checkPrivacy".md5;
   if (await getStorageBool(kPrivacy) == true) {
     return false;
   }
+
+  if (Get.context == null) {
+    return false;
+  }
   return await showBaseDialog<bool>(
-        context: context,
+        context: Get.context!,
         builder: (context) {
           return WillPopScope(
             onWillPop: () async {
