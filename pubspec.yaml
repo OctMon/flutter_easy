@@ -55,9 +55,9 @@ dependencies:
   # desc：包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储。
   # 数据异步保存到磁盘。 这两个平台都不能保证在返回后将写操作持久化到磁盘，并且该插件不得用于存储关键数据。
   # ===============================================================================
-  shared_preferences: ^2.1.2
+  shared_preferences: ^2.2.0
   shared_preferences_platform_interface: ^2.3.0
-  shared_preferences_web: ^2.1.0
+  shared_preferences_web: ^2.2.0
 
   # ===============================================================================
   # This Flutter plugin provides an API for querying information about an application package.
@@ -72,7 +72,7 @@ dependencies:
   # pub: https://pub.dev/packages/url_launcher
   # git: https://github.com/flutter/plugins/tree/master/packages/url_launcher
   # ———————————————————————————————————————————————————————————————————————————————
-  url_launcher: ^6.1.11
+  url_launcher: ^6.1.12
   # ===============================================================================
 
   # ===============================================================================
@@ -82,7 +82,7 @@ dependencies:
   # ———————————————————————————————————————————————————————————————————————————————
   cached_network_image: ^3.2.3
   cached_network_image_platform_interface: ^2.0.0
-  flutter_cache_manager: ^3.3.0
+  flutter_cache_manager: ^3.3.1
   path_provider: ^2.0.15
   path: ^1.8.2
   # ===============================================================================
@@ -101,7 +101,7 @@ dependencies:
   # git: https://github.com/TheAnkurPanchani/card_swiper
   # desc：flutter最强大的swiper, 多种布局方式，无限轮播，Android和IOS双端适配.
   # ===============================================================================
-  card_swiper: ^2.0.4
+  card_swiper: ^3.0.1
 
   # ===============================================================================
   # 名称： GetX
