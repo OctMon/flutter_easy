@@ -136,12 +136,13 @@ String appStoreUrl(String appId) => isIOS
     ? "https://apps.apple.com/app/id$appId"
     : "https://play.google.com/store/apps/details?id=$appPackageName";
 
-String appStoreUserReviewsUrl(String appId) =>
-    "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&id=$appId";
+String appStoreUserReviewsUrl(String appId) => isIOS
+    ? "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&id=$appId"
+    : appStoreUrl(appId);
 
 String appStoreWriteReview(String appId) => isIOS
     ? "itms-apps://itunes.apple.com/app/id$appId?mt=8&action=write-review"
-    : "https://play.google.com/store/apps/details?id=$appPackageName";
+    : appStoreUrl(appId);
 
 Future<bool> canLaunch(String urlString) =>
     urlLauncher.canLaunchUrl(Uri.parse(urlString));
