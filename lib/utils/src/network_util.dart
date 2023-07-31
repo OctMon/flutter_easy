@@ -163,7 +163,7 @@ Future<Result> request(
       config: Config(
           baseUrl:
               baseUrl?.isNotEmpty == true ? baseUrl! : _session.config.baseUrl,
-          proxy: _session.config.proxy,
+          createHttpClient: _session.config.createHttpClient,
           badCertificateCallback: _session.config.badCertificateCallback,
           connectTimeout: _session.config.connectTimeout,
           receiveTimeout: _session.config.receiveTimeout,
