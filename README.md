@@ -54,7 +54,7 @@ app.dart
 ```dart
 Future<void> initApp() async {
   // Encrypt password
-  StorageUtil.setEncrypt("963K3REfb30szs1n");
+  StorageUtil.setEncrypt("XxXxXxXxXxXxXxXxX");
   // Load user info
   await Get.putAsync(() => UserService().load());
   // Load API

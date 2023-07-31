@@ -1,3 +1,8 @@
+## 3.1.0
+
+* upgrade flutter 3.10.0
+* upgrade dependencies.
+
 ## 3.0.2
 
 * add drawer
