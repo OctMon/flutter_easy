@@ -606,30 +606,44 @@ class BaseScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar != null
-          ? (isIOS
-              ? appBar?.buildCupertinoWidget(context)
-              : appBar?.buildMaterialWidget(context))
-          : null,
-      drawer: drawer,
-      onDrawerChanged: onDrawerChanged,
-      endDrawer: endDrawer,
-      onEndDrawerChanged: onEndDrawerChanged,
-      drawerScrimColor: drawerScrimColor,
-      drawerDragStartBehavior: drawerDragStartBehavior,
-      drawerEdgeDragWidth: drawerEdgeDragWidth,
-      drawerEnableOpenDragGesture: drawerEnableOpenDragGesture,
-      endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture,
-      body: body,
-      backgroundColor: backgroundColor,
-      bottomNavigationBar: bottomNavigationBar,
-      extendBody: extendBody,
-      resizeToAvoidBottomInset: false,
-      floatingActionButton: floatingActionButton,
-      floatingActionButtonLocation: floatingActionButtonLocation,
-      floatingActionButtonAnimator: floatingActionButtonAnimator,
-    );
+    Widget scaffold() {
+      return Scaffold(
+        appBar: appBar != null
+            ? (isIOS
+                ? appBar?.buildCupertinoWidget(context)
+                : appBar?.buildMaterialWidget(context))
+            : null,
+        drawer: drawer,
+        onDrawerChanged: onDrawerChanged,
+        endDrawer: endDrawer,
+        onEndDrawerChanged: onEndDrawerChanged,
+        drawerScrimColor: drawerScrimColor,
+        drawerDragStartBehavior: drawerDragStartBehavior,
+        drawerEdgeDragWidth: drawerEdgeDragWidth,
+        drawerEnableOpenDragGesture: drawerEnableOpenDragGesture,
+        endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture,
+        body: body,
+        backgroundColor: backgroundColor,
+        bottomNavigationBar: bottomNavigationBar,
+        extendBody: extendBody,
+        resizeToAvoidBottomInset: false,
+        floatingActionButton: floatingActionButton,
+        floatingActionButtonLocation: floatingActionButtonLocation,
+        floatingActionButtonAnimator: floatingActionButtonAnimator,
+      );
+    }
+
+    return isAndroid
+        ? WillPopScope(
+            onWillPop: () async {
+              if (EasyLoading.instance.w != null) {
+                return false;
+              }
+              return true;
+            },
+            child: scaffold(),
+          )
+        : scaffold();
   }
 }
 
