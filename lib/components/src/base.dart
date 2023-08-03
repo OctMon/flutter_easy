@@ -559,20 +559,33 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   }
 }
 
-class BaseWillPopScope extends WillPopScope {
-  BaseWillPopScope({required Widget child, required WillPopCallback? onWillPop})
-      : super(
-          child: WillPopScope(
+class BaseWillPopScope extends StatelessWidget {
+  final bool onlyAndroid;
+
+  final Widget child;
+
+  final WillPopCallback? onWillPop;
+
+  const BaseWillPopScope(
+      {this.onlyAndroid = true, required this.child, this.onWillPop});
+
+  @override
+  Widget build(BuildContext context) {
+    return (!onlyAndroid || isAndroid)
+        ? WillPopScope(
             onWillPop: () async {
               if (EasyLoading.instance.w != null) {
                 return false;
               }
+              if (onWillPop != null) {
+                return onWillPop!();
+              }
               return true;
             },
             child: child,
-          ),
-          onWillPop: onWillPop,
-        );
+          )
+        : child;
+  }
 }
 
 class BaseScaffold extends StatelessWidget {
@@ -651,7 +664,6 @@ class BaseScaffold extends StatelessWidget {
 
     return BaseWillPopScope(
       child: scaffold(),
-      onWillPop: null,
     );
   }
 }
