@@ -1,3 +1,8 @@
+## 3.1.1
+
+* add BaseWillPopScope
+* upgrade dependencies.
+
 ## 3.1.0
 
 * upgrade flutter 3.10.0
