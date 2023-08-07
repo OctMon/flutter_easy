@@ -1,3 +1,8 @@
+## 3.1.2
+
+* add loading maskType
+* upgrade dependencies.
+* 
 ## 3.1.1
 
 * add BaseWillPopScope
