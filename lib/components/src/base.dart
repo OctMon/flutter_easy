@@ -9,6 +9,14 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 double? baseDefaultTextScaleFactor;
 
+typedef BaseEasyLoading = EasyLoading;
+typedef BaseEasyLoadingStyle = EasyLoadingStyle;
+typedef BaseEasyLoadingPosition = EasyLoadingToastPosition;
+typedef BaseEasyLoadingAnimationStyle = EasyLoadingAnimationStyle;
+typedef BaseEasyLoadingMaskType = EasyLoadingMaskType;
+typedef BaseEasyLoadingIndicatorType = EasyLoadingIndicatorType;
+typedef BaseEasyLoadingStatus = EasyLoadingStatus;
+
 class BaseKeyValue {
   late String key;
   late String value;
@@ -48,6 +56,8 @@ Future<void> initEasyApp({VoidCallback? appBaseURLChangedCallback}) async {
   _appBaseURLChangedCallback = appBaseURLChangedCallback;
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  BaseEasyLoading.instance.maskType = BaseEasyLoadingMaskType.black;
 
   final utils = await Future.wait([
     PackageInfoUtil.init(),
@@ -181,7 +191,7 @@ class _BaseAppState extends State<BaseApp> {
       home: widget.home,
       scrollBehavior: isPhone ? null : _MyCustomScrollBehavior(),
       builder: widget.builder ??
-          EasyLoading.init(
+          BaseEasyLoading.init(
             builder: (context, child) {
               AdaptUtil.initContext(context);
               return _buildBannerUrlType(
@@ -574,7 +584,7 @@ class BaseWillPopScope extends StatelessWidget {
     return (!onlyAndroid || isAndroid)
         ? WillPopScope(
             onWillPop: () async {
-              if (EasyLoading.instance.w != null) {
+              if (BaseEasyLoading.isShow) {
                 return false;
               }
               if (onWillPop != null) {
