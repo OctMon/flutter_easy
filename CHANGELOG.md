@@ -1,3 +1,6 @@
+## 3.1.4
+* add imageCompletionHandler
+
 ## 3.1.3
 * add BaseCachedNetworkImage progressIndicatorBuilder
 * upgrade dependencies.
