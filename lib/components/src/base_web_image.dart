@@ -10,6 +10,14 @@ import 'package:flutter_easy/flutter_easy.dart';
 // import 'package:path_provider/path_provider.dart';
 // import 'package:path/path.dart' as p;
 
+typedef BaseCachedNetworkImage = CachedNetworkImage;
+typedef BaseDownloadProgress = DownloadProgress;
+typedef BaseProgressIndicatorBuilder = Widget? Function(
+  BuildContext context,
+  String url,
+  BaseDownloadProgress progress,
+);
+
 Color? baseDefaultPlaceholderColor = const Color(0xFF373839);
 
 class BaseWebImage extends StatelessWidget {
@@ -20,13 +28,17 @@ class BaseWebImage extends StatelessWidget {
   final double? height;
   final BoxFit? fit;
 
+  /// Widget displayed while the target [imageUrl] is loading.
+  final BaseProgressIndicatorBuilder? progressIndicatorBuilder;
+
   const BaseWebImage(this.imageUrl,
       {Key? key,
       this.placeholder,
       this.errorWidget,
       this.width,
       this.height,
-      this.fit})
+      this.fit,
+      this.progressIndicatorBuilder})
       : super(key: key);
 
   static Widget clip({
@@ -41,6 +53,15 @@ class BaseWebImage extends StatelessWidget {
     bool round = false,
   }) {
     Widget image() {
+      Widget colorWidget() {
+        return placeholder ??
+            Container(
+              width: width,
+              height: height,
+              color: placeholderColor ?? baseDefaultPlaceholderColor,
+            );
+      }
+
       return Container(
         width: width,
         height: height,
@@ -50,12 +71,8 @@ class BaseWebImage extends StatelessWidget {
         child: BaseWebImage(
           url,
           fit: fit,
-          placeholder: placeholder ??
-              Container(
-                width: width,
-                height: height,
-                color: placeholderColor ?? baseDefaultPlaceholderColor,
-              ),
+          placeholder: placeholder ?? colorWidget(),
+          errorWidget: errorWidget ?? colorWidget(),
         ),
       );
     }
@@ -85,8 +102,19 @@ class BaseWebImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      placeholder: (context, url) => placeholder,
       errorWidget: (context, url, error) => errorWidget ?? placeholder,
+      progressIndicatorBuilder: (
+        BuildContext context,
+        String url,
+        BaseDownloadProgress progress,
+      ) {
+        logDebug("Progress - $url: ${progress.progress}");
+        if (progressIndicatorBuilder != null) {
+          return progressIndicatorBuilder!(context, url, progress) ??
+              placeholder;
+        }
+        return placeholder;
+      },
     );
   }
 
