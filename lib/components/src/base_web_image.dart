@@ -30,6 +30,7 @@ class BaseWebImage extends StatelessWidget {
 
   /// Widget displayed while the target [imageUrl] is loading.
   final BaseProgressIndicatorBuilder? progressIndicatorBuilder;
+  final ValueChanged<FileInfo?>? imageCompletionHandler;
 
   const BaseWebImage(this.imageUrl,
       {Key? key,
@@ -38,12 +39,14 @@ class BaseWebImage extends StatelessWidget {
       this.width,
       this.height,
       this.fit,
-      this.progressIndicatorBuilder})
+      this.progressIndicatorBuilder,
+      this.imageCompletionHandler})
       : super(key: key);
 
   static Widget clip({
     String? url,
     Widget? placeholder,
+    ValueChanged<FileInfo?>? imageCompletionHandler,
     Widget? errorWidget,
     double? width,
     double? height,
@@ -73,6 +76,7 @@ class BaseWebImage extends StatelessWidget {
           fit: fit,
           placeholder: placeholder ?? colorWidget(),
           errorWidget: errorWidget ?? colorWidget(),
+          imageCompletionHandler: imageCompletionHandler,
         ),
       );
     }
@@ -103,12 +107,22 @@ class BaseWebImage extends StatelessWidget {
       height: height,
       fit: fit,
       errorWidget: (context, url, error) => errorWidget ?? placeholder,
+      imageBuilder: (context, imageProvider) {
+        cacheGetFile(imageUrl ?? "").then((file) {
+          if (imageCompletionHandler != null) {
+            imageCompletionHandler!(file);
+          }
+          logDebug(
+              "imageBuilder - ${file?.originalUrl} - ${file?.source} - ${file?.file}");
+        });
+        return Image(image: imageProvider);
+      },
       progressIndicatorBuilder: (
         BuildContext context,
         String url,
         BaseDownloadProgress progress,
       ) {
-        logDebug("Progress - $url: ${progress.progress}");
+        // logDebug("Progress - $url: ${progress.progress}");
         if (progressIndicatorBuilder != null) {
           return progressIndicatorBuilder!(context, url, progress) ??
               placeholder;
