@@ -15,6 +15,8 @@ Future<void> initApp() async {
   await Get.putAsync(() => UserStore().load());
   // Load API
   configAPI(null);
+
+  baseWebImageDefaultErrorPlaceholder = Icon(Icons.wifi_tethering_error);
 }
 
 class MyApp extends StatelessWidget {

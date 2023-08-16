@@ -18,7 +18,8 @@ typedef BaseProgressIndicatorBuilder = Widget? Function(
   BaseDownloadProgress progress,
 );
 
-Color? baseDefaultPlaceholderColor = const Color(0xFF373839);
+Color? baseWebImageDefaultPlaceholderColor = const Color(0xFF373839);
+Widget baseWebImageDefaultErrorPlaceholder = Icon(Icons.error_outline);
 
 class BaseWebImage extends StatelessWidget {
   final String? imageUrl;
@@ -61,7 +62,7 @@ class BaseWebImage extends StatelessWidget {
             Container(
               width: width,
               height: height,
-              color: placeholderColor ?? baseDefaultPlaceholderColor,
+              color: placeholderColor ?? baseWebImageDefaultPlaceholderColor,
             );
       }
 
@@ -69,7 +70,7 @@ class BaseWebImage extends StatelessWidget {
         width: width,
         height: height,
         color: placeholder == null
-            ? (placeholderColor ?? baseDefaultPlaceholderColor)
+            ? (placeholderColor ?? baseWebImageDefaultPlaceholderColor)
             : null,
         child: BaseWebImage(
           url,
@@ -106,16 +107,32 @@ class BaseWebImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      errorWidget: (context, url, error) => errorWidget ?? placeholder,
+      errorWidget: (context, url, error) {
+        logDebug("errorWidget: $url - $error");
+        return GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            Get.forceAppUpdate();
+          },
+          child: errorWidget ?? baseWebImageDefaultErrorPlaceholder,
+        );
+      },
       imageBuilder: (context, imageProvider) {
-        cacheGetFile(imageUrl ?? "").then((file) {
-          if (imageCompletionHandler != null) {
-            imageCompletionHandler!(file);
-          }
-          logDebug(
-              "imageBuilder - ${file?.originalUrl} - ${file?.source} - ${file?.file}");
-        });
-        return Image(image: imageProvider);
+        cacheGetFile(imageUrl ?? "").then(
+          (file) {
+            if (imageCompletionHandler != null) {
+              imageCompletionHandler!(file);
+            }
+            logDebug(
+                "imageBuilder - ${file?.originalUrl} - ${file?.source} - ${file?.file}");
+          },
+        );
+        return Image(
+          image: imageProvider,
+          fit: fit,
+          width: width,
+          height: height,
+        );
       },
       progressIndicatorBuilder: (
         BuildContext context,

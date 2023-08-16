@@ -119,6 +119,11 @@ class HomePage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(15),
           children: <Widget>[
+            BaseWebImage(
+              "http://p3.qhimg.com/t01fad0023a8d68490d.jpg",
+              height: screenWidthDp,
+              fit: BoxFit.cover,
+            ),
             Obx(() {
               return Table(
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
