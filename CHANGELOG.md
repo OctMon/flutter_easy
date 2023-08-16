@@ -1,3 +1,6 @@
+## 3.1.6
+* add logEnabled for BaseWebImage
+
 ## 3.1.5
 * add baseWebImageDefaultErrorPlaceholder
 
