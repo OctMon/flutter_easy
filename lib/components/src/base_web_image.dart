@@ -123,8 +123,10 @@ class BaseWebImage extends StatelessWidget {
             if (imageCompletionHandler != null) {
               imageCompletionHandler!(file);
             }
-            logDebug(
-                "imageBuilder - ${file?.originalUrl} - ${file?.source} - ${file?.file}");
+            if (logEnabled) {
+              logDebug(
+                  "imageBuilder - ${file?.originalUrl} - ${file?.source} - ${file?.file}");
+            }
           },
         );
         return Image(
@@ -165,6 +167,8 @@ class BaseWebImage extends StatelessWidget {
   }
 
   static ImageCacheManager get defaultCacheManager => DefaultCacheManager();
+
+  static var logEnabled = false;
 
   /// 手动缓存文件
   static Future<File> cachePutFile(
