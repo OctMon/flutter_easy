@@ -9,6 +9,7 @@ void showToast(
 }) {
   EasyLoading.showToast(
     status,
+    duration: duration,
     toastPosition: toastPosition,
     maskType: maskType,
     dismissOnTap: dismissOnTap,
