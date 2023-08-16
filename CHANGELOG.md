@@ -1,3 +1,6 @@
+## 3.1.5
+* add baseWebImageDefaultErrorPlaceholder
+
 ## 3.1.4
 * add imageCompletionHandler
 
