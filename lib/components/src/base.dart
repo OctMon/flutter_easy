@@ -162,7 +162,27 @@ class _BaseAppState extends State<BaseApp> {
             color: Colors.deepPurple,
             message: kBaseURLType == BaseURLType.release ? "Release" : "Test",
             location: BannerLocation.topEnd,
-            child: _DebugPage(child: child),
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                _DebugPage(child: child),
+                SizedBox(
+                  height: screenStatusBarHeightDp,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Text(
+                        "$appVersion+$appBuildNumber",
+                        style: TextStyle(
+                          fontSize: 12,
+                          // color: Colors.black38,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         });
       }
