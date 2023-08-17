@@ -113,13 +113,13 @@ class BaseWebImage extends StatelessWidget {
             if (imageCompletionHandler != null) {
               imageCompletionHandler!(state.extendedImageInfo);
             }
-            return ExtendedRawImage(
-              image: state.extendedImageInfo?.image,
-              width: width,
-              height: height,
-              fit: fit,
-            );
+            if (state.wasSynchronouslyLoaded) {
+              return state.completedWidget;
+            }
+            return null;
           case LoadState.failed:
+            //remove memory cached
+            state.imageProvider.evict();
             return GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
