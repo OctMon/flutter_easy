@@ -80,6 +80,7 @@ dependencies:
   # pub: https://pub.dartlang.org/packages/cached_network_image
   # git: https://github.com/renefloor/flutter_cached_network_image
   # ———————————————————————————————————————————————————————————————————————————————
+  extended_image: ^8.0.2
   cached_network_image: ^3.2.3
   cached_network_image_platform_interface: ^2.0.0
   flutter_cache_manager: ^3.3.1

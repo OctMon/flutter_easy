@@ -123,6 +123,9 @@ class HomePage extends StatelessWidget {
               "http://p3.qhimg.com/t01fad0023a8d68490d.jpg",
               height: screenWidthDp,
               fit: BoxFit.cover,
+              imageCompletionHandler: (info) {
+                logDebug(info);
+              },
             ),
             Obx(() {
               return Table(

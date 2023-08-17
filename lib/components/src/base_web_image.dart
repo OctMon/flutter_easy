@@ -1,14 +1,12 @@
 import 'dart:io';
 
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
     show ImageRenderMethodForWeb;
 import 'package:flutter_easy/flutter_easy.dart';
-
-// import 'package:path_provider/path_provider.dart';
-// import 'package:path/path.dart' as p;
 
 typedef BaseCachedNetworkImage = CachedNetworkImage;
 typedef BaseDownloadProgress = DownloadProgress;
@@ -29,9 +27,7 @@ class BaseWebImage extends StatelessWidget {
   final double? height;
   final BoxFit? fit;
 
-  /// Widget displayed while the target [imageUrl] is loading.
-  final BaseProgressIndicatorBuilder? progressIndicatorBuilder;
-  final ValueChanged<FileInfo?>? imageCompletionHandler;
+  final ValueChanged<ImageInfo?>? imageCompletionHandler;
 
   const BaseWebImage(this.imageUrl,
       {Key? key,
@@ -40,14 +36,13 @@ class BaseWebImage extends StatelessWidget {
       this.width,
       this.height,
       this.fit,
-      this.progressIndicatorBuilder,
       this.imageCompletionHandler})
       : super(key: key);
 
   static Widget clip({
     String? url,
     Widget? placeholder,
-    ValueChanged<FileInfo?>? imageCompletionHandler,
+    ValueChanged<ImageInfo?>? imageCompletionHandler,
     Widget? errorWidget,
     double? width,
     double? height,
@@ -101,52 +96,38 @@ class BaseWebImage extends StatelessWidget {
     if (imageUrl == null || imageUrl?.isEmpty == true) {
       return placeholder;
     }
-    return CachedNetworkImage(
-      // cacheManager: DefaultCacheManager(),
-      imageUrl: imageUrl!,
+    return ExtendedImage.network(
+      imageUrl!,
       width: width,
       height: height,
       fit: fit,
-      errorWidget: (context, url, error) {
-        logDebug("errorWidget: $url - $error");
-        return GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () {
-            Get.forceAppUpdate();
-          },
-          child: errorWidget ?? baseWebImageDefaultErrorPlaceholder,
-        );
-      },
-      imageBuilder: (context, imageProvider) {
-        cacheGetFile(imageUrl ?? "").then(
-          (file) {
-            if (imageCompletionHandler != null) {
-              imageCompletionHandler!(file);
-            }
-            if (logEnabled) {
-              logDebug(
-                  "imageBuilder - ${file?.originalUrl} - ${file?.source} - ${file?.file}");
-            }
-          },
-        );
-        return Image(
-          image: imageProvider,
-          fit: fit,
-          width: width,
-          height: height,
-        );
-      },
-      progressIndicatorBuilder: (
-        BuildContext context,
-        String url,
-        BaseDownloadProgress progress,
-      ) {
-        // logDebug("Progress - $url: ${progress.progress}");
-        if (progressIndicatorBuilder != null) {
-          return progressIndicatorBuilder!(context, url, progress) ??
-              placeholder;
+      loadStateChanged: (ExtendedImageState state) {
+        if (logEnabled) {
+          logDebug(
+              "loadStateChanged: $imageUrl state: ${state.extendedImageLoadState.name}");
         }
-        return placeholder;
+        switch (state.extendedImageLoadState) {
+          case LoadState.loading:
+            return placeholder;
+          case LoadState.completed:
+            if (imageCompletionHandler != null) {
+              imageCompletionHandler!(state.extendedImageInfo);
+            }
+            return ExtendedRawImage(
+              image: state.extendedImageInfo?.image,
+              width: width,
+              height: height,
+              fit: fit,
+            );
+          case LoadState.failed:
+            return GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                state.reLoadImage();
+              },
+              child: errorWidget ?? baseWebImageDefaultErrorPlaceholder,
+            );
+        }
       },
     );
   }
@@ -180,15 +161,13 @@ class BaseWebImage extends StatelessWidget {
     return cacheImage;
   }
 
-  static Future<FileInfo?> cacheGetFile(String url,
-      {bool ignoreMemCache = false}) {
-    return defaultCacheManager.getFileFromCache(url,
-        ignoreMemCache: ignoreMemCache);
+  static Future<File?> cacheGetFile(String url, {bool ignoreMemCache = false}) {
+    return getCachedImageFile(url);
   }
 
   /// 删除缓存图片
   static void clean(String url) {
-    defaultCacheManager.removeFile(url);
+    clearDiskCachedImage(url);
   }
 }
 
