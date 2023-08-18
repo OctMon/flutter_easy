@@ -1,3 +1,7 @@
+## 3.2.0
+* add extended_image
+* remove cached_network_image
+
 ## 3.1.6
 * add logEnabled for BaseWebImage
 
