@@ -8,6 +8,7 @@ import 'package:cached_network_image_platform_interface/cached_network_image_pla
     show ImageRenderMethodForWeb;
 import 'package:flutter_easy/flutter_easy.dart';
 
+typedef BaseExtendedImage = ExtendedImage;
 typedef BaseCachedNetworkImage = CachedNetworkImage;
 typedef BaseDownloadProgress = DownloadProgress;
 typedef BaseProgressIndicatorBuilder = Widget? Function(
@@ -96,7 +97,7 @@ class BaseWebImage extends StatelessWidget {
     if (imageUrl == null || imageUrl?.isEmpty == true) {
       return placeholder;
     }
-    return ExtendedImage.network(
+    return BaseExtendedImage.network(
       imageUrl!,
       width: width,
       height: height,
@@ -152,16 +153,20 @@ class BaseWebImage extends StatelessWidget {
   static var logEnabled = false;
 
   /// 手动缓存文件
-  static Future<File> cachePutFile(
-      {required String url, required File file}) async {
-    final fileBytes = await file.readAsBytesSync();
-
-    File cacheImage = await defaultCacheManager.putFile(url, fileBytes);
-    logDebug('手动缓存的图URL: $url => ${cacheImage.path}');
-    return cacheImage;
+  static ExtendedFileImageProvider cachePutFile(
+      {required String url, required File file}) {
+    return ExtendedFileImageProvider(file,
+        cacheRawData: true, imageCacheName: keyToMd5(url));
   }
 
-  static Future<File?> cacheGetFile(String url, {bool ignoreMemCache = false}) {
+  /// 取缓存文件
+  static Future<File?> cacheGetFile(String url, {String? cacheKey}) {
+    return getCachedImageFile(url, cacheKey: cacheKey);
+  }
+
+  /// 下载图片并缓存
+  static Future<File?> downloadFile(String url, {bool useCache = true}) async {
+    await getNetworkImageData(url, useCache: useCache);
     return getCachedImageFile(url);
   }
 
