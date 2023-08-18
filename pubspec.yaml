@@ -4,7 +4,7 @@ version: 3.1.6
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
-  sdk: ">=2.14.0 <4.0.0"
+  sdk: ">=2.15.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -76,16 +76,18 @@ dependencies:
   # ===============================================================================
 
   # ===============================================================================
-  # Download, cache and show images in a flutter app
-  # pub: https://pub.dartlang.org/packages/cached_network_image
-  # git: https://github.com/renefloor/flutter_cached_network_image
+  # A Flutter plugin for finding commonly used locations on the filesystem. Supports Android, iOS, Linux, macOS and Windows. Not all methods are supported on all platforms.
+  # pub: https://pub.dev/packages/path_provider
+  # git: https://github.com/flutter/packages/tree/main/packages/path_provider/path_provider
+  # ———————————————————————————————————————————————————————————————————————————————
+  path_provider: ^2.1.0
+
+  # ===============================================================================
+  # Official extension image, support placeholder(loading)/ failed state, cache network, zoom/pan, photo view, slide out page, editor(crop,rotate,flip), painting etc.
+  # pub: https://pub.dev/packages/extended_image
+  # git: https://github.com/fluttercandies/extended_image
   # ———————————————————————————————————————————————————————————————————————————————
   extended_image: ^8.0.2
-  cached_network_image: ^3.2.3
-  cached_network_image_platform_interface: ^2.0.0
-  flutter_cache_manager: ^3.3.1
-  path_provider: ^2.1.0
-  path: ^1.8.2
   # ===============================================================================
 
   # ===============================================================================

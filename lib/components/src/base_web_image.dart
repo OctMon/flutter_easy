@@ -2,20 +2,14 @@ import 'dart:io';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
-    show ImageRenderMethodForWeb;
 import 'package:flutter_easy/flutter_easy.dart';
 
 typedef BaseExtendedImage = ExtendedImage;
-typedef BaseCachedNetworkImage = CachedNetworkImage;
-typedef BaseDownloadProgress = DownloadProgress;
-typedef BaseProgressIndicatorBuilder = Widget? Function(
-  BuildContext context,
-  String url,
-  BaseDownloadProgress progress,
-);
+typedef BaseExtendedImageState = ExtendedImageState;
+typedef BaseExtendedFileImageProvider = ExtendedFileImageProvider;
+typedef BaseExtendedNetworkImageProvider = ExtendedNetworkImageProvider;
+typedef BaseExtendedAssetImageProvider = ExtendedAssetImageProvider;
+typedef BaseExtendedExactAssetImageProvider = ExtendedExactAssetImageProvider;
 
 Color? baseWebImageDefaultPlaceholderColor = const Color(0xFF373839);
 Widget baseWebImageDefaultErrorPlaceholder = Icon(Icons.error_outline);
@@ -102,7 +96,7 @@ class BaseWebImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      loadStateChanged: (ExtendedImageState state) {
+      loadStateChanged: (BaseExtendedImageState state) {
         if (logEnabled) {
           logDebug(
               "loadStateChanged: $imageUrl state: ${state.extendedImageLoadState.name}");
@@ -133,27 +127,10 @@ class BaseWebImage extends StatelessWidget {
     );
   }
 
-  static ImageProvider<CachedNetworkImageProvider> provider(
-    String url, {
-    double scale = 1.0,
-    Map<String, String>? headers,
-    BaseCacheManager? cacheManager,
-    ImageRenderMethodForWeb imageRenderMethodForWeb =
-        ImageRenderMethodForWeb.HtmlImage,
-  }) {
-    return CachedNetworkImageProvider(url,
-        scale: scale,
-        headers: headers,
-        cacheManager: cacheManager,
-        imageRenderMethodForWeb: imageRenderMethodForWeb);
-  }
-
-  static ImageCacheManager get defaultCacheManager => DefaultCacheManager();
-
   static var logEnabled = false;
 
   /// 手动缓存文件
-  static ExtendedFileImageProvider cachePutFile(
+  static BaseExtendedFileImageProvider cachePutFile(
       {required String url, required File file}) {
     return ExtendedFileImageProvider(file,
         cacheRawData: true, imageCacheName: keyToMd5(url));
@@ -175,26 +152,3 @@ class BaseWebImage extends StatelessWidget {
     clearDiskCachedImage(url);
   }
 }
-
-/*class DefaultCacheManager extends BaseCacheManager {
-  static const key = "cachedImageData";
-
-  static DefaultCacheManager _instance;
-
-  /// The DefaultCacheManager that can be easily used directly. The code of
-  /// this implementation can be used as inspiration for more complex cache
-  /// managers.
-  factory DefaultCacheManager() {
-    if (_instance == null) {
-      _instance = new DefaultCacheManager._();
-    }
-    return _instance;
-  }
-
-  DefaultCacheManager._() : super(key, maxAgeCacheObject: Duration(days: 30));
-
-  Future<String> getFilePath() async {
-    var directory = await getTemporaryDirectory();
-    return p.join(directory.path, key);
-  }
-}*/

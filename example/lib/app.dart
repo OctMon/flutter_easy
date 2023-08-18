@@ -17,7 +17,7 @@ Future<void> initApp() async {
   configAPI(null);
 
   BaseWebImage.logEnabled = true;
-  baseWebImageDefaultErrorPlaceholder = Icon(Icons.wifi_tethering_error);
+  baseWebImageDefaultErrorPlaceholder = const Icon(Icons.wifi_tethering_error);
 }
 
 class MyApp extends StatelessWidget {

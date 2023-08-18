@@ -20,7 +20,7 @@ class PhotoViewPage extends StatelessWidget {
         builder: (BuildContext context, int index) {
           return PhotoViewGalleryPageOptions(
             imageProvider:
-                BaseWebImage.provider(data[index].imageURL),
+                BaseExtendedNetworkImageProvider(data[index].imageURL),
           );
         },
         itemCount: data.length,
