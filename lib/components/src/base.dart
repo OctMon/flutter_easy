@@ -1353,7 +1353,7 @@ class BaseDivider extends StatelessWidget {
 
 class BaseBlurFilter extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
-  final BorderRadius? borderRadius;
+  final BorderRadiusGeometry borderRadius;
   final ImageFilter? filter;
   final Color? backgroundColor;
   final Widget child;
