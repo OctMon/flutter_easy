@@ -1,4 +1,7 @@
-## 3.2.0
+## 3.3.0
+* upgrade flutter 3.13.0
+
+* ## 3.2.0
 * add extended_image
 * remove cached_network_image
 
