@@ -114,8 +114,6 @@ class BaseWebImage extends StatelessWidget {
       return placeholder;
     }
 
-    logDebug("cacheKey: $cacheKey");
-    logDebug("cacheTag: $cacheTag");
     return BaseExtendedImage.network(
       imageUrl!,
       width: width,
