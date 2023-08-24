@@ -5,8 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy/utils/src/package_info_util.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'hw/hw_mp.dart' as mp;
 
@@ -93,6 +94,80 @@ Future<Directory> getAppLibraryDirectory() => getLibraryDirectory();
 
 /// 应用程序可以放置应用程序支持的目录的路径
 Future<Directory> getAppSupportDirectory() => getApplicationSupportDirectory();
+
+/// Gets the part of [path] after the last separator.
+///
+///     p.basename('path/to/foo.dart'); // -> 'foo.dart'
+///     p.basename('path/to');          // -> 'to'
+///
+/// Trailing separators are ignored.
+///
+///     p.basename('path/to/'); // -> 'to'
+String getBasename(String path) => basename(path);
+
+/// Gets the part of [path] after the last separator, and without any trailing
+/// file extension.
+///
+///     p.basenameWithoutExtension('path/to/foo.dart'); // -> 'foo'
+///
+/// Trailing separators are ignored.
+///
+///     p.basenameWithoutExtension('path/to/foo.dart/'); // -> 'foo'
+String getBasenameWithoutExtension(String path) =>
+    basenameWithoutExtension(path);
+
+/// Gets the part of [path] before the last separator.
+///
+///     p.dirname('path/to/foo.dart'); // -> 'path/to'
+///     p.dirname('path/to');          // -> 'path'
+///
+/// Trailing separators are ignored.
+///
+///     p.dirname('path/to/'); // -> 'path'
+///
+/// If an absolute path contains no directories, only a root, then the root
+/// is returned.
+///
+///     p.dirname('/');  // -> '/' (posix)
+///     p.dirname('c:\');  // -> 'c:\' (windows)
+///
+/// If a relative path has no directories, then '.' is returned.
+///
+///     p.dirname('foo');  // -> '.'
+///     p.dirname('');  // -> '.'
+String getDirname(String path) => dirname(path);
+
+/// Joins the given path parts into a single path using the current platform's
+/// [separator]. Example:
+///
+///     p.join('path', 'to', 'foo'); // -> 'path/to/foo'
+///
+/// If any part ends in a path separator, then a redundant separator will not
+/// be added:
+///
+///     p.join('path/', 'to', 'foo'); // -> 'path/to/foo'
+///
+/// If a part is an absolute path, then anything before that will be ignored:
+///
+///     p.join('path', '/to', 'foo'); // -> '/to/foo'
+String getJoin(String part1,
+        [String? part2,
+        String? part3,
+        String? part4,
+        String? part5,
+        String? part6,
+        String? part7,
+        String? part8,
+        String? part9,
+        String? part10,
+        String? part11,
+        String? part12,
+        String? part13,
+        String? part14,
+        String? part15,
+        String? part16]) =>
+    join(part1, part2, part3, part4, part5, part6, part7, part8, part9, part10,
+        part11, part12, part13, part14, part15, part16);
 
 const kPathIcons = "icons/";
 const kPathOthers = "others/";

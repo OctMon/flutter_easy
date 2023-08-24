@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:extended_image/extended_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
@@ -14,8 +16,22 @@ typedef BaseExtendedExactAssetImageProvider = ExtendedExactAssetImageProvider;
 Color? baseWebImageDefaultPlaceholderColor = const Color(0xFF373839);
 Widget baseWebImageDefaultErrorPlaceholder = Icon(Icons.error_outline);
 
+String? _keyToTagMd5(String url, String? cacheKey, String? cacheTag) {
+  var _cacheKey = cacheKey;
+  if (cacheTag != null) {
+    if (_cacheKey != null) {
+      _cacheKey = "${keyToMd5(_cacheKey)},$cacheTag";
+    } else {
+      _cacheKey = "${keyToMd5(url)},$cacheTag";
+    }
+  }
+  return _cacheKey;
+}
+
 class BaseWebImage extends StatelessWidget {
   final String? imageUrl;
+  final String? cacheKey;
+  final String? cacheTag;
   final Widget? placeholder;
   final Widget? errorWidget;
   final double? width;
@@ -26,6 +42,8 @@ class BaseWebImage extends StatelessWidget {
 
   const BaseWebImage(this.imageUrl,
       {Key? key,
+      this.cacheKey,
+      this.cacheTag,
       this.placeholder,
       this.errorWidget,
       this.width,
@@ -36,6 +54,8 @@ class BaseWebImage extends StatelessWidget {
 
   static Widget clip({
     String? url,
+    String? cacheKey,
+    String? cacheTag,
     Widget? placeholder,
     ValueChanged<ImageInfo?>? imageCompletionHandler,
     Widget? errorWidget,
@@ -64,6 +84,8 @@ class BaseWebImage extends StatelessWidget {
             : null,
         child: BaseWebImage(
           url,
+          cacheKey: cacheKey,
+          cacheTag: cacheTag,
           fit: fit,
           placeholder: placeholder ?? colorWidget(),
           errorWidget: errorWidget ?? colorWidget(),
@@ -91,11 +113,15 @@ class BaseWebImage extends StatelessWidget {
     if (imageUrl == null || imageUrl?.isEmpty == true) {
       return placeholder;
     }
+
+    logDebug("cacheKey: $cacheKey");
+    logDebug("cacheTag: $cacheTag");
     return BaseExtendedImage.network(
       imageUrl!,
       width: width,
       height: height,
       fit: fit,
+      cacheKey: _keyToTagMd5(imageUrl!, cacheKey, cacheTag),
       loadStateChanged: (BaseExtendedImageState state) {
         if (logEnabled) {
           logDebug(
@@ -131,24 +157,86 @@ class BaseWebImage extends StatelessWidget {
 
   /// 手动缓存文件
   static BaseExtendedFileImageProvider cachePutFile(
-      {required String url, required File file}) {
+      {required String url, required File file, String? cacheTag}) {
     return ExtendedFileImageProvider(file,
-        cacheRawData: true, imageCacheName: keyToMd5(url));
+        cacheRawData: true,
+        imageCacheName: _keyToTagMd5(url, null, cacheTag) ?? keyToMd5(url));
   }
 
   /// 取缓存文件
-  static Future<File?> cacheGetFile(String url, {String? cacheKey}) {
-    return getCachedImageFile(url, cacheKey: cacheKey);
+  static Future<File?> cacheGetFile(String url,
+      {String? cacheKey, String? cacheTag}) {
+    return getCachedImageFile(url,
+        cacheKey: _keyToTagMd5(url, cacheKey, cacheTag));
+  }
+
+  /// get network image data from cached
+  static Future<Uint8List?> getNetworkImageData(
+    String url, {
+    bool useCache = true,
+    String? cacheKey,
+    String? cacheTag,
+    StreamController<ImageChunkEvent>? chunkEvents,
+  }) async {
+    return ExtendedNetworkImageProvider(url,
+            cache: useCache, cacheKey: _keyToTagMd5(url, cacheKey, cacheTag))
+        .getNetworkImageData(
+      chunkEvents: chunkEvents,
+    );
   }
 
   /// 下载图片并缓存
-  static Future<File?> downloadFile(String url, {bool useCache = true}) async {
-    await getNetworkImageData(url, useCache: useCache);
-    return getCachedImageFile(url);
+  static Future<File?> downloadFile(String url,
+      {bool useCache = true, String? cacheKey, String? cacheTag}) async {
+    await BaseWebImage.getNetworkImageData(url,
+        useCache: useCache, cacheKey: cacheKey, cacheTag: cacheTag);
+    return getCachedImageFile(url,
+        cacheKey: _keyToTagMd5(url, cacheKey, cacheTag));
   }
 
   /// 删除缓存图片
-  static void clean(String url) {
-    clearDiskCachedImage(url);
+  static void clean(String url, {String? cacheKey, String? cacheTag}) {
+    clearDiskCachedImage(url, cacheKey: _keyToTagMd5(url, cacheKey, cacheTag));
+  }
+
+  /// Clear the disk cache directory then return if it succeed.
+  static Future<bool> clearDiskCachedImages(
+      {Duration? duration, String? cacheTag}) async {
+    try {
+      final Directory cacheImagesDirectory = Directory(getJoin(
+          (await getAppTemporaryDirectory()).path, cacheImageFolderName));
+      if (cacheImagesDirectory.existsSync()) {
+        final DateTime now = DateTime.now();
+        await for (final FileSystemEntity file in cacheImagesDirectory.list()) {
+          final FileStat fs = file.statSync();
+
+          void deleteSync() {
+            var flag = false;
+            if (cacheTag != null) {
+              if (getBasenameWithoutExtension(file.path).contains(cacheTag)) {
+                flag = true;
+                file.deleteSync(recursive: true);
+              }
+            } else {
+              flag = true;
+              file.deleteSync(recursive: true);
+            }
+            logDebug(
+                "delete: ${duration?.inSeconds}s - ${fs.changed} - ${getBasenameWithoutExtension(file.path)} - $flag");
+          }
+
+          if (duration == null) {
+            deleteSync();
+          } else {
+            if (now.subtract(duration).isAfter(fs.changed)) {
+              deleteSync();
+            }
+          }
+        }
+      }
+    } catch (_) {
+      return false;
+    }
+    return true;
   }
 }
