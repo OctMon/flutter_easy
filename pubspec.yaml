@@ -1,6 +1,6 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 3.3.0
+version: 3.3.1
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
@@ -76,7 +76,14 @@ dependencies:
   # ===============================================================================
 
   # ===============================================================================
-  # A Flutter plugin for finding commonly used locations on the filesystem. Supports Android, iOS, Linux, macOS and Windows. Not all methods are supported on all platforms.
+  # A string-based path manipulation library. All of the path operations you know and love, with solid support for Windows, POSIX (Linux and Mac OS X), and the web.
+  # pub: https://pub.dev/packages/path
+  # git: https://github.com/dart-lang/path
+  # ———————————————————————————————————————————————————————————————————————————————
+  path: ^1.8.3
+
+  # ===============================================================================
+  # Flutter plugin for getting commonly used locations on host platform file systems, such as the temp and app data directories.
   # pub: https://pub.dev/packages/path_provider
   # git: https://github.com/flutter/packages/tree/main/packages/path_provider/path_provider
   # ———————————————————————————————————————————————————————————————————————————————
