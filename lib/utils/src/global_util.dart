@@ -116,6 +116,31 @@ String getBasename(String path) => basename(path);
 String getBasenameWithoutExtension(String path) =>
     basenameWithoutExtension(path);
 
+/// Gets the file extension of [path]: the portion of [basename] from the last
+/// `.` to the end (including the `.` itself).
+///
+///     p.extension('path/to/foo.dart');    // -> '.dart'
+///     p.extension('path/to/foo');         // -> ''
+///     p.extension('path.to/foo');         // -> ''
+///     p.extension('path/to/foo.dart.js'); // -> '.js'
+///
+/// If the file name starts with a `.`, then that is not considered the
+/// extension:
+///
+///     p.extension('~/.bashrc');    // -> ''
+///     p.extension('~/.notes.txt'); // -> '.txt'
+///
+/// Takes an optional parameter `level` which makes possible to return
+/// multiple extensions having `level` number of dots. If `level` exceeds the
+/// number of dots, the full extension is returned. The value of `level` must
+/// be greater than 0, else `RangeError` is thrown.
+///
+///     p.extension('foo.bar.dart.js', 2);   // -> '.dart.js
+///     p.extension('foo.bar.dart.js', 3);   // -> '.bar.dart.js'
+///     p.extension('foo.bar.dart.js', 10);  // -> '.bar.dart.js'
+///     p.extension('path/to/foo.bar.dart.js', 2);  // -> '.dart.js'
+String getExtension(String path, [int level = 1]) => extension(path, level);
+
 /// Gets the part of [path] before the last separator.
 ///
 ///     p.dirname('path/to/foo.dart'); // -> 'path/to'
