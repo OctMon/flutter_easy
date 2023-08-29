@@ -1,6 +1,6 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 3.3.2
+version: 3.3.3
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
@@ -112,6 +112,14 @@ dependencies:
   # desc：flutter最强大的swiper, 多种布局方式，无限轮播，Android和IOS双端适配.
   # ===============================================================================
   card_swiper: ^3.0.1
+
+  # ===============================================================================
+  # 名称：支持多列和不同大小的行的交错网格视图。
+  # 来源：https://pub.dev/packages/flutter_staggered_grid_view
+  # GitHub：https://github.com/letsar/flutter_staggered_grid_view
+  # 说明：A Flutter staggered grid view which supports multiple columns with rows of varying sizes.
+  # ===============================================================================
+  flutter_staggered_grid_view: ^0.7.0
 
   # ===============================================================================
   # 名称： GetX

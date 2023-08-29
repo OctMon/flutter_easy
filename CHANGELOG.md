@@ -1,3 +1,7 @@
+## 3.3.3
+* fix cachePutFile invalid
+* add BaseMasonryGridView
+
 ## 3.3.2
 * add getExtension
 

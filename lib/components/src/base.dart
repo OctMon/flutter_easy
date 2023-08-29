@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 double? baseDefaultTextScaleFactor;
 
@@ -16,6 +17,12 @@ typedef BaseEasyLoadingAnimationStyle = EasyLoadingAnimationStyle;
 typedef BaseEasyLoadingMaskType = EasyLoadingMaskType;
 typedef BaseEasyLoadingIndicatorType = EasyLoadingIndicatorType;
 typedef BaseEasyLoadingStatus = EasyLoadingStatus;
+
+typedef BaseAlignedGridView = AlignedGridView;
+typedef BaseMasonryGridView = MasonryGridView;
+typedef BaseSliverAlignedGrid = SliverAlignedGrid;
+typedef BaseSliverMasonryGrid = SliverMasonryGrid;
+typedef BaseStaggeredGridTile = StaggeredGridTile;
 
 class BaseKeyValue {
   late String key;
