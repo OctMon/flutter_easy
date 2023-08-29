@@ -154,11 +154,15 @@ class BaseWebImage extends StatelessWidget {
   static var logEnabled = false;
 
   /// 手动缓存文件
-  static BaseExtendedFileImageProvider cachePutFile(
-      {required String url, required File file, String? cacheTag}) {
-    return ExtendedFileImageProvider(file,
-        cacheRawData: true,
-        imageCacheName: _keyToTagMd5(url, null, cacheTag) ?? keyToMd5(url));
+  static Future<File?> cachePutFile(
+      {required String url, required File file, String? cacheTag}) async {
+    final String key = _keyToTagMd5(url, null, cacheTag) ?? keyToMd5(url);
+    final Directory cacheImagesDirectory = Directory(
+        getJoin((await getAppTemporaryDirectory()).path, cacheImageFolderName));
+    if (cacheImagesDirectory.existsSync()) {
+      return file.copy(getJoin(cacheImagesDirectory.path, key));
+    }
+    return null;
   }
 
   /// 取缓存文件
