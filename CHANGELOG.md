@@ -1,3 +1,6 @@
+## 3.3.4
+* add showBaseBottomSheet
+
 ## 3.3.3
 * fix cachePutFile invalid
 * add BaseMasonryGridView
