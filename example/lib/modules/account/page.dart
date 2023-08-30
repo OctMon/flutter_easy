@@ -106,48 +106,46 @@ class AccountPage extends StatelessWidget {
                         "${appLocale == appDeviceLocale ? S.of(context).systemDefault : LocaleNames.of(context)?.nameOf("$appLocale")} - ${Intl.getCurrentLocale()}",
                     extend: Icons.language),
                 onPressed: () {
-                  showBaseModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return BaseActionSheet(
-                          title: Text(S.of(context).language),
-                          actions: S.delegate.supportedLocales.map((l) {
-                            final String? localeString =
-                                LocaleNames.of(context)?.nameOf(l.toString());
-                            final String? nativeLocaleName =
-                                LocaleNamesLocalizationsDelegate
-                                    .nativeLocaleNames[l.toString()];
-                            return BaseActionSheetAction(
+                  showBaseBottomSheet(
+                    BaseActionSheet(
+                      title: Text(S.of(context).language),
+                      actions: S.delegate.supportedLocales.map((l) {
+                        final String? localeString =
+                            LocaleNames.of(context)?.nameOf(l.toString());
+                        final String? nativeLocaleName =
+                            LocaleNamesLocalizationsDelegate
+                                .nativeLocaleNames[l.toString()];
+                        return BaseActionSheetAction(
+                          onPressed: () {
+                            offBack();
+                            appUpdateLocale(l);
+                          },
+                          child: Text(nativeLocaleName == localeString
+                              ? (nativeLocaleName ?? "")
+                              : "$nativeLocaleName - $localeString"),
+                        );
+                      }).toList()
+                        ..insert(
+                            0,
+                            BaseActionSheetAction(
+                              isDefaultAction: true,
                               onPressed: () {
                                 offBack();
-                                appUpdateLocale(l);
+                                if (appDeviceLocale != null) {
+                                  appUpdateLocale(appDeviceLocale!);
+                                }
                               },
-                              child: Text(nativeLocaleName == localeString
-                                  ? (nativeLocaleName ?? "")
-                                  : "$nativeLocaleName - $localeString"),
-                            );
-                          }).toList()
-                            ..insert(
-                                0,
-                                BaseActionSheetAction(
-                                  isDefaultAction: true,
-                                  onPressed: () {
-                                    offBack();
-                                    if (appDeviceLocale != null) {
-                                      appUpdateLocale(appDeviceLocale!);
-                                    }
-                                  },
-                                  child: Text(S.of(context).systemDefault),
-                                )),
-                          cancelButton: BaseActionSheetAction(
-                            isDestructiveAction: true,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('取消'),
-                          ),
-                        );
-                      });
+                              child: Text(S.of(context).systemDefault),
+                            )),
+                      cancelButton: BaseActionSheetAction(
+                        isDestructiveAction: true,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('取消'),
+                      ),
+                    ),
+                  );
                 },
               ),
             ]),

@@ -1319,6 +1319,7 @@ class BaseActionSheetAction extends StatelessWidget {
   }
 }
 
+@Deprecated('use [showBaseBottomSheet()] instead')
 Future<T?> showBaseModalBottomSheet<T>({
   required BuildContext context,
   required WidgetBuilder builder,
@@ -1328,6 +1329,42 @@ Future<T?> showBaseModalBottomSheet<T>({
       context: context,
       builder: builder,
       barrierDismissible: barrierDismissible);
+}
+
+Future<T?> showBaseBottomSheet<T>(
+  Widget bottomSheet, {
+  Color? backgroundColor,
+  double? elevation,
+  bool persistent = true,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  Color? barrierColor = kCupertinoModalBarrierColor,
+  bool? ignoreSafeArea,
+  bool isScrollControlled = false,
+  bool useRootNavigator = false,
+  bool isDismissible = true,
+  bool enableDrag = true,
+  RouteSettings? settings,
+  Duration? enterBottomSheetDuration,
+  Duration? exitBottomSheetDuration,
+}) {
+  return Get.bottomSheet(
+    bottomSheet,
+    backgroundColor: backgroundColor,
+    elevation: elevation,
+    persistent: persistent,
+    shape: shape,
+    clipBehavior: clipBehavior,
+    barrierColor: barrierColor,
+    ignoreSafeArea: ignoreSafeArea,
+    isScrollControlled: isScrollControlled,
+    useRootNavigator: useRootNavigator,
+    isDismissible: isDismissible,
+    enableDrag: enableDrag,
+    settings: settings,
+    enterBottomSheetDuration: enterBottomSheetDuration,
+    exitBottomSheetDuration: exitBottomSheetDuration,
+  );
 }
 
 class BaseDivider extends StatelessWidget {

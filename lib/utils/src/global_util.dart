@@ -214,7 +214,7 @@ int randomInt(int max) => Random().nextInt(max);
 
 /// 长振动
 void hapticFeedbackVibrate() {
-  HapticFeedback.vibrate;
+  HapticFeedback.vibrate();
 }
 
 /// 较轻碰撞振动

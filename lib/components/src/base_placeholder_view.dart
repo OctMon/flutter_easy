@@ -39,7 +39,7 @@ class BasePlaceholderView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Visibility(
-                visible: !placeholderImagePath.isEmpty,
+                visible: placeholderImagePath.isNotEmpty,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 30),
                   child: Image.asset(

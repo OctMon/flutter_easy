@@ -19,29 +19,26 @@ enum BaseConnectivityResult {
 
 final Connectivity _connectivity = Connectivity();
 
-/**
- *
-    /// 消息订阅
-    StreamSubscription? _subscription;
+/// 消息订阅
+/// StreamSubscription? _subscription;
 
-    final result = BaseConnectivityResult.unknown.obs;
+/// final result = BaseConnectivityResult.unknown.obs;
 
-    @override
-    void onInit() {
-    // checkConnectivity().then((value) => result.value = value);
-    onConnectivityChangedListen((result) {
-    this.result.value = result;
-    }).then((value) => _subscription = value);
-    super.onInit();
-    }
+/// @override
+/// void onInit() {
+/// // checkConnectivity().then((value) => result.value = value);
+/// onConnectivityChangedListen((result) {
+/// this.result.value = result;
+/// }).then((value) => _subscription = value);
+/// super.onInit();
+/// }
 
-    @override
-    void onClose() {
-    _subscription?.cancel();
-    super.onClose();
-    }
- *
- */
+/// @override
+/// void onClose() {
+/// _subscription?.cancel();
+/// super.onClose();
+/// }
+///
 Future<StreamSubscription<ConnectivityResult>?> onConnectivityChangedListen(
     ValueChanged<BaseConnectivityResult> changed) async {
   try {
