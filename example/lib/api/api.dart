@@ -43,7 +43,7 @@ void configAPI(String? baseURL) {
 }
 
 /// 响应结果拦截处理
-Result _onValidResult(Result result, bool validResult) {
+Future<Result> _onValidResult(Result result, bool validResult, extra) async {
   logResponse(result);
   // 拦截处理一些错误
   if (validResult) {

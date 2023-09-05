@@ -65,19 +65,25 @@ String kPageCountKey = '';
 /// BaseURL变化回调
 VoidCallback? baseURLChangedCallback;
 
-typedef _ResultCallBack = Result Function(Result result, bool validResult);
+typedef _RequestCallBack = Future Function(RequestOptions? options);
+
+typedef _ResultCallBack = Future<Result> Function(
+    Result result, bool validResult, dynamic extra);
 
 class NetworkUtil {
   NetworkUtil._();
 
-  static init(Session session, {_ResultCallBack? onResult}) {
+  static init(Session session,
+      {_RequestCallBack? onRequest, _ResultCallBack? onResult}) {
     _session = session;
+    _onRequest = onRequest;
     _onResult = onResult;
   }
 }
 
 late Session _session;
 
+_RequestCallBack? _onRequest;
 _ResultCallBack? _onResult;
 
 ///
@@ -178,6 +184,32 @@ Future<Result> request(
           errorUnknown: _session.config.errorUnknown),
       onRequest: _session.onRequest,
       onResult: validResult ? _session.onResult : null);
+  var extra;
+  if (_onRequest != null) {
+    extra = await _onRequest!(RequestOptions(
+      baseUrl: session.config.baseUrl,
+      path: path,
+      data: data,
+      method: options?.method,
+      headers: options?.headers,
+      extra: options?.extra,
+      responseType: options?.responseType,
+      validateStatus: options?.validateStatus,
+      contentType: options?.contentType,
+      receiveDataWhenStatusError: options?.receiveDataWhenStatusError,
+      followRedirects: options?.followRedirects,
+      maxRedirects: options?.maxRedirects,
+      persistentConnection: options?.persistentConnection,
+      requestEncoder: options?.requestEncoder,
+      responseDecoder: options?.responseDecoder,
+      listFormat: options?.listFormat,
+      queryParameters: queryParameters,
+      cancelToken: cancelToken,
+      connectTimeout: connectTimeout,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    ));
+  }
   Result result = await session.request(
     path,
     data: data,
@@ -191,7 +223,10 @@ Future<Result> request(
   if (autoLoading) {
     dismissLoading();
   }
-  return _onResult != null ? _onResult!(result, validResult) : result;
+  if (_onResult != null) {
+    return _onResult!(result, validResult, extra);
+  }
+  return result;
 }
 
 Future<String?> initSelectedBaseURLType() async {
