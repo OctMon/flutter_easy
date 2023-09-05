@@ -1,3 +1,8 @@
+## 3.3.5
+* add onRequest extra
+* add baseWebImageHandleLoadingProgress
+* upgrade dependencies
+
 ## 3.3.4
 * add showBaseBottomSheet
 
