@@ -142,7 +142,7 @@ class BaseWebImage extends StatelessWidget {
                         left: 0,
                         right: 0,
                         child: Text(
-                          "${(loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!).toStringAsFixed(2)}%",
+                          "${(loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! * 100).toStringAsFixed(0)}%",
                           textAlign: TextAlign.center,
                         ).paddingOnly(bottom: 30),
                       ),

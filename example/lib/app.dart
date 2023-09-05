@@ -17,6 +17,7 @@ Future<void> initApp() async {
   configAPI(null);
 
   BaseWebImage.logEnabled = true;
+  baseWebImageHandleLoadingProgress = true;
   baseWebImageDefaultErrorPlaceholder = const Icon(Icons.wifi_tethering_error);
 }
 
