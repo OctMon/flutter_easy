@@ -23,6 +23,10 @@ typedef BaseMasonryGridView = MasonryGridView;
 typedef BaseSliverAlignedGrid = SliverAlignedGrid;
 typedef BaseSliverMasonryGrid = SliverMasonryGrid;
 typedef BaseStaggeredGridTile = StaggeredGridTile;
+typedef BaseSliverSimpleGridDelegateWithFixedCrossAxisCount
+    = SliverSimpleGridDelegateWithFixedCrossAxisCount;
+typedef BaseSliverSimpleGridDelegateWithMaxCrossAxisExtent
+    = SliverSimpleGridDelegateWithMaxCrossAxisExtent;
 
 class BaseKeyValue {
   late String key;
