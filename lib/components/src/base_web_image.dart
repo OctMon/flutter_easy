@@ -16,6 +16,7 @@ typedef BaseExtendedExactAssetImageProvider = ExtendedExactAssetImageProvider;
 Color? baseWebImageDefaultPlaceholderColor = const Color(0xFF373839);
 Widget baseWebImageDefaultErrorPlaceholder = Icon(Icons.error_outline);
 var baseWebImageHandleLoadingProgress = false;
+Duration? baseWebImageDefaultTimeLimit;
 
 String? _keyToTagMd5(String url, String? cacheKey, String? cacheTag) {
   var _cacheKey = cacheKey;
@@ -38,6 +39,9 @@ class BaseWebImage extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxFit? fit;
+  final int retries;
+  final Duration? timeLimit;
+  final Map<String, String>? headers;
 
   final ValueChanged<ImageInfo?>? imageCompletionHandler;
 
@@ -50,7 +54,10 @@ class BaseWebImage extends StatelessWidget {
       this.width,
       this.height,
       this.fit,
-      this.imageCompletionHandler})
+      this.imageCompletionHandler,
+      this.retries = 3,
+      this.timeLimit,
+      this.headers})
       : super(key: key);
 
   static Widget clip({
@@ -63,6 +70,9 @@ class BaseWebImage extends StatelessWidget {
     double? width,
     double? height,
     BoxFit? fit,
+    int retries = 3,
+    Duration? timeLimit,
+    Map<String, String>? headers,
     double? borderRadius,
     Color? placeholderColor,
     bool round = false,
@@ -88,6 +98,9 @@ class BaseWebImage extends StatelessWidget {
           cacheKey: cacheKey,
           cacheTag: cacheTag,
           fit: fit,
+          retries: retries,
+          timeLimit: timeLimit,
+          headers: headers,
           placeholder: placeholder ?? colorWidget(),
           errorWidget: errorWidget ?? colorWidget(),
           imageCompletionHandler: imageCompletionHandler,
@@ -121,6 +134,9 @@ class BaseWebImage extends StatelessWidget {
       height: height,
       fit: fit,
       cacheKey: _keyToTagMd5(imageUrl!, cacheKey, cacheTag),
+      timeLimit: timeLimit ?? baseWebImageDefaultTimeLimit,
+      retries: retries,
+      headers: headers,
       handleLoadingProgress: baseWebImageHandleLoadingProgress,
       loadStateChanged: (BaseExtendedImageState state) {
         if (logEnabled) {
