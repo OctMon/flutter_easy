@@ -30,4 +30,9 @@ class RootController extends BaseLifeCycleController {
   void onResumed() {
     logDebug("onResumed");
   }
+
+  @override
+  void onHidden() {
+    logDebug("onHidden");
+  }
 }
