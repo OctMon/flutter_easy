@@ -767,6 +767,7 @@ class BaseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final style = appTheme(context).textTheme.bodyMedium;
     return CupertinoButton(
       padding: padding,
       minSize: minSize,
@@ -774,7 +775,12 @@ class BaseButton extends StatelessWidget {
       disabledColor: disabledColor,
       pressedOpacity: pressedOpacity,
       borderRadius: borderRadius,
-      child: child,
+      child: style != null
+          ? DefaultTextStyle(
+              style: style,
+              child: child,
+            )
+          : child,
       onPressed: onPressed,
     );
   }
