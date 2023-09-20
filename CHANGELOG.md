@@ -1,6 +1,11 @@
+## 3.3.7
+* BaseButton use bodyMedium
+* upgrade dependencies
+
 ## 3.3.6
 * fix route not disposing in flutter 3.13
 * upgrade dependencies
+
 ## 3.3.5
 * add onRequest extra
 * add baseWebImageHandleLoadingProgress
