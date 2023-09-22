@@ -980,8 +980,9 @@ class BaseOutlineButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             adaptDp(borderRadius),
           ),
-          border:
-              Border.all(color: borderColor ?? appTheme(context).primaryColor),
+          border: Border.all(
+              width: borderWidth,
+              color: borderColor ?? appTheme(context).primaryColor),
           boxShadow: boxShadow,
         ),
         child: Center(
