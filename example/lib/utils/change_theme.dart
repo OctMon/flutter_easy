@@ -4,62 +4,59 @@ import 'package:flutter_easy_example/components/theme_menu_popup_view.dart';
 
 void showChangeColorDialog(BuildContext context, Color color,
     {required ValueChanged<Color> completion}) {
-  showBaseDialog<bool>(
-    context: context,
-    builder: (context) {
-      return WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            BaseCustomAlertDialog(
-              margin: const EdgeInsets.symmetric(horizontal: 38),
-              content: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ObxValue<Rx<Color>>((color) {
-                  return Column(
-                    children: [
-                      FlutterLogo(
-                        size: 200.adaptRatio,
-                        style: FlutterLogoStyle.horizontal,
-                        textColor: color.value,
-                      ),
-                      BaseButton(
-                          child: Icon(
-                            Icons.access_time_filled,
-                            color: color.value,
-                          ),
-                          onPressed: () {
-                            showLoading();
-                            1.seconds.delay(() {
-                              dismissLoading();
-                              color.value = colorWithRandom();
-                              completion(color.value);
-                            });
-                          })
-                    ],
-                  );
-                }, color.obs),
-              ),
+  showBaseAlert<bool>(
+    WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BaseCustomAlertDialog(
+            margin: const EdgeInsets.symmetric(horizontal: 38),
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ObxValue<Rx<Color>>((color) {
+                return Column(
+                  children: [
+                    FlutterLogo(
+                      size: 200.adaptRatio,
+                      style: FlutterLogoStyle.horizontal,
+                      textColor: color.value,
+                    ),
+                    BaseButton(
+                        child: Icon(
+                          Icons.access_time_filled,
+                          color: color.value,
+                        ),
+                        onPressed: () {
+                          showLoading();
+                          1.seconds.delay(() {
+                            dismissLoading();
+                            color.value = colorWithRandom();
+                            completion(color.value);
+                          });
+                        })
+                  ],
+                );
+              }, color.obs),
             ),
-            // const SizedBox(height: 15),
-            BaseButton(
-              child: const Icon(
-                Icons.power_settings_new_outlined,
-                size: 30,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                offBack();
-              },
+          ),
+          // const SizedBox(height: 15),
+          BaseButton(
+            child: const Icon(
+              Icons.power_settings_new_outlined,
+              size: 30,
+              color: Colors.white,
             ),
-          ],
-        ),
-      );
-    },
+            onPressed: () {
+              offBack();
+            },
+          ),
+        ],
+      ),
+    ),
   );
 }
 
@@ -81,4 +78,3 @@ void showChangeThemeDialog(BuildContext context) {
     ),
   );
 }
-

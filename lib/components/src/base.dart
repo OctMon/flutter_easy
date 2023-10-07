@@ -1183,7 +1183,7 @@ class BaseAlertDialog extends Dialog {
           children: <Widget>[
             new Container(
               decoration: ShapeDecoration(
-                color: Colors.white,
+                color: appTheme(context).scaffoldBackgroundColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: borderRadius,
                 ),
@@ -1259,6 +1259,7 @@ class BaseDialogAction extends StatelessWidget {
 }
 
 ///  只针对[BaseGeneralAlertDialog]设置[barrierDismissible]有效
+@Deprecated('use [showBaseAlert()] instead')
 Future<T?> showBaseDialog<T>({
   required BuildContext context,
   Color? barrierColor = Colors.black54,
@@ -1375,6 +1376,32 @@ Future<T?> showBaseBottomSheet<T>(
     settings: settings,
     enterBottomSheetDuration: enterBottomSheetDuration,
     exitBottomSheetDuration: exitBottomSheetDuration,
+  );
+}
+
+Future<T?> showBaseAlert<T>(
+  Widget widget, {
+  bool barrierDismissible = true,
+  Color? barrierColor,
+  bool useSafeArea = true,
+  GlobalKey<NavigatorState>? navigatorKey,
+  Object? arguments,
+  Duration? transitionDuration,
+  Curve? transitionCurve,
+  String? name,
+  RouteSettings? routeSettings,
+}) {
+  return Get.dialog<T>(
+    widget,
+    barrierDismissible: barrierDismissible,
+    barrierColor: barrierColor,
+    useSafeArea: useSafeArea,
+    navigatorKey: navigatorKey,
+    arguments: arguments,
+    transitionDuration: transitionDuration,
+    transitionCurve: transitionCurve,
+    name: name,
+    routeSettings: routeSettings,
   );
 }
 

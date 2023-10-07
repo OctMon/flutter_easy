@@ -18,7 +18,7 @@ class ThemeMenuPopupView extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(15.0),
-          color: Colors.white,
+          color: appTheme(context).scaffoldBackgroundColor,
           child: ObxValue<Rx<ThemeMode>>((mode) {
             return Column(
               children: [

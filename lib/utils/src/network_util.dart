@@ -258,49 +258,45 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
         : BaseURLType.test);
   }
 
-  return showBaseDialog(
-    context: context,
-    barrierDismissible: true,
-    builder: (BuildContext ctx) {
-      return BaseGeneralAlertDialog(
-        title: Text(_baseURLTypeString.value.isEmpty
-            ? "$kBaseURLType"
-            : _baseURLTypeString.value),
-        content: Text(
-          "${BaseURLType.test}=\n$kTestBaseURL\n\n${BaseURLType.release}=\n$kReleaseBaseURL",
+  return showBaseAlert(
+    BaseGeneralAlertDialog(
+      title: Text(_baseURLTypeString.value.isEmpty
+          ? "$kBaseURLType"
+          : _baseURLTypeString.value),
+      content: Text(
+        "${BaseURLType.test}=\n$kTestBaseURL\n\n${BaseURLType.release}=\n$kReleaseBaseURL",
+      ),
+      actions: <Widget>[
+        BaseDialogAction(
+          isDestructiveAction: true,
+          child: Text("${BaseURLType.test}"),
+          onPressed: () async {
+            await save(BaseURLType.test);
+            if (baseURLChangedCallback != null) {
+              baseURLChangedCallback!();
+            }
+            offBack(true);
+          },
         ),
-        actions: <Widget>[
-          BaseDialogAction(
-            isDestructiveAction: true,
-            child: Text("${BaseURLType.test}"),
-            onPressed: () async {
-              await save(BaseURLType.test);
-              if (baseURLChangedCallback != null) {
-                baseURLChangedCallback!();
-              }
-              Navigator.pop(ctx, true);
-            },
-          ),
-          BaseDialogAction(
-            isDefaultAction: true,
-            child: Text("${BaseURLType.release}"),
-            onPressed: () async {
-              await save(BaseURLType.release);
-              if (baseURLChangedCallback != null) {
-                baseURLChangedCallback!();
-              }
-              Navigator.pop(ctx, true);
-            },
-          ),
-          BaseDialogAction(
-            child: const Text("取消"),
-            onPressed: () {
-              Navigator.pop(ctx, false);
-            },
-          ),
-        ],
-      );
-    },
+        BaseDialogAction(
+          isDefaultAction: true,
+          child: Text("${BaseURLType.release}"),
+          onPressed: () async {
+            await save(BaseURLType.release);
+            if (baseURLChangedCallback != null) {
+              baseURLChangedCallback!();
+            }
+            offBack(true);
+          },
+        ),
+        BaseDialogAction(
+          child: const Text("Cancel"),
+          onPressed: () {
+            offBack(false);
+          },
+        ),
+      ],
+    ),
   );
 }
 
@@ -314,38 +310,36 @@ checkVersion(String action, String baseUrl) async {
       if (version.contains("+")) {
         final build = int.parse(version.split("+").last);
         if (Get.context != null && build > int.parse(appBuildNumber)) {
-          showBaseDialog(
-              context: Get.context!,
-              builder: (BuildContext context) {
-                return BaseGeneralAlertDialog(
-                  title: Text("新版本"),
-                  actions: [
-                    BaseDialogAction(
-                      child: Text("立即更新"),
-                      onPressed: () async {
-                        offBack();
-                        final app =
-                            isIOS ? "$action$baseUrl.plist" : "$baseUrl.apk";
-                        logDebug(app);
-                        if (isIOS) {
-                          final success = await canLaunch(app);
-                          if (success) {
-                            onLaunch(app);
-                          }
-                        } else {
-                          onLaunch(app, mode: LaunchMode.externalApplication);
-                        }
-                      },
-                    ),
-                    BaseDialogAction(
-                      child: Text("以后再说"),
-                      onPressed: () {
-                        offBack();
-                      },
-                    ),
-                  ],
-                );
-              });
+          showBaseAlert(
+            BaseGeneralAlertDialog(
+              title: Text("新版本"),
+              actions: [
+                BaseDialogAction(
+                  child: Text("立即更新"),
+                  onPressed: () async {
+                    offBack();
+                    final app =
+                        isIOS ? "$action$baseUrl.plist" : "$baseUrl.apk";
+                    logDebug(app);
+                    if (isIOS) {
+                      final success = await canLaunch(app);
+                      if (success) {
+                        onLaunch(app);
+                      }
+                    } else {
+                      onLaunch(app, mode: LaunchMode.externalApplication);
+                    }
+                  },
+                ),
+                BaseDialogAction(
+                  child: Text("以后再说"),
+                  onPressed: () {
+                    offBack();
+                  },
+                ),
+              ],
+            ),
+          );
         }
       }
     }

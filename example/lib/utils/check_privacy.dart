@@ -13,104 +13,96 @@ Future<bool> checkPrivacy() async {
     return false;
   }
 
-  if (Get.context == null) {
-    return false;
-  }
-  return await showBaseDialog<bool>(
-        context: Get.context!,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () async {
-              return false;
-            },
-            child: BaseAlertDialog(
-              title: Text(
-                "$appName${S.of(context).example_UserAgreement}${S.of(context).example_And}\n${S.of(context).example_PrivacyPolicy}",
-                textAlign: TextAlign.center,
-              ),
-              titlePadding: const EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
-              margin: const EdgeInsets.all(38.0),
-              actionPadding: const EdgeInsets.only(top: 30),
-              content: Column(
-                children: <Widget>[
-                  Text.rich(
-                    TextSpan(
-                      style: TextStyle(
-                        fontSize: adaptDp(14),
-                        fontWeight: FontWeight.w500,
-                        height: 1.5,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: S.of(context).exampleCheckPrivacyAlertBegin,
-                        ),
-                        TextSpan(
-                          text: S.of(context).example_UserAgreement,
-                          style: TextStyle(
-                            color: appTheme(context).primaryColor,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => toNamed(Routes.photosTab,
-                                preventDuplicates: false),
-                        ),
-                        TextSpan(
-                          text: S.of(context).example_And,
-                        ),
-                        TextSpan(
-                          text: S.of(context).example_PrivacyPolicy,
-                          style: TextStyle(
-                            color: appTheme(context).primaryColor,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => toNamed(Routes.photosTab,
-                                preventDuplicates: false),
-                        ),
-                        TextSpan(
-                          text: S.of(context).exampleCheckPrivacyAlertEnd,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              actions: <Widget>[
-                Expanded(
-                  child: BaseBackgroundButton(
-                    borderRadius: 0,
-                    title: Text(
-                      S.of(context).exampleDisagree,
-                      style: TextStyle(
-                        fontSize: adaptDp(14),
-                        color: Colors.white,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop(true);
-                      exit(exitCode);
-                    },
-                  ),
-                ),
-                const VerticalDivider(width: 0.5),
-                Expanded(
-                  child: BaseBackgroundButton(
-                    borderRadius: 0,
-                    title: Text(
-                      S.of(context).exampleAgree,
-                      style: TextStyle(
-                        fontSize: adaptDp(14),
-                        color: Colors.white,
-                      ),
-                    ),
-                    onPressed: () {
-                      setStorageBool(kPrivacy, true);
-                      Navigator.of(context).pop(true);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          );
+  return await showBaseAlert<bool>(WillPopScope(
+        onWillPop: () async {
+          return false;
         },
-      ) ??
+        child: BaseAlertDialog(
+          title: Text(
+            "$appName${S.current.example_UserAgreement}${S.current.example_And}\n${S.current.example_PrivacyPolicy}",
+            textAlign: TextAlign.center,
+          ),
+          titlePadding: const EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
+          margin: const EdgeInsets.all(38.0),
+          actionPadding: const EdgeInsets.only(top: 30),
+          content: Column(
+            children: <Widget>[
+              Text.rich(
+                TextSpan(
+                  style: TextStyle(
+                    fontSize: adaptDp(14),
+                    fontWeight: FontWeight.w500,
+                    height: 1.5,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: S.current.exampleCheckPrivacyAlertBegin,
+                    ),
+                    TextSpan(
+                      text: S.current.example_UserAgreement,
+                      style: TextStyle(
+                        color: Get.theme.primaryColor,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () =>
+                            toNamed(Routes.photosTab, preventDuplicates: false),
+                    ),
+                    TextSpan(
+                      text: S.current.example_And,
+                    ),
+                    TextSpan(
+                      text: S.current.example_PrivacyPolicy,
+                      style: TextStyle(
+                        color: Get.theme.primaryColor,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () =>
+                            toNamed(Routes.photosTab, preventDuplicates: false),
+                    ),
+                    TextSpan(
+                      text: S.current.exampleCheckPrivacyAlertEnd,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            Expanded(
+              child: BaseBackgroundButton(
+                borderRadius: 0,
+                title: Text(
+                  S.current.exampleDisagree,
+                  style: TextStyle(
+                    fontSize: adaptDp(14),
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: () {
+                  offBack(true);
+                  exit(exitCode);
+                },
+              ),
+            ),
+            const VerticalDivider(width: 0.5),
+            Expanded(
+              child: BaseBackgroundButton(
+                borderRadius: 0,
+                title: Text(
+                  S.current.exampleAgree,
+                  style: TextStyle(
+                    fontSize: adaptDp(14),
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: () {
+                  setStorageBool(kPrivacy, true);
+                  offBack(true);
+                },
+              ),
+            ),
+          ],
+        ),
+      )) ??
       false;
 }

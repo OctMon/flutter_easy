@@ -167,49 +167,43 @@ class ExampleListPage extends StatelessWidget {
                                                           ],
                                                         ),
                                                         onPressed: () {
-                                                          showBaseDialog(
-                                                              barrierDismissible:
-                                                                  true,
-                                                              context: context,
-                                                              builder:
-                                                                  (context) {
-                                                                return BaseAlertDialog(
-                                                                  margin:
-                                                                      EdgeInsets
-                                                                          .zero,
-                                                                  contentPadding:
-                                                                      EdgeInsets
-                                                                          .zero,
-                                                                  titlePadding:
-                                                                      EdgeInsets
-                                                                          .zero,
-                                                                  actionPadding:
-                                                                      EdgeInsets
-                                                                          .zero,
-                                                                  title:
-                                                                      const SizedBox(),
-                                                                  content:
-                                                                      GestureDetector(
-                                                                    onTap: () {
-                                                                      offBack();
-                                                                    },
+                                                          showBaseAlert(
+                                                            BaseAlertDialog(
+                                                              margin: EdgeInsets
+                                                                  .zero,
+                                                              contentPadding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              titlePadding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              actionPadding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              title:
+                                                                  const SizedBox(),
+                                                              content:
+                                                                  GestureDetector(
+                                                                onTap: () {
+                                                                  offBack();
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  child:
+                                                                      RotatedBox(
+                                                                    quarterTurns:
+                                                                        1,
                                                                     child:
-                                                                        Container(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      child:
-                                                                          RotatedBox(
-                                                                        quarterTurns:
-                                                                            1,
-                                                                        child:
-                                                                            BaseWebImage(
-                                                                          "https://flagpedia.net/data/flags/w1160/${(locale.key as String).split("_").last.toLowerCase()}.webp",
-                                                                        ),
-                                                                      ),
+                                                                        BaseWebImage(
+                                                                      "https://flagpedia.net/data/flags/w1160/${(locale.key as String).split("_").last.toLowerCase()}.webp",
                                                                     ),
                                                                   ),
-                                                                );
-                                                              });
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
                                                         },
                                                       );
                                                       // String countryCode = locales;

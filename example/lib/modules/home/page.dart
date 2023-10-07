@@ -149,6 +149,11 @@ class HomePage extends StatelessWidget {
                       code: "appDeviceLocale", value: "$appDeviceLocale"),
                   buildTableRow(code: "appChannel", value: appChannel),
                   buildTableRow(
+                      code: "appIsDarkMode", value: "${appDarkMode(context)}"),
+                  buildTableRow(
+                      code: "appTheme.primaryColor",
+                      value: "${appTheme(context).primaryColor}"),
+                  buildTableRow(
                       code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
                       value: timestampToNormal_yyyy_MM_dd_HH_mm_ss(
                           timestampNow())),
