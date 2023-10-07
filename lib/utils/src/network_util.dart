@@ -351,3 +351,34 @@ checkVersion(String action, String baseUrl) async {
     }
   }
 }
+
+extension RequestContentLength on Result {
+  int? get requestContentLength {
+    final options = response?.requestOptions;
+    if (options == null) {
+      return null;
+    }
+    try {
+      if (options.data is String || options.data is Map) {
+        return options.headers.toString().length +
+            (options.data?.toString().length ?? 0);
+      }
+    } catch (_) {
+      return null;
+    }
+    return null;
+  }
+}
+
+extension ResponseContentLength on Result {
+  int? get responseContentLength {
+    return (response?.headers.toString().length ?? 0) +
+        (response?.data.toString().length ?? 0);
+  }
+}
+
+extension UriHttpMethod on Uri {
+  String get normalized {
+    return "$scheme://$host$path";
+  }
+}
