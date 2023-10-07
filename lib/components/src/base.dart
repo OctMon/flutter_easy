@@ -867,7 +867,7 @@ class BaseBackgroundButton extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final Widget? icon;
   final Widget? title;
-  final double borderRadius;
+  final BorderRadiusGeometry borderRadius;
   final Color? color;
   final Color? disableColor;
   final VoidCallback? onPressed;
@@ -879,7 +879,7 @@ class BaseBackgroundButton extends StatelessWidget {
       this.padding = EdgeInsets.zero,
       this.icon,
       this.title,
-      this.borderRadius = 22,
+      this.borderRadius = const BorderRadius.all(Radius.circular(32)),
       this.color,
       this.disableColor,
       this.onPressed})
@@ -899,7 +899,7 @@ class BaseBackgroundButton extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: borderRadius,
         color: onPressed != null
             ? (color ?? appTheme(context).primaryColor)
             : (disableColor ?? Colors.black12),
@@ -907,8 +907,8 @@ class BaseBackgroundButton extends StatelessWidget {
       child: TextButton(
         style: ButtonStyle(
           padding: MaterialStateProperty.all(padding),
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius))),
+          shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(borderRadius: borderRadius)),
           overlayColor: MaterialStateProperty.all(Colors.transparent),
           backgroundColor: MaterialStateProperty.resolveWith(
             (states) {

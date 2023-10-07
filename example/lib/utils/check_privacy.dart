@@ -70,7 +70,8 @@ Future<bool> checkPrivacy() async {
           actions: <Widget>[
             Expanded(
               child: BaseBackgroundButton(
-                borderRadius: 0,
+                borderRadius:
+                    BorderRadius.only(bottomLeft: Radius.circular(10)),
                 title: Text(
                   S.current.exampleDisagree,
                   style: TextStyle(
@@ -87,7 +88,8 @@ Future<bool> checkPrivacy() async {
             const VerticalDivider(width: 0.5),
             Expanded(
               child: BaseBackgroundButton(
-                borderRadius: 0,
+                borderRadius:
+                    BorderRadius.only(bottomRight: Radius.circular(10)),
                 title: Text(
                   S.current.exampleAgree,
                   style: TextStyle(
