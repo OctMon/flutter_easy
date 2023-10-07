@@ -14,6 +14,39 @@ Future<bool> toLogin({
   return success;
 }
 
+/// Navigation.push()** shortcut.
+Future<T?>? to<T>(
+  dynamic page, {
+  bool? opaque,
+  Transition? transition,
+  Curve? curve,
+  Duration? duration,
+  int? id,
+  String? routeName,
+  bool fullscreenDialog = false,
+  dynamic arguments,
+  Bindings? binding,
+  bool preventDuplicates = true,
+  bool? popGesture,
+  double Function(BuildContext context)? gestureWidth,
+}) {
+  return Get.to(
+    page,
+    opaque: opaque,
+    transition: transition,
+    curve: curve,
+    duration: duration,
+    id: id,
+    routeName: routeName,
+    fullscreenDialog: fullscreenDialog,
+    arguments: arguments,
+    binding: binding,
+    preventDuplicates: preventDuplicates,
+    popGesture: popGesture,
+    gestureWidth: gestureWidth,
+  );
+}
+
 /// 导航到新的页面
 Future<T?>? toNamed<T>(
   String page, {
