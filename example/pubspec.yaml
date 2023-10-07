@@ -74,7 +74,7 @@ dependencies:
   # GitHub：https://github.com/guidezpl/flutter-localized-locales
   # 说明： Flutter plugin which provides locale code to name mappings for 563 locales.
   # ===============================================================================
-  flutter_localized_locales: ^2.0.3
+  flutter_localized_locales: ^2.0.5
 
 
 dev_dependencies:
