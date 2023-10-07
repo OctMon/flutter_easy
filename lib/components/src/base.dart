@@ -1121,12 +1121,14 @@ class BaseGeneralAlertDialog extends StatelessWidget {
 }
 
 class BaseCustomAlertDialog extends Dialog {
+  final Color? backgroundColor;
   final BorderRadiusGeometry borderRadius;
   final EdgeInsets margin;
   final Widget content;
 
   const BaseCustomAlertDialog({
     Key? key,
+    this.backgroundColor,
     this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     this.margin = const EdgeInsets.all(38.0),
     required this.content,
@@ -1142,6 +1144,7 @@ class BaseCustomAlertDialog extends Dialog {
       borderRadius: borderRadius,
       margin: margin,
       content: content,
+      backgroundColor: backgroundColor,
     );
   }
 }
@@ -1154,6 +1157,7 @@ class BaseAlertDialog extends Dialog {
   final EdgeInsets contentPadding;
   final EdgeInsets actionPadding;
   final MainAxisAlignment actionsAxisAlignment;
+  final Color? backgroundColor;
   final Widget title;
   final Widget content;
   final List<Widget> actions;
@@ -1167,6 +1171,7 @@ class BaseAlertDialog extends Dialog {
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 20.0),
     this.actionPadding = const EdgeInsets.fromLTRB(20, 24, 20, 34),
     this.actionsAxisAlignment = MainAxisAlignment.spaceAround,
+    this.backgroundColor,
     this.title = const Text('提示'),
     required this.content,
     this.actions = const <Widget>[],
@@ -1183,7 +1188,8 @@ class BaseAlertDialog extends Dialog {
           children: <Widget>[
             new Container(
               decoration: ShapeDecoration(
-                color: appTheme(context).scaffoldBackgroundColor,
+                color: backgroundColor ??
+                    appTheme(context).scaffoldBackgroundColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: borderRadius,
                 ),
