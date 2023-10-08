@@ -247,9 +247,11 @@ String appStoreWriteReview(String appId) => isIOS
 Future<bool> canLaunch(String urlString) =>
     urlLauncher.canLaunchUrl(Uri.parse(urlString));
 
+typedef BaseLaunchMode = urlLauncher.LaunchMode;
+
 Future<bool> onLaunch(
   String urlString, {
-  urlLauncher.LaunchMode mode = urlLauncher.LaunchMode.platformDefault,
+  BaseLaunchMode mode = BaseLaunchMode.platformDefault,
   urlLauncher.WebViewConfiguration webViewConfiguration =
       const urlLauncher.WebViewConfiguration(),
   String? webOnlyWindowName,
