@@ -5,9 +5,11 @@ import 'package:flutter_easy_example/components/theme_menu_popup_view.dart';
 void showChangeColorDialog(BuildContext context, Color color,
     {required ValueChanged<Color> completion}) {
   showBaseAlert<bool>(
-    WillPopScope(
-      onWillPop: () async {
-        return false;
+    PopScope(
+      onPopInvoked: (bool didPop) {
+        if (!didPop) {
+          offBack();
+        }
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

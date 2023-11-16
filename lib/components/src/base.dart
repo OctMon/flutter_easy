@@ -8,7 +8,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-double? baseDefaultTextScaleFactor;
+/// TextScaler.linear(1.adaptRatio),
+TextScaler? baseDefaultTextScale = TextScaler.noScaling;
 
 typedef BaseEasyLoading = EasyLoading;
 typedef BaseEasyLoadingStyle = EasyLoadingStyle;
@@ -122,6 +123,7 @@ abstract class PlatformWidget<M extends Widget, C extends Widget>
 
 class BaseApp extends StatefulWidget {
   final String title;
+  final bool useMaterial3;
   final ThemeMode themeMode;
   final String? initialRoute;
   final Widget? home;
@@ -136,6 +138,7 @@ class BaseApp extends StatefulWidget {
 
   BaseApp({
     this.title = "",
+    this.useMaterial3 = true,
     this.themeMode = ThemeMode.system,
     this.initialRoute,
     this.home,
@@ -205,7 +208,7 @@ class _BaseAppState extends State<BaseApp> {
       if (!isWeb) {
         child = MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            textScaleFactor: baseDefaultTextScaleFactor ?? 1.adaptRatio,
+            textScaler: baseDefaultTextScale,
           ),
           child: child,
         );
@@ -216,8 +219,8 @@ class _BaseAppState extends State<BaseApp> {
     return GetMaterialApp(
       title: widget.title,
       initialRoute: widget.initialRoute,
-      theme: getTheme(),
-      darkTheme: getTheme(darkMode: true),
+      theme: getTheme(useMaterial3: widget.useMaterial3),
+      darkTheme: getTheme(darkMode: true, useMaterial3: widget.useMaterial3),
       themeMode: widget.themeMode,
       home: widget.home,
       scrollBehavior: isPhone ? null : _MyCustomScrollBehavior(),
@@ -600,28 +603,35 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   }
 }
 
-class BaseWillPopScope extends StatelessWidget {
+class BasePopScope extends StatelessWidget {
   final bool onlyAndroid;
 
   final Widget child;
 
-  final WillPopCallback? onWillPop;
+  final bool canPop;
 
-  const BaseWillPopScope(
-      {this.onlyAndroid = true, required this.child, this.onWillPop});
+  final PopInvokedCallback? onPopInvoked;
+
+  const BasePopScope(
+      {this.onlyAndroid = true,
+      required this.child,
+      this.canPop = true,
+      this.onPopInvoked});
 
   @override
   Widget build(BuildContext context) {
     return (!onlyAndroid || isAndroid)
-        ? WillPopScope(
-            onWillPop: () async {
-              if (BaseEasyLoading.isShow) {
-                return false;
+        ? PopScope(
+            canPop: BaseEasyLoading.isShow ? false : canPop,
+            onPopInvoked: (bool didPop) {
+              logDebug("didPop: $didPop");
+              if (onPopInvoked != null) {
+                onPopInvoked!(didPop);
+                return;
               }
-              if (onWillPop != null) {
-                return onWillPop!();
+              if (!didPop && !BaseEasyLoading.isShow) {
+                offBack();
               }
-              return true;
             },
             child: child,
           )
@@ -703,7 +713,7 @@ class BaseScaffold extends StatelessWidget {
       );
     }
 
-    return BaseWillPopScope(
+    return BasePopScope(
       child: scaffold(),
     );
   }

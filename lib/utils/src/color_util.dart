@@ -108,8 +108,9 @@ Color colorWithRandom() {
   return Color.fromARGB(255, red, greed, blue);
 }
 
-ThemeData getTheme({bool darkMode = false}) {
+ThemeData getTheme({bool darkMode = false, required bool useMaterial3}) {
   return ThemeData(
+    useMaterial3: useMaterial3,
     platform: TargetPlatform.iOS,
     splashColor: Colors.transparent,
     colorScheme: ColorScheme.fromSwatch().copyWith(

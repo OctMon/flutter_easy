@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseApp(
+      useMaterial3: false,
       initialRoute: Routes.splash,
       getPages: Routes.routes,
       localizationsDelegates: const [

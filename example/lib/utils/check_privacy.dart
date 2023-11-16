@@ -13,10 +13,8 @@ Future<bool> checkPrivacy() async {
     return false;
   }
 
-  return await showBaseAlert<bool>(WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
+  return await showBaseAlert<bool>(PopScope(
+        canPop: false,
         child: BaseAlertDialog(
           title: Text(
             "$appName${S.current.example_UserAgreement}${S.current.example_And}\n${S.current.example_PrivacyPolicy}",
