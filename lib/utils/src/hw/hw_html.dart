@@ -8,3 +8,8 @@ String get webUserAgent => window.navigator.userAgent;
 String get webOrigin => window.origin ?? "";
 
 dynamic sharedPreferencesInstance() => SharedPreferencesPlugin();
+
+/// 取缓存文件
+Future<dynamic> hwCacheGetFile(String url, {String? cacheKey, String? cacheTag}) {
+  return Future.value(null);
+}

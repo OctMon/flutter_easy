@@ -30,3 +30,4 @@ jobs:
         run: |
           flutter build apk --target-platform android-arm64
           flutter build ios --release --no-codesign
+          flutter build web

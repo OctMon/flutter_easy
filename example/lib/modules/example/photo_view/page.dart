@@ -13,6 +13,19 @@ class PhotoViewPage extends StatelessWidget {
     return BaseScaffold(
       appBar: BaseAppBar(
         title: Text(data[index].title ?? ""),
+        actions: [
+          BaseButton(
+            padding: EdgeInsets.all(15),
+            child: Icon(Icons.download),
+            onPressed: () async {
+              showLoading();
+              logDebug("downloadFile start: ${data[index].imageURL}");
+              final file = await BaseWebImage.downloadFile(data[index].imageURL);
+              logDebug("downloadFile finished: $file");
+              dismissLoading();
+            },
+          ),
+        ],
       ),
       body: PhotoViewGallery.builder(
         pageController: PageController(initialPage: index),

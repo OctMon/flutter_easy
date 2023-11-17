@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import '../../utils/src/hw/hw_mp.dart';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
@@ -17,18 +18,6 @@ Color? baseWebImageDefaultPlaceholderColor = const Color(0xFF373839);
 Widget baseWebImageDefaultErrorPlaceholder = Icon(Icons.error_outline);
 var baseWebImageHandleLoadingProgress = false;
 Duration? baseWebImageDefaultTimeLimit;
-
-String? _keyToTagMd5(String url, String? cacheKey, String? cacheTag) {
-  var _cacheKey = cacheKey;
-  if (cacheTag != null) {
-    if (_cacheKey != null) {
-      _cacheKey = "${keyToMd5(_cacheKey)},$cacheTag";
-    } else {
-      _cacheKey = "${keyToMd5(url)},$cacheTag";
-    }
-  }
-  return _cacheKey;
-}
 
 class BaseWebImage extends StatelessWidget {
   final String? imageUrl;
@@ -133,7 +122,7 @@ class BaseWebImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      cacheKey: _keyToTagMd5(imageUrl!, cacheKey, cacheTag),
+      cacheKey: keyToTagMd5(imageUrl!, cacheKey, cacheTag),
       timeLimit: timeLimit ?? baseWebImageDefaultTimeLimit,
       retries: retries,
       headers: headers,
@@ -193,10 +182,22 @@ class BaseWebImage extends StatelessWidget {
 
   static var logEnabled = false;
 
+  static String? keyToTagMd5(String url, String? cacheKey, String? cacheTag) {
+    var _cacheKey = cacheKey;
+    if (cacheTag != null) {
+      if (_cacheKey != null) {
+        _cacheKey = "${keyToMd5(_cacheKey)},$cacheTag";
+      } else {
+        _cacheKey = "${keyToMd5(url)},$cacheTag";
+      }
+    }
+    return _cacheKey;
+  }
+
   /// 手动缓存文件
   static Future<File?> cachePutFile(
       {required String url, required File file, String? cacheTag}) async {
-    final String key = _keyToTagMd5(url, null, cacheTag) ?? keyToMd5(url);
+    final String key = keyToTagMd5(url, null, cacheTag) ?? keyToMd5(url);
     final Directory cacheImagesDirectory = Directory(
         getJoin((await getAppTemporaryDirectory()).path, cacheImageFolderName));
     if (cacheImagesDirectory.existsSync()) {
@@ -207,9 +208,9 @@ class BaseWebImage extends StatelessWidget {
 
   /// 取缓存文件
   static Future<File?> cacheGetFile(String url,
-      {String? cacheKey, String? cacheTag}) {
-    return getCachedImageFile(url,
-        cacheKey: _keyToTagMd5(url, cacheKey, cacheTag));
+      {String? cacheKey, String? cacheTag}) async {
+    return await hwCacheGetFile(url,
+        cacheKey: keyToTagMd5(url, cacheKey, cacheTag));
   }
 
   /// get network image data from cached
@@ -221,7 +222,7 @@ class BaseWebImage extends StatelessWidget {
     StreamController<ImageChunkEvent>? chunkEvents,
   }) async {
     return ExtendedNetworkImageProvider(url,
-            cache: useCache, cacheKey: _keyToTagMd5(url, cacheKey, cacheTag))
+            cache: useCache, cacheKey: keyToTagMd5(url, cacheKey, cacheTag))
         .getNetworkImageData(
       chunkEvents: chunkEvents,
     );
@@ -232,13 +233,13 @@ class BaseWebImage extends StatelessWidget {
       {bool useCache = true, String? cacheKey, String? cacheTag}) async {
     await BaseWebImage.getNetworkImageData(url,
         useCache: useCache, cacheKey: cacheKey, cacheTag: cacheTag);
-    return getCachedImageFile(url,
-        cacheKey: _keyToTagMd5(url, cacheKey, cacheTag));
+    return await cacheGetFile(url,
+        cacheKey: keyToTagMd5(url, cacheKey, cacheTag));
   }
 
   /// 删除缓存图片
   static void clean(String url, {String? cacheKey, String? cacheTag}) {
-    clearDiskCachedImage(url, cacheKey: _keyToTagMd5(url, cacheKey, cacheTag));
+    clearDiskCachedImage(url, cacheKey: keyToTagMd5(url, cacheKey, cacheTag));
   }
 
   /// Clear the disk cache directory then return if it succeed.
