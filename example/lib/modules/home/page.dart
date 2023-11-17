@@ -200,10 +200,10 @@ class HomePage extends StatelessWidget {
                       code: "\"110101199003071276\".isIdentityCard",
                       value: "${"110101199003071276".isIdentityCard}"),
                   buildTableRow(
-                      code: "\"150102201203072197\".isIdentityCard",
+                      code: "\"150102201203072197\".getAgeFromIdentityCard",
                       value: "${"150102201203072197".getAgeFromIdentityCard}"),
                   buildTableRow(
-                      code: "\"110101193703074649\".isIdentityCard",
+                      code: "\"110101193703074649\".getSexFromIdentityCard",
                       value: "110101193703074649".getSexFromIdentityCard),
                   buildTableRow(
                       code: "\"octmon#qq.com\".isEmail",
