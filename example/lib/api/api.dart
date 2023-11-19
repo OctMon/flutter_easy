@@ -25,7 +25,11 @@ void configAPI(String? baseURL) {
       ),
       onRequest: (options) async {
         var headers = {
-          'os': isIOS ? 'ios' : 'android',
+          'os': isWeb
+              ? "web"
+              : isIOS
+                  ? 'ios'
+                  : 'android',
         };
         options.headers.addAll(headers);
         if (UserStore.find.isLogin) {
