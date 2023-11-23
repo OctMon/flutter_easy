@@ -45,7 +45,7 @@ bool isDesktop = (kIsWeb || isPhone) ? false : true;
 
 bool isWeb = kIsWeb;
 
-String get operatingSystem => Platform.operatingSystem;
+String get operatingSystem => isWeb ? "web" : Platform.operatingSystem;
 
 String get operatingSystemVersion => Platform.operatingSystemVersion;
 
