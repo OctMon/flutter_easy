@@ -47,6 +47,15 @@ class ExampleListPage extends StatelessWidget {
           ),
           GlobalListCell(
             item: BaseKeyValue(
+                key: isWeb ? "Random" : "GirlList",
+                value: "",
+                extend: Icons.image_rounded),
+            onPressed: () {
+              toNamed(Routes.girlList);
+            },
+          ),
+          GlobalListCell(
+            item: BaseKeyValue(
                 key: S.of(context).example_ExtractProminentColorsFromAnImage,
                 value: "",
                 extend: Icons.colorize),

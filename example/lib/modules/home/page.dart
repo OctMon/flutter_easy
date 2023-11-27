@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/utils/change_theme.dart';
@@ -121,7 +123,7 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             BaseWebImage(
               "https://p3.qhimg.com/t01fad0023a8d68490d.jpg",
-              height: screenWidthDp,
+              height: min(screenWidthDp, screenHeightDp * 0.5),
               fit: BoxFit.cover,
               imageCompletionHandler: (info) {
                 logDebug(info);

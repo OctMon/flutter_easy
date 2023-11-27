@@ -1,5 +1,4 @@
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy_example/api/http_bin/http_bin_api.dart';
 import 'package:flutter_easy_example/routes.dart';
 
 class SplashController extends GetxController {
@@ -11,12 +10,11 @@ class SplashController extends GetxController {
 
   @override
   void onReady() {
-    if (isProduction) {
+    // if (isProduction) {
       _startCountdownTimer();
-      _onRequest();
-    } else {
-      toRoot();
-    }
+    // } else {
+    //   toRoot();
+    // }
 
     super.onReady();
   }
@@ -43,13 +41,6 @@ class SplashController extends GetxController {
     2.seconds.delay(() {
       timer?.run();
     });
-  }
-
-  Future<void> _onRequest() async {
-    Result result = await getHttpBin(path: kApiHttpBinIp);
-    if (result.response?.statusCode == 200) {
-      showToast("${result.response}");
-    }
   }
 
   void toRoot() {
