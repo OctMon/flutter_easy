@@ -1,3 +1,6 @@
+## 3.3.10
+* upgrade dependencies
+
 ## 3.3.9
 * upgrade flutter 3.16
 
