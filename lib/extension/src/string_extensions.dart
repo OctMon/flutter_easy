@@ -18,6 +18,17 @@ extension StringExtensions on String {
     return convert.hex.encode(digest.bytes);
   }
 
+  /// HMAC-SHA256
+  String hmacSha256({required String key}) {
+    if (this.isEmptyOrNull) {
+      return "";
+    }
+    var hmacSha256 = crypto.Hmac(crypto.sha256, utf8.encode(key));
+    var digest = hmacSha256.convert(utf8.encode(this));
+
+    return digest.toString();
+  }
+
   /// 验证国内手机号码
   bool get isCNPhoneNumber =>
       hasMatch("^(1[3-9][0-9])\\d{8}\$") && this.length == 11;
