@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy/flutter_easy.dart' hide FormData, MultipartFile;
 import 'package:url_launcher/url_launcher_string.dart';
 
 export 'package:session/session.dart';
@@ -101,6 +101,7 @@ Future<Result> get(
     String path = '',
     Map<String, dynamic>? queryParameters,
     Duration? connectTimeout,
+    BaseCancelToken? cancelToken,
     bool validResult = true,
     bool autoLoading = false}) async {
   return request(
@@ -109,6 +110,7 @@ Future<Result> get(
       queryParameters: queryParameters,
       options: Options(method: 'get'),
       connectTimeout: connectTimeout,
+      cancelToken: cancelToken,
       validResult: validResult,
       autoLoading: autoLoading);
 }
@@ -128,6 +130,9 @@ Future<Result> post(
     String path = '',
     data,
     Duration? connectTimeout,
+    BaseCancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
     bool validResult = true,
     bool autoLoading = false}) async {
   return request(
@@ -136,6 +141,9 @@ Future<Result> post(
       data: data,
       options: Options(method: 'post'),
       connectTimeout: connectTimeout,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
       validResult: validResult,
       autoLoading: autoLoading);
 }
@@ -226,6 +234,45 @@ Future<Result> request(
   if (_onResult != null) {
     return _onResult!(result, validResult, extra);
   }
+  return result;
+}
+
+/// 上传文件
+Future<Result> uploadOSSFile({
+  required String filepath,
+  required String policy,
+  required String accessKeyId,
+  required String signature,
+  required String key,
+  required String host,
+  String successActionStatus = "204",
+  Duration connectTimeout = const Duration(seconds: 60),
+  BaseCancelToken? cancelToken,
+  ProgressCallback? onSendProgress,
+}) async {
+  final extensionName = getExtension(filepath);
+  final fileName = '${timestampNow()}$extensionName';
+  // https://help.aliyun.com/zh/oss/developer-reference/postobject?spm=a2c4g.11186623.0.0.65254563hDuDeM
+  final multipartFile = await MultipartFile.fromFile(
+    filepath,
+    filename: fileName,
+  );
+  final data = FormData.fromMap({
+    'file': multipartFile,
+    'policy': policy,
+    'OSSAccessKeyId': accessKeyId,
+    'Signature': signature,
+    'key': key,
+    'success_action_status': successActionStatus,
+  });
+  final result = await post(
+    baseUrl: host,
+    connectTimeout: connectTimeout,
+    cancelToken: cancelToken,
+    data: data,
+    onSendProgress: onSendProgress,
+    validResult: false,
+  );
   return result;
 }
 

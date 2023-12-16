@@ -388,10 +388,10 @@ packages:
     dependency: "direct main"
     description:
       name: session
-      sha256: "786dd39ab8f437af5ba2993a0617cbeeaaa3990f317a86c0b9d48afa31f0bb9e"
+      sha256: b3441d45942fd04e3209341ae2e4c9ca434eed8a832f6f6b72d1394c873d8423
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.7"
+    version: "1.1.8"
   shared_preferences:
     dependency: "direct main"
     description:
