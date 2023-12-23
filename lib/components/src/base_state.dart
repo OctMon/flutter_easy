@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 typedef BaseComputeResult<T> = void Function(T state, RxStatus status);
 
@@ -162,6 +163,25 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
         child: (state == null && !status.isSuccess || state.isEmptyOrNull)
             ? emptyWidget() ?? SizedBox()
             : widget(state),
+      );
+    });
+  }
+
+  Widget baseRefreshMessageState(
+    NotifierBuilder<T?> widget, {
+    VoidCallback? onLoading,
+    ScrollController? scrollController,
+    required FooterBuilder builder,
+  }) {
+    return SimpleBuilder(builder: (_) {
+      return BaseRefresh.message(
+        controller: refreshController,
+        scrollController: scrollController,
+        builder: builder,
+        onLoading: state != null
+            ? (onLoading ?? () async => onRequestPage(page + 1))
+            : null,
+        sliver: widget(state),
       );
     });
   }

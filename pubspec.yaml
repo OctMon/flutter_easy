@@ -4,7 +4,7 @@ version: 3.3.11
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
-  sdk: ">=2.15.0 <4.0.0"
+  sdk: ">=3.2.3 <4.0.0"
 
 dependencies:
   flutter:

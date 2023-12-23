@@ -1,9 +1,14 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'base_sliver_expanded.dart';
+
+typedef BaseSmartRefresher = SmartRefresher;
 typedef BaseRefreshController = RefreshController;
 typedef BaseRefreshLocalizations = RefreshLocalizations;
 typedef BaseRefreshConfiguration = RefreshConfiguration;
+typedef BaseCustomFooter = CustomFooter;
 
 class BaseRefresh extends StatelessWidget {
   final BaseRefreshController controller;
@@ -36,7 +41,7 @@ class BaseRefresh extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final configuration = BaseRefreshConfiguration.of(context);
-    return SmartRefresher(
+    return BaseSmartRefresher(
       controller: controller,
       scrollController: scrollController,
       header: header ??
@@ -50,6 +55,38 @@ class BaseRefresh extends StatelessWidget {
       onRefresh: onRefresh,
       onLoading: onLoading,
       child: child,
+    );
+  }
+
+  static message(
+      {required BaseRefreshController controller,
+      ScrollController? scrollController,
+      VoidCallback? onLoading,
+      required FooterBuilder builder,
+      required Widget sliver}) {
+    return BaseSmartRefresher(
+      enablePullDown: false,
+      onLoading: onLoading,
+      footer: BaseCustomFooter(
+        loadStyle: LoadStyle.ShowAlways,
+        builder: builder,
+      ),
+      enablePullUp: true,
+      controller: controller,
+      child: Scrollable(
+        controller: scrollController,
+        axisDirection: AxisDirection.up,
+        viewportBuilder: (context, offset) {
+          return BaseExpandedViewport(
+            offset: offset,
+            axisDirection: AxisDirection.up,
+            slivers: <Widget>[
+              BaseSliverExpanded(),
+              sliver,
+            ],
+          );
+        },
+      ),
     );
   }
 }

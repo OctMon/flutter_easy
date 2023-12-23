@@ -30,7 +30,7 @@ class RootPage extends StatelessWidget {
     ];
 
     return ObxValue<Rx<int>>((data) {
-      return BaseScaffold(
+      return Scaffold(
         body: IndexedStack(
           index: data.value,
           children: children,
