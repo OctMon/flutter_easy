@@ -1,6 +1,9 @@
+## 3.3.12
+* add BaseSliverExpanded
+
 ## 3.3.11
 * upgrade dependencies
-* 
+
 ## 3.3.10
 * upgrade dependencies
 
