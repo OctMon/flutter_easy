@@ -123,6 +123,12 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    refreshController.dispose();
+    super.onClose();
+  }
+
   Widget baseRefreshState(
     NotifierBuilder<T?> widget, {
     Widget Function(String? status)? onEmptyWidget,

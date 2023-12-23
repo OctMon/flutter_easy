@@ -657,6 +657,7 @@ class BaseScaffold extends StatelessWidget {
   final Color? backgroundColor;
   final Widget? bottomNavigationBar;
   final bool extendBody;
+  final bool? resizeToAvoidBottomInset;
 
   final Widget? floatingActionButton;
 
@@ -679,6 +680,7 @@ class BaseScaffold extends StatelessWidget {
     this.backgroundColor,
     this.bottomNavigationBar,
     this.extendBody = false,
+    this.resizeToAvoidBottomInset,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.floatingActionButtonAnimator,
@@ -706,7 +708,7 @@ class BaseScaffold extends StatelessWidget {
         backgroundColor: backgroundColor,
         bottomNavigationBar: bottomNavigationBar,
         extendBody: extendBody,
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         floatingActionButton: floatingActionButton,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButtonAnimator: floatingActionButtonAnimator,
