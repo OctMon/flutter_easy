@@ -29,6 +29,8 @@ typedef BaseSliverSimpleGridDelegateWithFixedCrossAxisCount
 typedef BaseSliverSimpleGridDelegateWithMaxCrossAxisExtent
     = SliverSimpleGridDelegateWithMaxCrossAxisExtent;
 
+typedef BaseOverlayVisibilityMode = OverlayVisibilityMode;
+
 class BaseKeyValue {
   late String key;
   late String value;
@@ -1026,7 +1028,7 @@ class BaseTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextAlign textAlign;
   final TextInputAction? textInputAction;
-  final OverlayVisibilityMode clearButtonMode;
+  final BaseOverlayVisibilityMode clearButtonMode;
   final List<TextInputFormatter>? inputFormatters;
   final Widget? prefix;
   final Widget? suffix;
@@ -1054,7 +1056,7 @@ class BaseTextField extends StatelessWidget {
       this.keyboardType,
       this.textAlign = TextAlign.start,
       this.textInputAction,
-      this.clearButtonMode = OverlayVisibilityMode.editing,
+      this.clearButtonMode = BaseOverlayVisibilityMode.editing,
       this.inputFormatters,
       this.prefix,
       this.suffix,
@@ -1087,7 +1089,7 @@ class BaseTextField extends StatelessWidget {
                 ? setDarkTextFieldStyle
                 : setLightTextFieldStyle),
         clearButtonMode:
-            readOnly ? OverlayVisibilityMode.never : clearButtonMode,
+            readOnly ? BaseOverlayVisibilityMode.never : clearButtonMode,
         keyboardType: keyboardType,
         textAlign: textAlign,
         textInputAction: textInputAction,
