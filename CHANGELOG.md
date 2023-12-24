@@ -1,3 +1,7 @@
+## 3.3.13
+* add resizeToAvoidBottomInset
+* add BaseOverlayVisibilityMode
+
 ## 3.3.12
 * add BaseSliverExpanded
 
