@@ -886,20 +886,22 @@ class BaseBackgroundButton extends StatelessWidget {
   final Color? pressedColor;
   final Color? disableColor;
   final VoidCallback? onPressed;
+  final VoidCallback? onLongPress;
 
-  const BaseBackgroundButton(
-      {Key? key,
-      this.width = double.infinity,
-      this.height = 44,
-      this.padding = EdgeInsets.zero,
-      this.icon,
-      this.title,
-      this.borderRadius = const BorderRadius.all(Radius.circular(32)),
-      this.color,
-      this.pressedColor,
-      this.disableColor,
-      this.onPressed})
-      : super(key: key);
+  const BaseBackgroundButton({
+    Key? key,
+    this.width = double.infinity,
+    this.height = 44,
+    this.padding = EdgeInsets.zero,
+    this.icon,
+    this.title,
+    this.borderRadius = const BorderRadius.all(Radius.circular(32)),
+    this.color,
+    this.pressedColor,
+    this.disableColor,
+    this.onPressed,
+    this.onLongPress,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -916,7 +918,7 @@ class BaseBackgroundButton extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: borderRadius,
-        color: onPressed != null
+        color: (onPressed != null || onLongPress != null)
             ? (color ?? appTheme(context).primaryColor)
             : (disableColor ?? Colors.black12),
       ),
@@ -936,6 +938,7 @@ class BaseBackgroundButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
+        onLongPress: onLongPress,
         child: Center(
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center, children: children),

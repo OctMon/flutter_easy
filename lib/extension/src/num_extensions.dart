@@ -43,3 +43,32 @@ extension NumExtensions on num {
 extension IntExtensions on int {
   Color get hexColor => Color(this);
 }
+
+extension TimeExt on num {
+  String _toTime(bool all) {
+    if (this > 0 && this < 60) {
+      final sec = "$this".padLeft(2, '0');
+      return "${all ? "00:" : ""}00:$sec";
+    }
+    if (this >= 60 && this < 3600) {
+      final min = "${this ~/ 60}".padLeft(2, '0');
+      final sec = "${this % 60}".padLeft(2, '0');
+      return "${all ? "00:" : ""}$min:$sec";
+    }
+    if (this >= 3600) {
+      final hours = "${this ~/ 3600}".padLeft(2, '0');
+      final min = "${(this % 3600) ~/ 60}".padLeft(2, '0');
+      final sec = "${this % 60}".padLeft(2, '0');
+      return "$hours:$min:$sec";
+    }
+    return "${all ? "00:" : ""}00:00";
+  }
+
+  String get toFullTimeStyle {
+    return _toTime(true);
+  }
+
+  String get toTimeStyle {
+    return _toTime(false);
+  }
+}
