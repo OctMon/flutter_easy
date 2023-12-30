@@ -883,6 +883,7 @@ class BaseBackgroundButton extends StatelessWidget {
   final Widget? title;
   final BorderRadiusGeometry borderRadius;
   final Color? color;
+  final Color? pressedColor;
   final Color? disableColor;
   final VoidCallback? onPressed;
 
@@ -895,6 +896,7 @@ class BaseBackgroundButton extends StatelessWidget {
       this.title,
       this.borderRadius = const BorderRadius.all(Radius.circular(32)),
       this.color,
+      this.pressedColor,
       this.disableColor,
       this.onPressed})
       : super(key: key);
@@ -927,7 +929,7 @@ class BaseBackgroundButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.resolveWith(
             (states) {
               if (states.contains(MaterialState.pressed)) {
-                return Colors.black12;
+                return pressedColor ?? Colors.black12;
               }
               return Colors.transparent;
             },

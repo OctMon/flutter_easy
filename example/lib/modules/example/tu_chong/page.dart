@@ -89,7 +89,7 @@ class TuChongPage extends StatelessWidget {
                           onPressed: () {
                             toNamed(Routes.photoView, arguments: {
                               "data": data.imageList?.map((e) => BaseKeyValue(
-                                  key: e.title ?? "", value: e.imageURL ?? "")).toList(),
+                                  key: e.title ?? "", value: e.imageURL)).toList(),
                               "index": index
                             });
                           },

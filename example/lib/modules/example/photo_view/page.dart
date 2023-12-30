@@ -32,8 +32,7 @@ class PhotoViewPage extends StatelessWidget {
         scrollPhysics: const BouncingScrollPhysics(),
         builder: (BuildContext context, int index) {
           return PhotoViewGalleryPageOptions(
-            imageProvider:
-                BaseExtendedNetworkImageProvider(data[index].value ?? ""),
+            imageProvider: BaseExtendedNetworkImageProvider(data[index].value),
           );
         },
         itemCount: data.length,
