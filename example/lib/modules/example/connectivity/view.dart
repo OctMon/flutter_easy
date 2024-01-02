@@ -12,9 +12,8 @@ class ConnectivityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        padding: EdgeInsets.all(15),
         children: [
           Obx(() {
             return Text("${logic.result.value}");

@@ -1,3 +1,6 @@
+## 3.3.14
+* dd font extensions
+
 ## 3.3.13
 * add resizeToAvoidBottomInset
 * add BaseOverlayVisibilityMode
