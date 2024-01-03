@@ -401,19 +401,22 @@ Widget? _buildLeading(
     required VoidCallback? leadingOnPressed,
     required Color? tintColor}) {
   Widget buildLeading() {
-    return initAppBarLeading is String
-        ? Image.asset(
-            initAppBarLeading,
-            width: 24,
-            color: tintColor ?? appTheme(context).appBarTheme.foregroundColor,
-          )
-        : initAppBarLeading is IconData
-            ? Icon(initAppBarLeading,
+    return initAppBarLeading is Widget
+        ? initAppBarLeading
+        : initAppBarLeading is String
+            ? Image.asset(
+                initAppBarLeading,
+                width: 24,
                 color:
-                    tintColor ?? appTheme(context).appBarTheme.foregroundColor)
-            : Icon(Icons.arrow_back_ios,
-                color:
-                    tintColor ?? appTheme(context).appBarTheme.foregroundColor);
+                    tintColor ?? appTheme(context).appBarTheme.foregroundColor,
+              )
+            : initAppBarLeading is IconData
+                ? Icon(initAppBarLeading,
+                    color: tintColor ??
+                        appTheme(context).appBarTheme.foregroundColor)
+                : Icon(Icons.arrow_back_ios,
+                    color: tintColor ??
+                        appTheme(context).appBarTheme.foregroundColor);
   }
 
   final ModalRoute<Object?>? parentRoute = ModalRoute.of(context);
