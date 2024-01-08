@@ -117,6 +117,7 @@ ThemeData getTheme({bool darkMode = false, required bool useMaterial3}) {
       brightness: darkMode ? Brightness.dark : Brightness.light,
       primary:
           darkMode ? setDarkPrimarySwatchColor : setLightPrimarySwatchColor,
+      surfaceTint: Colors.transparent,
     ),
     primaryColor: darkMode ? setDarkPrimaryColor : setLightPrimaryColor,
     // 页面背景色
