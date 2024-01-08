@@ -61,15 +61,12 @@ class BaseRefresh extends StatelessWidget {
       {required BaseRefreshController controller,
       ScrollController? scrollController,
       VoidCallback? onLoading,
-      required FooterBuilder builder,
+      Widget? footer,
       required Widget sliver}) {
     return BaseSmartRefresher(
       enablePullDown: false,
       onLoading: onLoading,
-      footer: BaseCustomFooter(
-        loadStyle: LoadStyle.ShowAlways,
-        builder: builder,
-      ),
+      footer: footer ?? ClassicFooter(),
       enablePullUp: true,
       controller: controller,
       child: Scrollable(
