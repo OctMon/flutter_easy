@@ -59,7 +59,7 @@ dependencies:
   # NSPhotoLibraryUsageDescription - describe why your app needs permission for the photo library. This is called Privacy - Photo Library Usage Description in the visual editor.
   # NSCameraUsageDescription - describe why your app needs access to the camera. This is called Privacy - Camera Usage Description in the visual editor.
   # NSMicrophoneUsageDescription - describe why your app needs access to the microphone, if you intend to record videos. This is called Privacy - Microphone Usage Description in the visual editor.
-  image_picker: ^1.0.5
+  image_picker: ^1.0.6
 
   # ===============================================================================
   # 名称：Palette Generator package

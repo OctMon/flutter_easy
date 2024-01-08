@@ -24,7 +24,7 @@ dependencies:
   # pub: https://pub.dev/packages/uuid
   # git: https://github.com/Daegalus/dart-uuid
   # ———————————————————————————————————————————————————————————————————————————————
-  uuid: ^4.2.1
+  uuid: ^4.2.2
 
   # ===============================================================================
   # A set of high-level APIs over PointyCastle for two-way cryptography.
