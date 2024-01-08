@@ -1028,6 +1028,7 @@ class BaseTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextStyle? style;
   final TextStyle? placeholderStyle;
+  final bool autofocus;
   final bool readOnly;
   final bool obscureText;
   final int? maxLength;
@@ -1057,6 +1058,7 @@ class BaseTextField extends StatelessWidget {
       this.placeholderStyle,
       this.controller,
       this.obscureText = false,
+      this.autofocus = false,
       this.readOnly = false,
       this.maxLength,
       this.placeholder,
@@ -1089,7 +1091,7 @@ class BaseTextField extends StatelessWidget {
         maxLines: maxLines,
         readOnly: readOnly,
         obscureText: obscureText,
-        autofocus: false,
+        autofocus: autofocus,
         focusNode: focusNode,
         cursorColor: appTheme(context).primaryColor,
         style: style ??
