@@ -130,6 +130,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
 
   Widget baseRefreshState(
     NotifierBuilder<T?> widget, {
+    ScrollController? scrollController,
     Widget Function(String? status)? onEmptyWidget,
     String? placeholderImagePath,
     String? placeholderEmptyTitle,
@@ -157,6 +158,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
 
       return BaseRefresh(
         controller: refreshController,
+        scrollController: scrollController,
         emptyWidget: state.isEmptyOrNull ? emptyWidget() : null,
         firstRefresh: firstRefresh,
         onRefresh: implementationOnRefresh
