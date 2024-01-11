@@ -48,7 +48,7 @@ dependencies:
   # 名称：File picker plugin for Flutter, compatible with mobile (iOS & Android), Web, Desktop (Mac, Linux, Windows) platforms with Flutter Go support.
   # 来源：https://pub.dev/packages/file_selector
   # GitHub：https://github.com/flutter/plugins/tree/main/packages/file_selector/file_selector
-  file_selector: ^1.0.0
+  file_selector: ^1.0.2
 
   # ===============================================================================
   # 名称：适用于iOS和Android的Flutter插件，用于从图像库中选择图像，并使用相机拍摄新照片。
@@ -59,7 +59,7 @@ dependencies:
   # NSPhotoLibraryUsageDescription - describe why your app needs permission for the photo library. This is called Privacy - Photo Library Usage Description in the visual editor.
   # NSCameraUsageDescription - describe why your app needs access to the camera. This is called Privacy - Camera Usage Description in the visual editor.
   # NSMicrophoneUsageDescription - describe why your app needs access to the microphone, if you intend to record videos. This is called Privacy - Microphone Usage Description in the visual editor.
-  image_picker: ^1.0.6
+  image_picker: ^1.0.7
 
   # ===============================================================================
   # 名称：Palette Generator package
