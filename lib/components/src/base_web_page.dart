@@ -4,13 +4,13 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 Future<T?>? toWebViewUrl<T>(String url,
     {bool preventDuplicates = false}) async {
-  return toNamed(routesWebNamed,
+  return toNamed<T>(routesWebNamed,
       arguments: {"url": url}, preventDuplicates: preventDuplicates);
 }
 
 Future<T?>? toWebViewHtml<T>(String html,
     {bool preventDuplicates = false}) async {
-  return toNamed(routesWebNamed,
+  return toNamed<T>(routesWebNamed,
       arguments: {"html": html}, preventDuplicates: preventDuplicates);
 }
 
