@@ -3,6 +3,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 /// 指定登录路由
 final routesLoginNamed = '/login';
+final routesWebNamed = '/web';
 
 /// 导航到默认的登录页面
 Future<bool> toLogin({

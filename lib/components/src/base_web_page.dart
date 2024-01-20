@@ -2,6 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+Future<T?>? toWebViewUrl<T>(String url,
+    {bool preventDuplicates = false}) async {
+  return toNamed(routesWebNamed,
+      arguments: {"url": url}, preventDuplicates: preventDuplicates);
+}
+
+Future<T?>? toWebViewHtml<T>(String html,
+    {bool preventDuplicates = false}) async {
+  return toNamed(routesWebNamed,
+      arguments: {"html": html}, preventDuplicates: preventDuplicates);
+}
+
 class BaseWebController extends GetxController {
   final title = "".obs;
 }
