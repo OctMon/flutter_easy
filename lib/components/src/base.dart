@@ -63,7 +63,8 @@ VoidCallback? _appBaseURLChangedCallback;
 /// 可切环境、查看日志 additional arguments:
 /// --dart-define=app-debug-flag=true
 /// flutter run --release --dart-define=app-debug-flag=true
-Future<void> initEasyApp({VoidCallback? appBaseURLChangedCallback}) async {
+Future<void> initEasyApp(
+    {bool? showOnError, VoidCallback? appBaseURLChangedCallback}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
@@ -97,6 +98,55 @@ Future<void> initEasyApp({VoidCallback? appBaseURLChangedCallback}) async {
   if (isAppDebugFlag) {
     final network = await initSelectedBaseURLType();
     logInfo("Network: $network");
+  }
+
+  if (showOnError ?? isAppDebugFlag) {
+    Future<void> showError(String middleText) async {
+      final ver = "date:${DateTime.now()} version:$appVersion+$appBuildNumber";
+      if (Get.context == null) {
+        logDebug("捕获到异常: \n$middleText");
+      } else {
+        to(
+          BaseWebPage(
+            html: """<html>
+                <head>
+                <meta charset='UTF-8'>
+                <title>
+                捕获到异常
+                </title>
+                <style type=text/css> 
+                body {font-size:20px; line-height:40px;background-color: transparent;}
+                p {font-size:30px; line-height:40px;background-color: transparent;}
+                div {font-size:25px; line-height:40px;background-color: transparent;text-align:center;color:#333333;}
+                </style>
+                </head>
+                <body 
+                style='padding-left: 15px;padding-right: 15px;padding-top: 15px;'>
+                <div style='color:#FF0000;font-size:66px; line-height:80px;background-color: transparent;text-align:center;font-weight: bold;'>
+                异常日志已复制，请转发开发工程师支持，谢谢！！<div>
+                <div>时间:${DateTime.now()} 版本:$appVersion+$appBuildNumber<div>
+                $middleText
+                </body> 
+                </html>""",
+          ),
+        );
+        setClipboard("$ver\n$middleText");
+      }
+    }
+
+    // 先将 onerror 保存起来
+    var onError = FlutterError.onError;
+    // onError是FlutterError的一个静态属性，它有一个默认的处理方法 dumpErrorToConsole
+    FlutterError.onError = (errorDetails) {
+      showError("$errorDetails");
+      // 调用默认的onError处理
+      onError?.call(errorDetails);
+    };
+    // 官方推荐使用
+    PlatformDispatcher.instance.onError = (error, stack) {
+      showError("$error\n$stack");
+      return true;
+    };
   }
 }
 
