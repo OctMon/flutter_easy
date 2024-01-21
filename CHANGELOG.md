@@ -1,3 +1,7 @@
+## 3.4.0
+* add routesWebNamed
+* add hasInternetAccess
+
 ## 3.3.16
 * upgrade flutter 3.16.6
 
