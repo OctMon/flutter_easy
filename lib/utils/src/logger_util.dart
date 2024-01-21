@@ -8,9 +8,11 @@ void _log(String tag, dynamic value, {StackTrace? stackTrace}) {
   if (isDebug || isAppDebugFlag) {
     developer.log("${DateTime.now()} $value",
         time: DateTime.now(), name: tag, stackTrace: stackTrace);
-    Get.find<EasyLogConsoleController>()
-        .logs
-        .add("[$tag] ${DateTime.now()} $value");
+    if (Get.isRegistered<EasyLogConsoleController>()) {
+      Get.find<EasyLogConsoleController>()
+          .logs
+          .add("[$tag] ${DateTime.now()} $value");
+    }
   }
 }
 

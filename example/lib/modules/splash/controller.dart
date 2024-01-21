@@ -26,7 +26,7 @@ class SplashController extends GetxController {
   }
 
   void _startCountdownTimer() {
-    int count = randomInt(5) + 3;
+    int count = randomInt(3) + 1;
 
     timer = TimerUtil(
         totalTime: count * Duration.millisecondsPerSecond,

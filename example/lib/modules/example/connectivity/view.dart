@@ -16,7 +16,13 @@ class ConnectivityPage extends StatelessWidget {
         padding: EdgeInsets.all(15),
         children: [
           Obx(() {
-            return Text("${logic.result.value}");
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("connectionStatus: ${logic.connectionStatus.value}}"),
+                Text("hasInternetAccess: ${logic.hasInternetAccess.value}}"),
+              ],
+            );
           }),
           SizedBox(height: 30),
           Text(
