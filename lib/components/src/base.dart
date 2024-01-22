@@ -107,7 +107,7 @@ Future<void> initEasyApp(
         logDebug("捕获到异常: \n$middleText");
       } else {
         to(
-          BaseWebPage(
+          () => BaseWebPage(
             html: """<html>
                 <head>
                 <meta charset='UTF-8'>
