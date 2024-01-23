@@ -64,7 +64,9 @@ VoidCallback? _appBaseURLChangedCallback;
 /// --dart-define=app-debug-flag=true
 /// flutter run --release --dart-define=app-debug-flag=true
 Future<void> initEasyApp(
-    {bool? showOnError, VoidCallback? appBaseURLChangedCallback}) async {
+    {bool? showOnError,
+    VoidCallback? appBaseURLChangedCallback,
+    String Function()? customExceptionReport}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
@@ -124,7 +126,7 @@ Future<void> initEasyApp(
                 style='padding-left: 15px;padding-right: 15px;padding-top: 15px;'>
                 <div style='color:#FF0000;font-size:66px; line-height:80px;background-color: transparent;text-align:center;font-weight: bold;'>
                 异常日志已复制，请转发开发工程师支持，谢谢！！<div>
-                <div>时间:${DateTime.now()} 版本:$appVersion+$appBuildNumber<div>
+                <div>时间:${DateTime.now()} 版本:$appVersion+$appBuildNumber ${customExceptionReport != null ? customExceptionReport() : ""}<div>
                 $middleText
                 </body> 
                 </html>""",
