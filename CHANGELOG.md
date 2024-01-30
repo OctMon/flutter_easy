@@ -1,3 +1,6 @@
+## 3.5.0
+* upgrade session ^1.2.0
+
 ## 3.4.0
 * add routesWebNamed
 * add hasInternetAccess
