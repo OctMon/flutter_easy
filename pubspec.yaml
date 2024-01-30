@@ -15,7 +15,7 @@ dependencies:
   # pub: https://pub.dev/packages/session
   # git: https://github.com/OctMon/session
   # ———————————————————————————————————————————————————————————————————————————————
-  session: ^1.1.8
+  session: ^1.2.0
   dio: ^5.4.0
   # ===============================================================================
 
@@ -69,7 +69,7 @@ dependencies:
   # pub: https://pub.dev/packages/url_launcher
   # git: https://github.com/flutter/plugins/tree/master/packages/url_launcher
   # ———————————————————————————————————————————————————————————————————————————————
-  url_launcher: ^6.2.3
+  url_launcher: ^6.2.4
 
   # ===============================================================================
   # Flutter plugin that provides a WebView widget.
