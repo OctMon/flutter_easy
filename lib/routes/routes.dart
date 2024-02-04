@@ -117,6 +117,17 @@ Future<T?>? offAllNamed<T>(
       parameters: parameters);
 }
 
+/// 关闭所有页面回root
+/// also like Navigator.of(context).popUntil((route) => route.isFirst);
+void untilOffAllBackToRoot() {
+  return until((route) => route.isFirst);
+}
+
+/// 将导航器栈中当前路由上所有的页面都关闭，直到它遇到第一个路由（通常是根路由）。这样做可以确保你回到应用的根页面
+void until(RoutePredicate predicate, {int? id}) {
+  return Get.until(predicate);
+}
+
 /// 关闭SnackBars、Dialogs、BottomSheets或任何你通常会用Navigator.pop(context)关闭的东西
 void offBack<T>([T? result]) {
   return Get.back<T>(result: result);
