@@ -1,3 +1,8 @@
+## 3.5.1
+* upgrade session ^1.2.1
+* add route until
+* add getAppExternalStorageDirectory
+
 ## 3.5.0
 * upgrade session ^1.2.0
 
