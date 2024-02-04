@@ -3,16 +3,20 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 import 'state.dart';
 
-class HomeController extends GetxController with GetSingleTickerProviderStateMixin {
+class HomeController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final state = HomeState();
 
   var color = setLightPrimaryColor.obs;
+
+  final RxList<BaseKeyValue> pathList = <BaseKeyValue>[].obs;
 
   @override
   void onInit() {
     state.animationController = AnimationController(
         vsync: this /*NavigatorState()*/,
         duration: const Duration(milliseconds: 2000));
+    onGetList();
     super.onInit();
   }
 
@@ -25,5 +29,26 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
       }
     });
     super.onReady();
+  }
+
+  Future<void> onGetList() async {
+    final functions = [
+      "getAppTemporaryDirectory()",
+      "getAppDocumentsDirectory()",
+      if (isIOS) "getAppLibraryDirectory()",
+      "getAppSupportDirectory()",
+      if (isAndroid) "getAppExternalStorageDirectory()",
+    ];
+    final list = await Future.wait([
+      getAppTemporaryDirectory(),
+      getAppDocumentsDirectory(),
+      if (isIOS) getAppLibraryDirectory(),
+      getAppSupportDirectory(),
+      if (isAndroid) getAppExternalStorageDirectory(),
+    ]);
+    pathList.value = List.generate(
+        list.length,
+        (index) => BaseKeyValue(
+            key: "${functions[index]}", value: "${list[index]?.path}"));
   }
 }

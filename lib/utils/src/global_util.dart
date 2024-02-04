@@ -89,11 +89,15 @@ Future<Directory> getAppTemporaryDirectory() => getTemporaryDirectory();
 Future<Directory> getAppDocumentsDirectory() =>
     getApplicationDocumentsDirectory();
 
-/// 应用程序可以存储持久文件的目录的路径
+/// 应用程序可以存储持久文件的目录的路径 iOS and macOS
 Future<Directory> getAppLibraryDirectory() => getLibraryDirectory();
 
 /// 应用程序可以放置应用程序支持的目录的路径
 Future<Directory> getAppSupportDirectory() => getApplicationSupportDirectory();
+
+/// 应用程序可以访问顶级存储的目录的路径 Android
+Future<Directory?> getAppExternalStorageDirectory() =>
+    getExternalStorageDirectory();
 
 /// Gets the part of [path] after the last separator.
 ///

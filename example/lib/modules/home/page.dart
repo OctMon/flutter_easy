@@ -242,6 +242,9 @@ class HomePage extends StatelessWidget {
                   buildTableRow(
                       code: "appStoreUserReviewsUrl(\"1234567890\")",
                       value: appStoreUserReviewsUrl("1234567890")),
+                  buildTableRowTop(code: "get", value: "value"),
+                  ...controller.pathList
+                      .map((e) => buildTableRow(code: e.key, value: e.value)),
                 ],
               );
             }),
