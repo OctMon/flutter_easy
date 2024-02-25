@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:convert/convert.dart' as convert;
 import 'package:crypto/crypto.dart' as crypto;
@@ -27,6 +28,16 @@ extension StringExtensions on String {
     var digest = hmacSha256.convert(utf8.encode(this));
 
     return digest.toString();
+  }
+
+  /// HMAC-SHA256
+  String get hmacSha256ToBase64 {
+    if (this.isEmptyOrNull) {
+      return "";
+    }
+    return base64Encode(crypto.Hmac(crypto.sha256, utf8.encode(this))
+        .convert(Uint8List(0))
+        .bytes);
   }
 
   /// 验证国内手机号码

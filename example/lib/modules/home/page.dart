@@ -214,8 +214,11 @@ class HomePage extends StatelessWidget {
                       code: "\"\".isEmptyOrNull", value: "${"".isEmptyOrNull}"),
                   buildTableRow(code: "\"OctMon\".md5", value: "OctMon".md5),
                   buildTableRow(
-                      code: "\"OctMon\".hmacSha256",
+                      code: "\"OctMon\".hmacSha256(key: \"test\")",
                       value: "OctMon".hmacSha256(key: "test")),
+                  buildTableRow(
+                      code: "\"OctMon\".hmacSha256",
+                      value: "OctMon".hmacSha256ToBase64),
                   buildTableRowTop(code: "other", value: "value"),
                   buildTableRow(code: "webUserAgent", value: webUserAgent),
                   buildTableRow(
