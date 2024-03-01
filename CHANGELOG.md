@@ -1,3 +1,6 @@
+## 3.6.0
+* add BaseWebView
+
 ## 3.5.2
 * upgrade session ^1.2.1
 
