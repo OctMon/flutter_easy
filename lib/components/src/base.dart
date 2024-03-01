@@ -66,7 +66,7 @@ VoidCallback? _appBaseURLChangedCallback;
 Future<void> initEasyApp(
     {bool? showOnError,
     VoidCallback? appBaseURLChangedCallback,
-    String Function()? customExceptionReport}) async {
+    ValueChanged<String>? customExceptionReport}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
@@ -104,35 +104,12 @@ Future<void> initEasyApp(
 
   if (showOnError ?? isAppDebugFlag) {
     Future<void> showError(String middleText) async {
-      final ver = "date:${DateTime.now()} version:$appVersion+$appBuildNumber";
       if (Get.context == null) {
         logDebug("捕获到异常: \n$middleText");
       } else {
-        to(
-          () => BaseWebPage(
-            html: """<html>
-                <head>
-                <meta charset='UTF-8'>
-                <title>
-                捕获到异常
-                </title>
-                <style type=text/css> 
-                body {font-size:20px; line-height:40px;background-color: transparent;}
-                p {font-size:30px; line-height:40px;background-color: transparent;}
-                div {font-size:25px; line-height:40px;background-color: transparent;text-align:center;color:#333333;}
-                </style>
-                </head>
-                <body 
-                style='padding-left: 15px;padding-right: 15px;padding-top: 15px;'>
-                <div style='color:#FF0000;font-size:66px; line-height:80px;background-color: transparent;text-align:center;font-weight: bold;'>
-                异常日志已复制，请转发开发工程师支持，谢谢！！<div>
-                <div>时间:${DateTime.now()} 版本:$appVersion+$appBuildNumber ${customExceptionReport != null ? customExceptionReport() : ""}<div>
-                $middleText
-                </body> 
-                </html>""",
-          ),
-        );
-        setClipboard("$ver\n$middleText");
+        if (customExceptionReport != null) {
+          customExceptionReport(middleText);
+        }
       }
     }
 
