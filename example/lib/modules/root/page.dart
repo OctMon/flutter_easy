@@ -14,6 +14,10 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // routesInterceptOffBack = () {
+    //   logDebug("routesInterceptOffBack");
+    //   Navigator.of(context).pop();
+    // };
     logInfo("appDarkMode: ${appDarkMode(context)}");
     final List<String> titles = [
       S.of(context).home,

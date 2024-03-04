@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
             child: Text(
               S.of(context).cancel,
             ),
-            onPressed: () => Navigator.pop(context, false),
+            onPressed: () => offBack(false),
           ),
         ],
       ),

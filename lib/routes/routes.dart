@@ -5,6 +5,8 @@ import 'package:flutter_easy/flutter_easy.dart';
 final routesLoginNamed = '/login';
 final routesWebNamed = '/web';
 
+void Function()? routesInterceptOffBack;
+
 /// 导航到默认的登录页面
 Future<bool> toLogin({
   bool preventDuplicates = true,
@@ -130,5 +132,8 @@ void until(RoutePredicate predicate, {int? id}) {
 
 /// 关闭SnackBars、Dialogs、BottomSheets或任何你通常会用Navigator.pop(context)关闭的东西
 void offBack<T>([T? result]) {
+  if (routesInterceptOffBack != null) {
+    return routesInterceptOffBack!();
+  }
   return Get.back<T>(result: result);
 }
