@@ -675,6 +675,7 @@ class BasePopScope extends StatelessWidget {
 
 class BaseScaffold extends StatelessWidget {
   final BaseAppBar? appBar;
+  final bool useBasePopScope;
 
   final Widget? drawer;
   final DrawerCallback? onDrawerChanged;
@@ -701,6 +702,7 @@ class BaseScaffold extends StatelessWidget {
 
   BaseScaffold({
     this.appBar,
+    this.useBasePopScope = false,
     this.drawer,
     this.onDrawerChanged,
     this.endDrawer,
@@ -749,9 +751,13 @@ class BaseScaffold extends StatelessWidget {
       );
     }
 
-    return BasePopScope(
-      child: scaffold(),
-    );
+    if (useBasePopScope) {
+      return BasePopScope(
+        child: scaffold(),
+      );
+    }
+
+    return scaffold();
   }
 }
 
