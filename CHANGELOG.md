@@ -1,3 +1,8 @@
+## 3.6.1
+* add routesInterceptOffBack
+* add useBasePopScope
+* remove webview_flutter
+
 ## 3.6.0
 * add BaseWebView
 
@@ -41,7 +46,7 @@
 ## 3.3.9
 * upgrade flutter 3.16
 
-* ## 3.3.8
+## 3.3.8
 * add showBaseAlert
 * change BaseBackgroundButton borderRadius type
 
