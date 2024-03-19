@@ -166,6 +166,7 @@ class BaseApp extends StatefulWidget {
   final Iterable<Locale> supportedLocales;
   final Locale? locale;
   final LocaleResolutionCallback? localeResolutionCallback;
+  final bool? debugShowCheckedModeBanner;
 
   BaseApp({
     this.title = "",
@@ -181,6 +182,7 @@ class BaseApp extends StatefulWidget {
     this.supportedLocales = const <Locale>[Locale('en', 'US')],
     this.locale,
     this.localeResolutionCallback,
+    this.debugShowCheckedModeBanner,
   });
 
   @override
@@ -201,7 +203,7 @@ class _BaseAppState extends State<BaseApp> {
   @override
   Widget build(BuildContext context) {
     Widget _buildBannerUrlType({required Widget child}) {
-      if (isAppDebugFlag) {
+      if (isAppDebugFlag && widget.debugShowCheckedModeBanner != false) {
         return Obx(() {
           return Banner(
             color: Colors.deepPurple,
