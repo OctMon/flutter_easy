@@ -1,3 +1,7 @@
+## 3.6.2
+* add debugShowCheckedModeBanner
+* add logPermanent
+
 ## 3.6.1
 * add routesInterceptOffBack
 * add useBasePopScope

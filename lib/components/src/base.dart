@@ -66,7 +66,8 @@ VoidCallback? _appBaseURLChangedCallback;
 Future<void> initEasyApp(
     {bool? showOnError,
     VoidCallback? appBaseURLChangedCallback,
-    ValueChanged<String>? customExceptionReport}) async {
+    ValueChanged<String>? customExceptionReport,
+    bool logPermanent = false}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
@@ -81,7 +82,7 @@ Future<void> initEasyApp(
     SharedPreferencesUtil.init(),
   ]);
 
-  Get.put(EasyLogConsoleController());
+  Get.put(EasyLogConsoleController(), permanent: logPermanent);
 
   void localLogWriter(String text, {bool isError = false}) {
     if (isError) {
