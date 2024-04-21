@@ -1,39 +1,86 @@
 import 'dart:developer' as developer;
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-void _log(String tag, dynamic value, {StackTrace? stackTrace}) {
+String _costumeSplitter = " ";
+
+String _addCostumeSplitter(String? message) =>
+    message == null || message == '' ? '' : "[$message]";
+
+String _colorize(String message, LoggerLevel logLevel) {
+  if (logLevel.ansiColor == null) return message;
+  return logLevel.ansiColorTemplate.replaceFirst("@message", message);
+}
+
+void _log(LoggerLevel level, dynamic message) {
   if (isDebug || isAppDebugFlag) {
-    developer.log("${DateTime.now()} $value",
-        time: DateTime.now(), name: tag, stackTrace: stackTrace);
-    if (Get.isRegistered<EasyLogConsoleController>()) {
-      Get.find<EasyLogConsoleController>()
-          .logs
-          .add("[$tag] ${DateTime.now()} $value");
+    final dateTime = DateTime.now();
+    var timestamp = _addCostumeSplitter(
+        '${dateTime.year}-${twoDigits(dateTime.month)}-${twoDigits(dateTime.day)} ${twoDigits(dateTime.hour)}:${twoDigits(dateTime.minute)}:${twoDigits(dateTime.second)}');
+    var logLevel = _addCostumeSplitter(level.name);
+    var formattedMessage = _addCostumeSplitter(appName) +
+        _costumeSplitter +
+        timestamp +
+        _costumeSplitter +
+        logLevel;
+
+    formattedMessage += _costumeSplitter + "$message";
+
+    formattedMessage = _colorize(formattedMessage, level);
+
+    for (var line in formattedMessage.split('\n')) {
+      print(line);
+      if (line.length >= 966) {
+        developer.log(line);
+      }
+      if (Get.isRegistered<EasyLogConsoleController>()) {
+        Get.find<EasyLogConsoleController>().logs.add(formattedMessage);
+      }
     }
   }
 }
 
+class LoggerLevel {
+  static LoggerLevel fatal = LoggerLevel('Fatal', ansiColor: '35m');
+
+  static LoggerLevel error = LoggerLevel('Error', ansiColor: '31m');
+
+  static LoggerLevel warning = LoggerLevel('Warning', ansiColor: '33m');
+
+  static LoggerLevel info = LoggerLevel('Info', ansiColor: '32m');
+
+  static LoggerLevel debug = LoggerLevel('Debug', ansiColor: '34m');
+
+  final String name;
+
+  late String? ansiColor;
+
+  String get ansiColorTemplate => "\x1B[$ansiColor@message\x1B[0m";
+
+  LoggerLevel(this.name, {this.ansiColor});
+}
+
 void logDebug(dynamic message) {
-  _log("DEBUG", message);
+  _log(LoggerLevel.debug, message);
 }
 
 void logInfo(dynamic message) {
-  _log("INFO", message);
+  _log(LoggerLevel.info, message);
 }
 
 void logWarning(dynamic message) {
-  _log("WARNING", message);
+  _log(LoggerLevel.warning, message);
 }
 
 void logError(dynamic message) {
-  _log("ERROR", message, stackTrace: StackTrace.current);
+  _log(LoggerLevel.error, message);
 }
 
-void logWTF(dynamic message) {
-  _log("WTF", message, stackTrace: StackTrace.current);
+void logFatal(dynamic message) {
+  _log(LoggerLevel.fatal, message);
 }
 
 void logRequest(RequestOptions options) {
