@@ -106,7 +106,7 @@ Future<void> initEasyApp(
   if (showOnError ?? isAppDebugFlag) {
     Future<void> showError(String middleText) async {
       if (Get.context == null) {
-        logDebug("捕获到异常: \n$middleText");
+        logWarning("捕获到异常: \n$middleText");
       } else {
         if (customExceptionReport != null) {
           customExceptionReport(middleText);

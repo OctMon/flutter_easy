@@ -21,14 +21,21 @@ void _log(LoggerLevel level, dynamic message) {
     var timestamp = _addCostumeSplitter(
         '${dateTime.year}-${twoDigits(dateTime.month)}-${twoDigits(dateTime.day)} ${twoDigits(dateTime.hour)}:${twoDigits(dateTime.minute)}:${twoDigits(dateTime.second)}');
     var logLevel = _addCostumeSplitter(level.name);
-    var formattedMessage = _addCostumeSplitter(appName) +
-        _costumeSplitter +
-        timestamp +
-        _costumeSplitter +
-        logLevel;
-
+    var formattedMessage = timestamp + _costumeSplitter + logLevel;
     formattedMessage += _costumeSplitter + "$message";
 
+    if (isIOS) {
+      for (var line in formattedMessage.split('\n')) {
+        developer.log(line, name: appName);
+        if (Get.isRegistered<EasyLogConsoleController>()) {
+          Get.find<EasyLogConsoleController>().logs.add(line);
+        }
+      }
+      return;
+    }
+
+    formattedMessage =
+        _addCostumeSplitter(appName) + _costumeSplitter + formattedMessage;
     formattedMessage = _colorize(formattedMessage, level);
 
     for (var line in formattedMessage.split('\n')) {
@@ -37,7 +44,7 @@ void _log(LoggerLevel level, dynamic message) {
         developer.log(line);
       }
       if (Get.isRegistered<EasyLogConsoleController>()) {
-        Get.find<EasyLogConsoleController>().logs.add(formattedMessage);
+        Get.find<EasyLogConsoleController>().logs.add(line);
       }
     }
   }
@@ -182,7 +189,7 @@ class EasyLogConsoleController extends GetxController {
   final scrollController = ScrollController();
 
   /// 所有的日志
-  var logs = [].obs;
+  var logs = <String>[].obs;
 
   /// 在最下面标志
   var followBottom = true.obs;
@@ -282,17 +289,37 @@ class EasyLogConsolePage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Obx(() {
+          final debugColor = LoggerLevel.debug.ansiColor ?? "";
+          final infoColor = LoggerLevel.info.ansiColor ?? "";
+          final warningColor = LoggerLevel.warning.ansiColor ?? "";
+          final errorColor = LoggerLevel.error.ansiColor ?? "";
+          final fatalColor = LoggerLevel.fatal.ansiColor ?? "";
           return ListView.separated(
             controller: controller.scrollController,
             padding: EdgeInsets.symmetric(vertical: 15),
             itemBuilder: (context, index) {
               var log = controller.logs[index];
+              Color? color = null;
+              if (log.startsWith("[${debugColor}")) {
+                color = Colors.blue;
+              } else if (log.startsWith("[${infoColor}")) {
+                color = Colors.green;
+              } else if (log.startsWith("[${warningColor}")) {
+                color = Colors.yellow;
+              } else if (log.startsWith("[${errorColor}")) {
+                color = Colors.red;
+              } else if (log.startsWith("[${fatalColor}")) {
+                color = Colors.deepPurple;
+              }
               return Container(
                 alignment: Alignment.centerLeft,
                 child: BaseButton(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     log,
+                    style: TextStyle(
+                      color: color,
+                    ),
                   ),
                   onPressed: () {
                     setClipboard(log);
@@ -302,10 +329,7 @@ class EasyLogConsolePage extends StatelessWidget {
             },
             itemCount: controller.logs.length,
             separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                height: 1,
-                color: colorWithHex9,
-              );
+              return BaseDivider(thickness: 5);
             },
           );
         }),
