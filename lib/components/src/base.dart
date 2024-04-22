@@ -354,23 +354,10 @@ class __DebugPageState extends State<_DebugPage> {
                       final context = Get.context;
                       if (context != null) {
                         if (_flag) {
-                          await Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) {
-                            final EasyLogConsoleController controller =
-                                Get.put(EasyLogConsoleController());
-                            if (controller.flowchart.value) {
-                              0.25.seconds.delay(() {
-                                controller.scrollToBottom();
-                              });
-                            }
-                            return EasyLogConsolePage();
-                          }));
+                          to(() => EasyLogPage());
                         } else {
                           offBack();
                         }
-                        setState(() {
-                          _flag = !_flag;
-                        });
                       }
                     },
                   ),

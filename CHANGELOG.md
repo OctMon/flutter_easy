@@ -1,3 +1,6 @@
+## 3.6.4
+* share logs
+
 ## 3.6.3
 * share logs
 

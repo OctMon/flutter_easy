@@ -187,6 +187,11 @@ ${result.response?.data is Map ? jsonEncode(result.response?.data) : result.resp
 }
 
 class EasyLogConsoleController extends GetxController {
+  /// 所有的日志
+  var logs = <String>[];
+}
+
+class EasyLogController extends GetxController {
   final scrollController = ScrollController();
 
   /// 所有的日志
@@ -200,13 +205,12 @@ class EasyLogConsoleController extends GetxController {
 
   @override
   void onInit() {
+    logs.value = Get.find<EasyLogConsoleController>().logs;
     scrollController.addListener(() {
       updateFollowBottom();
     });
-    ever(logs, (value) {
-      0.25.seconds.delay(() {
-        scrollToBottom();
-      });
+    0.25.seconds.delay(() {
+      scrollToBottom();
     });
     super.onInit();
   }
@@ -244,9 +248,8 @@ class EasyLogConsoleController extends GetxController {
   }
 }
 
-class EasyLogConsolePage extends StatelessWidget {
-  final EasyLogConsoleController controller =
-      Get.put(EasyLogConsoleController());
+class EasyLogPage extends StatelessWidget {
+  final EasyLogController controller = Get.put(EasyLogController());
 
   @override
   Widget build(BuildContext context) {
@@ -312,16 +315,16 @@ class EasyLogConsolePage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 15),
             itemBuilder: (context, index) {
               var log = controller.logs[index];
-              Color? color = null;
-              if (log.startsWith("[${debugColor}")) {
+              Color? color;
+              if (log.startsWith("[$debugColor")) {
                 color = Colors.blue;
-              } else if (log.startsWith("[${infoColor}")) {
+              } else if (log.startsWith("[$infoColor")) {
                 color = Colors.green;
-              } else if (log.startsWith("[${warningColor}")) {
+              } else if (log.startsWith("[$warningColor")) {
                 color = Colors.yellow;
-              } else if (log.startsWith("[${errorColor}")) {
+              } else if (log.startsWith("[$errorColor")) {
                 color = Colors.red;
-              } else if (log.startsWith("[${fatalColor}")) {
+              } else if (log.startsWith("[$fatalColor")) {
                 color = Colors.deepPurple;
               }
               return Container(
