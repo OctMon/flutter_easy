@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:share_plus/share_plus.dart';
 
 String _costumeSplitter = " ";
 
@@ -237,6 +238,10 @@ class EasyLogConsoleController extends GetxController {
       // );
     }
   }
+
+  Future<void> shareText(String text) async {
+    await Share.share(text);
+  }
 }
 
 class EasyLogConsolePage extends StatelessWidget {
@@ -265,6 +270,14 @@ class EasyLogConsolePage extends StatelessWidget {
           },
         ),
         actions: [
+          IconButton(
+            icon: Icon(
+              CupertinoIcons.share,
+            ),
+            onPressed: () {
+              controller.shareText(controller.logs.join("\n"));
+            },
+          ),
           IconButton(
             icon: Icon(
               CupertinoIcons.bin_xmark,
@@ -329,7 +342,8 @@ class EasyLogConsolePage extends StatelessWidget {
             },
             itemCount: controller.logs.length,
             separatorBuilder: (BuildContext context, int index) {
-              return BaseDivider(thickness: 5);
+              return BaseDivider(
+                  thickness: 1, margin: EdgeInsets.symmetric(vertical: 5));
             },
           );
         }),

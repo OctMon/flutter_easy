@@ -133,6 +133,13 @@ dependencies:
   # ===============================================================================
   connectivity_plus: ^5.0.2
 
+  # ===============================================================================
+  # A Flutter plugin to share content from your Flutter app via the platform's share dialog.
+  # pub：https://pub.dev/packages/share_plus
+  # git：https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus/share_plus
+  # ===============================================================================
+  share_plus: ^7.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
