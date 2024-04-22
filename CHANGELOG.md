@@ -1,4 +1,7 @@
-## 3.6.2
+## 3.6.3
+* share logs
+
+* ## 3.6.2
 * add debugShowCheckedModeBanner
 * add logPermanent
 
