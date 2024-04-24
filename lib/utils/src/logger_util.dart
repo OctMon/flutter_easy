@@ -26,11 +26,9 @@ void _log(LoggerLevel level, dynamic message) {
     formattedMessage += _costumeSplitter + "$message";
 
     if (isIOS) {
-      for (var line in formattedMessage.split('\n')) {
-        developer.log(line, name: appName);
-        if (Get.isRegistered<EasyLogConsoleController>()) {
-          Get.find<EasyLogConsoleController>().logs.add(line);
-        }
+      developer.log(formattedMessage, name: appName);
+      if (Get.isRegistered<EasyLogConsoleController>()) {
+        Get.find<EasyLogConsoleController>().logs.add(formattedMessage);
       }
       return;
     }
