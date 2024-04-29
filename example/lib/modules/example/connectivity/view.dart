@@ -19,7 +19,7 @@ class ConnectivityPage extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("connectionStatus: ${logic.connectionStatus.value}}"),
+                Text("connectionStatus: ${logic.connectionStatus}}"),
                 Text("hasInternetAccess: ${logic.hasInternetAccess.value}}"),
               ],
             );

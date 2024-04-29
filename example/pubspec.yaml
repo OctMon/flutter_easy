@@ -27,7 +27,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.5
+  cupertino_icons: ^1.0.8
 
   # ===================消除警告⚠️===================
   intl:
@@ -42,7 +42,7 @@ dependencies:
   # Photo View provides a gesture sensitive zoomable widget.
   # Photo View is largely used to show interactive images and other stuff such as SVG.
   # ===============================================================================
-  photo_view: ^0.14.0
+  photo_view: ^0.15.0
 
   # ===============================================================================
   # 名称：File picker plugin for Flutter, compatible with mobile (iOS & Android), Web, Desktop (Mac, Linux, Windows) platforms with Flutter Go support.
@@ -59,7 +59,7 @@ dependencies:
   # NSPhotoLibraryUsageDescription - describe why your app needs permission for the photo library. This is called Privacy - Photo Library Usage Description in the visual editor.
   # NSCameraUsageDescription - describe why your app needs access to the camera. This is called Privacy - Camera Usage Description in the visual editor.
   # NSMicrophoneUsageDescription - describe why your app needs access to the microphone, if you intend to record videos. This is called Privacy - Microphone Usage Description in the visual editor.
-  image_picker: ^1.0.7
+  image_picker: ^1.1.0
 
   # ===============================================================================
   # 名称：Palette Generator package
@@ -81,7 +81,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.1
+  flutter_lints: ^3.0.2
 
   # ===============================================================================
   # A command-line tool which simplifies the task of updating your Flutter app's launcher icon.

@@ -4,9 +4,9 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 class ConnectivityLogic extends GetxController {
   /// 消息订阅
-  StreamSubscription? _subscription;
+  StreamSubscription<List<BaseConnectivityResult>>? _subscription;
 
-  final connectionStatus = BaseConnectivityResult.none.obs;
+  final connectionStatus = <BaseConnectivityResult>[].obs;
   final hasInternetAccess = false.obs;
 
   @override
@@ -16,7 +16,8 @@ class ConnectivityLogic extends GetxController {
     super.onInit();
   }
 
-  Future<void> _updateConnectionStatus(BaseConnectivityResult result) async {
+  Future<void> _updateConnectionStatus(
+      List<BaseConnectivityResult> result) async {
     connectionStatus.value = result;
     hasInternetAccess.value = result.hasInternetAccess;
   }
