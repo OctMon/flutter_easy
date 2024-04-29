@@ -198,19 +198,19 @@ class EasyLogController extends GetxController {
   /// 在最下面标志
   var followBottom = true.obs;
 
-  /// 自动滚动
-  var flowchart = true.obs;
-
   @override
   void onInit() {
     logs.value = Get.find<EasyLogConsoleController>().logs;
     scrollController.addListener(() {
       updateFollowBottom();
     });
-    0.25.seconds.delay(() {
-      scrollToBottom();
-    });
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    scrollController.jumpTo(scrollController.position.maxScrollExtent);
+    super.onReady();
   }
 
   @override
@@ -228,16 +228,16 @@ class EasyLogController extends GetxController {
   }
 
   void scrollToBottom() {
-    if (scrollController.hasClients && flowchart.value) {
+    if (scrollController.hasClients) {
       followBottom.value = true;
 
       var scrollPosition = scrollController.position;
-      scrollController.jumpTo(scrollPosition.maxScrollExtent);
-      // scrollController.animateTo(
-      //   scrollPosition.maxScrollExtent,
-      //   duration: new Duration(milliseconds: 400),
-      //   curve: Curves.easeOut,
-      // );
+      // scrollController.jumpTo(scrollPosition.maxScrollExtent);
+      scrollController.animateTo(
+        scrollPosition.maxScrollExtent,
+        duration: new Duration(milliseconds: 200),
+        curve: Curves.ease,
+      );
     }
   }
 
@@ -247,14 +247,14 @@ class EasyLogController extends GetxController {
 }
 
 class EasyLogPage extends StatelessWidget {
-  final EasyLogController controller = Get.put(EasyLogController());
-
   @override
   Widget build(BuildContext context) {
+    final EasyLogController controller = Get.put(EasyLogController());
     return BaseScaffold(
       appBar: BaseAppBar(
-        leading: IconButton(
-          icon: Icon(
+        leading: BaseButton(
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: Icon(
             Icons.developer_mode,
           ),
           onPressed: () {
@@ -271,32 +271,22 @@ class EasyLogPage extends StatelessWidget {
           },
         ),
         actions: [
-          IconButton(
-            icon: Icon(
+          BaseButton(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: Icon(
               CupertinoIcons.share,
             ),
             onPressed: () {
               controller.shareText(controller.logs.join("\n"));
             },
           ),
-          IconButton(
-            icon: Icon(
+          BaseButton(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Icon(
               CupertinoIcons.bin_xmark,
             ),
             onPressed: () {
               controller.logs.clear();
-            },
-          ),
-          IconButton(
-            icon: Obx(() {
-              return Icon(
-                controller.flowchart.value
-                    ? CupertinoIcons.flowchart_fill
-                    : CupertinoIcons.flowchart,
-              );
-            }),
-            onPressed: () {
-              controller.flowchart.toggle();
             },
           ),
         ],

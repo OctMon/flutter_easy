@@ -1,3 +1,6 @@
+## 3.7.0
+* upgrade flutter 3.16.6
+
 ## 3.6.4
 * share logs
 

@@ -351,13 +351,11 @@ class __DebugPageState extends State<_DebugPage> {
                       setState(() {
                         _flag = !_flag;
                       });
-                      final context = Get.context;
-                      if (context != null) {
-                        if (_flag) {
-                          to(() => EasyLogPage());
-                        } else {
-                          offBack();
-                        }
+                      if (_flag) {
+                        showBaseBottomSheet(EasyLogPage(),
+                            isScrollControlled: true, ignoreSafeArea: false);
+                      } else {
+                        offBack();
                       }
                     },
                   ),

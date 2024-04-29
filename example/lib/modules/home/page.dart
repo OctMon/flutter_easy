@@ -84,6 +84,7 @@ class HomePage extends StatelessWidget {
         }),
         actions: [
           BaseButton(
+              padding: EdgeInsets.symmetric(horizontal: 15),
               child: const Icon(Icons.volunteer_activism),
               onPressed: () {
                 showChangeColorDialog(context, controller.color.value,
