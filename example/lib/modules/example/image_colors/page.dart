@@ -10,7 +10,7 @@ import 'package:palette_generator/palette_generator.dart';
 import 'controller.dart';
 
 class ImageColorsPage extends StatelessWidget {
-  const ImageColorsPage({Key? key}) : super(key: key);
+  const ImageColorsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,7 @@ class PaletteSwatches extends StatelessWidget {
   ///
   /// The [generator] is optional. If it is null, then the display will
   /// just be an empty container.
-  const PaletteSwatches({Key? key, required this.generator}) : super(key: key);
+  const PaletteSwatches({super.key, required this.generator});
 
   /// The [PaletteGenerator] that contains all of the swatches that we're going
   /// to display.
@@ -175,10 +175,10 @@ class PaletteSwatch extends StatelessWidget {
   /// If the [color] argument is omitted, then the swatch will show a
   /// placeholder instead, to indicate that there is no color.
   const PaletteSwatch({
-    Key? key,
+    super.key,
     this.color,
     this.label,
-  }) : super(key: key);
+  });
 
   /// The color of the swatch. May be null.
   final Color? color;

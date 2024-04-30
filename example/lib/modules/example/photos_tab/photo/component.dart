@@ -7,7 +7,7 @@ import 'controller.dart';
 class PhotoComponent extends StatelessWidget {
   final String url;
 
-  const PhotoComponent({Key? key, required this.url}) : super(key: key);
+  const PhotoComponent({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {

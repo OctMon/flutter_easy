@@ -7,7 +7,7 @@ import 'controller.dart';
 class ProfilePage extends StatelessWidget {
   final controller = Get.put(ProfileController());
 
-  ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {

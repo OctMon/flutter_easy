@@ -5,7 +5,7 @@ import '../../../routes.dart';
 import 'logic.dart';
 
 class ImageGirlListPage extends StatelessWidget {
-  ImageGirlListPage({Key? key}) : super(key: key);
+  ImageGirlListPage({super.key});
 
   final logic = Get.put(ImageGirlListLogic());
 
@@ -26,7 +26,7 @@ class ImageGirlListPage extends StatelessWidget {
           itemBuilder: (context, index) {
             final model = state?[index];
             if (model == null) {
-              return SizedBox.shrink();
+              return const SizedBox.shrink();
             }
             final width = (screenWidthDp - 30);
 

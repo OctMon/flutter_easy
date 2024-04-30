@@ -49,6 +49,6 @@ class HomeController extends GetxController
     pathList.value = List.generate(
         list.length,
         (index) => BaseKeyValue(
-            key: "${functions[index]}", value: "${list[index]?.path}"));
+            key: functions[index], value: "${list[index]?.path}"));
   }
 }

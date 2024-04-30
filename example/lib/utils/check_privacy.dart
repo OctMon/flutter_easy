@@ -69,7 +69,7 @@ Future<bool> checkPrivacy() async {
             Expanded(
               child: BaseBackgroundButton(
                 borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(10)),
+                    const BorderRadius.only(bottomLeft: Radius.circular(10)),
                 title: Text(
                   S.current.exampleDisagree,
                   style: TextStyle(
@@ -87,7 +87,7 @@ Future<bool> checkPrivacy() async {
             Expanded(
               child: BaseBackgroundButton(
                 borderRadius:
-                    BorderRadius.only(bottomRight: Radius.circular(10)),
+                    const BorderRadius.only(bottomRight: Radius.circular(10)),
                 title: Text(
                   S.current.exampleAgree,
                   style: TextStyle(

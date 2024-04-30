@@ -8,7 +8,7 @@ import 'photo/component.dart';
 class PhotosTabPage extends StatelessWidget {
   final controller = Get.put(PhotosTabController());
 
-  PhotosTabPage({Key? key}) : super(key: key);
+  PhotosTabPage({super.key});
 
   @override
   Widget build(BuildContext context) {

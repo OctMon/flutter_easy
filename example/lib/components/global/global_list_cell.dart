@@ -5,8 +5,7 @@ class GlobalListCell extends StatelessWidget {
   final BaseKeyValue item;
   final VoidCallback? onPressed;
 
-  const GlobalListCell({Key? key, required this.item, this.onPressed})
-      : super(key: key);
+  const GlobalListCell({super.key, required this.item, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

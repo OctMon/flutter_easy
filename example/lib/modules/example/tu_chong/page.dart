@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:flutter_easy_example/routes.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:flutter_easy_example/modules/example/tu_chong/model.dart';
 import 'controller.dart';
@@ -13,7 +12,7 @@ const double _kSpacing = 4;
 class TuChongPage extends StatelessWidget {
   final TuChongController controller = Get.put(TuChongController());
 
-  TuChongPage({Key? key}) : super(key: key);
+  TuChongPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class TuChongPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    MasonryGridView.count(
+                    BaseMasonryGridView.count(
                       padding:
                           const EdgeInsets.symmetric(horizontal: _kSpacing),
                       shrinkWrap: true,

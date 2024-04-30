@@ -10,7 +10,7 @@ import 'controller.dart';
 class RootPage extends StatelessWidget {
   final RootController controller = Get.put(RootController());
 
-  RootPage({Key? key}) : super(key: key);
+  RootPage({super.key});
 
   @override
   Widget build(BuildContext context) {

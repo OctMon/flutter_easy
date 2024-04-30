@@ -7,7 +7,7 @@ import 'package:flutter_easy_example/routes.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 class ExampleListPage extends StatelessWidget {
-  const ExampleListPage({Key? key}) : super(key: key);
+  const ExampleListPage({super.key});
 
   @override
   Widget build(BuildContext context) {

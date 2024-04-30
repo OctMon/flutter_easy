@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
   final HomeState state = Get.find<HomeController>().state;
 
-  HomePage({Key? key}) : super(key: key);
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class HomePage extends StatelessWidget {
         }),
         actions: [
           BaseButton(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: const Icon(Icons.volunteer_activism),
               onPressed: () {
                 showChangeColorDialog(context, controller.color.value,

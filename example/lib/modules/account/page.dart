@@ -9,7 +9,7 @@ import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 
 class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  const AccountPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ const List<ThemeMode> _themeModes = [
 ];
 
 class ThemeMenuPopupView extends StatelessWidget {
-  const ThemeMenuPopupView({Key? key}) : super(key: key);
+  const ThemeMenuPopupView({super.key});
 
   @override
   Widget build(BuildContext context) {

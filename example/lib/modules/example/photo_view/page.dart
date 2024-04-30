@@ -3,7 +3,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class PhotoViewPage extends StatelessWidget {
-  const PhotoViewPage({Key? key}) : super(key: key);
+  const PhotoViewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +14,8 @@ class PhotoViewPage extends StatelessWidget {
         title: Text(data[index].key),
         actions: [
           BaseButton(
-            padding: EdgeInsets.all(15),
-            child: Icon(Icons.download),
+            padding: const EdgeInsets.all(15),
+            child: const Icon(Icons.download),
             onPressed: () async {
               final imageUrl = data[index].value;
               showLoading();

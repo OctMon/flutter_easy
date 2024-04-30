@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
   final LoginController controller = Get.put(LoginController());
   final LoginState state = Get.find<LoginController>().state;
 
-  LoginPage({Key? key}) : super(key: key);
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {

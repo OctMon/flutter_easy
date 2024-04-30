@@ -20,8 +20,8 @@ Future<void> configAPI(String? baseURL) async {
 
   kFirstPage = 1;
 
-  const app_id = String.fromEnvironment("app_id");
-  const app_secret = String.fromEnvironment("app_secret");
+  const appId = String.fromEnvironment("app_id");
+  const appSecret = String.fromEnvironment("app_secret");
 
   NetworkUtil.init(
     Session(
@@ -48,8 +48,8 @@ Future<void> configAPI(String? baseURL) async {
         // }
         // options.contentType = Headers.formUrlEncodedContentType;
         // options.responseType = ResponseType.plain;
-        options.queryParameters["app_id"] = app_id;
-        options.queryParameters["app_secret"] = app_secret;
+        options.queryParameters["app_id"] = appId;
+        options.queryParameters["app_secret"] = appSecret;
         logRequest(options);
         return options;
       },
