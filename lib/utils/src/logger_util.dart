@@ -40,7 +40,7 @@ void _log(LoggerLevel level, dynamic message) {
     for (var line in formattedMessage.split('\n')) {
       print(line);
       if (line.length >= 966) {
-        developer.log(line);
+        developer.log("\n" + line, name: appName);
       }
       if (Get.isRegistered<EasyLogConsoleController>()) {
         Get.find<EasyLogConsoleController>().logs.add(line);
