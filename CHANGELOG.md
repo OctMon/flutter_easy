@@ -1,3 +1,6 @@
+## 3.7.1
+* judge media query size is empty
+
 ## 3.7.0
 * upgrade flutter 3.16.6
 
