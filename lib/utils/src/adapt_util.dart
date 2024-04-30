@@ -4,10 +4,10 @@ import 'global_util.dart';
 class AdaptUtil {
   static MediaQueryData? mediaQuery;
 
-  static late double _width;
-  static late double _height;
-  static late double _top;
-  static late double _bottom;
+  static double _width = 375;
+  static double _height = 812;
+  static double _top = 0;
+  static double _bottom = 0;
 
   static late double _devicePixelRatio;
 
@@ -16,7 +16,7 @@ class AdaptUtil {
   AdaptUtil._();
 
   static initContext(BuildContext context) {
-    if (mediaQuery == null) {
+    if (!MediaQuery.of(context).size.isEmpty) {
       mediaQuery = MediaQuery.of(context);
       _width = mediaQuery!.size.width;
       _height = mediaQuery!.size.height;
@@ -64,24 +64,24 @@ class AdaptUtil {
 }
 
 /// 当前设备宽度 dp
-double screenWidthDp = AdaptUtil.screenWidthDp();
+double get screenWidthDp => AdaptUtil.screenWidthDp();
 
 /// 当前设备高度 dp
-double screenHeightDp = AdaptUtil.screenHeightDp();
+double get screenHeightDp => AdaptUtil.screenHeightDp();
 
 /// 状态栏高度 dp 刘海屏会更高
-double screenStatusBarHeightDp = AdaptUtil.screenStatusBarHeightDp();
+double get screenStatusBarHeightDp => AdaptUtil.screenStatusBarHeightDp();
 
 /// 导航栏高度 dp
 double screenToolbarHeightDp = 44;
 
 /// 底部安全区距离 dp
-double screenBottomBarHeightDp = AdaptUtil.screenBottomBarHeightDp();
+double get screenBottomBarHeightDp => AdaptUtil.screenBottomBarHeightDp();
 
 /// The number of device pixels for each logical pixe
 double screenDevicePixelRatio = AdaptUtil.devicePixelRatio();
 
-bool isIPhoneX = screenBottomBarHeightDp > 0;
+bool get isIPhoneX => screenBottomBarHeightDp > 0;
 
 bool _noAdapt =
     isMacOS || (isWeb && !isWebInIos && !isWebInAndroid && !isWebInWeChat);
