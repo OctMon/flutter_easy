@@ -908,6 +908,7 @@ class BaseBackgroundButton extends StatelessWidget {
   final Widget? icon;
   final Widget? title;
   final BorderRadiusGeometry borderRadius;
+  final Border? border;
   final Color? color;
   final Color? pressedColor;
   final Color? disableColor;
@@ -922,6 +923,7 @@ class BaseBackgroundButton extends StatelessWidget {
     this.icon,
     this.title,
     this.borderRadius = const BorderRadius.all(Radius.circular(32)),
+    this.border,
     this.color,
     this.pressedColor,
     this.disableColor,
@@ -944,6 +946,7 @@ class BaseBackgroundButton extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: borderRadius,
+        border: border,
         color: (onPressed != null || onLongPress != null)
             ? (color ?? appTheme(context).primaryColor)
             : (disableColor ?? Colors.black12),
