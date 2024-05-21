@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -51,6 +52,32 @@ extension StringExtensions on String {
   /// RegExp Match pattern
   bool hasMatch(String pattern) {
     return RegExp(pattern).hasMatch(this);
+  }
+
+  /// 是否是弱密码
+  bool get isWeakPassword {
+    if (isNotEmpty != true) {
+      // 密码为空，弱密码
+      return true;
+    }
+    if (length < 8) {
+      // 位数不足，弱密码
+      return true;
+    }
+    Set set = HashSet();
+    for (var code in codeUnits) {
+      if (code >= 48 && code <= 57) {
+        set.add('数字');
+      } else if (code >= 65 && code <= 90) {
+        set.add('大写');
+      } else if (code >= 97 && code <= 122) {
+        set.add('小写');
+      } else {
+        set.add('特殊');
+      }
+    }
+    // 小于3种，弱密码
+    return set.length < 3;
   }
 }
 
