@@ -121,6 +121,7 @@ Future<Result> get(
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// data: 请求参数
+/// queryParameters: URL携带请求参数
 /// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
 /// autoLoading: 展示Loading
@@ -129,6 +130,7 @@ Future<Result> post(
     {String? baseUrl,
     String path = '',
     data,
+    Map<String, dynamic>? queryParameters,
     Duration? connectTimeout,
     BaseCancelToken? cancelToken,
     ProgressCallback? onSendProgress,
@@ -139,6 +141,7 @@ Future<Result> post(
       baseUrl: baseUrl,
       path: path,
       data: data,
+      queryParameters: queryParameters,
       options: Options(method: 'post'),
       connectTimeout: connectTimeout,
       cancelToken: cancelToken,
@@ -154,6 +157,7 @@ Future<Result> post(
 /// baseUrl: 主机地址
 /// path: 请求路径
 /// data: 请求参数
+/// queryParameters: URL携带请求参数
 /// connectTimeout: 超时时间
 /// validResult: 是否检验返回结果
 /// autoLoading: 展示Loading
