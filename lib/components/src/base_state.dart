@@ -61,9 +61,15 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   void updateResult<T>({required Result result, BaseComputeResult? compute}) {
     if (result.valid) {
       dynamic data = result.model ?? result.models.toList();
-      compute != null
-          ? compute(data, RxStatus.success())
-          : change(data, status: RxStatus.success());
+      if (data == null || (data is List && data.isEmpty)) {
+        compute != null
+            ? compute(null, RxStatus.empty())
+            : change(null, status: RxStatus.empty());
+      } else {
+        compute != null
+            ? compute(data, RxStatus.success())
+            : change(data, status: RxStatus.success());
+      }
     } else {
       compute != null
           ? compute(null, RxStatus.error(result.message))
