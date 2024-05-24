@@ -1,3 +1,9 @@
+## 3.8.0
+* updateResult judge null or empty
+* refactor BaseInkWell
+* post add queryParameters
+* BaseBackgroundButton add border
+
 ## 3.7.1
 * judge media query size is empty
 
