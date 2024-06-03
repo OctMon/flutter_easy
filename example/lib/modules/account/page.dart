@@ -8,8 +8,12 @@ import 'package:flutter_easy_example/components/global/global_list_cell.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 
+import 'controller.dart';
+
 class AccountPage extends StatelessWidget {
-  const AccountPage({super.key});
+  AccountPage({super.key});
+
+  final controller = Get.put(AccountController());
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +152,34 @@ class AccountPage extends StatelessWidget {
                   );
                 },
               ),
+              Obx(() {
+                return GlobalListCell(
+                  item: BaseKeyValue(
+                    key: "记录日志文件",
+                    value: controller.logEnable.value ? "ON" : "OFF",
+                    extend: Icons.file_copy_rounded,
+                  ),
+                  onPressed: () {
+                    controller.logEnable.toggle();
+                    logFile.enable = controller.logEnable.value;
+                  },
+                );
+              }),
+              Obx(() {
+                return GlobalListCell(
+                  item: BaseKeyValue(
+                    key: "清理日志文件",
+                    value: "${controller.logFilesCount.value}",
+                    extend: Icons.cleaning_services,
+                  ),
+                  onPressed: () async {
+                    showLoading();
+                    await logFile.clear();
+                    dismissLoading();
+                    controller.load();
+                  },
+                );
+              })
             ]),
           ),
         ],

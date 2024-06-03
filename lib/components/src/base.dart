@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:path/path.dart';
 
 /// TextScaler.linear(1.adaptRatio),
 TextScaler? baseDefaultTextScale = TextScaler.noScaling;
@@ -66,8 +67,7 @@ VoidCallback? _appBaseURLChangedCallback;
 Future<void> initEasyApp(
     {bool? showOnError,
     VoidCallback? appBaseURLChangedCallback,
-    ValueChanged<String>? customExceptionReport,
-    bool logPermanent = false}) async {
+    ValueChanged<String>? customExceptionReport}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
@@ -82,7 +82,8 @@ Future<void> initEasyApp(
     SharedPreferencesUtil.init(),
   ]);
 
-  Get.put(EasyLogConsoleController(), permanent: logPermanent);
+  logFile = LogFile(join((await getAppDocumentsDirectory()).path, "logs"));
+  logDebug("logFile: ${logFile.location}");
 
   void localLogWriter(String text, {bool isError = false}) {
     if (isError) {

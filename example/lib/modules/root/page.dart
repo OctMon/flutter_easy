@@ -30,7 +30,7 @@ class RootPage extends StatelessWidget {
     final List<Widget> children = [
       HomePage(),
       const ExampleListPage(),
-      const AccountPage(),
+      AccountPage(),
     ];
 
     return ObxValue<Rx<int>>((data) {

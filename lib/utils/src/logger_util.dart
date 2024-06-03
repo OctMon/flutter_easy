@@ -1,10 +1,14 @@
 import 'dart:developer' as developer;
+import 'dart:io';
 
+import 'package:dart_art/dart_art.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:share_plus/share_plus.dart';
+
+late LogFile logFile;
 
 String _costumeSplitter = " ";
 
@@ -17,36 +21,144 @@ String _colorize(String message, LoggerLevel logLevel) {
 }
 
 void _log(LoggerLevel level, dynamic message) {
-  if (isDebug || isAppDebugFlag) {
-    final dateTime = DateTime.now();
-    var timestamp = _addCostumeSplitter(
-        '${dateTime.year}-${twoDigits(dateTime.month)}-${twoDigits(dateTime.day)} ${twoDigits(dateTime.hour)}:${twoDigits(dateTime.minute)}:${twoDigits(dateTime.second)}');
-    var logLevel = _addCostumeSplitter(level.name);
-    var formattedMessage = timestamp + _costumeSplitter + logLevel;
-    formattedMessage += _costumeSplitter + "$message";
+  final dateTime = DateTime.now();
+  var timestamp = _addCostumeSplitter(
+      '${dateTime.year}-${twoDigits(dateTime.month)}-${twoDigits(dateTime.day)} ${twoDigits(dateTime.hour)}:${twoDigits(dateTime.minute)}:${twoDigits(dateTime.second)}');
+  var logLevel = _addCostumeSplitter(level.name);
+  var formattedMessage = timestamp + _costumeSplitter + logLevel;
+  formattedMessage += _costumeSplitter + "$message";
 
+  logFile.log(formattedMessage);
+
+  if (isDebug || isAppDebugFlag) {
     if (isIOS) {
       developer.log(formattedMessage, name: appName);
-      if (Get.isRegistered<EasyLogConsoleController>()) {
-        Get.find<EasyLogConsoleController>().logs.add(formattedMessage);
-      }
-      return;
-    }
+    } else {
+      var colorMessage =
+          _addCostumeSplitter(appName) + _costumeSplitter + formattedMessage;
+      colorMessage = _colorize(formattedMessage, level);
 
-    formattedMessage =
-        _addCostumeSplitter(appName) + _costumeSplitter + formattedMessage;
-    formattedMessage = _colorize(formattedMessage, level);
-
-    for (var line in formattedMessage.split('\n')) {
-      print(line);
-      if (line.length >= 966) {
-        developer.log("\n" + line, name: appName);
-      }
-      if (Get.isRegistered<EasyLogConsoleController>()) {
-        Get.find<EasyLogConsoleController>().logs.add(line);
+      for (var line in colorMessage.split('\n')) {
+        print(line);
+        if (line.length >= 966) {
+          developer.log("\n" + line, name: appName);
+        }
       }
     }
   }
+}
+
+class LogFile {
+  final buffer = <String>[];
+
+  late String fileNamePattern = '@yyyy-@MM-@dd-@HH-@id.log';
+
+  final String location;
+
+  late BinarySize singleFileSizeLimit = BinarySize.parse('10 MB')!;
+
+  late int _fileId = 0;
+
+  late bool enable;
+
+  LogFile(this.location) {
+    _fileId = getNextId();
+    enable = isAppDebugFlag;
+  }
+
+  int getNextId() {
+    var lastIdFile = File('$location/options/last_id');
+    if (lastIdFile.existsSync()) {
+      var result = int.parse(lastIdFile.readAsStringSync());
+      lastIdFile.writeAsStringSync((result + 1).toString());
+      return result + 1;
+    } else {
+      lastIdFile
+        ..createSync(recursive: true)
+        ..writeAsStringSync('1');
+      return 1;
+    }
+  }
+
+  String getFileName() {
+    var now = DateTime.now();
+
+    var fileName = fileNamePattern
+        .replaceAll('@yyyy', now.year.toString().padLeft(4, '0'))
+        .replaceAll('@MM', now.month.toString().padLeft(2, '0'))
+        .replaceAll('@dd', now.day.toString().padLeft(2, '0'))
+        .replaceAll('@HH', now.hour.toString().padLeft(2, '0'))
+        .replaceAll('@mm', now.minute.toString().padLeft(2, '0'))
+        .replaceAll('@ss', now.second.toString().padLeft(2, '0'))
+        .replaceAll('@id', _fileId.toString());
+
+    var file = File('$location/$fileName');
+    if (file.existsSync()) {
+      var size = BinarySize()..bytesCount = file.lengthSync();
+      if (size > singleFileSizeLimit) {
+        _fileId = getNextId();
+        return getFileName();
+      }
+    }
+
+    return fileName;
+  }
+
+  void log(String message) {
+    if (enable) {
+      _pushLine(message);
+    }
+  }
+
+  void _pushLine(String line) {
+    buffer.add(line);
+
+    // if (options.useBuffer == false || buffer.length >= options.bufferLineLength) {
+    flush();
+
+    buffer.clear();
+    // }
+  }
+
+  void flush() {
+    var file = File('$location/${getFileName()}');
+    if (file.existsSync() == false) {
+      file.createSync(recursive: true);
+    }
+
+    var content = '${buffer.join('\n')}\n';
+    file.writeAsStringSync(content, mode: FileMode.writeOnlyAppend);
+  }
+
+  Future<String> read() {
+    var file = File('$location/${getFileName()}');
+    if (file.existsSync() == false) {
+      file.createSync(recursive: true);
+    }
+
+    return file.readAsString();
+  }
+
+  Future<int> filesCount() async {
+    var dir = await Directory(logFile.location);
+    if (dir.existsSync()) {
+      return await dir.list().length - 1;
+    }
+    return 0;
+  }
+
+  Future<void> clear() async {
+    var dir = await Directory(logFile.location);
+    if (dir.existsSync()) {
+      return dir.deleteSync(recursive: true);
+    }
+  }
+}
+
+class LogFileClearMode {
+  static const oldFiles = 1;
+
+  static const outSizedFiles = 2;
 }
 
 class LoggerLevel {
@@ -184,11 +296,6 @@ ${result.response?.data is Map ? jsonEncode(result.response?.data) : result.resp
   logInfo(string);
 }
 
-class EasyLogConsoleController extends GetxController {
-  /// 所有的日志
-  var logs = <String>[];
-}
-
 class EasyLogController extends GetxController {
   final scrollController = ScrollController();
 
@@ -196,11 +303,11 @@ class EasyLogController extends GetxController {
   var logs = <String>[].obs;
 
   /// 在最下面标志
-  var followBottom = true.obs;
+  var followBottom = false.obs;
 
   @override
   void onInit() {
-    logs.value = Get.find<EasyLogConsoleController>().logs;
+    logFile.read().then((value) => logs.value = value.split("\n"));
     scrollController.addListener(() {
       updateFollowBottom();
     });
