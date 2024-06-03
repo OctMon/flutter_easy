@@ -66,6 +66,7 @@ VoidCallback? _appBaseURLChangedCallback;
 /// flutter run --release --dart-define=app-debug-flag=true
 Future<void> initEasyApp(
     {bool? showOnError,
+    bool? logToFile,
     VoidCallback? appBaseURLChangedCallback,
     ValueChanged<String>? customExceptionReport}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
@@ -82,7 +83,9 @@ Future<void> initEasyApp(
     SharedPreferencesUtil.init(),
   ]);
 
-  logFile = LogFile(join((await getAppDocumentsDirectory()).path, "logs"));
+  logToFile ??= isAppDebugFlag;
+  logFile = LogFile(join((await getAppDocumentsDirectory()).path, "logs"),
+      enable: logToFile);
   logDebug("logFile: ${logFile.location}");
 
   void localLogWriter(String text, {bool isError = false}) {

@@ -61,9 +61,9 @@ class LogFile {
 
   late bool enable;
 
-  LogFile(this.location) {
+  LogFile(this.location, {required bool enable}) {
     _fileId = getNextId();
-    enable = isAppDebugFlag;
+    this.enable = enable;
   }
 
   int getNextId() {
@@ -393,6 +393,7 @@ class EasyLogPage extends StatelessWidget {
               CupertinoIcons.bin_xmark,
             ),
             onPressed: () {
+              logFile.clear();
               controller.logs.clear();
             },
           ),
