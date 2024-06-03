@@ -139,6 +139,14 @@ class LogFile {
     return file.readAsString();
   }
 
+  Future<File?> getCurrentFile() async {
+    var file = File('$location/${getFileName()}');
+    if (file.existsSync() == false) {
+      return null;
+    }
+    return file;
+  }
+
   Future<int> filesCount() async {
     var dir = await Directory(logFile.location);
     if (dir.existsSync()) {

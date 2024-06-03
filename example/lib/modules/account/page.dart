@@ -162,6 +162,7 @@ class AccountPage extends StatelessWidget {
                   onPressed: () {
                     controller.logEnable.toggle();
                     logFile.enable = controller.logEnable.value;
+                    controller.load();
                   },
                 );
               }),

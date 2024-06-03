@@ -11,6 +11,7 @@ class AccountController extends GetxController {
   }
 
   Future<void> load() async {
+    logDebug("getCurrentFile: ${await logFile.getCurrentFile()}");
     logFilesCount.value = await logFile.filesCount();
   }
 }
