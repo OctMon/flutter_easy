@@ -1,3 +1,6 @@
+## 3.8.1
+* add log to file
+
 ## 3.8.0
 * updateResult judge null or empty
 * refactor BaseInkWell
