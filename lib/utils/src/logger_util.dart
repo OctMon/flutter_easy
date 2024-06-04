@@ -1,7 +1,6 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:dart_art/dart_art.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +54,6 @@ class LogFile {
 
   final String location;
 
-  late BinarySize singleFileSizeLimit = BinarySize.parse('10 MB')!;
-
   late int _fileId = 0;
 
   late bool enable;
@@ -92,14 +89,14 @@ class LogFile {
         .replaceAll('@ss', now.second.toString().padLeft(2, '0'))
         .replaceAll('@id', _fileId.toString());
 
-    var file = File('$location/$fileName');
-    if (file.existsSync()) {
-      var size = BinarySize()..bytesCount = file.lengthSync();
-      if (size > singleFileSizeLimit) {
-        _fileId = getNextId();
-        return getFileName();
-      }
-    }
+    // var file = File('$location/$fileName');
+    // if (file.existsSync()) {
+      // var size = BinarySize()..bytesCount = file.lengthSync();
+      // if (size > singleFileSizeLimit) {
+      //   _fileId = getNextId();
+      //   return getFileName();
+      // }
+    // }
 
     return fileName;
   }
