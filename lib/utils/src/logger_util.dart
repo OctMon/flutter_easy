@@ -145,17 +145,30 @@ class LogFile {
   }
 
   Future<int> filesCount() async {
-    var dir = await Directory(logFile.location);
+    var dir = await Directory(location);
     if (dir.existsSync()) {
       return await dir.list().length - 1;
     }
     return 0;
   }
 
-  Future<void> clear() async {
-    var dir = await Directory(logFile.location);
+  Future<List<String>> files() async {
+    var dir = await Directory(location);
+    var list = <String>[];
     if (dir.existsSync()) {
-      return dir.deleteSync(recursive: true);
+      for (var value in dir.listSync()) {
+        FileSystemEntityType type = FileSystemEntity.typeSync(value.path);
+        if (type == FileSystemEntityType.file) {
+          list.add(value.path);
+        }
+      }
+    }
+    return list;
+  }
+
+  Future<void> clear() async {
+    for (var path in await files()) {
+      await File(path).delete();
     }
   }
 }
