@@ -50,7 +50,7 @@ void _log(LoggerLevel level, dynamic message) {
 class LogFile {
   final buffer = <String>[];
 
-  late String fileNamePattern = '@yyyy-@MM-@dd-@HH-@id.log';
+  late String fileNamePattern = '@id.log';
 
   final String location;
 
