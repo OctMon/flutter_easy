@@ -257,7 +257,7 @@ void logResponse(Result result) {
   if (result.error != null) {
     logWarning("""
 \n->->->->->->->->->->Response->->->->->->->->->
-[URL] ${result.response?.requestOptions.uri}
+[URL] ${result.requestOptions?.uri}
 ----------------------${result.response?.statusCode}------------------->
 [Error] ${result.error}: ${result.message}
 ->->->->->->->->->->Response->->->->->->->->->
