@@ -7,6 +7,7 @@ var kPlaceholderImageEmpty = assetsImagesPath("placeholder_empty");
 
 /// 占位图默认宽高
 double kPlaceholderImageWidth = 180.adaptRatio;
+double kPlaceholderImageBottom = 30;
 
 class BasePlaceholderView extends StatelessWidget {
   final String? title;
@@ -41,7 +42,7 @@ class BasePlaceholderView extends StatelessWidget {
               Visibility(
                 visible: placeholderImagePath.isNotEmpty,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
+                  padding: EdgeInsets.only(bottom: kPlaceholderImageBottom),
                   child: Image.asset(
                     placeholderImagePath,
                     width: kPlaceholderImageWidth,
