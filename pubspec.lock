@@ -412,10 +412,10 @@ packages:
     dependency: "direct main"
     description:
       name: session
-      sha256: "9c1244bbe482ba7ab2d988d4aaaac2e1c0681a33ed4c1351316b25d979724097"
+      sha256: ea01fd4168fd3e1eb840b2f366c15c4dde8be570f47ccdb3b8250db05716d317
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.2"
+    version: "1.2.3"
   share_plus:
     dependency: "direct main"
     description:

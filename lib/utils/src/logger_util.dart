@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:share_plus/share_plus.dart';
 
+import 'binary_size.dart';
+
 late LogFile logFile;
 
 String _costumeSplitter = " ";
@@ -54,6 +56,8 @@ class LogFile {
 
   final String location;
 
+  late BinarySize singleFileSizeLimit = BinarySize.parse('10 MB')!;
+
   late int _fileId = 0;
 
   late bool enable;
@@ -95,14 +99,14 @@ class LogFile {
         .replaceAll('@ss', now.second.toString().padLeft(2, '0'))
         .replaceAll('@id', _fileId.toString());
 
-    // var file = File('$location/$fileName');
-    // if (file.existsSync()) {
-      // var size = BinarySize()..bytesCount = file.lengthSync();
-      // if (size > singleFileSizeLimit) {
-      //   _fileId = getNextId();
-      //   return getFileName();
-      // }
-    // }
+    var file = File('$location/$fileName');
+    if (file.existsSync()) {
+      var size = BinarySize()..bytesCount = file.lengthSync();
+      if (size > singleFileSizeLimit) {
+        _fileId = getNextId();
+        return getFileName();
+      }
+    }
 
     return fileName;
   }
@@ -260,7 +264,7 @@ void logResponse(Result result) {
   if (result.error != null) {
     logWarning("""
 \n->->->->->->->->->->Response->->->->->->->->->
-[URL] ${result.response?.requestOptions.uri}
+[URL] ${result.requestOptions?.uri}
 ----------------------${result.response?.statusCode}------------------->
 [Error] ${result.error}: ${result.message}
 ->->->->->->->->->->Response->->->->->->->->->
@@ -296,7 +300,7 @@ ${result.response?.requestOptions.data is Map ? jsonEncode(result.response?.requ
 """;
   }
   string +=
-      "----------------------${result.response?.statusCode}------------------->";
+  "----------------------${result.response?.statusCode}------------------->";
   if (result.response?.headers != null &&
       !result.response!.headers.isEmptyOrNull) {
     string += """
