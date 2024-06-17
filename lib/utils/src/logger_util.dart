@@ -61,7 +61,13 @@ class LogFile {
 
   late bool enable;
 
-  LogFile(this.location, {required bool enable}) {
+  LogFile(this.location, {required bool enable, String? singleFileSizeLimit}) {
+    if (singleFileSizeLimit != null) {
+      final size = BinarySize.parse(singleFileSizeLimit);
+      if (size != null) {
+        this.singleFileSizeLimit = size;
+      }
+    }
     _fileId = getNextId();
     this.enable = enable;
   }
