@@ -67,6 +67,13 @@ dependencies:
   package_info_plus: ^8.0.0
 
   # ===============================================================================
+  # Flutter plugin providing detailed information about the device (make, model, etc.), and Android or iOS version the app is running on.
+  # pub：https://pub.dev/packages/device_info_plus
+  # git：https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus
+  # ===============================================================================
+  device_info_plus: ^10.1.0
+
+  # ===============================================================================
   # A Flutter plugin for launching a URL in the mobile platform. Supports iOS and Android.
   # pub: https://pub.dev/packages/url_launcher
   # git: https://github.com/flutter/plugins/tree/master/packages/url_launcher

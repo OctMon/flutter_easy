@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy/utils/src/device_info_util.dart';
 import 'package:flutter_easy_example/utils/change_theme.dart';
 
 import 'controller.dart';
@@ -160,6 +161,15 @@ class HomePage extends StatelessWidget {
                       code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
                       value: timestampToNormal_yyyy_MM_dd_HH_mm_ss(
                           timestampNow())),
+                  buildTableRowTop(code: "device", value: "value"),
+                  buildTableRow(code: "deviceModel", value: deviceModel),
+                  buildTableRow(code: "deviceBrand", value: deviceBrand),
+                  buildTableRow(code: "deviceName", value: deviceName),
+                  buildTableRow(
+                      code: "deviceSystemVersion", value: deviceSystemVersion),
+                  buildTableRow(
+                      code: "deviceIsPhysicalDevice",
+                      value: "$deviceIsPhysicalDevice"),
                   buildTableRowTop(code: "is", value: "value"),
                   buildTableRow(code: "isProduction", value: "$isProduction"),
                   buildTableRow(code: "isDebug", value: "$isDebug"),
@@ -221,6 +231,14 @@ class HomePage extends StatelessWidget {
                       code: "\"OctMon\".hmacSha256",
                       value: "OctMon".hmacSha256ToBase64),
                   buildTableRowTop(code: "other", value: "value"),
+                  buildTableRow(
+                    code: "operatingSystemVersion",
+                    value: operatingSystemVersion,
+                  ),
+                  buildTableRow(
+                    code: "operatingSystem",
+                    value: operatingSystem,
+                  ),
                   buildTableRow(code: "webUserAgent", value: webUserAgent),
                   buildTableRow(
                       code: "randomInt(100)", value: '${randomInt(100)}'),

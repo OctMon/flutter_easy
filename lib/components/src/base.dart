@@ -9,6 +9,8 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:path/path.dart';
 
+import '../../utils/src/device_info_util.dart';
+
 /// TextScaler.linear(1.adaptRatio),
 TextScaler? baseDefaultTextScale = TextScaler.noScaling;
 
@@ -81,6 +83,7 @@ Future<void> initEasyApp(
 
   final utils = await Future.wait([
     PackageInfoUtil.init(),
+    DeviceInfoUtil.init(),
     SharedPreferencesUtil.init(),
   ]);
 
