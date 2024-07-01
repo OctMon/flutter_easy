@@ -3,26 +3,29 @@ import 'package:device_info_plus/device_info_plus.dart';
 class DeviceInfoUtil {
   DeviceInfoUtil._();
 
+  static late BaseDeviceInfo deviceInfo;
+
   /// 初始化应用信息
   static Future<BaseDeviceInfo> init() async {
-    final deviceInfo = await DeviceInfoPlugin().deviceInfo;
-    if (deviceInfo is AndroidDeviceInfo) {
-      deviceModel = deviceInfo.model;
-      deviceBrand = deviceInfo.brand;
-      deviceName = deviceInfo.product;
-      deviceSystemVersion = "${deviceInfo.version.sdkInt}";
-      deviceIsPhysicalDevice = deviceInfo.isPhysicalDevice;
-    } else if (deviceInfo is IosDeviceInfo) {
-      deviceModel = deviceInfo.utsname.machine;
-      deviceBrand = deviceInfo.model;
-      deviceName = deviceInfo.name;
-      deviceSystemVersion = deviceInfo.systemVersion;
-      deviceIsPhysicalDevice = deviceInfo.isPhysicalDevice;
-    } else if (deviceInfo is MacOsDeviceInfo) {
-      deviceModel = deviceInfo.model;
+    final tmp = await DeviceInfoPlugin().deviceInfo;
+    deviceInfo = tmp;
+    if (tmp is AndroidDeviceInfo) {
+      deviceModel = tmp.model;
+      deviceBrand = tmp.brand;
+      deviceName = tmp.product;
+      deviceSystemVersion = "${tmp.version.sdkInt}";
+      deviceIsPhysicalDevice = tmp.isPhysicalDevice;
+    } else if (tmp is IosDeviceInfo) {
+      deviceModel = tmp.utsname.machine;
+      deviceBrand = tmp.model;
+      deviceName = tmp.name;
+      deviceSystemVersion = tmp.systemVersion;
+      deviceIsPhysicalDevice = tmp.isPhysicalDevice;
+    } else if (tmp is MacOsDeviceInfo) {
+      deviceModel = tmp.model;
       deviceBrand = "Mac";
-      deviceName = deviceInfo.computerName;
-      deviceSystemVersion = deviceInfo.osRelease;
+      deviceName = tmp.computerName;
+      deviceSystemVersion = tmp.osRelease;
       deviceIsPhysicalDevice = true;
     }
     return deviceInfo;
