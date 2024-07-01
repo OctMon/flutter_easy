@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_easy/utils/src/device_info_util.dart';
 import 'package:flutter_easy_example/utils/change_theme.dart';
 
 import 'controller.dart';
