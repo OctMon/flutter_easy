@@ -83,7 +83,6 @@ Future<void> initEasyApp(
 
   final utils = await Future.wait([
     PackageInfoUtil.init(),
-    DeviceInfoUtil.init(),
     SharedPreferencesUtil.init(),
   ]);
 
