@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easy/utils/src/device_info_util.dart';
 import 'package:flutter_easy/utils/src/package_info_util.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
 import 'package:path/path.dart';
@@ -40,6 +42,14 @@ bool isWindows = kIsWeb ? false : Platform.isWindows;
 bool isLinux = kIsWeb ? false : Platform.isLinux;
 
 bool isAndroid = kIsWeb ? false : Platform.isAndroid;
+
+bool get isIPad {
+  final deviceInfo = DeviceInfoUtil.deviceInfo;
+  if (deviceInfo is IosDeviceInfo) {
+    return deviceInfo.utsname.machine.toLowerCase().contains("ipad");
+  }
+  return false;
+}
 
 bool isDesktop = (kIsWeb || isPhone) ? false : true;
 
