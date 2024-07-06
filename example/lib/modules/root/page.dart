@@ -33,34 +33,36 @@ class RootPage extends StatelessWidget {
       AccountPage(),
     ];
 
-    return ObxValue<Rx<int>>((data) {
-      return BaseScaffold(
-        body: IndexedStack(
-          index: data.value,
-          children: children,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          selectedFontSize: 12,
-          selectedItemColor: appTheme(context).indicatorColor,
-          currentIndex: data.value,
-          items: List.generate(titles.length, (index) {
-            return BottomNavigationBarItem(
-              icon: Icon(icons[index]),
-              activeIcon: Icon(
-                icons[index],
-                color: appTheme(context).indicatorColor,
-              ),
-              label: titles[index],
-              // title: Container(),
-            );
-          }),
-          onTap: (index) {
-            data.value = index;
-            controller.currentIndex.value = index;
-          },
-        ),
-      );
-    }, controller.currentIndex);
+    return BaseNavigatorPopExit(
+      child: ObxValue<Rx<int>>((data) {
+        return BaseScaffold(
+          body: IndexedStack(
+            index: data.value,
+            children: children,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            selectedFontSize: 12,
+            selectedItemColor: appTheme(context).indicatorColor,
+            currentIndex: data.value,
+            items: List.generate(titles.length, (index) {
+              return BottomNavigationBarItem(
+                icon: Icon(icons[index]),
+                activeIcon: Icon(
+                  icons[index],
+                  color: appTheme(context).indicatorColor,
+                ),
+                label: titles[index],
+                // title: Container(),
+              );
+            }),
+            onTap: (index) {
+              data.value = index;
+              controller.currentIndex.value = index;
+            },
+          ),
+        );
+      }, controller.currentIndex),
+    );
   }
 }

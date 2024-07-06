@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 
+import '../app.dart';
 import '../routes.dart';
 
 Future<bool> checkPrivacy() async {
-  final kPrivacy = "checkPrivacy".md5;
-  if (await getStorageBool(kPrivacy) == true) {
+  if (await getStorageBool(kNonFirstUseAppKey) == true) {
     return false;
   }
 
@@ -78,7 +78,6 @@ Future<bool> checkPrivacy() async {
                   ),
                 ),
                 onPressed: () {
-                  offBack(true);
                   exit(exitCode);
                 },
               ),
@@ -96,7 +95,7 @@ Future<bool> checkPrivacy() async {
                   ),
                 ),
                 onPressed: () {
-                  setStorageBool(kPrivacy, true);
+                  setStorageBool(kNonFirstUseAppKey, true);
                   offBack(true);
                 },
               ),

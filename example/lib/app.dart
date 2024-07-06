@@ -8,17 +8,33 @@ import 'generated/l10n.dart';
 import 'routes.dart';
 import 'store/user/store.dart';
 
+/// 非首次使用 app
+final kNonFirstUseAppKey = "first_open_key".md5;
+
 Future<void> initApp() async {
   // Encrypt password
   StorageUtil.setEncrypt("963K3REfb30szs1n");
   // Load user info
   await Get.putAsync(() => UserStore().load());
-  // Load API
-  configAPI(null);
 
-  BaseWebImage.logEnabled = true;
-  baseWebImageHandleLoadingProgress = true;
+  if (isDebug || isAppDebugFlag) {
+    BaseWebImage.logEnabled = true;
+    baseWebImageHandleLoadingProgress = true;
+  }
   baseWebImageDefaultErrorPlaceholder = const Icon(Icons.wifi_tethering_error);
+
+  // 首次使用 app
+  final noFirstOpen = await getStorageBool(kNonFirstUseAppKey);
+  if (isIOS || noFirstOpen) {
+    await initAfterPrivate();
+  }
+}
+
+Future<void> initAfterPrivate() async {
+  DeviceInfoUtil.init();
+
+  // Load API
+  await configAPI(null);
 }
 
 class MyApp extends StatelessWidget {

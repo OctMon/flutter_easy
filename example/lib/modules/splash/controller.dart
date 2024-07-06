@@ -1,6 +1,9 @@
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/routes.dart';
 
+import '../../app.dart';
+import '../../utils/check_privacy.dart';
+
 class SplashController extends GetxController {
   /// 闪屏页倒计时
   var countDown = (-1).obs;
@@ -10,12 +13,14 @@ class SplashController extends GetxController {
 
   @override
   void onReady() {
-    // if (isProduction) {
+    if (isAndroid) {
+      checkPrivacy().then((value) async {
+        await initAfterPrivate();
+        _startCountdownTimer();
+      });
+    } else {
       _startCountdownTimer();
-    // } else {
-    //   toRoot();
-    // }
-
+    }
     super.onReady();
   }
 
