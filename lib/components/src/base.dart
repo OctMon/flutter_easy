@@ -213,6 +213,7 @@ class _BaseAppState extends State<BaseApp> {
     Widget _buildBannerUrlType({required Widget child}) {
       if (isAppDebugFlag && widget.debugShowCheckedModeBanner != false) {
         return Obx(() {
+          final showDebugTools = widget.showDebugTools ?? isAppDebugFlag;
           return Banner(
             color: Colors.deepPurple,
             message: kBaseURLType == BaseURLType.release ? "Release" : "Test",
@@ -220,11 +221,8 @@ class _BaseAppState extends State<BaseApp> {
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
-                Visibility(
-                  visible: widget.showDebugTools ?? isAppDebugFlag,
-                  replacement: child,
-                  child: _DebugPage(child: child),
-                ),
+                if (showDebugTools) _DebugPage(child: child),
+                if (!showDebugTools) child,
                 SizedBox(
                   height: screenStatusBarHeightDp,
                   child: Material(
