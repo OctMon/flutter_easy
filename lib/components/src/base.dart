@@ -9,8 +9,6 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:path/path.dart';
 
-import '../../utils/src/device_info_util.dart';
-
 /// TextScaler.linear(1.adaptRatio),
 TextScaler? baseDefaultTextScale = TextScaler.noScaling;
 
@@ -175,6 +173,7 @@ class BaseApp extends StatefulWidget {
   final Locale? locale;
   final LocaleResolutionCallback? localeResolutionCallback;
   final bool? debugShowCheckedModeBanner;
+  final bool? showDebugTools;
 
   BaseApp({
     this.title = "",
@@ -191,6 +190,7 @@ class BaseApp extends StatefulWidget {
     this.locale,
     this.localeResolutionCallback,
     this.debugShowCheckedModeBanner,
+    this.showDebugTools,
   });
 
   @override
@@ -220,7 +220,11 @@ class _BaseAppState extends State<BaseApp> {
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
-                _DebugPage(child: child),
+                Visibility(
+                  visible: widget.showDebugTools ?? isAppDebugFlag,
+                  replacement: child,
+                  child: _DebugPage(child: child),
+                ),
                 SizedBox(
                   height: screenStatusBarHeightDp,
                   child: Material(
