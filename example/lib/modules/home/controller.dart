@@ -12,6 +12,12 @@ class HomeController extends GetxController
   final RxList<BaseKeyValue> pathList = <BaseKeyValue>[].obs;
 
   @override
+  void onClose() {
+    state.animationController.dispose();
+    super.onClose();
+  }
+
+  @override
   void onInit() {
     state.animationController = AnimationController(
         vsync: this /*NavigatorState()*/,
@@ -48,7 +54,7 @@ class HomeController extends GetxController
     ]);
     pathList.value = List.generate(
         list.length,
-        (index) => BaseKeyValue(
-            key: functions[index], value: "${list[index]?.path}"));
+        (index) =>
+            BaseKeyValue(key: functions[index], value: "${list[index]?.path}"));
   }
 }

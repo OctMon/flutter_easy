@@ -143,7 +143,7 @@ dynamic initAppBarLeading;
 
 abstract class PlatformWidget<M extends Widget, C extends Widget>
     extends StatelessWidget {
-  const PlatformWidget({Key? key}) : super(key: key);
+  const PlatformWidget({super.key});
 
   M buildMaterialWidget(BuildContext context);
 
@@ -302,7 +302,7 @@ const double _kDebugIconSize = 50;
 class _DebugPage extends StatefulWidget {
   final Widget child;
 
-  const _DebugPage({Key? key, required this.child}) : super(key: key);
+  const _DebugPage({required this.child});
 
   @override
   __DebugPageState createState() => __DebugPageState();
@@ -806,7 +806,8 @@ class BaseButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   BaseButton(
-      {this.padding,
+      {super.key,
+      this.padding,
       this.minSize,
       this.color,
       this.disabledColor = CupertinoColors.quaternarySystemFill,
@@ -819,6 +820,7 @@ class BaseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = appTheme(context).textTheme.bodyMedium;
     return CupertinoButton(
+      key: key,
       padding: padding,
       minSize: minSize,
       color: onPressed == null ? disabledColor : color,
@@ -849,7 +851,7 @@ class BaseGradientButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const BaseGradientButton(
-      {Key? key,
+      {super.key,
       this.width = double.infinity,
       this.height = 44,
       this.padding = EdgeInsets.zero,
@@ -861,8 +863,7 @@ class BaseGradientButton extends StatelessWidget {
       this.disableGradient =
           const LinearGradient(colors: [Color(0xFFE3E3E3), Color(0xFFD3D3D3)]),
       this.boxShadow,
-      required this.onPressed})
-      : super(key: key);
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -926,7 +927,7 @@ class BaseBackgroundButton extends StatelessWidget {
   final VoidCallback? onLongPress;
 
   const BaseBackgroundButton({
-    Key? key,
+    super.key,
     this.width = double.infinity,
     this.height = 44,
     this.padding = EdgeInsets.zero,
@@ -939,7 +940,7 @@ class BaseBackgroundButton extends StatelessWidget {
     this.disableColor,
     this.onPressed,
     this.onLongPress,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1001,7 +1002,7 @@ class BaseOutlineButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const BaseOutlineButton(
-      {Key? key,
+      {super.key,
       this.width = double.infinity,
       this.height = 44,
       this.padding,
@@ -1012,8 +1013,7 @@ class BaseOutlineButton extends StatelessWidget {
       this.borderRadius = 22,
       this.borderColor,
       this.boxShadow,
-      this.onPressed})
-      : super(key: key);
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -1083,7 +1083,7 @@ class BaseTextField extends StatelessWidget {
   final GestureTapCallback? onTap;
 
   const BaseTextField(
-      {Key? key,
+      {super.key,
       this.margin,
       this.padding = const EdgeInsets.all(6.0),
       this.height,
@@ -1109,8 +1109,7 @@ class BaseTextField extends StatelessWidget {
       this.decoration,
       this.onChanged,
       this.onSubmitted,
-      this.onTap})
-      : super(key: key);
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -1165,8 +1164,7 @@ class BaseGeneralAlertDialog extends StatelessWidget {
   final List<Widget> actions;
 
   const BaseGeneralAlertDialog(
-      {Key? key, this.title, this.content, this.actions = const <Widget>[]})
-      : super(key: key);
+      {super.key, this.title, this.content, this.actions = const <Widget>[]});
 
   @override
   Widget build(BuildContext context) {
@@ -1187,12 +1185,12 @@ class BaseCustomAlertDialog extends Dialog {
   final Widget content;
 
   const BaseCustomAlertDialog({
-    Key? key,
+    super.key,
     this.backgroundColor,
     this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     this.margin = const EdgeInsets.all(38.0),
     required this.content,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1223,7 +1221,7 @@ class BaseAlertDialog extends Dialog {
   final List<Widget> actions;
 
   const BaseAlertDialog({
-    Key? key,
+    super.key,
     this.barrierDismissible = false,
     this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     this.margin = const EdgeInsets.all(38.0),
@@ -1235,7 +1233,7 @@ class BaseAlertDialog extends Dialog {
     this.title = const Text('提示'),
     required this.content,
     this.actions = const <Widget>[],
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1348,12 +1346,12 @@ class BaseActionSheet extends StatelessWidget {
   final Widget cancelButton;
 
   const BaseActionSheet({
-    Key? key,
+    super.key,
     this.title,
     this.message,
     this.actions = const <Widget>[],
     required this.cancelButton,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1482,12 +1480,11 @@ class BaseDivider extends StatelessWidget {
   final Color? color;
 
   const BaseDivider({
-    Key? key,
+    super.key,
     this.thickness,
     this.margin,
     this.color,
-  })  : assert(thickness == null || thickness >= 0.0),
-        super(key: key);
+  }) : assert(thickness == null || thickness >= 0.0);
 
   @override
   Widget build(BuildContext context) {
@@ -1507,13 +1504,12 @@ class BaseBlurFilter extends StatelessWidget {
   final Widget child;
 
   const BaseBlurFilter(
-      {Key? key,
+      {super.key,
       this.padding,
       this.borderRadius = BorderRadius.zero,
       this.filter,
       this.backgroundColor = Colors.white10,
-      required this.child})
-      : super(key: key);
+      required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-final _kDeafultWidth = adaptDp(80);
-final _kDeafultHeight = adaptDp(15);
+final kDefaultWidth = adaptDp(80);
+final _kDefaultHeight = adaptDp(15);
 
 /// 进度条
 class BaseProgressBar extends StatelessWidget {
   BaseProgressBar(
-      {Key? key,
+      {super.key,
       this.width,
       this.height,
       this.backgroundColor,
       this.foregroundColor,
-      required this.value})
-      : super(key: key);
+      required this.value});
 
   /// 宽度
   final double? width;
@@ -34,14 +33,14 @@ class BaseProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     double aspectRatio = width != null && height != null
         ? value * width! / height!
-        : value * (_kDeafultWidth / _kDeafultHeight);
+        : value * (kDefaultWidth / _kDefaultHeight);
     return Container(
-      height: height ?? _kDeafultHeight,
+      height: height ?? _kDefaultHeight,
       child: Stack(
         children: <Widget>[
           Container(
-            width: width ?? _kDeafultWidth,
-            height: height ?? _kDeafultHeight,
+            width: width ?? kDefaultWidth,
+            height: height ?? _kDefaultHeight,
             color: backgroundColor ?? Color(0xFFEBEBEB),
           ),
           Container(

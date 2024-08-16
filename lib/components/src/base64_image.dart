@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/utils/export.dart';
 
-
 class Base64Image extends StatelessWidget {
   ///
   final String base64;
@@ -15,8 +14,8 @@ class Base64Image extends StatelessWidget {
   /// 填充
   final BoxFit? fit;
 
-  const Base64Image({Key? key, required this.base64, this.width, this.height, this.fit})
-      : super(key: key);
+  const Base64Image(
+      {super.key, required this.base64, this.width, this.height, this.fit});
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 class BaseLoadingView extends StatelessWidget {
   final String? message;
 
-  const BaseLoadingView({Key? key, this.message}) : super(key: key);
+  const BaseLoadingView({super.key, this.message});
 
   @override
   Widget build(BuildContext context) {

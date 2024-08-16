@@ -15,11 +15,11 @@ class BasePlaceholderView extends StatelessWidget {
   final VoidCallback? onTap;
 
   const BasePlaceholderView({
-    Key? key,
+    super.key,
     this.title = '暂无数据',
     this.image,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

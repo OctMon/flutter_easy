@@ -23,7 +23,7 @@ class BaseRefresh extends StatelessWidget {
   final Widget? child;
 
   const BaseRefresh(
-      {Key? key,
+      {super.key,
       required this.controller,
       this.scrollController,
       this.header,
@@ -34,8 +34,7 @@ class BaseRefresh extends StatelessWidget {
       this.onLoading,
       this.emptyWidget,
       this.child})
-      : this.slivers = null,
-        super(key: key);
+      : this.slivers = null;
 
   @override
   Widget build(BuildContext context) {

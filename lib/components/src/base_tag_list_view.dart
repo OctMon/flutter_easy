@@ -11,15 +11,14 @@ class BaseTagListView extends StatelessWidget {
   final List<Widget> children;
 
   const BaseTagListView(
-      {Key? key,
+      {super.key,
       this.contentPadding = const EdgeInsets.symmetric(horizontal: 3),
       this.spacing = 10.0,
       this.runSpacing = 5.0,
       this.color,
       this.borderRadius,
       this.borderWidth = 0.5,
-      required this.children})
-      : super(key: key);
+      required this.children});
 
   @override
   Widget build(BuildContext context) {

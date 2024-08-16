@@ -15,7 +15,7 @@ class BaseBannerView extends StatelessWidget {
   final ValueChanged<int>? onTap;
 
   const BaseBannerView(
-      {Key? key,
+      {super.key,
       required this.urls,
       this.width,
       this.height,
@@ -23,8 +23,7 @@ class BaseBannerView extends StatelessWidget {
       this.showPagination = true,
       this.pagination,
       required this.placeholder,
-      this.onTap})
-      : super(key: key);
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +65,7 @@ class BaseCycleView extends StatelessWidget {
   final ValueChanged<int>? onIndexChanged;
 
   const BaseCycleView(
-      {Key? key,
+      {super.key,
       required this.items,
       this.width,
       this.height,
@@ -76,8 +75,7 @@ class BaseCycleView extends StatelessWidget {
       this.showPagination = true,
       this.onTap,
       this.onIndexChanged,
-      this.pagination})
-      : super(key: key);
+      this.pagination});
 
   @override
   Widget build(BuildContext context) {

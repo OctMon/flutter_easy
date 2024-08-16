@@ -9,12 +9,11 @@ class BaseAnimationImage extends StatefulWidget {
   final int interval;
 
   BaseAnimationImage(
-      {Key? key,
+      {super.key,
       required this.assetList,
       this.width = 100,
       this.height = 100,
-      required this.interval})
-      : super(key: key);
+      required this.interval});
 
   @override
   State<StatefulWidget> createState() {
@@ -44,9 +43,9 @@ class _BaseAnimationImageState extends State<BaseAnimationImage>
 
     _animation = new Tween<double>(begin: 0, end: imageCount.toDouble())
         .animate(_controller)
-          ..addListener(() {
-            setState(() {});
-          });
+      ..addListener(() {
+        setState(() {});
+      });
 
     _controller.forward();
   }

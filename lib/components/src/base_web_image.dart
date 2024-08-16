@@ -35,7 +35,7 @@ class BaseWebImage extends StatelessWidget {
   final ValueChanged<ImageInfo?>? imageCompletionHandler;
 
   const BaseWebImage(this.imageUrl,
-      {Key? key,
+      {super.key,
       this.cacheKey,
       this.cacheTag,
       this.placeholder,
@@ -47,7 +47,7 @@ class BaseWebImage extends StatelessWidget {
       this.retries = 3,
       this.timeLimit,
       this.headers})
-      : super(key: key);
+      ;
 
   static Widget clip({
     String? url,

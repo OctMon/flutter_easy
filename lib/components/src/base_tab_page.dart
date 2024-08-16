@@ -33,7 +33,7 @@ class BaseTabPage extends StatefulWidget {
   final Color? unselectedLabelColor;
 
   const BaseTabPage({
-    Key? key,
+    super.key,
     this.tabBarHeight,
     this.initialIndex = 0,
     this.isScrollable = false,
@@ -50,7 +50,7 @@ class BaseTabPage extends StatefulWidget {
     this.backgroundColor = Colors.white,
     this.labelColor,
     this.unselectedLabelColor,
-  }) : super(key: key);
+  });
 
   @override
   _BaseTabPageState createState() => _BaseTabPageState();
