@@ -37,7 +37,7 @@ dependencies:
   # Salsa20
   # ———————————————————————————————————————————————————————————————————————————————
   encrypt: ^5.0.3
-  crypto: ^3.0.3
+  crypto: ^3.0.5
   convert: ^3.1.1
 
   # ===============================================================================
@@ -55,9 +55,9 @@ dependencies:
   # desc：包装NSUserDefaults（在iOS上）和SharedPreferences（在Android上），为简单数据提供持久存储。
   # 数据异步保存到磁盘。 这两个平台都不能保证在返回后将写操作持久化到磁盘，并且该插件不得用于存储关键数据。
   # ===============================================================================
-  shared_preferences: ^2.2.3
-  shared_preferences_platform_interface: ^2.3.2
-  shared_preferences_web: ^2.3.0
+  shared_preferences: ^2.3.2
+  shared_preferences_platform_interface: ^2.4.1
+  shared_preferences_web: ^2.4.2
 
   # ===============================================================================
   # This Flutter plugin provides an API for querying information about an application package.
@@ -147,7 +147,7 @@ dependencies:
   # pub：https://pub.dev/packages/share_plus
   # git：https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus/share_plus
   # ===============================================================================
-  share_plus: ^10.0.0
+  share_plus: ^10.0.2
 
 dev_dependencies:
   flutter_test:
