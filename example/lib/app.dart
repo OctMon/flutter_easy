@@ -25,13 +25,16 @@ Future<void> initApp() async {
 
   // 首次使用 app
   final noFirstOpen = await getStorageBool(kNonFirstUseAppKey);
-  if (isIOS || noFirstOpen) {
+  if (isAndroid && !noFirstOpen) {
+    // 需要在 RootController中 同意隐私弹窗
+  } else {
     await initAfterPrivate();
   }
 }
 
 Future<void> initAfterPrivate() async {
-  await DeviceInfoUtil.init();
+  final deviceInfo = await DeviceInfoUtil.init();
+  logDebug(deviceInfo);
 
   // Load API
   await configAPI(null);

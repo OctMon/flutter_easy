@@ -14,8 +14,10 @@ class SplashController extends GetxController {
   @override
   void onReady() {
     if (isAndroid) {
-      checkPrivacy().then((value) async {
-        await initAfterPrivate();
+      checkPrivacy().then((first) async {
+        if (first) {
+          await initAfterPrivate();
+        }
         _startCountdownTimer();
       });
     } else {
