@@ -14,7 +14,6 @@ Config _config(String? baseURL) {
       errorTimeout: kPlaceholderTitleRemote,
       errorConnection: kPlaceholderTitleRemote,
       errorBadResponse: kPlaceholderTitleRemote,
-      errorUnknown: kPlaceholderTitleRemote,
       code: "result",
       validCode: "SUCCESS",
       list: "feedList");
