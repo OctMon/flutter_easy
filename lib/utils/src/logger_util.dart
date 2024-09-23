@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:path/path.dart' as Path;
 
 import 'binary_size.dart';
 
@@ -69,46 +70,70 @@ class LogFile {
         this.singleFileSizeLimit = size;
       }
     }
-    _fileId = getNextId();
+    getFileId();
     this.enable = enable;
   }
 
-  int getNextId() {
-    var lastIdFile = File('$location/options/last_id');
-    if (lastIdFile.existsSync()) {
-      var result = int.parse(lastIdFile.readAsStringSync());
-      lastIdFile.writeAsStringSync((result + 1).toString());
-      return result + 1;
-    } else {
-      lastIdFile
-        ..createSync(recursive: true)
-        ..writeAsStringSync('1');
-      return 1;
+  Future<void> getFileId() async {
+    var maxFileName = 0;
+    for (var pathStr in await files()) {
+      var name = Path.basename(pathStr);
+      name = name.replaceAll(".log", "");
+      var time = int.tryParse(name) ?? 0;
+      maxFileName = maxFileName > time ? maxFileName : time;
+    }
+    if (maxFileName > 0 &&
+        DateTime.fromMillisecondsSinceEpoch(maxFileName).isBefore(
+            DateTime.now().subtract(Duration(hours: 6)))) {
+      _fileId = maxFileName;
+    }else{
+      _fileId = DateTime.now().millisecondsSinceEpoch;
     }
   }
 
+  // int getNextId() {
+  //   var lastIdFile = File('$location/options/last_id');
+  //   if (lastIdFile.existsSync()) {
+  //     var result = int.parse(lastIdFile.readAsStringSync());
+  //     lastIdFile.writeAsStringSync((result + 1).toString());
+  //     return result + 1;
+  //   } else {
+  //     lastIdFile
+  //       ..createSync(recursive: true)
+  //       ..writeAsStringSync('1');
+  //     return 1;
+  //   }
+  // }
+
   String getFileName() {
-    var now = DateTime.now();
-
-    var fileName = fileNamePattern
-        .replaceAll('@yyyy', now.year.toString().padLeft(4, '0'))
-        .replaceAll('@MM', now.month.toString().padLeft(2, '0'))
-        .replaceAll('@dd', now.day.toString().padLeft(2, '0'))
-        .replaceAll('@HH', now.hour.toString().padLeft(2, '0'))
-        .replaceAll('@mm', now.minute.toString().padLeft(2, '0'))
-        .replaceAll('@ss', now.second.toString().padLeft(2, '0'))
-        .replaceAll('@id', _fileId.toString());
-
-    var file = File('$location/$fileName');
-    if (file.existsSync()) {
-      var size = BinarySize()..bytesCount = file.lengthSync();
-      if (size > singleFileSizeLimit) {
-        _fileId = getNextId();
-        return getFileName();
+    var file = File('$location/$_fileId.log');
+    if(file.existsSync()){
+      if(DateTime.fromMillisecondsSinceEpoch(_fileId).add(Duration(hours: 6)).isAfter(DateTime.now())){
+        return "$_fileId.log";
       }
     }
-
-    return fileName;
+    clearCache();
+    _fileId = DateTime.now().millisecondsSinceEpoch;
+    return "$_fileId.log";
+    // var now = DateTime.now();
+    //
+    // var fileName = fileNamePattern
+    //     .replaceAll('@yyyy', now.year.toString().padLeft(4, '0'))
+    //     .replaceAll('@MM', now.month.toString().padLeft(2, '0'))
+    //     .replaceAll('@dd', now.day.toString().padLeft(2, '0'))
+    //     .replaceAll('@HH', now.hour.toString().padLeft(2, '0'))
+    //     .replaceAll('@mm', now.minute.toString().padLeft(2, '0'))
+    //     .replaceAll('@ss', now.second.toString().padLeft(2, '0'))
+    //     .replaceAll('@id', _fileId.toString());
+    // var file = File('$location/$fileName');
+    // if (file.existsSync()) {
+    //   var size = BinarySize()..bytesCount = file.lengthSync();
+    //   if (size > singleFileSizeLimit) {
+    //     _fileId = getNextId();
+    //     return getFileName();
+    //   }
+    // }
+    // return fileName;
   }
 
   void log(String message) {
@@ -179,6 +204,17 @@ class LogFile {
   Future<void> clear() async {
     for (var path in await files()) {
       await File(path).delete();
+    }
+  }
+
+  Future<void> clearCache() async {
+    for (var pathStr in await files()) {
+      var name = Path.basename(pathStr);
+      name = name.replaceAll(".log", "");
+      var time = int.tryParse(name) ?? 0;
+      if(time>0 && DateTime.fromMillisecondsSinceEpoch(time).isBefore(DateTime.now().subtract(Duration(hours: 12)))){
+        await File(pathStr).delete();
+      }
     }
   }
 }
