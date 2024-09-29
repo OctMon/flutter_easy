@@ -65,10 +65,10 @@ VoidCallback? _appBaseURLChangedCallback;
 /// --dart-define=app-debug-flag=true
 /// flutter run --release --dart-define=app-debug-flag=true
 Future<void> initEasyApp(
-    {bool? showOnError,
-    bool? logToFile,
+    {bool? logToFile,
     VoidCallback? appBaseURLChangedCallback,
-    ValueChanged<String>? customExceptionReport,
+    void Function(Object exception, StackTrace? stackTrace)?
+        customExceptionReport,
     String? singleFileSizeLimit}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
@@ -108,31 +108,20 @@ Future<void> initEasyApp(
     logInfo("Network: $network");
   }
 
-  if (showOnError ?? isAppDebugFlag) {
-    Future<void> showError(String middleText) async {
-      if (Get.context == null) {
-        logWarning("捕获到异常: \n$middleText");
-      } else {
-        if (customExceptionReport != null) {
-          customExceptionReport(middleText);
-        }
-      }
-    }
-
-    // 先将 onerror 保存起来
-    var onError = FlutterError.onError;
-    // onError是FlutterError的一个静态属性，它有一个默认的处理方法 dumpErrorToConsole
-    FlutterError.onError = (errorDetails) {
-      showError("$errorDetails");
-      // 调用默认的onError处理
-      onError?.call(errorDetails);
-    };
-    // 官方推荐使用
-    PlatformDispatcher.instance.onError = (error, stack) {
-      showError("$error\n$stack");
-      return true;
-    };
-  }
+  // 先将 onError 保存起来
+  var onError = FlutterError.onError;
+  // onError是FlutterError的一个静态属性，它有一个默认的处理方法 dumpErrorToConsole
+  FlutterError.onError = (errorDetails) {
+    customExceptionReport?.call(errorDetails.exception, errorDetails.stack);
+    // 调用默认的onError处理
+    onError?.call(errorDetails);
+  };
+  // 官方推荐使用
+  PlatformDispatcher.instance.onError = (error, stack) {
+    customExceptionReport?.call(error, stack);
+    logError("$error\n$stack");
+    return true;
+  };
 }
 
 /// 默认返回按钮的样式
