@@ -108,20 +108,22 @@ Future<void> initEasyApp(
     logInfo("Network: $network");
   }
 
-  // 先将 onError 保存起来
-  var onError = FlutterError.onError;
-  // onError是FlutterError的一个静态属性，它有一个默认的处理方法 dumpErrorToConsole
-  FlutterError.onError = (errorDetails) {
-    customExceptionReport?.call(errorDetails.exception, errorDetails.stack);
-    // 调用默认的onError处理
-    onError?.call(errorDetails);
-  };
-  // 官方推荐使用
-  PlatformDispatcher.instance.onError = (error, stack) {
-    customExceptionReport?.call(error, stack);
-    logError("$error\n$stack");
-    return true;
-  };
+  if (customExceptionReport != null) {
+    // 先将 onError 保存起来
+    var onError = FlutterError.onError;
+    // onError是FlutterError的一个静态属性，它有一个默认的处理方法 dumpErrorToConsole
+    FlutterError.onError = (errorDetails) {
+      customExceptionReport.call(errorDetails.exception, errorDetails.stack);
+      // 调用默认的onError处理
+      onError?.call(errorDetails);
+    };
+    // 官方推荐使用
+    PlatformDispatcher.instance.onError = (error, stack) {
+      customExceptionReport.call(error, stack);
+      logError("$error\n$stack");
+      return true;
+    };
+  }
 }
 
 /// 默认返回按钮的样式
