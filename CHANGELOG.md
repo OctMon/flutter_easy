@@ -1,3 +1,6 @@
+## 3.9.0
+* upgrade flutter 3.22
+
 ## 3.8.1
 * add log to file
 
