@@ -25,6 +25,41 @@ class ConnectivityPage extends StatelessWidget {
             );
           }),
           const SizedBox(height: 30),
+          Row(
+            children: [
+              const Icon(Icons.vibration),
+              const SizedBox(width: 5),
+              BaseButton(
+                padding: const EdgeInsets.all(5),
+                onPressed: () async {
+                  hapticFeedbackVibrate();
+                },
+                child: const Text("Vibrate"),
+              ),
+              BaseButton(
+                padding: const EdgeInsets.all(5),
+                onPressed: () async {
+                  hapticFeedbackHeavyImpact();
+                },
+                child: const Text("Heavy"),
+              ),
+              BaseButton(
+                padding: const EdgeInsets.all(5),
+                onPressed: () async {
+                  hapticFeedbackMediumImpact();
+                },
+                child: const Text("Medium"),
+              ),
+              BaseButton(
+                padding: const EdgeInsets.all(5),
+                onPressed: () async {
+                  hapticFeedbackLightImpact();
+                },
+                child: const Text("Light"),
+              ),
+            ],
+          ),
+          const SizedBox(height: 30),
           const Text(
             "中文字体 Thin = w100",
             style: TextStyle(
