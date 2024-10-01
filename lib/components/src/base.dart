@@ -877,14 +877,14 @@ class BaseGradientButton extends StatelessWidget {
         height: height,
         child: TextButton(
           style: ButtonStyle(
-            padding: MaterialStateProperty.all(padding),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            padding: WidgetStateProperty.all(padding),
+            shape: WidgetStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius))),
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
-            elevation: MaterialStateProperty.all(0),
-            backgroundColor: MaterialStateProperty.resolveWith(
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
+            elevation: WidgetStateProperty.all(0),
+            backgroundColor: WidgetStateProperty.resolveWith(
               (states) {
-                if (states.contains(MaterialState.pressed)) {
+                if (states.contains(WidgetState.pressed)) {
                   return Colors.black12;
                 }
                 return Colors.transparent;
@@ -955,13 +955,13 @@ class BaseBackgroundButton extends StatelessWidget {
       ),
       child: TextButton(
         style: ButtonStyle(
-          padding: MaterialStateProperty.all(padding),
-          shape: MaterialStateProperty.all(
+          padding: WidgetStateProperty.all(padding),
+          shape: WidgetStateProperty.all(
               RoundedRectangleBorder(borderRadius: borderRadius)),
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
-          backgroundColor: MaterialStateProperty.resolveWith(
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return pressedColor ?? Colors.black12;
               }
               return Colors.transparent;

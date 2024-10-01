@@ -87,7 +87,7 @@ class _BaseSegmentBarState extends State<BaseSegmentBar> {
 
   buildSegmentItem(String title, int index) {
     buildShape() {
-      return MaterialStateProperty.all(widget.margin.horizontal > 0
+      return WidgetStateProperty.all(widget.margin.horizontal > 0
           ? RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(widget.radius))
           : index == 0
@@ -115,9 +115,9 @@ class _BaseSegmentBarState extends State<BaseSegmentBar> {
                 updateItem(index);
               },
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
+                padding: WidgetStateProperty.all(EdgeInsets.zero),
                 shape: buildShape(),
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                     selectItem == index ? selectedColor : widget.defaultColor),
                 splashFactory: NoSplash.splashFactory,
               ),
@@ -139,9 +139,9 @@ class _BaseSegmentBarState extends State<BaseSegmentBar> {
               },
               style: ButtonStyle(
                 shape: buildShape(),
-                side: MaterialStateProperty.all(
+                side: WidgetStateProperty.all(
                     BorderSide(color: borderColor, width: widget.borderWidth)),
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                     selectItem == index ? selectedColor : widget.defaultColor),
                 splashFactory: NoSplash.splashFactory,
               ),
