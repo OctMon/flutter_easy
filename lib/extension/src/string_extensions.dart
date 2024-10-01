@@ -9,6 +9,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 extension StringExtensions on String {
+  String get escapedString {
+    return runes.map((int rune) {
+      if (rune > 127) {
+        return '\\u${rune.toRadixString(16).padLeft(4, '0').toUpperCase()}';
+      } else {
+        return String.fromCharCode(rune);
+      }
+    }).join();
+  }
+
   /// MD5
   String get md5 {
     if (this.isEmptyOrNull) {
