@@ -56,6 +56,54 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
     );
   }
 
+  Widget baseShimmerState(
+    NotifierBuilder<T?> widget, {
+    Color? baseColor,
+    Color? highlightColor,
+    Widget Function(String? errorMessage)? onEmptyWidget,
+    String? placeholderImagePath,
+    String? placeholderEmptyTitle,
+    EdgeInsetsGeometry? placeholderPadding,
+    void Function()? onReloadTap,
+  }) {
+    return SimpleBuilder(
+      builder: (_) {
+        if (status.isLoading ||
+            status.isEmpty ||
+            status.isError ||
+            state.isEmptyOrNull) {
+          if (status.isLoading) {
+            return BaseShimmer(
+              visible: status.isLoading,
+              child: widget(state),
+              baseColor: baseColor,
+              highlightColor: highlightColor,
+            );
+          }
+          return Padding(
+            padding: placeholderPadding ?? EdgeInsets.zero,
+            child: onEmptyWidget != null
+                ? onEmptyWidget(status.isEmpty
+                    ? (placeholderEmptyTitle ?? kEmptyList)
+                    : status.errorMessage)
+                : BasePlaceholderView(
+                    title: (status.isEmpty
+                        ? (placeholderEmptyTitle ?? kEmptyList)
+                        : status.errorMessage),
+                    image: placeholderImagePath,
+                    onTap: onReloadTap ??
+                        () {
+                          change(null, status: RxStatus.loading());
+                          onRequestData();
+                        },
+                  ),
+          );
+        }
+        return widget(state);
+      },
+    );
+  }
+
   Future<void> onRequestData() async {}
 
   void updateResult<T>({required Result result, BaseComputeResult? compute}) {
