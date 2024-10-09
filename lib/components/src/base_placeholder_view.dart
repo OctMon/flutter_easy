@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 /// 网络错误的占位图
-var kPlaceholderImageRemote = assetsImagesPath("placeholder_remote");
-var kPlaceholderImageEmpty = assetsImagesPath("placeholder_empty");
+String? kPlaceholderImageRemote;
+String? kPlaceholderImageEmpty;
 
 /// 占位图默认宽高
 double kPlaceholderImageWidth = 180.adaptRatio;
@@ -39,16 +39,14 @@ class BasePlaceholderView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Visibility(
-                visible: placeholderImagePath.isNotEmpty,
-                child: Padding(
+              if (placeholderImagePath != null)
+                Padding(
                   padding: EdgeInsets.only(bottom: kPlaceholderImageBottom),
                   child: Image.asset(
                     placeholderImagePath,
                     width: kPlaceholderImageWidth,
                   ),
                 ),
-              ),
               Text(
                 title ?? "",
                 style: appDarkMode(context)
