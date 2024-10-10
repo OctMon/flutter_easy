@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-import '../../utils/src/global_util.dart';
-import 'base.dart';
-
 class BaseExampleWrap extends StatelessWidget {
   final String title;
   final List<BaseKeyValue> children;
@@ -15,17 +12,18 @@ class BaseExampleWrap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text("$title:"),
+        if (title.isNotEmpty) Text("$title:"),
         Flexible(
           child: Wrap(
             children: children
                 .map(
                   (element) => BaseButton(
+                    padding: EdgeInsets.all(6),
                     onPressed: element.extend,
                     child: Column(
                       children: [
-                        Text(element.key),
-                        Text(element.value),
+                        if (element.key.isNotEmpty) Text(element.key),
+                        if (element.value.isNotEmpty) Text(element.value),
                       ],
                     ),
                   ),
@@ -52,9 +50,11 @@ class BaseExampleView extends StatelessWidget {
       return Stack(
         children: [
           child,
-          ListView(
+          SingleChildScrollView(
             padding: EdgeInsets.all(10),
-            children: list,
+            child: Column(
+              children: list,
+            ),
           ).marginOnly(
               top: screenStatusBarHeightDp + screenToolbarHeightDp + top),
         ],
