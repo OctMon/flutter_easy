@@ -108,7 +108,8 @@ class LogFile {
   String getFileName() {
     var file = File('$location/$_fileId.log');
     if(file.existsSync()){
-      if(DateTime.fromMillisecondsSinceEpoch(_fileId).add(Duration(hours: 6)).isAfter(DateTime.now())){
+      var size = BinarySize()..bytesCount = file.lengthSync();
+      if(DateTime.fromMillisecondsSinceEpoch(_fileId).add(Duration(hours: 6)).isAfter(DateTime.now()) && size < singleFileSizeLimit){
         return "$_fileId.log";
       }
     }
