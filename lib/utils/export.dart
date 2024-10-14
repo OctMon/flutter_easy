@@ -18,6 +18,7 @@ export 'src/picker_util.dart';
 export 'src/timer_util.dart';
 export 'src/locale_util.dart';
 export 'src/connectivity_util.dart';
+export 'src/image_util.dart';
 
 export 'package:get/get.dart'
     hide GetStringUtils, GetNumUtils, GetDurationUtils;
