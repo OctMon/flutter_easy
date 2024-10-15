@@ -87,7 +87,7 @@ _RequestCallBack? _onRequest;
 _ResultCallBack? _onResult;
 
 ///
-/// 发送请求并解析远程服务器返回的result对应的实体类型
+/// 发送GET请求并解析远程服务器返回的result对应的实体类型
 ///
 /// baseUrl: 主机地址
 /// path: 请求路径
@@ -116,7 +116,7 @@ Future<Result> get(
 }
 
 ///
-/// 发送请求并解析远程服务器返回的result对应的实体类型
+/// 发送POST请求并解析远程服务器返回的result对应的实体类型
 ///
 /// baseUrl: 主机地址
 /// path: 请求路径
@@ -143,6 +143,78 @@ Future<Result> post(
       data: data,
       queryParameters: queryParameters,
       options: Options(method: 'post'),
+      connectTimeout: connectTimeout,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+      validResult: validResult,
+      autoLoading: autoLoading);
+}
+
+///
+/// 发送PUT请求并解析远程服务器返回的result对应的实体类型
+///
+/// baseUrl: 主机地址
+/// path: 请求路径
+/// data: 请求参数
+/// queryParameters: URL携带请求参数
+/// connectTimeout: 超时时间
+/// validResult: 是否检验返回结果
+/// autoLoading: 展示Loading
+///
+Future<Result> put(
+    {String? baseUrl,
+    String path = '',
+    data,
+    Map<String, dynamic>? queryParameters,
+    Duration? connectTimeout,
+    BaseCancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+    bool validResult = true,
+    bool autoLoading = false}) async {
+  return request(
+      baseUrl: baseUrl,
+      path: path,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(method: 'put'),
+      connectTimeout: connectTimeout,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+      validResult: validResult,
+      autoLoading: autoLoading);
+}
+
+///
+/// 发送DELETE请求并解析远程服务器返回的result对应的实体类型
+///
+/// baseUrl: 主机地址
+/// path: 请求路径
+/// data: 请求参数
+/// queryParameters: URL携带请求参数
+/// connectTimeout: 超时时间
+/// validResult: 是否检验返回结果
+/// autoLoading: 展示Loading
+///
+Future<Result> delete(
+    {String? baseUrl,
+    String path = '',
+    data,
+    Map<String, dynamic>? queryParameters,
+    Duration? connectTimeout,
+    BaseCancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+    bool validResult = true,
+    bool autoLoading = false}) async {
+  return request(
+      baseUrl: baseUrl,
+      path: path,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(method: 'delete'),
       connectTimeout: connectTimeout,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
