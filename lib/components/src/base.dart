@@ -983,6 +983,7 @@ class BaseOutlineButton extends StatelessWidget {
   final double width;
   final double height;
   final EdgeInsetsGeometry? padding;
+  final MainAxisAlignment mainAxisAlignment;
   final Color? backgroundColor;
   final Widget? icon;
   final Widget? title;
@@ -997,6 +998,7 @@ class BaseOutlineButton extends StatelessWidget {
       this.width = double.infinity,
       this.height = 44,
       this.padding,
+      this.mainAxisAlignment = MainAxisAlignment.center,
       this.backgroundColor,
       this.icon,
       this.title,
@@ -1036,7 +1038,7 @@ class BaseOutlineButton extends StatelessWidget {
         ),
         child: Center(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: mainAxisAlignment,
             children: children,
           ),
         ),
