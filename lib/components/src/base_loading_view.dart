@@ -39,7 +39,7 @@ class BaseLoadingView extends StatelessWidget {
   }
 
   List<Widget> _buildChildren() {
-    List<Widget> list = [CircularProgressIndicator()];
+    List<Widget> list = [CircularProgressIndicator.adaptive()];
     if (message != null && message!.isNotEmpty) {
       list.add(Padding(
         padding: const EdgeInsets.only(top: 15),

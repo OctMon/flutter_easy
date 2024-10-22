@@ -24,6 +24,8 @@ Color setDarkAppBarForegroundColor = Colors.white;
 Color setLightDividerColor = Color(0x1FFFFFFF);
 Color setDarkDividerColor = Color(0xFFEFEFF4);
 
+TargetPlatform? setTargetPlatform;
+
 var setLightAppBarTitleTextStyle = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w500,
@@ -111,7 +113,7 @@ Color colorWithRandom() {
 ThemeData getTheme({bool darkMode = false, required bool useMaterial3}) {
   return ThemeData(
     useMaterial3: useMaterial3,
-    platform: TargetPlatform.iOS,
+    platform: setTargetPlatform,
     splashColor: Colors.transparent,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       brightness: darkMode ? Brightness.dark : Brightness.light,

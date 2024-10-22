@@ -46,8 +46,7 @@ class BaseWebImage extends StatelessWidget {
       this.imageCompletionHandler,
       this.retries = 3,
       this.timeLimit,
-      this.headers})
-      ;
+      this.headers});
 
   static Widget clip({
     String? url,
@@ -111,8 +110,7 @@ class BaseWebImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final placeholder = this.placeholder ??
-        (Center(
-            child: baseDefaultAnimationImage ?? CircularProgressIndicator()));
+        (Center(child: baseDefaultAnimationImage ?? BaseLoadingView()));
     if (imageUrl == null || imageUrl?.isEmpty == true) {
       return placeholder;
     }
