@@ -20,11 +20,28 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
     super.onInit();
   }
 
+  String? getPlaceholderTitle(String? placeholderEmptyTitle) {
+    return status.isLoading
+        ? null
+        : (status.isEmpty
+            ? (placeholderEmptyTitle ?? kEmptyList)
+            : status.errorMessage);
+  }
+
+  String? getPlaceholderMessage(String? placeholderEmptyMessage) {
+    return status.isLoading
+        ? null
+        : (status.isEmpty
+            ? placeholderEmptyMessage
+            : kPlaceholderMessageRemote);
+  }
+
   Widget baseState(
     NotifierBuilder<T?> widget, {
-    Widget Function(String? errorMessage)? onEmptyWidget,
-    String? placeholderImagePath,
+    Widget Function()? onPlaceholderWidget,
+    String? placeholderEmptyImagePath,
     String? placeholderEmptyTitle,
+    String? placeholderEmptyMessage,
     void Function()? onReloadTap,
   }) {
     return SimpleBuilder(
@@ -33,17 +50,12 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
             status.isEmpty ||
             status.isError ||
             state.isEmptyOrNull) {
-          return onEmptyWidget != null
-              ? onEmptyWidget(status.isEmpty
-                  ? (placeholderEmptyTitle ?? kEmptyList)
-                  : status.errorMessage)
+          return onPlaceholderWidget != null
+              ? onPlaceholderWidget()
               : BasePlaceholderView(
-                  title: status.isLoading
-                      ? null
-                      : (status.isEmpty
-                          ? (placeholderEmptyTitle ?? kEmptyList)
-                          : status.errorMessage),
-                  image: placeholderImagePath,
+                  title: getPlaceholderTitle(placeholderEmptyTitle),
+                  message: getPlaceholderMessage(placeholderEmptyMessage),
+                  image: placeholderEmptyImagePath,
                   onTap: onReloadTap ??
                       () {
                         change(null, status: RxStatus.loading());
@@ -60,9 +72,10 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
     NotifierBuilder<T?> widget, {
     Color? baseColor,
     Color? highlightColor,
-    Widget Function(String? errorMessage)? onEmptyWidget,
-    String? placeholderImagePath,
+    Widget Function()? onPlaceholderWidget,
+    String? placeholderEmptyImagePath,
     String? placeholderEmptyTitle,
+    String? placeholderEmptyMessage,
     EdgeInsetsGeometry? placeholderPadding,
     void Function()? onReloadTap,
   }) {
@@ -82,15 +95,12 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
           }
           return Padding(
             padding: placeholderPadding ?? EdgeInsets.zero,
-            child: onEmptyWidget != null
-                ? onEmptyWidget(status.isEmpty
-                    ? (placeholderEmptyTitle ?? kEmptyList)
-                    : status.errorMessage)
+            child: onPlaceholderWidget != null
+                ? onPlaceholderWidget()
                 : BasePlaceholderView(
-                    title: (status.isEmpty
-                        ? (placeholderEmptyTitle ?? kEmptyList)
-                        : status.errorMessage),
-                    image: placeholderImagePath,
+                    title: getPlaceholderTitle(placeholderEmptyTitle),
+                    message: getPlaceholderMessage(placeholderEmptyMessage),
+                    image: placeholderEmptyImagePath,
                     onTap: onReloadTap ??
                         () {
                           change(null, status: RxStatus.loading());
@@ -185,9 +195,10 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   Widget baseRefreshState(
     NotifierBuilder<T?> widget, {
     ScrollController? scrollController,
-    Widget Function(String? status)? onEmptyWidget,
-    String? placeholderImagePath,
+    Widget Function()? onPlaceholderWidget,
+    String? placeholderEmptyImagePath,
     String? placeholderEmptyTitle,
+    String? placeholderEmptyMessage,
     bool firstRefresh = false,
     VoidCallback? onRefresh,
     VoidCallback? onLoading,
@@ -196,12 +207,13 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     _placeholderEmptyTitle = placeholderEmptyTitle;
     return SimpleBuilder(builder: (_) {
       Widget? emptyWidget() {
-        return onEmptyWidget != null
-            ? onEmptyWidget(status.errorMessage)
+        return onPlaceholderWidget != null
+            ? onPlaceholderWidget()
             : BasePlaceholderView(
-                title: status.errorMessage,
+                title: getPlaceholderTitle(placeholderEmptyTitle),
+                message: getPlaceholderMessage(placeholderEmptyMessage),
                 // 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
-                image: placeholderImagePath,
+                image: placeholderEmptyImagePath,
                 onTap: onReloadTap ??
                     () {
                       change(state, status: RxStatus.loading());

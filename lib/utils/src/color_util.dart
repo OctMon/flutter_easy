@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../extension/src/font_extensions.dart';
+
 Color setLightScaffoldBackgroundColor = Colors.white;
 Color setDarkScaffoldBackgroundColor = Colors.black;
 
@@ -58,13 +60,23 @@ var setDarkPlaceholderTextFieldStyle = TextStyle(
   color: colorWithHex9,
 );
 
-var setLightPlaceholderTextStyle = TextStyle(
+var setLightPlaceholderTitleTextStyle = TextStyle(
   color: colorWithHex9,
-  fontSize: 15,
+  fontSize: 28,
+  fontWeight: fontWeightBold,
 );
-var setDarkPlaceholderTextStyle = TextStyle(
+var setDarkPlaceholderTitleTextStyle = TextStyle(
   color: Colors.white,
-  fontSize: 15,
+  fontSize: 28,
+  fontWeight: fontWeightBold,
+);
+var setLightPlaceholderMessageTextStyle = TextStyle(
+  color: colorWithHex9,
+  fontSize: 17,
+);
+var setDarkPlaceholderMessageTextStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 17,
 );
 
 Color colorWithLightSecondary = Colors.tealAccent;

@@ -7,9 +7,6 @@ export 'package:session/session.dart';
 
 typedef BaseCancelToken = CancelToken;
 
-/// 网络错误的提示语
-String? kPlaceholderTitleRemote = "网络连接出错，请检查网络连接";
-
 /// URL环境
 enum BaseURLType { test, release }
 

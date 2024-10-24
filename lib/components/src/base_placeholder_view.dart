@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+/// 网络错误的提示语
+String? kPlaceholderTitleRemote = "网络连接出错，请检查网络连接";
+String? kPlaceholderMessageRemote;
+
 /// 网络错误的占位图
 String? kPlaceholderImageRemote;
 String? kPlaceholderImageEmpty;
+
+/// 重试按钮
+Widget? kPlaceholderReloadButton;
 
 /// 占位图默认宽高
 double kPlaceholderImageWidth = 180.adaptRatio;
@@ -11,12 +18,14 @@ double kPlaceholderImageBottom = 30;
 
 class BasePlaceholderView extends StatelessWidget {
   final String? title;
+  final String? message;
   final String? image;
   final VoidCallback? onTap;
 
   const BasePlaceholderView({
     super.key,
-    this.title = '暂无数据',
+    this.title,
+    this.message,
     this.image,
     this.onTap,
   });
@@ -47,13 +56,29 @@ class BasePlaceholderView extends StatelessWidget {
                     width: kPlaceholderImageWidth,
                   ),
                 ),
-              Text(
-                title ?? "",
-                style: appDarkMode(context)
-                    ? setDarkPlaceholderTextStyle
-                    : setLightPlaceholderTextStyle,
-                textAlign: TextAlign.center,
-              ),
+              if (title != null)
+                Text(
+                  title ?? "",
+                  style: appDarkMode(context)
+                      ? setDarkPlaceholderTitleTextStyle
+                      : setLightPlaceholderTitleTextStyle,
+                  textAlign: TextAlign.center,
+                ),
+              if (message != null || kPlaceholderMessageRemote != null)
+                Text(
+                  message ?? kPlaceholderMessageRemote ?? "",
+                  style: appDarkMode(context)
+                      ? setDarkPlaceholderMessageTextStyle
+                      : setLightPlaceholderMessageTextStyle,
+                  textAlign: TextAlign.center,
+                ).marginOnly(top: 16),
+              if (title == kPlaceholderTitleRemote &&
+                  kPlaceholderReloadButton != null)
+                BaseButton(
+                  padding: EdgeInsets.zero,
+                  child: kPlaceholderReloadButton!,
+                  onPressed: onTap,
+                ),
             ],
           ),
         ),
