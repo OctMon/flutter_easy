@@ -138,6 +138,37 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   void cleanState() {
     change(null);
   }
+
+  Future<void> loopRequest({
+    bool Function()? validTest,
+    void Function()? onRequest,
+    int count = 3,
+    Duration delay = const Duration(seconds: 10),
+    bool immediately = false,
+  }) async {
+    logDebug("loop start");
+    var index = 0;
+    while (index < count) {
+      index++;
+      logDebug("loop isClosed:$isClosed");
+      if (validTest?.call() ?? !isClosed) {
+        if (index == 1 && !immediately) {
+          logDebug("loop no immediately");
+        } else {
+          logDebug("loop ing");
+          if (onRequest != null) {
+            onRequest.call();
+          } else {
+            onRequestData();
+          }
+        }
+        await delay.delay();
+      } else {
+        logDebug("loop break");
+        break;
+      }
+    }
+  }
 }
 
 extension CountResult on Result {
