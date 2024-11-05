@@ -14,7 +14,8 @@ Widget? kPlaceholderReloadButton;
 
 /// 占位图默认宽高
 double kPlaceholderImageWidth = 180.adaptRatio;
-double kPlaceholderImageBottom = 30;
+double kPlaceholderImageBottom = 8;
+double kPlaceholderTitleBottom = 8;
 
 class BasePlaceholderView extends StatelessWidget {
   final String? title;
@@ -72,7 +73,7 @@ class BasePlaceholderView extends StatelessWidget {
                       ? setDarkPlaceholderMessageTextStyle
                       : setLightPlaceholderMessageTextStyle,
                   textAlign: TextAlign.center,
-                ).marginOnly(top: 16),
+                ).marginOnly(top: kPlaceholderTitleBottom),
               if (title == kPlaceholderTitleRemote &&
                   kPlaceholderReloadButton != null)
                 BaseButton(
