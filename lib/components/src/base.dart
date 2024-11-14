@@ -632,23 +632,23 @@ class BasePopScope extends StatelessWidget {
 
   final bool canPop;
 
-  final PopInvokedCallback? onPopInvoked;
+  final PopInvokedWithResultCallback? onPopInvokedWithResult;
 
   const BasePopScope(
       {this.onlyAndroid = true,
       required this.child,
       this.canPop = true,
-      this.onPopInvoked});
+      this.onPopInvokedWithResult});
 
   @override
   Widget build(BuildContext context) {
     return (!onlyAndroid || isAndroid)
         ? PopScope(
             canPop: BaseEasyLoading.isShow ? false : canPop,
-            onPopInvoked: (bool didPop) {
-              logDebug("didPop: $didPop");
-              if (onPopInvoked != null) {
-                onPopInvoked!(didPop);
+            onPopInvokedWithResult: (bool didPop, result) {
+              logDebug("didPop: $didPop, result: $result");
+              if (onPopInvokedWithResult != null) {
+                onPopInvokedWithResult!(didPop, result);
                 return;
               }
               if (!didPop && !BaseEasyLoading.isShow) {

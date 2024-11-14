@@ -15,7 +15,7 @@ class BaseNavigatorPopExit extends StatelessWidget {
 
     return BasePopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (lastPressedAt == null ||
             (DateTime.now().difference(lastPressedAt!) >
                 (duration ?? const Duration(seconds: 1)))) {

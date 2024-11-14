@@ -6,7 +6,7 @@ void showChangeColorDialog(BuildContext context, Color color,
     {required ValueChanged<Color> completion}) {
   showBaseAlert<bool>(
     PopScope(
-      onPopInvoked: (bool didPop) {
+      onPopInvokedWithResult: (bool didPop, _) {
         if (!didPop) {
           offBack();
         }
