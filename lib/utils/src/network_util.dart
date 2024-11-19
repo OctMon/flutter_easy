@@ -16,11 +16,15 @@ String _baseURLTypeKey = "$BaseURLType".md5;
 /// 当前环境
 var _baseURLTypeString = "".obs;
 
+var defaultDebugBaseURLType = BaseURLType.test;
+
 /// 上线环境
 BaseURLType get kBaseURLType {
   final urlType = _baseURLTypeString.value;
   if (isAppDebugFlag) {
-    if (urlType.isEmpty || urlType == "${BaseURLType.test}") {
+    if (urlType.isEmpty) {
+      return defaultDebugBaseURLType;
+    } else if (urlType.isEmpty || urlType == "${BaseURLType.test}") {
       return BaseURLType.test;
     } else if (_baseURLTypeString.value == "${BaseURLType.release}") {
       return BaseURLType.release;
@@ -29,7 +33,7 @@ BaseURLType get kBaseURLType {
   if (isProduction) {
     return BaseURLType.release;
   } else {
-    return BaseURLType.test;
+    return defaultDebugBaseURLType;
   }
 }
 
