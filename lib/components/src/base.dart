@@ -191,6 +191,7 @@ class BaseApp extends StatefulWidget {
 class _BaseAppState extends State<BaseApp> {
   @override
   void initState() {
+    IntlUtil.initSupportedLocales(widget.supportedLocales.toList());
     baseURLChangedCallback = () {
       if (_appBaseURLChangedCallback != null) {
         _appBaseURLChangedCallback!();

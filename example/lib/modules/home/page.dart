@@ -157,9 +157,44 @@ class HomePage extends StatelessWidget {
                       code: "appTheme.primaryColor",
                       value: "${appTheme(context).primaryColor}"),
                   buildTableRow(
+                    code: "translationAsset",
+                    value:
+                        assetsImagesPath("placeholder_empty").translationAsset,
+                  ),
+                  buildTableRow(
                       code: "timestampToNormal_yyyy_MM_dd_HH_mm_ss",
                       value: timestampToNormal_yyyy_MM_dd_HH_mm_ss(
                           timestampNow())),
+                  buildTableRow(
+                    code: "2小时前的消息",
+                    value: DateTime.now()
+                        .subtract(Duration(hours: 2))
+                        .toChatTimeFormat(),
+                  ),
+                  buildTableRow(
+                    code: "昨天的消息",
+                    value: DateTime.now()
+                        .subtract(Duration(days: 1))
+                        .toChatTimeFormat(),
+                  ),
+                  buildTableRow(
+                    code: "本周内的消息",
+                    value: DateTime.now()
+                        .subtract(Duration(days: 3))
+                        .toChatTimeFormat(),
+                  ),
+                  buildTableRow(
+                    code: "超过一周的消息",
+                    value: DateTime.now()
+                        .subtract(Duration(days: 100))
+                        .toChatTimeFormat(),
+                  ),
+                  buildTableRow(
+                    code: "超过一年的消息",
+                    value: DateTime.now()
+                        .subtract(Duration(days: 400))
+                        .toChatTimeFormat(),
+                  ),
                   buildTableRowTop(code: "device", value: "value"),
                   buildTableRow(code: "deviceModel", value: deviceModel),
                   buildTableRow(code: "deviceBrand", value: deviceBrand),
