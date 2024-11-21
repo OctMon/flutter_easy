@@ -190,11 +190,13 @@ extension DateTimeChat on DateTime {
   String toChatTimeFormat() {
     final now = DateTime.now();
     final difference = now.difference(this);
+    final todayStart = DateTime(now.year, now.month, now.day); // 今天的零点
+    final yesterdayStart = todayStart.subtract(Duration(days: 1)); // 昨天的零点
 
-    if (difference.inDays == 0) {
+    if (isAfter(todayStart)) {
       // 今天
       return DateFormat('HH:mm').format(this); // 仅显示时间
-    } else if (difference.inDays == 1) {
+    } else if (isAfter(yesterdayStart)) {
       // 昨天
       return '昨天 ${DateFormat('HH:mm').format(this)}';
     } else if (difference.inDays < 7) {
