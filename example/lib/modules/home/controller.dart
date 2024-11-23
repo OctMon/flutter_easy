@@ -38,6 +38,9 @@ class HomeController extends GetxController
   }
 
   Future<void> onGetList() async {
+    if (isWeb) {
+      return;
+    }
     final functions = [
       "getAppTemporaryDirectory()",
       "getAppDocumentsDirectory()",
@@ -56,5 +59,6 @@ class HomeController extends GetxController
         list.length,
         (index) =>
             BaseKeyValue(key: functions[index], value: "${list[index]?.path}"));
+    logDebug(pathList);
   }
 }
