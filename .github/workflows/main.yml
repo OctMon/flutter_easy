@@ -30,4 +30,17 @@ jobs:
         run: |
           flutter build apk --target-platform android-arm64
           flutter build ios --release --no-codesign
-          flutter build web
+
+  build-and-deploy:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter build web --base-href "/flutter_easy/"
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
