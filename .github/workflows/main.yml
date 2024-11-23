@@ -38,7 +38,11 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - run: flutter build web --base-href "/flutter_easy/"
+      - run: dart --version
+      - run: flutter --version
+      - name: build flutter_easy_example
+        working-directory: example
+        run: flutter build web --base-href "/flutter_easy/"
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
