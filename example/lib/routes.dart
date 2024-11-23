@@ -1,14 +1,14 @@
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'modules/example/connectivity/view.dart';
-import 'modules/example/image_colors/page.dart';
+import 'modules/example/image_colors/view.dart';
 import 'modules/example/image_girl_list/view.dart';
-import 'modules/example/login/page.dart';
-import 'modules/example/photo_view/page.dart';
-import 'modules/example/photos_tab/page.dart';
-import 'modules/example/tu_chong/page.dart';
-import 'modules/profile/page.dart';
-import 'modules/root/page.dart';
+import 'modules/example/login/view.dart';
+import 'modules/example/photo_view/view.dart';
+import 'modules/example/photos_tab/view.dart';
+import 'modules/example/tu_chong/view.dart';
+import 'modules/profile/view.dart';
+import 'modules/root/view.dart';
 import 'modules/splash/page.dart';
 
 import 'middleware/login_middleware.dart';
