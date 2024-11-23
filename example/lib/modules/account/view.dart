@@ -152,20 +152,22 @@ class AccountPage extends StatelessWidget {
                   );
                 },
               ),
-              Obx(() {
-                return GlobalListCell(
-                  item: BaseKeyValue(
-                    key: "记录日志文件",
-                    value: controller.logEnable.value ? "ON" : "OFF",
-                    extend: Icons.file_copy_rounded,
-                  ),
-                  onPressed: () {
-                    controller.logEnable.toggle();
-                    logFile.enable = controller.logEnable.value;
-                    controller.load();
-                  },
-                );
-              }),
+              if (!isWeb)
+                Obx(() {
+                  return GlobalListCell(
+                    item: BaseKeyValue(
+                      key: "记录日志文件",
+                      value:
+                          (controller.logEnable?.value ?? false) ? "ON" : "OFF",
+                      extend: Icons.file_copy_rounded,
+                    ),
+                    onPressed: () {
+                      controller.logEnable?.toggle();
+                      logFile?.enable = controller.logEnable?.value ?? false;
+                      controller.load();
+                    },
+                  );
+                }),
               Obx(() {
                 return GlobalListCell(
                   item: BaseKeyValue(
@@ -175,7 +177,7 @@ class AccountPage extends StatelessWidget {
                   ),
                   onPressed: () async {
                     showLoading();
-                    await logFile.clear();
+                    await logFile?.clear();
                     dismissLoading();
                     controller.load();
                   },

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:share_plus/share_plus.dart';
 
-late LogFile logFile;
+LogFile? logFile;
 
 String _costumeSplitter = " ";
 
@@ -28,7 +28,7 @@ void _log(LoggerLevel level, dynamic message) {
   var formattedMessage = timestamp + _costumeSplitter + logLevel;
   formattedMessage += _costumeSplitter + "$message";
 
-  logFile.log(formattedMessage);
+  logFile?.log(formattedMessage);
 
   if (isDebug || isAppDebugFlag) {
     if (isIOS) {
@@ -334,7 +334,7 @@ class EasyLogController extends GetxController {
 
   @override
   void onInit() {
-    logFile.read().then((value) => logs.value = value.split("\n"));
+    logFile?.read().then((value) => logs.value = value.split("\n"));
     scrollController.addListener(() {
       updateFollowBottom();
     });
@@ -420,7 +420,7 @@ class EasyLogPage extends StatelessWidget {
               CupertinoIcons.bin_xmark,
             ),
             onPressed: () {
-              logFile.clear();
+              logFile?.clear();
               controller.logs.clear();
             },
           ),

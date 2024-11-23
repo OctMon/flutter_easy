@@ -84,10 +84,12 @@ Future<void> initEasyApp(
     SharedPreferencesUtil.init(),
   ]);
 
-  logToFile ??= isAppDebugFlag;
-  logFile = LogFile(join((await getAppDocumentsDirectory()).path, "logs"),
-      enable: logToFile, singleFileSizeLimit: singleFileSizeLimit);
-  logDebug("logFile: ${logFile.location}");
+  if (!isWeb) {
+    logToFile ??= isAppDebugFlag;
+    logFile = LogFile(join((await getAppDocumentsDirectory()).path, "logs"),
+        enable: logToFile, singleFileSizeLimit: singleFileSizeLimit);
+    logDebug("logFile: ${logFile?.location}");
+  }
 
   void localLogWriter(String text, {bool isError = false}) {
     if (isError) {
