@@ -9,7 +9,7 @@ import 'modules/example/photos_tab/view.dart';
 import 'modules/example/tu_chong/view.dart';
 import 'modules/profile/view.dart';
 import 'modules/root/view.dart';
-import 'modules/splash/page.dart';
+import 'modules/splash/view.dart';
 
 import 'middleware/login_middleware.dart';
 
