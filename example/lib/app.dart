@@ -34,8 +34,7 @@ Future<void> initApp() async {
 
 Future<void> initAfterPrivate() async {
   final deviceInfo = await DeviceInfoUtil.init();
-  logDebug(deviceInfo);
-
+  logDebug("deviceInfo:\n${deviceInfo.data}");
   // Load API
   await configAPI(null);
 }

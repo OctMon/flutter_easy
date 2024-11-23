@@ -212,6 +212,7 @@ class HomePage extends StatelessWidget {
                   buildTableRow(code: "isAndroid", value: "$isAndroid"),
                   buildTableRow(code: "isIOS", value: "$isIOS"),
                   buildTableRow(code: "isIPad", value: "$isIPad"),
+                  buildTableRow(code: "userAgent", value: userAgent),
                   buildTableRow(code: "isWeb", value: "$isWeb"),
                   buildTableRow(
                       code: "isWebInAndroid", value: "$isWebInAndroid"),

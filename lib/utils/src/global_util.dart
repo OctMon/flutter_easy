@@ -57,7 +57,7 @@ bool isWeb = kIsWeb;
 
 String get operatingSystem => isWeb ? "web" : Platform.operatingSystem;
 
-String get operatingSystemVersion => Platform.operatingSystemVersion;
+String get operatingSystemVersion => isWeb ? "" : Platform.operatingSystemVersion;
 
 String get userAgent => webUserAgent.toLowerCase();
 

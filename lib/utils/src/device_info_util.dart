@@ -27,6 +27,12 @@ class DeviceInfoUtil {
       deviceName = tmp.computerName;
       deviceSystemVersion = tmp.osRelease;
       deviceIsPhysicalDevice = true;
+    } else if (tmp is WebBrowserInfo) {
+      deviceModel = tmp.appName ?? "";
+      deviceBrand = tmp.appCodeName ?? "";
+      deviceName = tmp.browserName.name;
+      deviceSystemVersion = tmp.appVersion ?? "";
+      deviceIsPhysicalDevice = true;
     }
     return deviceInfo;
   }
@@ -40,15 +46,15 @@ String deviceModel = "";
 /// iOS 设备型号 iPad
 /// Android 与产品/ 硬件相关联的消费者可见品牌
 /// Mac Mac
-late String deviceBrand = "";
+String deviceBrand = "";
 
 /// iOS iPad Air (5th generation)
 /// Android sdk_gphone_x86
 /// Mac MacBook Pro
-late String deviceName = "";
+String deviceName = "";
 
 /// 操作系统版本号
-late String deviceSystemVersion = "";
+String deviceSystemVersion = "";
 
 ///  如果应用程序在模拟器中运行， true 则为其他情况
-late bool deviceIsPhysicalDevice = true;
+bool deviceIsPhysicalDevice = true;
