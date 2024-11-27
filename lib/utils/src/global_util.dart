@@ -57,7 +57,8 @@ bool isWeb = kIsWeb;
 
 String get operatingSystem => isWeb ? "web" : Platform.operatingSystem;
 
-String get operatingSystemVersion => isWeb ? "" : Platform.operatingSystemVersion;
+String get operatingSystemVersion =>
+    isWeb ? "" : Platform.operatingSystemVersion;
 
 String get userAgent => webUserAgent.toLowerCase();
 
@@ -74,6 +75,8 @@ bool get isWebInIPad => userAgent.contains("ipad");
 bool get isWebInIos => isWebInIPhone || isWebInIPad;
 
 bool get isWebInAndroid => userAgent.contains("android");
+
+bool get isWebInMobile => isWebInIos || isWebInAndroid;
 
 bool get isWebInWeChat => userAgent.contains("Micro" + "Messenger");
 

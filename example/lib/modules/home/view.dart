@@ -219,6 +219,7 @@ class HomePage extends StatelessWidget {
                   buildTableRow(code: "isWebInIos", value: "$isWebInIos"),
                   buildTableRow(code: "isWebInIPhone", value: "$isWebInIPhone"),
                   buildTableRow(code: "isWebInIPad", value: "$isWebInIPad"),
+                  buildTableRow(code: "isWebInMobile", value: "$isWebInMobile"),
                   buildTableRow(code: "isWebInWeChat", value: "$isWebInWeChat"),
                   buildTableRow(code: "isPhone", value: "$isPhone"),
                   buildTableRow(code: "isMacOS", value: "$isMacOS"),
