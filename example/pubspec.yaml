@@ -76,6 +76,12 @@ dependencies:
   # ===============================================================================
   flutter_localized_locales: ^2.0.5
 
+  # ===============================================================================
+  # Approximate how your app looks and performs on another device.
+  # pub：https://pub.dev/packages/device_preview
+  # git：https://github.com/aloisdeniel/flutter_device_preview
+  # ===============================================================================
+  device_preview: ^1.2.0
 
 dev_dependencies:
   flutter_test:

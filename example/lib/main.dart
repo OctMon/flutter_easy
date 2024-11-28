@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
@@ -14,7 +15,16 @@ void main() async {
     customExceptionReport: (error, stack) {},
   );
   await initApp();
-  runApp(const MyApp());
+  if (isWeb && !isWebInMobile) {
+    runApp(
+      DevicePreview(
+        // enabled: !kReleaseMode,
+        builder: (context) => MyApp(), // Wrap your app
+      ),
+    );
+  } else {
+    runApp(const MyApp());
+  }
   if (isAndroid) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
