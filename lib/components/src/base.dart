@@ -159,6 +159,7 @@ class BaseApp extends StatefulWidget {
   final Widget? home;
   final TransitionBuilder? builder;
   final List<NavigatorObserver> navigatorObservers;
+  final ValueChanged<Routing?>? routingCallback;
   final RouteFactory? onGenerateRoute;
   final List<GetPage>? getPages;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
@@ -176,6 +177,7 @@ class BaseApp extends StatefulWidget {
     this.home,
     this.builder,
     this.navigatorObservers = const <NavigatorObserver>[],
+    this.routingCallback,
     this.onGenerateRoute,
     this.getPages,
     this.localizationsDelegates,
@@ -271,6 +273,7 @@ class _BaseAppState extends State<BaseApp> {
             },
           ),
       navigatorObservers: widget.navigatorObservers,
+      routingCallback: widget.routingCallback,
       onGenerateRoute: widget.onGenerateRoute,
       getPages: widget.getPages,
       localizationsDelegates: widget.localizationsDelegates,
