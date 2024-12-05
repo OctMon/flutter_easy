@@ -69,15 +69,17 @@ class LogFile {
   late int _hours = 6;
 
   LogFile(this.location,
-      {required bool enable, String? singleFileSizeLimit, int? hours = 6}) {
+      {required bool enable,
+      String? singleFileSizeLimit,
+      int? singleFileHourLimit}) {
     if (singleFileSizeLimit != null) {
       final size = BinarySize.parse(singleFileSizeLimit);
       if (size != null) {
         this.singleFileSizeLimit = size;
       }
     }
-    if (hours != null) {
-      _hours = hours;
+    if (singleFileHourLimit != null) {
+      _hours = singleFileHourLimit;
     }
     getFileId();
     this.enable = enable;
