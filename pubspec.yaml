@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  intl:
+
   # ===============================================================================
   # Network request result
   # pub: https://pub.dev/packages/session

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path/path.dart' as Path;
+import 'package:intl/intl.dart';
 
 import 'binary_size.dart';
 
@@ -57,37 +58,45 @@ class LogFile {
 
   final String location;
 
-  late BinarySize singleFileSizeLimit = BinarySize.parse('10 MB')!;
+  late BinarySize singleFileSizeLimit = BinarySize.parse('500 MB')!;
 
-  late int _fileId = 0;
+  late String _fileId = "";
 
   late bool enable;
 
-  LogFile(this.location, {required bool enable, String? singleFileSizeLimit}) {
+  DateFormat _format = DateFormat("yyyy-MM-dd HH:mm:ss");
+
+  late int _hours = 6;
+
+  LogFile(this.location,
+      {required bool enable, String? singleFileSizeLimit, int? hours = 6}) {
     if (singleFileSizeLimit != null) {
       final size = BinarySize.parse(singleFileSizeLimit);
       if (size != null) {
         this.singleFileSizeLimit = size;
       }
     }
+    if (hours != null) {
+      _hours = hours;
+    }
     getFileId();
     this.enable = enable;
   }
 
   Future<void> getFileId() async {
-    var maxFileName = 0;
+    var maxFileName = "";
     for (var pathStr in await files()) {
       var name = Path.basename(pathStr);
       name = name.replaceAll(".log", "");
-      var time = int.tryParse(name) ?? 0;
-      maxFileName = maxFileName > time ? maxFileName : time;
+      maxFileName = maxFileName.compareTo(name) < 0 ? name : maxFileName;
     }
-    if (maxFileName > 0 &&
-        DateTime.fromMillisecondsSinceEpoch(maxFileName).isBefore(
-            DateTime.now().subtract(Duration(hours: 6)))) {
+    if (DateTime.tryParse(maxFileName) != null &&
+        DateTime.now()
+            .subtract(Duration(hours: _hours))
+            .isBefore(DateTime.parse(maxFileName))) {
       _fileId = maxFileName;
-    }else{
-      _fileId = DateTime.now().millisecondsSinceEpoch;
+    } else {
+      _fileId = _format.format(DateTime.now());
     }
   }
 
@@ -107,14 +116,18 @@ class LogFile {
 
   String getFileName() {
     var file = File('$location/$_fileId.log');
-    if(file.existsSync()){
+    if (file.existsSync()) {
       var size = BinarySize()..bytesCount = file.lengthSync();
-      if(DateTime.fromMillisecondsSinceEpoch(_fileId).add(Duration(hours: 6)).isAfter(DateTime.now()) && size < singleFileSizeLimit){
+      if (DateTime.tryParse(_fileId) != null &&
+          DateTime.parse(_fileId)
+              .add(Duration(hours: _hours))
+              .isAfter(DateTime.now()) &&
+          size < singleFileSizeLimit) {
         return "$_fileId.log";
       }
     }
     clearCache();
-    _fileId = DateTime.now().millisecondsSinceEpoch;
+    _fileId = _format.format(DateTime.now());
     return "$_fileId.log";
     // var now = DateTime.now();
     //
@@ -181,7 +194,7 @@ class LogFile {
   }
 
   Future<int> filesCount() async {
-    var dir = await Directory(location);
+    var dir = Directory(location);
     if (dir.existsSync()) {
       return await dir.list().length - 1;
     }
@@ -189,7 +202,7 @@ class LogFile {
   }
 
   Future<List<String>> files() async {
-    var dir = await Directory(location);
+    var dir = Directory(location);
     var list = <String>[];
     if (dir.existsSync()) {
       for (var value in dir.listSync()) {
@@ -202,6 +215,10 @@ class LogFile {
     return list;
   }
 
+  Directory getDir() {
+    return Directory(location);
+  }
+
   Future<void> clear() async {
     for (var path in await files()) {
       await File(path).delete();
@@ -212,9 +229,16 @@ class LogFile {
     for (var pathStr in await files()) {
       var name = Path.basename(pathStr);
       name = name.replaceAll(".log", "");
-      var time = int.tryParse(name) ?? 0;
-      if(time>0 && DateTime.fromMillisecondsSinceEpoch(time).isBefore(DateTime.now().subtract(Duration(hours: 12)))){
+      if (DateTime.tryParse(name) != null &&
+          DateTime.parse(name)
+              .isBefore(DateTime.now().subtract(Duration(hours: _hours * 2)))) {
         await File(pathStr).delete();
+      } else if ((int.tryParse(name) ?? 0) > 0) {
+        int time = int.tryParse(name) ?? 0;
+        if (DateTime.fromMillisecondsSinceEpoch(time)
+            .isBefore(DateTime.now().subtract(Duration(hours: _hours * 2)))) {
+          await File(pathStr).delete();
+        }
       }
     }
   }
@@ -337,7 +361,7 @@ ${result.response?.requestOptions.data is Map ? jsonEncode(result.response?.requ
 """;
   }
   string +=
-  "----------------------${result.response?.statusCode}------------------->";
+      "----------------------${result.response?.statusCode}------------------->";
   if (result.response?.headers != null &&
       !result.response!.headers.isEmptyOrNull) {
     string += """
