@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:path/path.dart' as Path;
+import 'package:intl/intl.dart';
 
 LogFile? logFile;
 
@@ -55,59 +57,65 @@ class LogFile {
 
   final String location;
 
-  late BinarySize singleFileSizeLimit = BinarySize.parse('10 MB')!;
+  late BinarySize singleFileSizeLimit = BinarySize.parse('500 MB')!;
 
-  late int _fileId = 0;
+  late String _fileId = "";
 
   late bool enable;
 
-  LogFile(this.location, {required bool enable, String? singleFileSizeLimit}) {
+  DateFormat _format = DateFormat("yyyy-MM-dd HH:mm:ss");
+
+  late int _hours = 6;
+
+  LogFile(this.location,
+      {required bool enable,
+      String? singleFileSizeLimit,
+      int? singleFileHourLimit}) {
     if (singleFileSizeLimit != null) {
       final size = BinarySize.parse(singleFileSizeLimit);
       if (size != null) {
         this.singleFileSizeLimit = size;
       }
     }
-    _fileId = getNextId();
+    if (singleFileHourLimit != null) {
+      _hours = singleFileHourLimit;
+    }
+    getFileId();
     this.enable = enable;
   }
 
-  int getNextId() {
-    var lastIdFile = File('$location/options/last_id');
-    if (lastIdFile.existsSync()) {
-      var result = int.parse(lastIdFile.readAsStringSync());
-      lastIdFile.writeAsStringSync((result + 1).toString());
-      return result + 1;
+  Future<void> getFileId() async {
+    var maxFileName = "";
+    for (var pathStr in await files()) {
+      var name = Path.basename(pathStr);
+      name = name.replaceAll(".log", "");
+      maxFileName = maxFileName.compareTo(name) < 0 ? name : maxFileName;
+    }
+    if (DateTime.tryParse(maxFileName) != null &&
+        DateTime.now()
+            .subtract(Duration(hours: _hours))
+            .isBefore(DateTime.parse(maxFileName))) {
+      _fileId = maxFileName;
     } else {
-      lastIdFile
-        ..createSync(recursive: true)
-        ..writeAsStringSync('1');
-      return 1;
+      _fileId = _format.format(DateTime.now());
     }
   }
 
   String getFileName() {
-    var now = DateTime.now();
-
-    var fileName = fileNamePattern
-        .replaceAll('@yyyy', now.year.toString().padLeft(4, '0'))
-        .replaceAll('@MM', now.month.toString().padLeft(2, '0'))
-        .replaceAll('@dd', now.day.toString().padLeft(2, '0'))
-        .replaceAll('@HH', now.hour.toString().padLeft(2, '0'))
-        .replaceAll('@mm', now.minute.toString().padLeft(2, '0'))
-        .replaceAll('@ss', now.second.toString().padLeft(2, '0'))
-        .replaceAll('@id', _fileId.toString());
-
-    var file = File('$location/$fileName');
+    var file = File('$location/$_fileId.log');
     if (file.existsSync()) {
       var size = BinarySize()..bytesCount = file.lengthSync();
-      if (size > singleFileSizeLimit) {
-        _fileId = getNextId();
-        return getFileName();
+      if (DateTime.tryParse(_fileId) != null &&
+          DateTime.parse(_fileId)
+              .add(Duration(hours: _hours))
+              .isAfter(DateTime.now()) &&
+          size < singleFileSizeLimit) {
+        return "$_fileId.log";
       }
     }
-
-    return fileName;
+    clearCache();
+    _fileId = _format.format(DateTime.now());
+    return "$_fileId.log";
   }
 
   void log(String message) {
@@ -154,7 +162,7 @@ class LogFile {
   }
 
   Future<int> filesCount() async {
-    var dir = await Directory(location);
+    var dir = Directory(location);
     if (dir.existsSync()) {
       return await dir.list().length - 1;
     }
@@ -162,7 +170,7 @@ class LogFile {
   }
 
   Future<List<String>> files() async {
-    var dir = await Directory(location);
+    var dir = Directory(location);
     var list = <String>[];
     if (dir.existsSync()) {
       for (var value in dir.listSync()) {
@@ -175,9 +183,31 @@ class LogFile {
     return list;
   }
 
+  Directory getDir() {
+    return Directory(location);
+  }
+
   Future<void> clear() async {
     for (var path in await files()) {
       await File(path).delete();
+    }
+  }
+
+  Future<void> clearCache() async {
+    for (var pathStr in await files()) {
+      var name = Path.basename(pathStr);
+      name = name.replaceAll(".log", "");
+      if (DateTime.tryParse(name) != null &&
+          DateTime.parse(name)
+              .isBefore(DateTime.now().subtract(Duration(hours: _hours * 2)))) {
+        await File(pathStr).delete();
+      } else if ((int.tryParse(name) ?? 0) > 0) {
+        int time = int.tryParse(name) ?? 0;
+        if (DateTime.fromMillisecondsSinceEpoch(time)
+            .isBefore(DateTime.now().subtract(Duration(hours: _hours * 2)))) {
+          await File(pathStr).delete();
+        }
+      }
     }
   }
 }
