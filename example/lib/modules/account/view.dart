@@ -172,7 +172,8 @@ class AccountPage extends StatelessWidget {
                 return GlobalListCell(
                   item: BaseKeyValue(
                     key: "清理日志文件",
-                    value: "${controller.logFilesCount.value}",
+                    value:
+                        "${controller.logFilesSize.value}(${controller.logFilesCount.value})",
                     extend: Icons.cleaning_services,
                   ),
                   onPressed: () async {

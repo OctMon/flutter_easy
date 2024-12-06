@@ -169,6 +169,29 @@ class LogFile {
     return 0;
   }
 
+  Future<BinarySize?> filesSize() async {
+    var dir = Directory(location);
+    if (dir.existsSync()) {
+      int totalSize = 0;
+      try {
+        // 列出目录下的所有文件和子目录
+        await for (var entity
+            in dir.list(recursive: true, followLinks: false)) {
+          // 如果是文件，则获取其大小并累加
+          if (entity is File) {
+            totalSize += await entity.length();
+          }
+        }
+      } catch (e) {
+        logError("Error calculating size: $e");
+        return null;
+      }
+      var size = BinarySize()..bytesCount = totalSize;
+      return size;
+    }
+    return null;
+  }
+
   List<String> files() {
     var dir = Directory(location);
     var list = <String>[];
