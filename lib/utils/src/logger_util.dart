@@ -85,9 +85,9 @@ class LogFile {
     this.enable = enable;
   }
 
-  Future<void> getFileId() async {
+  void getFileId() {
     var maxFileName = "";
-    for (var pathStr in await files()) {
+    for (var pathStr in files()) {
       var name = Path.basename(pathStr);
       name = name.replaceAll(".log", "");
       maxFileName = maxFileName.compareTo(name) < 0 ? name : maxFileName;
@@ -101,20 +101,6 @@ class LogFile {
       _fileId = _format.format(DateTime.now());
     }
   }
-
-  // int getNextId() {
-  //   var lastIdFile = File('$location/options/last_id');
-  //   if (lastIdFile.existsSync()) {
-  //     var result = int.parse(lastIdFile.readAsStringSync());
-  //     lastIdFile.writeAsStringSync((result + 1).toString());
-  //     return result + 1;
-  //   } else {
-  //     lastIdFile
-  //       ..createSync(recursive: true)
-  //       ..writeAsStringSync('1');
-  //     return 1;
-  //   }
-  // }
 
   String getFileName() {
     var file = File('$location/$_fileId.log');
@@ -131,25 +117,6 @@ class LogFile {
     clearCache();
     _fileId = _format.format(DateTime.now());
     return "$_fileId.log";
-    // var now = DateTime.now();
-    //
-    // var fileName = fileNamePattern
-    //     .replaceAll('@yyyy', now.year.toString().padLeft(4, '0'))
-    //     .replaceAll('@MM', now.month.toString().padLeft(2, '0'))
-    //     .replaceAll('@dd', now.day.toString().padLeft(2, '0'))
-    //     .replaceAll('@HH', now.hour.toString().padLeft(2, '0'))
-    //     .replaceAll('@mm', now.minute.toString().padLeft(2, '0'))
-    //     .replaceAll('@ss', now.second.toString().padLeft(2, '0'))
-    //     .replaceAll('@id', _fileId.toString());
-    // var file = File('$location/$fileName');
-    // if (file.existsSync()) {
-    //   var size = BinarySize()..bytesCount = file.lengthSync();
-    //   if (size > singleFileSizeLimit) {
-    //     _fileId = getNextId();
-    //     return getFileName();
-    //   }
-    // }
-    // return fileName;
   }
 
   void log(String message) {
@@ -198,12 +165,35 @@ class LogFile {
   Future<int> filesCount() async {
     var dir = Directory(location);
     if (dir.existsSync()) {
-      return await dir.list().length - 1;
+      return await dir.list().length;
     }
     return 0;
   }
 
-  Future<List<String>> files() async {
+  Future<BinarySize?> filesSize() async {
+    var dir = Directory(location);
+    if (dir.existsSync()) {
+      int totalSize = 0;
+      try {
+        // 列出目录下的所有文件和子目录
+        await for (var entity
+            in dir.list(recursive: true, followLinks: false)) {
+          // 如果是文件，则获取其大小并累加
+          if (entity is File) {
+            totalSize += await entity.length();
+          }
+        }
+      } catch (e) {
+        logError("Error calculating size: $e");
+        return null;
+      }
+      var size = BinarySize()..bytesCount = totalSize;
+      return size;
+    }
+    return null;
+  }
+
+  List<String> files() {
     var dir = Directory(location);
     var list = <String>[];
     if (dir.existsSync()) {
@@ -222,13 +212,13 @@ class LogFile {
   }
 
   Future<void> clear() async {
-    for (var path in await files()) {
+    for (var path in files()) {
       await File(path).delete();
     }
   }
 
   Future<void> clearCache() async {
-    for (var pathStr in await files()) {
+    for (var pathStr in files()) {
       var name = Path.basename(pathStr);
       name = name.replaceAll(".log", "");
       if (DateTime.tryParse(name) != null &&
