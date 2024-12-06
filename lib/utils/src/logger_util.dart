@@ -84,9 +84,9 @@ class LogFile {
     this.enable = enable;
   }
 
-  Future<void> getFileId() async {
+  void getFileId() {
     var maxFileName = "";
-    for (var pathStr in await files()) {
+    for (var pathStr in files()) {
       var name = Path.basename(pathStr);
       name = name.replaceAll(".log", "");
       maxFileName = maxFileName.compareTo(name) < 0 ? name : maxFileName;
@@ -164,12 +164,12 @@ class LogFile {
   Future<int> filesCount() async {
     var dir = Directory(location);
     if (dir.existsSync()) {
-      return await dir.list().length - 1;
+      return await dir.list().length;
     }
     return 0;
   }
 
-  Future<List<String>> files() async {
+  List<String> files() {
     var dir = Directory(location);
     var list = <String>[];
     if (dir.existsSync()) {
@@ -188,13 +188,13 @@ class LogFile {
   }
 
   Future<void> clear() async {
-    for (var path in await files()) {
+    for (var path in files()) {
       await File(path).delete();
     }
   }
 
   Future<void> clearCache() async {
-    for (var pathStr in await files()) {
+    for (var pathStr in files()) {
       var name = Path.basename(pathStr);
       name = name.replaceAll(".log", "");
       if (DateTime.tryParse(name) != null &&
