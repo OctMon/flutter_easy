@@ -17,6 +17,8 @@ Color setDarkPrimarySwatchColor = Colors.blue;
 var setLightAppBarSystemOverlayStyle = SystemUiOverlayStyle.dark;
 var setDarkAppBarSystemOverlayStyle = SystemUiOverlayStyle.light;
 
+bool? setAppBarCenterTitle;
+
 Color setLightAppBarBackgroundColor = Colors.white;
 Color setDarkAppBarBackgroundColor = Colors.black;
 
@@ -154,6 +156,7 @@ ThemeData getTheme({bool darkMode = false, required bool useMaterial3}) {
           : setLightAppBarSystemOverlayStyle,
       titleTextStyle:
           darkMode ? setDarkAppBarTitleTextStyle : setLightAppBarTitleTextStyle,
+      centerTitle: setAppBarCenterTitle,
     ),
     fontFamily: setThemeDataFontFamily,
     textTheme: TextTheme(
