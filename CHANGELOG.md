@@ -1,3 +1,6 @@
+## 3.9.1
+* upgrade flutter 3.24
+
 ## 3.9.0
 * upgrade flutter 3.22
 
