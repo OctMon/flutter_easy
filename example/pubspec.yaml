@@ -97,7 +97,7 @@ dev_dependencies:
   # pub: https://pub.dev/packages/flutter_launcher_icons
   # git: https://github.com/fluttercommunity/flutter_launcher_icons
   # ===============================================================================
-  flutter_launcher_icons: ^0.14.1
+  flutter_launcher_icons: ^0.14.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -118,12 +118,23 @@ flutter_intl:
   enabled: true
 
 # 执行命令：
-# flutter pub run flutter_launcher_icons:main
-flutter_icons:
+# dart run flutter_launcher_icons
+flutter_launcher_icons:
   image_path: "icons/icon.png"
 #  image_path_android: "icons/ic_launcher.png"
 #  image_path_ios: "icons/ios_marketing.png"
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
-#  adaptive_icon_background: "assets/images/christmas-background.png" # only available for Android 8.0 devices and above
-#  adaptive_icon_foreground: "assets/images/icon-foreground-432x432.png" # only available for Android 8.0 devices and above
+  adaptive_icon_background: "#ffffff" # only available for Android 8.0 devices and above
+  adaptive_icon_foreground: "icons/icon.png" # only available for Android 8.0 devices and above
+
+  web:
+    generate: true
+
+  macos:
+    generate: true
+    image_path: "icons/icon-mac.png"
+
+  windows:
+    generate: true
+    icon_size: 256
