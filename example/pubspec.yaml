@@ -7,6 +7,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
+# 参数指定了生成的 HTML 文件中 <base href> 标签的值
+# 如果你的应用将部署到 https://example.com/my-app/，执行：flutter build web --base-href=/my-app/
+web_base_href: /example/
+
 environment:
   sdk: '>=2.18.2 <3.0.0'
 
