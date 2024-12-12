@@ -22,7 +22,7 @@ Run:
 flutter run --release --dart-define=app-debug-flag=true
 ```
 
-[Example:](https://github.com/OctMon/flutter_easy/releases)
+[Example:](https://www.octmon.com/example)
 
 main.dart
 
