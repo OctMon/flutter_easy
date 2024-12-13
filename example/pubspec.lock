@@ -760,10 +760,10 @@ packages:
     dependency: transitive
     description:
       name: session
-      sha256: cef8de252b8121baa11ce08450e0e981d36af382a6b85114bfb4f8caace699d9
+      sha256: "7ea1f3ed4aaa6b85cad2a950d626705ef4dd7616a0d327bf9640cef2e68d5634"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.2"
+    version: "1.3.3"
   share_plus:
     dependency: transitive
     description:
