@@ -598,7 +598,7 @@ const RESOURCES = {"flutter.js": "4b2350e14c6650ba82871f60906437ea",
 "icons/Icon-maskable-512.png": "8a83f509d98296a3e7131ebb955ef8e9",
 "favicon.png": "b43928698f03290c8b4a33f6ea420378",
 "version.json": "cca0cdec7066ad7279fe8f9a0d54d510",
-"flutter_bootstrap.js": "b0ab8916a0a166e76bf22e9834e2a873"};
+"flutter_bootstrap.js": "f0ec40aae5d93b3248eb91df44ecda31"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
