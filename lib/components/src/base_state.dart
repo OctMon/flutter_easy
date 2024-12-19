@@ -146,16 +146,16 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
     Duration delay = const Duration(seconds: 10),
     bool immediately = false,
   }) async {
-    logDebug("loop start");
+    logDebug("$runtimeType loop start");
     var index = 0;
     while (index < count) {
       index++;
-      logDebug("loop isClosed:$isClosed");
+      logDebug("$runtimeType loop isClosed:$isClosed");
       if (validTest?.call() ?? !isClosed) {
         if (index == 1 && !immediately) {
-          logDebug("loop no immediately");
+          logDebug("$runtimeType loop no immediately");
         } else {
-          logDebug("loop ing");
+          logDebug("$runtimeType loop ing");
           if (onRequest != null) {
             onRequest.call();
           } else {
@@ -164,7 +164,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
         }
         await delay.delay();
       } else {
-        logDebug("loop break");
+        logDebug("$runtimeType loop break");
         break;
       }
     }
