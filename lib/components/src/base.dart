@@ -497,6 +497,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final Color? backgroundColor;
   final SystemUiOverlayStyle? systemOverlayStyle;
   final double? height;
+  final bool? centerTitle;
 
   BaseAppBar({
     this.automaticallyImplyLeading = true,
@@ -509,6 +510,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
     this.backgroundColor,
     this.systemOverlayStyle,
     this.height,
+    this.centerTitle,
   });
 
   @override
@@ -524,6 +526,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
             )
           : null,
       title: title,
+      centerTitle: centerTitle,
       actions: actions ?? [],
       elevation: elevation,
       backgroundColor: backgroundColor,
@@ -547,6 +550,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
               )
             : null,
         title: title,
+        centerTitle: centerTitle,
         actions: actions ?? [],
         elevation: elevation,
         backgroundColor: backgroundColor,
