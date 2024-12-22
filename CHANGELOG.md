@@ -1,3 +1,6 @@
+## 3.9.2
+* upgrade pub dependencies
+
 ## 3.9.1
 * upgrade flutter 3.24
 
