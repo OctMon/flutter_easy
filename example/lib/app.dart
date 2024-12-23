@@ -30,7 +30,6 @@ Future<void> initApp() async {
   } else {
     await initAfterPrivate();
   }
-  saveBaseURLType(BaseURLType.release);
 }
 
 Future<void> initAfterPrivate() async {

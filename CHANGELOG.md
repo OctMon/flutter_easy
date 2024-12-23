@@ -1,3 +1,6 @@
+## 3.9.3
+* add saveBaseURLType
+
 ## 3.9.2
 * upgrade pub dependencies
 
