@@ -71,16 +71,11 @@ Future<void> initEasyApp({
       customExceptionReport,
   String? singleFileSizeLimit,
   int? singleFileHourLimit,
-  BaseURLType? defaultBaseURLType,
 }) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
   _appBaseURLChangedCallback = appBaseURLChangedCallback;
-
-  if (defaultBaseURLType != null) {
-    defaultDebugBaseURLType = defaultBaseURLType;
-  }
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -116,10 +111,8 @@ Future<void> initEasyApp({
   );
 
   logInfo("Init: $utils");
-  if (isAppDebugFlag) {
-    final network = await initSelectedBaseURLType();
-    logInfo("Network: $network");
-  }
+  final network = await initSelectedBaseURLType();
+  logInfo("Network: $network $kBaseURLType");
 
   if (customExceptionReport != null) {
     // 先将 onError 保存起来
@@ -223,9 +216,7 @@ class _BaseAppState extends State<BaseApp> {
           final showDebugTools = widget.showDebugTools ?? isAppDebugFlag;
           return Banner(
             color: Colors.deepPurple,
-            message: baseURLTypeString.value.isEmpty
-                ? defaultDebugBaseURLType.name
-                : kBaseURLType.name,
+            message: "${kBaseURLType.name}",
             location: BannerLocation.topEnd,
             child: Stack(
               alignment: Alignment.topCenter,
