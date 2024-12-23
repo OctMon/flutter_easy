@@ -14,19 +14,19 @@ enum BaseURLType { test, release }
 String _baseURLTypeKey = "$BaseURLType".md5;
 
 /// 当前环境
-var _baseURLTypeString = "".obs;
+var baseURLTypeString = "".obs;
 
 var defaultDebugBaseURLType = BaseURLType.test;
 
 /// 上线环境
 BaseURLType get kBaseURLType {
-  final urlType = _baseURLTypeString.value;
+  final urlType = baseURLTypeString.value;
   if (isAppDebugFlag) {
     if (urlType.isEmpty) {
       return defaultDebugBaseURLType;
     } else if (urlType.isEmpty || urlType == "${BaseURLType.test}") {
       return BaseURLType.test;
-    } else if (_baseURLTypeString.value == "${BaseURLType.release}") {
+    } else if (baseURLTypeString.value == "${BaseURLType.release}") {
       return BaseURLType.release;
     }
   }
@@ -358,7 +358,7 @@ Future<String?> initSelectedBaseURLType() async {
   String? urlType =
       await SharedPreferencesUtil.getSharedPrefsString(_baseURLTypeKey);
   if (urlType?.isNotEmpty ?? false) {
-    _baseURLTypeString.value = urlType ?? "";
+    baseURLTypeString.value = urlType ?? "";
   }
   return urlType;
 }
@@ -371,10 +371,10 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
 
   /// 保存选择的环境
   Future<bool> save(BaseURLType urlType) {
-    _baseURLTypeString.value = "$urlType";
-    logInfo("$_baseURLTypeKey = ${_baseURLTypeString.value}");
+    baseURLTypeString.value = "$urlType";
+    logInfo("$_baseURLTypeKey = ${baseURLTypeString.value}");
     return SharedPreferencesUtil.setSharedPrefsString(
-        _baseURLTypeKey, _baseURLTypeString.value);
+        _baseURLTypeKey, baseURLTypeString.value);
   }
 
   if (context == null) {
@@ -385,9 +385,9 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
 
   return showBaseAlert(
     BaseGeneralAlertDialog(
-      title: Text(_baseURLTypeString.value.isEmpty
+      title: Text(baseURLTypeString.value.isEmpty
           ? "$kBaseURLType"
-          : _baseURLTypeString.value),
+          : baseURLTypeString.value),
       content: Text(
         "${BaseURLType.test}=\n$kTestBaseURL\n\n${BaseURLType.release}=\n$kReleaseBaseURL",
       ),

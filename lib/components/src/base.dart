@@ -64,17 +64,23 @@ VoidCallback? _appBaseURLChangedCallback;
 /// 可切环境、查看日志 additional arguments:
 /// --dart-define=app-debug-flag=true
 /// flutter run --release --dart-define=app-debug-flag=true
-Future<void> initEasyApp(
-    {bool? logToFile,
-    VoidCallback? appBaseURLChangedCallback,
-    void Function(Object exception, StackTrace? stackTrace)?
-        customExceptionReport,
-    String? singleFileSizeLimit,
-    int? singleFileHourLimit}) async {
+Future<void> initEasyApp({
+  bool? logToFile,
+  VoidCallback? appBaseURLChangedCallback,
+  void Function(Object exception, StackTrace? stackTrace)?
+      customExceptionReport,
+  String? singleFileSizeLimit,
+  int? singleFileHourLimit,
+  BaseURLType? defaultBaseURLType,
+}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
   _appBaseURLChangedCallback = appBaseURLChangedCallback;
+
+  if (defaultBaseURLType != null) {
+    defaultDebugBaseURLType = defaultBaseURLType;
+  }
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -217,7 +223,9 @@ class _BaseAppState extends State<BaseApp> {
           final showDebugTools = widget.showDebugTools ?? isAppDebugFlag;
           return Banner(
             color: Colors.deepPurple,
-            message: kBaseURLType == BaseURLType.release ? "Release" : "Test",
+            message: baseURLTypeString.value.isEmpty
+                ? defaultDebugBaseURLType.name
+                : kBaseURLType.name,
             location: BannerLocation.topEnd,
             child: Stack(
               alignment: Alignment.topCenter,
