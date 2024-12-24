@@ -6,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:path/path.dart' as Path;
 import 'package:intl/intl.dart';
 
@@ -427,10 +426,6 @@ class EasyLogController extends GetxController {
       );
     }
   }
-
-  Future<void> shareText(String text) async {
-    await shareText(text);
-  }
 }
 
 class EasyLogPage extends StatelessWidget {
@@ -464,7 +459,7 @@ class EasyLogPage extends StatelessWidget {
               CupertinoIcons.share,
             ),
             onPressed: () {
-              controller.shareText(controller.logs.join("\n"));
+              shareText(controller.logs.join("\n"));
             },
           ),
           BaseButton(

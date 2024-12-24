@@ -1,3 +1,6 @@
+## 3.9.4
+* add share util
+
 ## 3.9.3
 * add saveBaseURLType
 
