@@ -429,7 +429,7 @@ class EasyLogController extends GetxController {
   }
 
   Future<void> shareText(String text) async {
-    await Share.share(text);
+    await shareText(text);
   }
 }
 
