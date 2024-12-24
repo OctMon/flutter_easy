@@ -56,7 +56,7 @@ Future<ShareResult> shareText(String text, {String? subject}) {
   return Share.share(text, subject: subject);
 }
 
-Future<void> shareFile({required String url, required String savePath}) async {
+Future<void> shareFile({required String url, String? savePath}) async {
   final path = await downloadFile(url: url, savePath: savePath);
 
   if (path != null) {
@@ -65,9 +65,7 @@ Future<void> shareFile({required String url, required String savePath}) async {
 }
 
 Future<String?> downloadFile(
-    {required String url,
-    required String savePath,
-    bool loading = false}) async {
+    {required String url, String? savePath, bool loading = true}) async {
   if (!BaseEasyLoading.isShow) {
     if (loading) {
       showLoading();
@@ -82,14 +80,14 @@ Future<String?> downloadFile(
     }
     return null;
   }
+  final path = savePath ?? await url.crateNewSharePath;
+  logDebug("download url: $url path: $path");
 
-  logDebug("save path: $savePath");
-
-  await file.copy(savePath);
+  await file.copy(path);
   if (loading) {
     dismissLoading();
   }
-  return savePath;
+  return path;
 }
 
 Future<File?> _downloadFile({required String url}) async {
