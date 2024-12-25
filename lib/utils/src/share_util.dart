@@ -44,6 +44,17 @@ Future<Directory> getShareDirectory() async => Directory(
 Future<String> getShareDirectoryPath() async =>
     (await getShareDirectory()).path;
 
+Future<void> clearShareDirectory() async {
+  final dir = await getShareDirectory();
+  if (dir.existsSync()) {
+    final List<FileSystemEntity> children = dir.listSync();
+    for (final FileSystemEntity child in children) {
+      child.deleteSync(recursive: true);
+      logDebug("delete: $child");
+    }
+  }
+}
+
 Future<ShareResult> shareURL(String url) {
   return Share.shareUri(Uri.parse(url));
 }

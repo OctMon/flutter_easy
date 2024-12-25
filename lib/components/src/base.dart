@@ -114,6 +114,9 @@ Future<void> initEasyApp({
   final network = await initSelectedBaseURLType();
   logInfo("Network: $network $kBaseURLType");
 
+  // 清除分享图片缓存
+  clearShareDirectory();
+
   if (customExceptionReport != null) {
     // 先将 onError 保存起来
     var onError = FlutterError.onError;
