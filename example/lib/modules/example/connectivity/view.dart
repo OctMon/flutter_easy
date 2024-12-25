@@ -25,6 +25,22 @@ class ConnectivityPage extends StatelessWidget {
             );
           }),
           const SizedBox(height: 30),
+          BaseRatingBar.builder(
+            glow: false,
+            initialRating: 3,
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              logDebug(rating);
+            },
+          ),
           Row(
             children: [
               const Icon(Icons.vibration),

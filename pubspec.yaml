@@ -135,6 +135,13 @@ dependencies:
   shimmer: ^3.0.0
 
   # ===============================================================================
+  # A simple yet fully customizable ratingbar
+  # pub：https://pub.dev/packages/flutter_rating_bar
+  # git：https://github.com/sarbagyastha/flutter_rating_bar
+  # ===============================================================================
+  flutter_rating_bar: ^4.0.1
+
+  # ===============================================================================
   # 名称： GetX
   # pub：https://pub.dev/packages/get
   # get：https://github.com/jonataslaw/getx

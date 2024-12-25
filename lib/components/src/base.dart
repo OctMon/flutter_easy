@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:path/path.dart';
 
@@ -31,6 +32,9 @@ typedef BaseSliverSimpleGridDelegateWithMaxCrossAxisExtent
     = SliverSimpleGridDelegateWithMaxCrossAxisExtent;
 
 typedef BaseOverlayVisibilityMode = OverlayVisibilityMode;
+
+typedef BaseRatingBar = RatingBar;
+typedef BaseRatingWidget = RatingWidget;
 
 class BaseKeyValue {
   late String key;
