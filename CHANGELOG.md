@@ -1,3 +1,7 @@
+## 3.9.5
+* add base prefix vendor
+* add rating bar
+
 ## 3.9.4
 * add share util
 
