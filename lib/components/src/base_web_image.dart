@@ -1,18 +1,13 @@
 import 'dart:async';
 import 'dart:io';
-import '../../utils/src/hw/hw_mp.dart';
 
 import 'package:extended_image/extended_image.dart';
+
+import '../../utils/src/hw/hw_mp.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
-
-typedef BaseExtendedImage = ExtendedImage;
-typedef BaseExtendedImageState = ExtendedImageState;
-typedef BaseExtendedFileImageProvider = ExtendedFileImageProvider;
-typedef BaseExtendedNetworkImageProvider = ExtendedNetworkImageProvider;
-typedef BaseExtendedAssetImageProvider = ExtendedAssetImageProvider;
-typedef BaseExtendedExactAssetImageProvider = ExtendedExactAssetImageProvider;
 
 Color? baseWebImageDefaultPlaceholderColor = const Color(0xFF373839);
 Widget baseWebImageDefaultErrorPlaceholder = Icon(Icons.error_outline);
@@ -131,7 +126,7 @@ class BaseWebImage extends StatelessWidget {
               "loadStateChanged: $imageUrl state: ${state.extendedImageLoadState.name}");
         }
         switch (state.extendedImageLoadState) {
-          case LoadState.loading:
+          case BaseLoadState.loading:
             Widget loading() {
               if (baseWebImageHandleLoadingProgress) {
                 final loadingProgress = state.loadingProgress;
@@ -155,7 +150,7 @@ class BaseWebImage extends StatelessWidget {
               return placeholder;
             }
             return loading();
-          case LoadState.completed:
+          case BaseLoadState.completed:
             if (imageCompletionHandler != null) {
               imageCompletionHandler!(state.extendedImageInfo);
             }
@@ -163,7 +158,7 @@ class BaseWebImage extends StatelessWidget {
               return state.completedWidget;
             }
             return null;
-          case LoadState.failed:
+          case BaseLoadState.failed:
             //remove memory cached
             state.imageProvider.evict();
             return GestureDetector(
@@ -184,9 +179,9 @@ class BaseWebImage extends StatelessWidget {
     var _cacheKey = cacheKey;
     if (cacheTag != null) {
       if (_cacheKey != null) {
-        _cacheKey = "${keyToMd5(_cacheKey)},$cacheTag";
+        _cacheKey = "${_cacheKey.md5},$cacheTag";
       } else {
-        _cacheKey = "${keyToMd5(url)},$cacheTag";
+        _cacheKey = "${url.md5},$cacheTag";
       }
     }
     return _cacheKey;
@@ -195,7 +190,7 @@ class BaseWebImage extends StatelessWidget {
   /// 手动缓存文件
   static Future<File?> cachePutFile(
       {required String url, required File file, String? cacheTag}) async {
-    final String key = keyToTagMd5(url, null, cacheTag) ?? keyToMd5(url);
+    final String key = keyToTagMd5(url, null, cacheTag) ?? url.md5;
     final Directory cacheImagesDirectory = Directory(
         getJoin((await getAppTemporaryDirectory()).path, cacheImageFolderName));
     if (cacheImagesDirectory.existsSync()) {
@@ -219,7 +214,7 @@ class BaseWebImage extends StatelessWidget {
     String? cacheTag,
     StreamController<ImageChunkEvent>? chunkEvents,
   }) async {
-    return ExtendedNetworkImageProvider(url,
+    return BaseExtendedNetworkImageProvider(url,
             cache: useCache, cacheKey: keyToTagMd5(url, cacheKey, cacheTag))
         .getNetworkImageData(
       chunkEvents: chunkEvents,

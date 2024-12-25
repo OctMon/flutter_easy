@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../utils/src/vendor_util.dart';
 import 'base_sliver_expanded.dart';
-
-typedef BaseSmartRefresher = SmartRefresher;
-typedef BaseRefreshController = RefreshController;
-typedef BaseRefreshLocalizations = RefreshLocalizations;
-typedef BaseRefreshConfiguration = RefreshConfiguration;
-typedef BaseCustomFooter = CustomFooter;
 
 class BaseRefresh extends StatelessWidget {
   final BaseRefreshController controller;
@@ -46,7 +40,7 @@ class BaseRefresh extends StatelessWidget {
           (configuration?.headerBuilder != null
               ? configuration?.headerBuilder!()
               : null) ??
-          ClassicHeader(),
+          BaseClassicHeader(),
       footer: footer,
       enablePullDown: onRefresh != null,
       enablePullUp: onLoading != null,
@@ -65,7 +59,7 @@ class BaseRefresh extends StatelessWidget {
     return BaseSmartRefresher(
       enablePullDown: false,
       onLoading: onLoading,
-      footer: footer ?? ClassicFooter(),
+      footer: footer ?? BaseClassicFooter(),
       enablePullUp: true,
       controller: controller,
       child: Scrollable(

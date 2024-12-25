@@ -1,4 +1,3 @@
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_easy/utils/export.dart';
@@ -10,7 +9,7 @@ class BaseBannerView extends StatelessWidget {
   final double? height;
   final int? playDelay;
   final bool showPagination;
-  final SwiperPlugin? pagination;
+  final BaseSwiperPlugin? pagination;
   final Widget placeholder;
   final ValueChanged<int>? onTap;
 
@@ -60,7 +59,7 @@ class BaseCycleView extends StatelessWidget {
   final ScrollPhysics? physics;
   final int? playDelay;
   final bool showPagination;
-  final SwiperPlugin? pagination;
+  final BaseSwiperPlugin? pagination;
   final ValueChanged<int>? onTap;
   final ValueChanged<int>? onIndexChanged;
 
@@ -86,7 +85,7 @@ class BaseCycleView extends StatelessWidget {
           this.height ?? adaptDp(180),
         ),
       ),
-      child: Swiper(
+      child: BaseSwiper(
         scrollDirection: scrollDirection,
         physics: physics,
         loop: items.length > 1,
@@ -99,10 +98,10 @@ class BaseCycleView extends StatelessWidget {
         onIndexChanged: onIndexChanged,
         pagination: pagination ??
             ((showPagination && items.length > 1)
-                ? SwiperPagination(
+                ? BaseSwiperPagination(
                     margin: EdgeInsets.all(5),
                     alignment: Alignment.bottomRight,
-                    builder: DotSwiperPaginationBuilder(
+                    builder: BaseDotSwiperPaginationBuilder(
                       size: 5,
                       activeSize: 5,
                       color: Color(0xFF999999),

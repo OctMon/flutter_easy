@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy_example/store/user/store.dart';
 import 'package:flutter_easy_example/routes.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/components/global/global_list_cell.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -107,7 +106,7 @@ class AccountPage extends StatelessWidget {
                 item: BaseKeyValue(
                     key: S.of(context).language,
                     value:
-                        "${appLocale == appDeviceLocale ? S.of(context).systemDefault : LocaleNames.of(context)?.nameOf("$appLocale")} - ${Intl.getCurrentLocale()}",
+                        "${appLocale == appDeviceLocale ? S.of(context).systemDefault : LocaleNames.of(context)?.nameOf("$appLocale")} - ${BaseIntl.getCurrentLocale()}",
                     extend: Icons.language),
                 onPressed: () {
                   showBaseBottomSheet(

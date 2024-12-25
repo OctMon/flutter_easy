@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:share_plus/share_plus.dart';
 
-import '../../components/src/base.dart';
 import '../../components/src/base_web_image.dart';
 import 'global_util.dart';
 import 'loading_util.dart';
 import 'logger_util.dart';
 import 'package_info_util.dart';
+import 'vendor_util.dart';
 
 String shareDirectoryName = "share";
 

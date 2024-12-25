@@ -4,37 +4,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_easy/flutter_easy.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:path/path.dart';
+import 'package:get/get.dart';
+
+import '../../routes/routes.dart';
+import '../../utils/src/adapt_util.dart';
+import '../../utils/src/color_util.dart';
+import '../../utils/src/global_util.dart';
+import '../../utils/src/intl_util.dart';
+import '../../utils/src/json_util.dart';
+import '../../utils/src/logger_util.dart';
+import '../../utils/src/network_util.dart';
+import '../../utils/src/package_info_util.dart';
+import '../../utils/src/share_util.dart';
+import '../../utils/src/shared_preferences_util.dart';
+import '../../utils/src/vendor_util.dart';
 
 /// TextScaler.linear(1.adaptRatio),
 TextScaler? baseDefaultTextScale = TextScaler.noScaling;
-
-typedef BaseEasyLoading = EasyLoading;
-typedef BaseEasyLoadingStyle = EasyLoadingStyle;
-typedef BaseEasyLoadingPosition = EasyLoadingToastPosition;
-typedef BaseEasyLoadingAnimationStyle = EasyLoadingAnimationStyle;
-typedef BaseEasyLoadingMaskType = EasyLoadingMaskType;
-typedef BaseEasyLoadingIndicatorType = EasyLoadingIndicatorType;
-typedef BaseEasyLoadingStatus = EasyLoadingStatus;
-
-typedef BaseAlignedGridView = AlignedGridView;
-typedef BaseMasonryGridView = MasonryGridView;
-typedef BaseSliverAlignedGrid = SliverAlignedGrid;
-typedef BaseSliverMasonryGrid = SliverMasonryGrid;
-typedef BaseStaggeredGridTile = StaggeredGridTile;
-typedef BaseSliverSimpleGridDelegateWithFixedCrossAxisCount
-    = SliverSimpleGridDelegateWithFixedCrossAxisCount;
-typedef BaseSliverSimpleGridDelegateWithMaxCrossAxisExtent
-    = SliverSimpleGridDelegateWithMaxCrossAxisExtent;
-
-typedef BaseOverlayVisibilityMode = OverlayVisibilityMode;
-
-typedef BaseRatingBar = RatingBar;
-typedef BaseRatingWidget = RatingWidget;
 
 class BaseKeyValue {
   late String key;

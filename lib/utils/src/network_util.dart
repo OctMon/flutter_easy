@@ -5,8 +5,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 export 'package:session/session.dart';
 
-typedef BaseCancelToken = CancelToken;
-
 /// URL环境
 enum BaseURLType { test, release }
 

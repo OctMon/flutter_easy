@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter_easy/flutter_easy.dart';
-import 'package:intl/intl.dart';
 
 List<Locale> _supportedLocales = [];
 
@@ -11,11 +10,11 @@ class IntlUtil {
   }
 }
 
-bool get currentLocalIsZH => Intl.getCurrentLocale().startsWith("zh");
+bool get currentLocalIsZH => BaseIntl.getCurrentLocale().startsWith("zh");
 
 extension AssetExtensions on String {
   String get translationAsset {
-    var key = Intl.getCurrentLocale().split("_").first;
+    var key = BaseIntl.getCurrentLocale().split("_").first;
     if (key.isNotEmpty) {
       if (key == _supportedLocales.first.languageCode) {
         return this;

@@ -5,9 +5,19 @@ import 'package:dart_art/dart_art.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easy/flutter_easy.dart';
+import 'package:flutter_easy/extension/src/dynamic_extensions.dart';
+import 'package:get/get.dart';
 import 'package:path/path.dart' as Path;
-import 'package:intl/intl.dart';
+
+import '../../components/src/base.dart';
+import 'color_util.dart';
+import 'date_util.dart';
+import 'global_util.dart';
+import 'json_util.dart';
+import 'network_util.dart';
+import 'package_info_util.dart';
+import 'share_util.dart';
+import 'vendor_util.dart';
 
 LogFile? logFile;
 
@@ -62,7 +72,7 @@ class LogFile {
 
   late bool enable;
 
-  DateFormat _format = DateFormat("yyyy-MM-dd HH:mm:ss");
+  BaseDateFormat _format = BaseDateFormat("yyyy-MM-dd HH:mm:ss");
 
   late int _hours = 6;
 
