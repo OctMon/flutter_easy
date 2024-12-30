@@ -90,6 +90,7 @@ Future<Result> get(
     String path = '',
     Map<String, dynamic>? queryParameters,
     Duration? connectTimeout,
+    bool duplicateInterceptor = false,
     BaseCancelToken? cancelToken,
     bool validResult = true,
     bool autoLoading = false}) async {
@@ -99,6 +100,7 @@ Future<Result> get(
       queryParameters: queryParameters,
       options: Options(method: 'get'),
       connectTimeout: connectTimeout,
+      duplicateInterceptor: duplicateInterceptor,
       cancelToken: cancelToken,
       validResult: validResult,
       autoLoading: autoLoading);
@@ -122,6 +124,7 @@ Future<Result> post(
     Map<String, dynamic>? queryParameters,
     Duration? connectTimeout,
     BaseCancelToken? cancelToken,
+    bool duplicateInterceptor = false,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
     bool validResult = true,
@@ -134,6 +137,7 @@ Future<Result> post(
       options: Options(method: 'post'),
       connectTimeout: connectTimeout,
       cancelToken: cancelToken,
+      duplicateInterceptor: duplicateInterceptor,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
       validResult: validResult,
@@ -158,6 +162,7 @@ Future<Result> put(
     Map<String, dynamic>? queryParameters,
     Duration? connectTimeout,
     BaseCancelToken? cancelToken,
+    bool duplicateInterceptor = false,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
     bool validResult = true,
@@ -170,6 +175,7 @@ Future<Result> put(
       options: Options(method: 'put'),
       connectTimeout: connectTimeout,
       cancelToken: cancelToken,
+      duplicateInterceptor: duplicateInterceptor,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
       validResult: validResult,
@@ -194,6 +200,7 @@ Future<Result> delete(
     Map<String, dynamic>? queryParameters,
     Duration? connectTimeout,
     BaseCancelToken? cancelToken,
+    bool duplicateInterceptor = false,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
     bool validResult = true,
@@ -206,6 +213,7 @@ Future<Result> delete(
       options: Options(method: 'delete'),
       connectTimeout: connectTimeout,
       cancelToken: cancelToken,
+      duplicateInterceptor: duplicateInterceptor,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
       validResult: validResult,
@@ -231,6 +239,7 @@ Future<Result> request(
     BaseCancelToken? cancelToken,
     Options? options,
     Duration? connectTimeout,
+    bool duplicateInterceptor = false,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
     bool validResult = true,
@@ -242,6 +251,8 @@ Future<Result> request(
       config: Config(
           baseUrl:
               baseUrl?.isNotEmpty == true ? baseUrl! : _session.config.baseUrl,
+          globalDuplicateInterceptor:
+              _session.config.globalDuplicateInterceptor,
           createHttpClient: _session.config.createHttpClient,
           badCertificateCallback: _session.config.badCertificateCallback,
           connectTimeout: _session.config.connectTimeout,
@@ -291,6 +302,7 @@ Future<Result> request(
     cancelToken: cancelToken,
     options: options,
     connectTimeout: connectTimeout,
+    duplicateInterceptor: duplicateInterceptor,
     onSendProgress: onSendProgress,
     onReceiveProgress: onReceiveProgress,
   );

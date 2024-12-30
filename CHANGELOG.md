@@ -1,3 +1,6 @@
+## 3.9.6
+* add duplicate request interceptor
+
 ## 3.9.5
 * add base prefix vendor
 * add rating bar
