@@ -65,16 +65,16 @@ Future<bool> setStorageMap(String key, Map<String, dynamic> value) async {
 ///     onModels: (json) {
 ///   return BaseKeyValue.fromJson(json);
 /// });
-Future<List> getStorageList(String key,
+Future<List<T>> getStorageList<T>(String key,
     {required String listKey,
     required Function(Map<String, dynamic> json) onModels}) async {
   final map = await getStorageMap(key);
-  var models = [];
+  var models = <T>[];
   if (map != null) {
     final list = map[listKey];
     try {
       if (list.length > 0) {
-        models = list.map((v) => onModels(v)).toList();
+        models = list.map((v) => onModels(v)).toList().cast<T>();
       }
     } catch (e) {
       logDebug(e);
