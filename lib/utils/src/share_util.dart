@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:share_plus/share_plus.dart';
 
+import '../../extension/src/string_extensions.dart';
 import '../../components/src/base_web_image.dart';
 import 'global_util.dart';
 import 'loading_util.dart';
@@ -68,14 +69,14 @@ Future<ShareResult> shareText(String text, {String? subject}) {
 }
 
 Future<void> shareFile({required String url, String? savePath}) async {
-  final path = await downloadFile(url: url, savePath: savePath);
+  final path = await downloadCopyFile(url: url, savePath: savePath);
 
   if (path != null) {
     Share.shareXFiles([XFile(path)]);
   }
 }
 
-Future<String?> downloadFile(
+Future<String?> downloadCopyFile(
     {required String url, String? savePath, bool loading = true}) async {
   if (!BaseEasyLoading.isShow) {
     if (loading) {
@@ -83,7 +84,7 @@ Future<String?> downloadFile(
     }
   }
 
-  var file = await _downloadFile(url: url);
+  var file = await downloadCacheFile(url: url);
 
   if (file == null) {
     if (loading) {
@@ -101,8 +102,11 @@ Future<String?> downloadFile(
   return path;
 }
 
-Future<File?> _downloadFile({required String url}) async {
+Future<File?> downloadCacheFile({required String url}) async {
+  logDebug("-> ${url.md5} url: $url");
   var file = await BaseWebImage.cacheGetFile(url);
+  logDebug("- ${url.md5} cached: ${file != null}");
   file ??= await BaseWebImage.downloadFile(url);
+  logDebug("<- ${url.md5} url: $file");
   return file;
 }
