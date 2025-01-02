@@ -33,7 +33,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
         ? null
         : (status.isEmpty
             ? placeholderEmptyMessage
-            : kPlaceholderMessageRemote);
+            : kPlaceholderMessageConnection);
   }
 
   Widget baseState(

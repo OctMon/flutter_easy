@@ -11,9 +11,9 @@ Config _config(String? baseURL) {
 //    proxy: 'PROXY localhost:8888',
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
-      errorTimeout: kPlaceholderTitleRemote,
-      errorConnection: kPlaceholderTitleRemote,
-      errorBadResponse: kPlaceholderTitleRemote,
+      errorTimeout: kPlaceholderTitleConnection,
+      errorConnection: kPlaceholderTitleConnection,
+      errorBadResponse: kPlaceholderTitleConnection,
       code: "result",
       validCode: "SUCCESS",
       list: "feedList");

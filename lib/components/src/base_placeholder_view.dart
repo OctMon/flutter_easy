@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 /// 网络错误的提示语
-String? kPlaceholderTitleRemote = "网络连接出错，请检查网络连接";
-String? kPlaceholderMessageRemote;
+String? kPlaceholderTitleConnection = "网络连接出错，请检查网络连接";
+String? kPlaceholderMessageConnection;
+
+/// 服务器错误的提示语
+String? kPlaceholderTitleBadResponse = "服务器错误，请稍后重试";
+String? kPlaceholderMessageBadResponse;
 
 /// 网络错误的占位图
-String? kPlaceholderImageRemote;
+String? kPlaceholderImageConnection;
 String? kPlaceholderImageEmpty;
 
 /// 重试按钮
@@ -39,8 +43,9 @@ class BasePlaceholderView extends StatelessWidget {
       );
     }
     var placeholderImagePath = image ?? kPlaceholderImageEmpty;
-    if (title == kPlaceholderTitleRemote) {
-      placeholderImagePath = kPlaceholderImageRemote;
+    if (title == kPlaceholderTitleConnection ||
+        title == kPlaceholderTitleBadResponse) {
+      placeholderImagePath = kPlaceholderImageConnection;
     }
     return Center(
       child: GestureDetector(
@@ -65,16 +70,24 @@ class BasePlaceholderView extends StatelessWidget {
                       : setLightPlaceholderTitleTextStyle,
                   textAlign: TextAlign.center,
                 ),
-              if (message != null || (kPlaceholderMessageRemote != null &&
-                      title == kPlaceholderTitleRemote))
+              if (message != null ||
+                  (kPlaceholderMessageConnection != null &&
+                      title == kPlaceholderTitleConnection) ||
+                  (kPlaceholderMessageBadResponse != null &&
+                      title == kPlaceholderTitleBadResponse))
                 Text(
-                  message ?? kPlaceholderMessageRemote ?? "",
+                  message ??
+                      (title == kPlaceholderTitleBadResponse
+                          ? kPlaceholderMessageBadResponse
+                          : kPlaceholderMessageConnection) ??
+                      "",
                   style: appDarkMode(context)
                       ? setDarkPlaceholderMessageTextStyle
                       : setLightPlaceholderMessageTextStyle,
                   textAlign: TextAlign.center,
                 ).marginOnly(top: kPlaceholderTitleBottom),
-              if (title == kPlaceholderTitleRemote &&
+              if ((title == kPlaceholderTitleConnection ||
+                      title == kPlaceholderTitleBadResponse) &&
                   kPlaceholderReloadButton != null)
                 BaseButton(
                   padding: EdgeInsets.zero,
