@@ -1,3 +1,8 @@
+## 3.9.7
+* getStorageList<T> cast T
+* downloadCacheFile
+* kPlaceholderTitleConnection
+
 ## 3.9.6
 * add duplicate request interceptor
 
