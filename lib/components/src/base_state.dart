@@ -226,6 +226,9 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   Widget baseRefreshState(
     NotifierBuilder<T?> widget, {
     ScrollController? scrollController,
+    bool? shimmer,
+    Color? baseColor,
+    Color? highlightColor,
     Widget Function()? onPlaceholderWidget,
     String? placeholderEmptyImagePath,
     String? placeholderEmptyTitle,
@@ -238,6 +241,14 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     _placeholderEmptyTitle = placeholderEmptyTitle;
     return SimpleBuilder(builder: (_) {
       Widget? emptyWidget() {
+        if (status.isLoading && shimmer == true) {
+          return BaseShimmer(
+            visible: true,
+            child: widget(state),
+            baseColor: baseColor,
+            highlightColor: highlightColor,
+          );
+        }
         return onPlaceholderWidget != null
             ? onPlaceholderWidget()
             : BasePlaceholderView(
@@ -258,10 +269,10 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
         scrollController: scrollController,
         emptyWidget: state.isEmptyOrNull ? emptyWidget() : null,
         firstRefresh: firstRefresh,
-        onRefresh: implementationOnRefresh
+        onRefresh: implementationOnRefresh && !status.isLoading
             ? (onRefresh ?? () async => onRequestPage(kFirstPage))
             : null,
-        onLoading: implementationOnLoad && state != null
+        onLoading: implementationOnLoad && state != null && !status.isLoading
             ? (onLoading ?? () async => onRequestPage(page + 1))
             : null,
         child: (state == null && !status.isSuccess || state.isEmptyOrNull)
