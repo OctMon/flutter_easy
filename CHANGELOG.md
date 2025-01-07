@@ -1,3 +1,6 @@
+## 3.10.0
+* now requires at least Flutter version `3.27.0`
+
 ## 3.9.7
 * getStorageList<T> cast T
 * downloadCacheFile

@@ -12,7 +12,7 @@ version: 1.0.0+1
 web_base_href: /example/
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
