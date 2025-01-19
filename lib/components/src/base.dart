@@ -608,17 +608,27 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 
   @override
   PreferredSize buildCupertinoWidget(BuildContext context) {
+    const _offsetY = -6.0;
     return PreferredSize(
       preferredSize: Size.fromHeight(screenToolbarHeightDp),
       child: SliverAppBar(
-        leading: _buildLeading(
-          context: context,
-          leading: leading,
-          leadingOnPressed: leadingOnPressed,
-          tintColor: tintColor,
+        leading: Transform.translate(
+          offset: Offset(0, _offsetY),
+          child: _buildLeading(
+            context: context,
+            leading: leading,
+            leadingOnPressed: leadingOnPressed,
+            tintColor: tintColor,
+          ),
         ),
-        title: title,
-        actions: actions ?? [],
+        title: title != null
+            ? Transform.translate(offset: Offset(0, _offsetY), child: title)
+            : title,
+        actions: actions
+                ?.map((e) =>
+                    Transform.translate(offset: Offset(0, _offsetY), child: e))
+                .toList() ??
+            [],
         elevation: elevation,
         backgroundColor: backgroundColor,
         centerTitle: centerTitle,
