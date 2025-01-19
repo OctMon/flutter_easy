@@ -50,6 +50,14 @@ class BaseKeyValue {
   }
 }
 
+mixin BaseUpdateValidMixin {
+  final canSubmit = false.obs;
+
+  void updateValid();
+
+  Future<void> submit();
+}
+
 VoidCallback? _appBaseURLChangedCallback;
 
 /// 可切环境、查看日志 additional arguments:
