@@ -1,153 +1,203 @@
+## 3.10.1
+
+* add base border text
+* add base update valid mixin
+* upgrade pub dependencies
+
 ## 3.10.0
+
 * now requires at least Flutter version `3.27.0`
 
 ## 3.9.7
+
 * getStorageList<T> cast T
 * downloadCacheFile
 * kPlaceholderTitleConnection
 
 ## 3.9.6
+
 * add duplicate request interceptor
 
 ## 3.9.5
+
 * add base prefix vendor
 * add rating bar
 
 ## 3.9.4
+
 * add share util
 
 ## 3.9.3
+
 * add saveBaseURLType
 
 ## 3.9.2
+
 * upgrade pub dependencies
 
 ## 3.9.1
+
 * upgrade flutter 3.24
 
 ## 3.9.0
+
 * upgrade flutter 3.22
 
 ## 3.8.1
+
 * add log to file
 
 ## 3.8.0
+
 * updateResult judge null or empty
 * refactor BaseInkWell
 * post add queryParameters
 * BaseBackgroundButton add border
 
 ## 3.7.1
+
 * judge media query size is empty
 
 ## 3.7.0
+
 * upgrade flutter 3.16.6
 
 ## 3.6.4
+
 * share logs
 
 ## 3.6.3
+
 * share logs
 
-* ## 3.6.2
+## 3.6.2
+
 * add debugShowCheckedModeBanner
 * add logPermanent
 
 ## 3.6.1
+
 * add routesInterceptOffBack
 * add useBasePopScope
 * remove webview_flutter
 
 ## 3.6.0
+
 * add BaseWebView
 
 ## 3.5.2
+
 * upgrade session ^1.2.1
 
 ## 3.5.1
+
 * add route until
 * add getAppExternalStorageDirectory
 
 ## 3.5.0
+
 * upgrade session ^1.2.0
 
 ## 3.4.0
+
 * add routesWebNamed
 * add hasInternetAccess
 
 ## 3.3.16
+
 * upgrade flutter 3.16.6
 
 ## 3.3.15
+
 * surfaceTint set transparent
 * initAppBarLeading change Widget
 
 ## 3.3.14
+
 * add font extensions
 
 ## 3.3.13
+
 * add resizeToAvoidBottomInset
 * add BaseOverlayVisibilityMode
 
 ## 3.3.12
+
 * add BaseSliverExpanded
 
 ## 3.3.11
+
 * upgrade dependencies
 
 ## 3.3.10
+
 * upgrade dependencies
 
 ## 3.3.9
+
 * upgrade flutter 3.16
 
 ## 3.3.8
+
 * add showBaseAlert
 * change BaseBackgroundButton borderRadius type
 
 ## 3.3.7
+
 * BaseButton use bodyMedium
 * upgrade dependencies
 
 ## 3.3.6
+
 * fix route not disposing in flutter 3.13
 * upgrade dependencies
 
 ## 3.3.5
+
 * add onRequest extra
 * add baseWebImageHandleLoadingProgress
 * upgrade dependencies
 
 ## 3.3.4
+
 * add showBaseBottomSheet
 
 ## 3.3.3
+
 * fix cachePutFile invalid
 * add BaseMasonryGridView
 
 ## 3.3.2
+
 * add getExtension
 
 ## 3.3.1
+
 * add cacheKey
 
 ## 3.3.0
+
 * upgrade flutter 3.13.0
 
-* ## 3.2.0
+## 3.2.0
+
 * add extended_image
 * remove cached_network_image
 
 ## 3.1.6
+
 * add logEnabled for BaseWebImage
 
 ## 3.1.5
+
 * add baseWebImageDefaultErrorPlaceholder
 
 ## 3.1.4
+
 * add imageCompletionHandler
 
 ## 3.1.3
+
 * add BaseCachedNetworkImage progressIndicatorBuilder
 * upgrade dependencies.
 
