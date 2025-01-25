@@ -34,7 +34,6 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   # ===================消除警告⚠️===================
-  intl:
   get:
   dio:
 
@@ -86,6 +85,9 @@ dependencies:
   # git：https://github.com/aloisdeniel/flutter_device_preview
   # ===============================================================================
   device_preview: ^1.2.0
+
+dependency_overrides:
+  intl: 0.20.2
 
 dev_dependencies:
   flutter_test:
