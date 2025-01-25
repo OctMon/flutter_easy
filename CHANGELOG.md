@@ -1,3 +1,7 @@
+## 3.10.2
+
+* update intl version 0.20.2
+
 ## 3.10.1
 
 * add base border text
