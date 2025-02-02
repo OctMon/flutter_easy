@@ -29,3 +29,15 @@ Future<Uint8List?> hwFetchBlobData(String url) async {
     throw Exception("Failed Blob $url");
   }
 }
+
+void hwDownloadBlobData({required List blobParts, String? filename}) {
+  final blob = Blob([blobParts]);
+  final url = Url.createObjectUrlFromBlob(blob);
+  AnchorElement(href: url)
+    ..setAttribute(
+        'download', '${filename ?? DateTime.now().millisecondsSinceEpoch}')
+    ..click();
+
+  // 释放 URL
+  Url.revokeObjectUrl(url);
+}

@@ -16,3 +16,7 @@ Future<dynamic> hwCacheGetFile(String url,
 Future<Uint8List?> hwFetchBlobData(String url) async {
   return null;
 }
+
+void hwDownloadBlobData({required List blobParts, String? filename}) {
+  throw UnsupportedError("download blob data error");
+}

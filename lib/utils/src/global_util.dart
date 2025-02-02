@@ -290,3 +290,7 @@ void hideKeyboard(BuildContext context) {
 Future<Uint8List?> webFetchBlobData(String url) async {
   return mp.hwFetchBlobData(url);
 }
+
+void webDownloadBlobData({required List blobParts, String? filename}) {
+  mp.hwDownloadBlobData(blobParts: blobParts, filename: filename);
+}
