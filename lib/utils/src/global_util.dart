@@ -286,3 +286,7 @@ void hideKeyboard(BuildContext context) {
     // SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
 }
+
+Future<Uint8List?> webFetchBlobData(String url) async {
+  return mp.hwFetchBlobData(url);
+}

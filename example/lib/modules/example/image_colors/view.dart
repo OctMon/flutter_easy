@@ -17,6 +17,20 @@ class ImageColorsPage extends StatelessWidget {
     final ImageColorsController controller = Get.put(ImageColorsController());
 
     void onImagePickerClicked() async {
+      if (isWeb) {
+        const label = 'multiImage';
+        const xType = XTypeGroup(
+            label: label, extensions: ["bmp", "gif", "jpeg", "jpg", "png"]);
+        final List<XFile> files = await openFiles(acceptedTypeGroups: [xType]);
+        if (files.isNotEmpty) {
+          List<String> paths = files.map((e) => e.path).toList();
+          if (paths.isNotEmpty) {
+            File file = File(paths.first);
+            controller.updateFile(file);
+          }
+        }
+        return;
+      }
       final selected = await showBaseBottomSheet<int>(
         BaseActionSheet(
           actions: <Widget>[
@@ -50,22 +64,7 @@ class ImageColorsPage extends StatelessWidget {
         path = (await picker.pickImage(source: ImageSource.camera))?.path;
       } else if (selected == 1) {
         // 调用相册
-        if (isPhone) {
-          path = (await picker.pickImage(source: ImageSource.gallery))?.path;
-        } else {
-          const label = 'multiImage';
-          const xType = XTypeGroup(
-              label: label, extensions: ["bmp", "gif", "jpeg", "jpg", "png"]);
-          final List<XFile> files =
-              await openFiles(acceptedTypeGroups: [xType]);
-          if (files.isNotEmpty) {
-            List<String> paths = files.map((e) => e.path).toList();
-            if (paths.isNotEmpty) {
-              File file = File(paths.first);
-              path = file.path;
-            }
-          }
-        }
+        path = (await picker.pickImage(source: ImageSource.gallery))?.path;
       }
       if (path != null) {
         controller.updateFile(File(path));
@@ -94,10 +93,15 @@ class ImageColorsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.file(
-                    File(controller.imagePath.value),
-                    width: screenWidthDp,
-                  ),
+                  isWeb
+                      ? Image.network(
+                          controller.imagePath.value,
+                          width: screenWidthDp,
+                        )
+                      : Image.file(
+                          File(controller.imagePath.value),
+                          width: screenWidthDp,
+                        ),
                   Container(
                       margin: const EdgeInsets.all(15),
                       child: PaletteSwatches(

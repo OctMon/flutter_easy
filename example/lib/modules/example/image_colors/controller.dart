@@ -10,15 +10,20 @@ class ImageColorsController extends GetxController {
 
   Future<void> updateFile(File file) async {
     showLoading();
-    PaletteGenerator paletteGenerator =
-        await PaletteGenerator.fromImageProvider(
-      FileImage(file),
-      size: null,
-      region: null,
-      maximumColorCount: 200,
-    );
+    if (isWeb) {
+      paletteGenerator = (await PaletteGenerator.fromImageProvider(
+        NetworkImage(file.path),
+        maximumColorCount: 200,
+      ))
+          .obs;
+    } else {
+      paletteGenerator = (await PaletteGenerator.fromImageProvider(
+        FileImage(file),
+        maximumColorCount: 200,
+      ))
+          .obs;
+    }
     imagePath.value = file.path;
-    this.paletteGenerator = paletteGenerator.obs;
     dismissLoading();
   }
 }
