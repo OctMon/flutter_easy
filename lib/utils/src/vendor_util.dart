@@ -15,6 +15,7 @@ typedef BaseIntl = Intl;
 
 typedef BaseExtendedImage = ExtendedImage;
 typedef BaseExtendedImageState = ExtendedImageState;
+typedef BaseExtendedImageProvider = ExtendedImageProvider;
 typedef BaseExtendedFileImageProvider = ExtendedFileImageProvider;
 typedef BaseExtendedNetworkImageProvider = ExtendedNetworkImageProvider;
 typedef BaseExtendedAssetImageProvider = ExtendedAssetImageProvider;
@@ -26,6 +27,7 @@ typedef BaseExtendedImageEditorState = ExtendedImageEditorState;
 typedef BaseExtendedResizeImage = ExtendedResizeImage;
 typedef BaseEditorConfig = EditorConfig;
 typedef BaseEditActionDetails = EditActionDetails;
+typedef BaseCropAspectRatios = CropAspectRatios;
 
 
 typedef BaseSwiper = Swiper;

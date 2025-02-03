@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import '../vendor_util.dart';
+
 dynamic sharedPreferencesInstance() =>
     throw UnsupportedError("shared preferences instance error");
 
@@ -19,4 +21,9 @@ Future<Uint8List?> hwFetchBlobData(String url) async {
 
 void hwDownloadBlobData({required List blobParts, String? filename}) {
   throw UnsupportedError("download blob data error");
+}
+
+BaseExtendedImageProvider hwBaseExtendedFileImageProvider(String url,
+    {double scale = 1.0, bool cacheRawData = false, String? imageCacheName}) {
+  throw UnsupportedError("provider error");
 }

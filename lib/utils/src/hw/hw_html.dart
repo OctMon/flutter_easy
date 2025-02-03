@@ -2,7 +2,10 @@
 import 'dart:html';
 import 'dart:typed_data';
 
+import 'package:extended_image_library/src/extended_file_image_provider.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
+
+import '../vendor_util.dart';
 
 String get webUserAgent => window.navigator.userAgent;
 
@@ -40,4 +43,14 @@ void hwDownloadBlobData({required List blobParts, String? filename}) {
 
   // 释放 URL
   Url.revokeObjectUrl(url);
+}
+
+BaseExtendedImageProvider hwBaseExtendedFileImageProvider(String url,
+    {double scale = 1.0, bool cacheRawData = false, String? imageCacheName}) {
+  return BaseExtendedNetworkImageProvider(
+    url,
+    scale: scale,
+    cacheRawData: cacheRawData,
+    imageCacheName: imageCacheName,
+  );
 }

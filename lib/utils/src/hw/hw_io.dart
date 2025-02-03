@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:extended_image/extended_image.dart';
@@ -30,3 +31,13 @@ Future<Uint8List?> hwFetchBlobData(String url) async {
 }
 
 void hwDownloadBlobData({required List blobParts, String? filename}) {}
+
+BaseExtendedImageProvider hwBaseExtendedFileImageProvider(String url,
+    {double scale = 1.0, bool cacheRawData = false, String? imageCacheName}) {
+  return BaseExtendedFileImageProvider(
+    scale: scale,
+    File(url),
+    cacheRawData: cacheRawData,
+    imageCacheName: imageCacheName,
+  );
+}

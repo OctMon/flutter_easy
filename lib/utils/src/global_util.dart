@@ -294,3 +294,12 @@ Future<Uint8List?> webFetchBlobData(String url) async {
 void webDownloadBlobData({required List blobParts, String? filename}) {
   mp.hwDownloadBlobData(blobParts: blobParts, filename: filename);
 }
+
+BaseExtendedWebImageProvider(String url,
+        {double scale = 1.0,
+        bool cacheRawData = false,
+        String? imageCacheName}) =>
+    mp.hwBaseExtendedFileImageProvider(url,
+        scale: scale,
+        cacheRawData: cacheRawData,
+        imageCacheName: imageCacheName);
