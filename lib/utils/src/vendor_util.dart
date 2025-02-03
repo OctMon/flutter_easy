@@ -20,6 +20,12 @@ typedef BaseExtendedNetworkImageProvider = ExtendedNetworkImageProvider;
 typedef BaseExtendedAssetImageProvider = ExtendedAssetImageProvider;
 typedef BaseExtendedExactAssetImageProvider = ExtendedExactAssetImageProvider;
 typedef BaseLoadState = LoadState;
+typedef BaseImageEditorController = ImageEditorController;
+typedef BaseExtendedImageMode = ExtendedImageMode;
+typedef BaseExtendedImageEditorState = ExtendedImageEditorState;
+typedef BaseExtendedResizeImage = ExtendedResizeImage;
+typedef BaseEditorConfig = EditorConfig;
+typedef BaseEditActionDetails = EditActionDetails;
 
 
 typedef BaseSwiper = Swiper;
