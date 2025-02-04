@@ -76,6 +76,12 @@ Future<void> shareFile({required String url, String? savePath}) async {
   }
 }
 
+Future<void> shareFiles({required List<String> path}) async {
+  if (path.isNotEmpty) {
+    Share.shareXFiles(path.map((e) => XFile(e)).toList());
+  }
+}
+
 Future<String?> downloadCopyFile(
     {required String url, String? savePath, bool loading = true}) async {
   if (!BaseEasyLoading.isShow) {
