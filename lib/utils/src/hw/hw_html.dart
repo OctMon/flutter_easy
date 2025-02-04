@@ -2,7 +2,6 @@
 import 'dart:html';
 import 'dart:typed_data';
 
-import 'package:extended_image_library/src/extended_file_image_provider.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
 
 import '../vendor_util.dart';
