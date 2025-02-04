@@ -1,3 +1,11 @@
+## 3.10.3
+
+* upgrade pub dependencies
+* add shareFiles
+* add BaseExtendedWebImageProvider
+* add webDownloadBlobData
+* add webFetchBlobData
+
 ## 3.10.2
 
 * update intl version 0.20.2
