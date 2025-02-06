@@ -1,3 +1,4 @@
+export 'src/date_time_extension.dart';
 export 'src/duration_extensions.dart';
 export 'src/dynamic_extensions.dart';
 export 'src/font_extensions.dart';
