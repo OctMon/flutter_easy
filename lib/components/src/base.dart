@@ -1164,6 +1164,7 @@ class BaseTextField extends StatelessWidget {
                         ? setDarkPlaceholderTextFieldStyle
                         : setLightPlaceholderTextFieldStyle),
                 border: InputBorder.none,
+                counterText: '',
               ),
               maxLength: maxLength,
               onChanged: onChanged,
