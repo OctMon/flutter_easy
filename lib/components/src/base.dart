@@ -1139,38 +1139,69 @@ class BaseTextField extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius ?? adaptDp(5)),
       ),
-      child: CupertinoTextField(
-        padding: padding,
-        controller: controller,
-        maxLines: maxLines,
-        readOnly: readOnly,
-        obscureText: obscureText,
-        autofocus: autofocus,
-        focusNode: focusNode,
-        cursorColor: appTheme(context).primaryColor,
-        style: style ??
-            (appDarkMode(context)
-                ? setDarkTextFieldStyle
-                : setLightTextFieldStyle),
-        clearButtonMode:
-            readOnly ? BaseOverlayVisibilityMode.never : clearButtonMode,
-        keyboardType: keyboardType,
-        textAlign: textAlign,
-        textInputAction: textInputAction,
-        inputFormatters: inputFormatters,
-        placeholder: placeholder,
-        placeholderStyle: placeholderStyle ??
-            (appDarkMode(context)
-                ? setDarkPlaceholderTextFieldStyle
-                : setLightPlaceholderTextFieldStyle),
-        prefix: prefix,
-        suffix: suffix,
-        decoration: decoration,
-        maxLength: maxLength,
-        onChanged: onChanged,
-        onSubmitted: onSubmitted,
-        onTap: onTap,
-      ),
+      child: maxLines > 1
+          ? TextField(
+              controller: controller,
+              maxLines: maxLength,
+              readOnly: readOnly,
+              obscureText: obscureText,
+              autofocus: autofocus,
+              focusNode: focusNode,
+              cursorColor: appTheme(context).primaryColor,
+              keyboardType: TextInputType.multiline,
+              textAlign: textAlign,
+              textInputAction: textInputAction,
+              inputFormatters: inputFormatters,
+              style: style ??
+                  (appDarkMode(context)
+                      ? setDarkTextFieldStyle
+                      : setLightTextFieldStyle),
+              decoration: InputDecoration(
+                contentPadding: padding,
+                hintText: placeholder,
+                hintStyle: placeholderStyle ??
+                    (appDarkMode(context)
+                        ? setDarkPlaceholderTextFieldStyle
+                        : setLightPlaceholderTextFieldStyle),
+                border: InputBorder.none,
+              ),
+              maxLength: maxLength,
+              onChanged: onChanged,
+              onSubmitted: onSubmitted,
+              onTap: onTap,
+            )
+          : CupertinoTextField(
+              padding: padding,
+              controller: controller,
+              maxLines: maxLines,
+              readOnly: readOnly,
+              obscureText: obscureText,
+              autofocus: autofocus,
+              focusNode: focusNode,
+              cursorColor: appTheme(context).primaryColor,
+              style: style ??
+                  (appDarkMode(context)
+                      ? setDarkTextFieldStyle
+                      : setLightTextFieldStyle),
+              clearButtonMode:
+                  readOnly ? BaseOverlayVisibilityMode.never : clearButtonMode,
+              keyboardType: keyboardType,
+              textAlign: textAlign,
+              textInputAction: textInputAction,
+              inputFormatters: inputFormatters,
+              placeholder: placeholder,
+              placeholderStyle: placeholderStyle ??
+                  (appDarkMode(context)
+                      ? setDarkPlaceholderTextFieldStyle
+                      : setLightPlaceholderTextFieldStyle),
+              prefix: prefix,
+              suffix: suffix,
+              decoration: decoration,
+              maxLength: maxLength,
+              onChanged: onChanged,
+              onSubmitted: onSubmitted,
+              onTap: onTap,
+            ),
     );
   }
 }
