@@ -50,6 +50,40 @@ class BaseKeyValue {
   }
 }
 
+class BaseSettings<T> {
+  final String? title;
+  final String? hint;
+  dynamic extend;
+  final Widget? child;
+  final VoidCallback? onPressed;
+  final VoidCallback? onLongPress;
+  final ValueChanged<T>? changed;
+
+  BaseSettings(
+      {this.title,
+      this.hint,
+      this.extend,
+      this.child,
+      this.onPressed,
+      this.onLongPress,
+      this.changed});
+}
+
+class BaseSettingsObx<T> extends BaseSettings<T> {
+  final Rx<T> obs;
+
+  BaseSettingsObx({
+    super.title,
+    super.hint,
+    super.extend,
+    super.child,
+    super.onPressed,
+    super.onLongPress,
+    super.changed,
+    required this.obs,
+  });
+}
+
 mixin BaseUpdateValidMixin {
   final canSubmit = false.obs;
 
