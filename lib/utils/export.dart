@@ -15,6 +15,7 @@ export 'src/network_util.dart';
 export 'src/device_info_util.dart';
 export 'src/package_info_util.dart';
 export 'src/picker_util.dart';
+export 'src/picker/show.dart';
 export 'src/timer_util.dart';
 export 'src/locale_util.dart';
 export 'src/connectivity_util.dart';
