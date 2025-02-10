@@ -14,6 +14,9 @@ Widget baseWebImageDefaultErrorPlaceholder = Icon(Icons.error_outline);
 var baseWebImageHandleLoadingProgress = false;
 Duration? baseWebImageDefaultTimeLimit;
 
+/// 图片前缀，用于拼接图片地址
+String? kWebImagePrefix;
+
 class BaseWebImage extends StatelessWidget {
   final String? imageUrl;
   final String? cacheKey;
@@ -110,12 +113,17 @@ class BaseWebImage extends StatelessWidget {
       return placeholder;
     }
 
+    var img = imageUrl!;
+    if (kWebImagePrefix != null && !img.startsWith("http")) {
+      img = getJoin(kWebImagePrefix!, img);
+    }
+
     return BaseExtendedImage.network(
-      imageUrl!,
+      img,
       width: width,
       height: height,
       fit: fit,
-      cacheKey: keyToTagMd5(imageUrl!, cacheKey, cacheTag),
+      cacheKey: keyToTagMd5(img, cacheKey, cacheTag),
       timeLimit: timeLimit ?? baseWebImageDefaultTimeLimit,
       retries: retries,
       headers: headers,
@@ -123,7 +131,7 @@ class BaseWebImage extends StatelessWidget {
       loadStateChanged: (BaseExtendedImageState state) {
         if (logEnabled) {
           logDebug(
-              "loadStateChanged: $imageUrl state: ${state.extendedImageLoadState.name}");
+              "loadStateChanged: $img state: ${state.extendedImageLoadState.name}");
         }
         switch (state.extendedImageLoadState) {
           case BaseLoadState.loading:
