@@ -60,6 +60,7 @@ class BaseWebImage extends StatelessWidget {
     Duration? timeLimit,
     Map<String, String>? headers,
     double? borderRadius,
+    BoxBorder? border,
     Color? placeholderColor,
     bool round = false,
   }) {
@@ -76,13 +77,20 @@ class BaseWebImage extends StatelessWidget {
       return Container(
         width: width,
         height: height,
-        color: placeholder == null
-            ? (placeholderColor ?? baseWebImageDefaultPlaceholderColor)
-            : null,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: placeholder == null
+              ? (placeholderColor ?? baseWebImageDefaultPlaceholderColor)
+              : null,
+          borderRadius:
+              borderRadius != null ? BorderRadius.circular(borderRadius) : null,
+        ),
         child: BaseWebImage(
           url,
           cacheKey: cacheKey,
           cacheTag: cacheTag,
+          width: width,
+          height: height,
           fit: fit,
           retries: retries,
           timeLimit: timeLimit,
@@ -95,9 +103,13 @@ class BaseWebImage extends StatelessWidget {
     }
 
     if (round || borderRadius != null) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(
-          (round && width != null) ? width * 0.5 : (borderRadius ?? 0),
+      return Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            (round && width != null) ? width * 0.5 : (borderRadius ?? 0),
+          ),
+          border: border,
         ),
         child: image(),
       );
