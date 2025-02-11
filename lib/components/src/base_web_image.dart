@@ -118,6 +118,15 @@ class BaseWebImage extends StatelessWidget {
       img = getJoin(kWebImagePrefix!, img);
     }
 
+    if (!img.startsWith("http")) {
+      return Image.file(
+        File(img),
+        width: width,
+        height: height,
+        fit: fit,
+      );
+    }
+
     return BaseExtendedImage.network(
       img,
       width: width,
