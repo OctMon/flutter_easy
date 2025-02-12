@@ -33,7 +33,7 @@ class BaseBannerView extends StatelessWidget {
       showPagination: showPagination,
       pagination: pagination,
       items: urls.map((url) {
-        if (url.startsWith("http")) {
+        if (url.startsWith("http") || kWebImagePrefix != null) {
           return BaseWebImage(
             url,
             fit: BoxFit.fill,

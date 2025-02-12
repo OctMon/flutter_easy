@@ -1688,3 +1688,33 @@ class BaseBorderText extends StatelessWidget {
     );
   }
 }
+
+class BaseCard extends StatelessWidget {
+  final double? elevation;
+  final BorderRadiusGeometry borderRadius;
+  final Color? color;
+  final EdgeInsetsGeometry padding;
+  final Widget child;
+
+  const BaseCard(
+      {super.key,
+      this.elevation = 0.0,
+      this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+      this.color = Colors.white,
+      this.padding = const EdgeInsets.all(12.0),
+      required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: elevation,
+      color: color,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(borderRadius: borderRadius),
+      child: Padding(
+        padding: padding,
+        child: child,
+      ),
+    );
+  }
+}
