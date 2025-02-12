@@ -240,3 +240,30 @@ extension FixAutoLinesExtensions on String {
     return Characters(this).join('\u200B');
   }
 }
+
+extension ColorExtensions on String {
+  Color hexToColor() {
+    String hex = replaceAll('#', '');
+    if (hex.isEmpty) {
+      throw ArgumentError('Invalid color: $this');
+    }
+    // 处理3位或4位缩写格式
+    if (hex.length == 3 || hex.length == 4) {
+      hex = hex.split('').map((c) => c + c).join();
+    }
+    // 补全透明度为不透明（FF）
+    if (hex.length == 6) {
+      hex = 'FF$hex';
+    }
+    // 验证长度是否为8位（ARGB）
+    if (hex.length != 8) {
+      throw ArgumentError('Invalid color length: $this');
+    }
+    // 转换为整数
+    int? colorValue = int.tryParse(hex, radix: 16);
+    if (colorValue == null) {
+      throw ArgumentError('Invalid hex color: $this');
+    }
+    return Color(colorValue);
+  }
+}
