@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -295,6 +296,10 @@ class _BaseAppState extends State<BaseApp> {
       return child;
     }
 
+    final botToastBuilder = BotToastInit(); //1. call BotToastInit
+
+    var navigatorObservers = widget.navigatorObservers.toList();
+    navigatorObservers.add(BotToastNavigatorObserver());
     return GetMaterialApp(
       title: widget.title,
       initialRoute: widget.initialRoute,
@@ -307,12 +312,13 @@ class _BaseAppState extends State<BaseApp> {
           BaseEasyLoading.init(
             builder: (context, child) {
               AdaptUtil.initContext(context);
+              child = botToastBuilder(context, child);
               return _buildBannerUrlType(
-                child: _buildTextScaleFactor(context: context, child: child!),
+                child: _buildTextScaleFactor(context: context, child: child),
               );
             },
           ),
-      navigatorObservers: widget.navigatorObservers,
+      navigatorObservers: navigatorObservers,
       routingCallback: widget.routingCallback,
       onGenerateRoute: widget.onGenerateRoute,
       getPages: widget.getPages,

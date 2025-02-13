@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:dio/dio.dart';
 import 'package:extended_image/extended_image.dart';
@@ -29,7 +30,6 @@ typedef BaseEditorConfig = EditorConfig;
 typedef BaseEditActionDetails = EditActionDetails;
 typedef BaseCropAspectRatios = CropAspectRatios;
 
-
 typedef BaseSwiper = Swiper;
 typedef BaseSwiperLayout = SwiperLayout;
 typedef BaseSwiperPlugin = SwiperPlugin;
@@ -42,11 +42,13 @@ typedef BaseCancelToken = CancelToken;
 
 typedef BaseEasyLoading = EasyLoading;
 typedef BaseEasyLoadingStyle = EasyLoadingStyle;
-typedef BaseEasyLoadingPosition = EasyLoadingToastPosition;
+typedef BaseEasyLoadingToastPosition = EasyLoadingToastPosition;
 typedef BaseEasyLoadingAnimationStyle = EasyLoadingAnimationStyle;
 typedef BaseEasyLoadingMaskType = EasyLoadingMaskType;
 typedef BaseEasyLoadingIndicatorType = EasyLoadingIndicatorType;
 typedef BaseEasyLoadingStatus = EasyLoadingStatus;
+
+typedef BaseBotToast = BotToast;
 
 typedef BaseAlignedGridView = AlignedGridView;
 typedef BaseMasonryGridView = MasonryGridView;

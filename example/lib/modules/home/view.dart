@@ -90,6 +90,7 @@ class HomePage extends StatelessWidget {
                 showChangeColorDialog(context, controller.color.value,
                     completion: (Color value) {
                   controller.color.value = value;
+                  showNotificationToast("颜色已修改为${controller.color.value}");
                 });
               }),
         ],

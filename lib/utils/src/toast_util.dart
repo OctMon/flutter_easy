@@ -1,13 +1,16 @@
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter/material.dart';
+
+import '../../components/src/base.dart';
+import 'vendor_util.dart';
 
 void showToast(
   String status, {
   Duration? duration,
-  EasyLoadingToastPosition? toastPosition,
-  EasyLoadingMaskType? maskType,
+  BaseEasyLoadingToastPosition? toastPosition,
+  BaseEasyLoadingMaskType? maskType,
   bool? dismissOnTap,
 }) {
-  EasyLoading.showToast(
+  BaseEasyLoading.showToast(
     status,
     duration: duration,
     toastPosition: toastPosition,
@@ -19,10 +22,10 @@ void showToast(
 void showSuccessToast(
   String status, {
   Duration? duration,
-  EasyLoadingMaskType? maskType,
+  BaseEasyLoadingMaskType? maskType,
   bool? dismissOnTap,
 }) {
-  EasyLoading.showSuccess(
+  BaseEasyLoading.showSuccess(
     status,
     duration: duration,
     maskType: maskType,
@@ -33,10 +36,10 @@ void showSuccessToast(
 void showErrorToast(
   String status, {
   Duration? duration,
-  EasyLoadingMaskType? maskType,
+  BaseEasyLoadingMaskType? maskType,
   bool? dismissOnTap,
 }) {
-  EasyLoading.showError(
+  BaseEasyLoading.showError(
     status,
     duration: duration,
     maskType: maskType,
@@ -47,13 +50,45 @@ void showErrorToast(
 void showInfoToast(
   String status, {
   Duration? duration,
-  EasyLoadingMaskType? maskType,
+  BaseEasyLoadingMaskType? maskType,
   bool? dismissOnTap,
 }) {
-  EasyLoading.showInfo(
+  BaseEasyLoading.showInfo(
     status,
     duration: duration,
     maskType: maskType,
     dismissOnTap: dismissOnTap,
+  );
+}
+
+Color? kNotificationToastBackgroundColor;
+Duration kNotificationToastDuration = Duration(seconds: 2);
+TextStyle? kNotificationToastTitleStyle;
+var kNotificationToastBorderRadius =
+    const BorderRadius.all(Radius.circular(10.0));
+
+void showNotificationToast(String title,
+    {Duration? duration, Alignment? align}) {
+  BaseBotToast.showCustomNotification(
+    align: align ?? Alignment.topCenter,
+    duration: duration ?? kNotificationToastDuration,
+    toastBuilder: (void Function() cancelFunc) {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 16),
+        child: BaseCard(
+          child: Row(
+            children: [
+              Text(
+                title,
+                style: kNotificationToastTitleStyle,
+              ),
+            ],
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+          borderRadius: kNotificationToastBorderRadius,
+          color: kNotificationToastBackgroundColor,
+        ),
+      );
+    },
   );
 }
