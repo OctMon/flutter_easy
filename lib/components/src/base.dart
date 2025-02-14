@@ -1534,6 +1534,46 @@ Future<T?> showBaseBottomSheet<T>(
   );
 }
 
+Future<T?> showBaseTopSheet<T>(
+  Widget child, {
+  bool barrierDismissible = true,
+  BorderRadiusGeometry? borderRadius,
+  Duration transitionDuration = const Duration(milliseconds: 250),
+  Color? backgroundColor,
+  Color barrierColor = const Color(0x80000000),
+  Offset startOffset = const Offset(0, -1.0),
+  Curve curve = Curves.easeOutCubic,
+}) {
+  return showGeneralDialog<T?>(
+    context: Get.context!,
+    barrierDismissible: barrierDismissible,
+    transitionDuration: transitionDuration,
+    barrierColor: barrierColor,
+    barrierLabel: MaterialLocalizations.of(Get.context!).dialogLabel,
+    pageBuilder: (context, _, __) => child,
+    transitionBuilder: (context, animation, _, child) {
+      return SlideTransition(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Material(
+              type: backgroundColor == null
+                  ? MaterialType.transparency
+                  : MaterialType.canvas,
+              color: backgroundColor,
+              borderRadius: borderRadius,
+              clipBehavior: Clip.antiAlias,
+              child: child,
+            )
+          ],
+        ),
+        position: CurvedAnimation(parent: animation, curve: curve)
+            .drive(Tween<Offset>(begin: startOffset, end: Offset.zero)),
+      );
+    },
+  );
+}
+
 Future<T?> showBaseAlert<T>(
   Widget widget, {
   bool barrierDismissible = true,
