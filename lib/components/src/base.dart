@@ -1116,7 +1116,6 @@ class BaseOutlineButton extends StatelessWidget {
 class BaseTextField extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry padding;
-  final double? height;
   final double? borderRadius;
   final Color? backgroundColor;
   final int maxLines;
@@ -1145,7 +1144,6 @@ class BaseTextField extends StatelessWidget {
       {super.key,
       this.margin,
       this.padding = const EdgeInsets.all(6.0),
-      this.height,
       this.borderRadius,
       this.backgroundColor,
       this.maxLines = 1,
@@ -1174,7 +1172,6 @@ class BaseTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin,
-      height: height ?? adaptDp(40),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius ?? adaptDp(5)),
