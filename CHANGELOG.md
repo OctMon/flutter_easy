@@ -1,3 +1,15 @@
+## 3.11.0
+
+* upgrade pub dependencies
+* add show base top sheet
+* add show notification toast
+* add hex to color string extension
+* add base card
+* add show multi data picker
+* add kWebImagePrefix
+* add base settings model
+* base text field remove height
+
 ## 3.10.3
 
 * upgrade pub dependencies
