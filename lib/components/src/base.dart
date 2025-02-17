@@ -969,6 +969,7 @@ class BaseGradientButton extends StatelessWidget {
   }
 }
 
+@Deprecated('use [BaseTextButton()] instead')
 class BaseBackgroundButton extends StatelessWidget {
   final double width;
   final double height;
@@ -1757,6 +1758,69 @@ class BaseCard extends StatelessWidget {
       child: Padding(
         padding: padding,
         child: child,
+      ),
+    );
+  }
+}
+
+class BaseTextButton extends StatelessWidget {
+  final EdgeInsetsGeometry padding;
+  final Widget child;
+  final BorderRadiusGeometry? borderRadius;
+  final Border? border;
+  final Color? color;
+  final Color? pressedColor;
+  final Color? disableColor;
+  final bool autofocus;
+  final VoidCallback? onPressed;
+  final VoidCallback? onLongPress;
+
+  const BaseTextButton({
+    super.key,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+    required this.child,
+    this.borderRadius,
+    this.border,
+    this.color,
+    this.pressedColor,
+    this.disableColor,
+    this.autofocus = false,
+    this.onPressed,
+    this.onLongPress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      autofocus: autofocus,
+      style: ButtonStyle(
+        minimumSize: WidgetStateProperty.all(Size.zero),
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+              borderRadius: borderRadius ?? BorderRadius.zero),
+        ),
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
+        backgroundColor: WidgetStateProperty.resolveWith(
+          (states) {
+            final normal = color ?? appTheme(context).primaryColor;
+            if (states.contains(WidgetState.pressed)) {
+              return pressedColor ?? normal.withValues(alpha: 0.5);
+            } else if (states.contains(WidgetState.disabled)) {
+              return disableColor ?? Colors.black12;
+            }
+            return normal;
+          },
+        ),
+      ),
+      onPressed: onPressed,
+      onLongPress: onLongPress,
+      child: DecoratedBox(
+        decoration: BoxDecoration(border: border, borderRadius: borderRadius),
+        child: Padding(
+          padding: padding,
+          child: child,
+        ),
       ),
     );
   }
