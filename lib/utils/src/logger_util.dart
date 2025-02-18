@@ -62,6 +62,8 @@ void _log(LoggerLevel level, dynamic message) {
 class LogFile {
   final buffer = <String>[];
 
+  final String? wrapSplitter;
+
   late String fileNamePattern = '@id.log';
 
   final String location;
@@ -78,6 +80,7 @@ class LogFile {
 
   LogFile(this.location,
       {required bool enable,
+      this.wrapSplitter,
       String? singleFileSizeLimit,
       int? singleFileHourLimit}) {
     if (singleFileSizeLimit != null) {
@@ -129,7 +132,9 @@ class LogFile {
 
   void log(String message) {
     if (enable) {
-      _pushLine(message);
+      _pushLine(wrapSplitter != null
+          ? message.replaceAll("\n", wrapSplitter!)
+          : message);
     }
   }
 

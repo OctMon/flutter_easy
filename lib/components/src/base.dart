@@ -103,6 +103,7 @@ Future<void> initEasyApp({
   VoidCallback? appBaseURLChangedCallback,
   void Function(Object exception, StackTrace? stackTrace)?
       customExceptionReport,
+  String? logFileWrapSplitter,
   String? singleFileSizeLimit,
   int? singleFileHourLimit,
 }) async {
@@ -125,6 +126,7 @@ Future<void> initEasyApp({
     logFile = LogFile(
       join((await getAppDocumentsDirectory()).path, "logs"),
       enable: logToFile,
+      wrapSplitter: logFileWrapSplitter,
       singleFileSizeLimit: singleFileSizeLimit,
       singleFileHourLimit: singleFileHourLimit,
     );

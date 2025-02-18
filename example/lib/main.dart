@@ -12,6 +12,7 @@ void main() async {
       // Reload API
       configAPI(null);
     },
+    logFileWrapSplitter: " ",
     customExceptionReport: (error, stack) {},
   );
   await initApp();
