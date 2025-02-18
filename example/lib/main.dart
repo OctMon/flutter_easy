@@ -6,12 +6,16 @@ import 'package:flutter_easy_example/api/api.dart';
 import 'app.dart';
 
 void main() async {
-  await initEasyApp(appBaseURLChangedCallback: () {
-    // Reload API
-    configAPI(null);
-  }, customExceptionReport: (error) {
-    // logDebug("customExceptionReport: $error");
-  });
+  await initEasyApp(
+    appBaseURLChangedCallback: () {
+      // Reload API
+      configAPI(null);
+    },
+    logFileWrapSplitter: " ",
+    customExceptionReport: (error) {
+      // logDebug("customExceptionReport: $error");
+    },
+  );
   await initApp();
   runApp(const MyApp());
   if (isAndroid) {

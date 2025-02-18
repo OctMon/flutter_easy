@@ -69,7 +69,9 @@ Future<void> initEasyApp(
     bool? logToFile,
     VoidCallback? appBaseURLChangedCallback,
     ValueChanged<String>? customExceptionReport,
-    String? singleFileSizeLimit, int? singleFileHourLimit}) async {
+    String? logFileWrapSplitter,
+    String? singleFileSizeLimit,
+    int? singleFileHourLimit}) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
   isAppDebugFlag = appDebugFlag;
@@ -86,7 +88,10 @@ Future<void> initEasyApp(
 
   logToFile ??= isAppDebugFlag;
   logFile = LogFile(join((await getAppDocumentsDirectory()).path, "logs"),
-      enable: logToFile, singleFileSizeLimit: singleFileSizeLimit, singleFileHourLimit: singleFileHourLimit);
+      enable: logToFile,
+      wrapSplitter: logFileWrapSplitter,
+      singleFileSizeLimit: singleFileSizeLimit,
+      singleFileHourLimit: singleFileHourLimit);
   logDebug("logFile: ${logFile.location}");
 
   void localLogWriter(String text, {bool isError = false}) {
