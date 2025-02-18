@@ -1793,36 +1793,38 @@ class BaseTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      autofocus: autofocus,
-      style: ButtonStyle(
-        minimumSize: WidgetStateProperty.all(Size.zero),
-        padding: WidgetStateProperty.all(EdgeInsets.zero),
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(
-              borderRadius: borderRadius ?? BorderRadius.zero),
-        ),
-        overlayColor: WidgetStateProperty.all(Colors.transparent),
-        backgroundColor: WidgetStateProperty.resolveWith(
-          (states) {
-            final normal = color ?? appTheme(context).primaryColor;
-            if (states.contains(WidgetState.pressed)) {
-              return pressedColor ?? normal.withValues(alpha: 0.5);
-            } else if (states.contains(WidgetState.disabled)) {
-              return disableColor ?? Colors.black12;
-            }
-            return normal;
-          },
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        border: border,
+        borderRadius: borderRadius,
+        color: (onPressed != null || onLongPress != null)
+            ? (color ?? appTheme(context).primaryColor)
+            : (disableColor ?? Colors.black12),
       ),
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      child: DecoratedBox(
-        decoration: BoxDecoration(border: border, borderRadius: borderRadius),
-        child: Padding(
-          padding: padding,
-          child: child,
+      child: TextButton(
+        autofocus: autofocus,
+        style: ButtonStyle(
+          minimumSize: WidgetStateProperty.all(Size.zero),
+          padding: WidgetStateProperty.all(padding),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+                borderRadius: borderRadius ?? BorderRadius.zero),
+          ),
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (states) {
+              if (states.contains(WidgetState.pressed)) {
+                return pressedColor ?? Colors.black12;
+              } else if (states.contains(WidgetState.disabled)) {
+                return disableColor ?? Colors.black12;
+              }
+              return Colors.transparent;
+            },
+          ),
         ),
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        child: child,
       ),
     );
   }

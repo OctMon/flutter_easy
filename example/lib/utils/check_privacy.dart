@@ -67,37 +67,43 @@ Future<bool> checkPrivacy() async {
           ),
           actions: <Widget>[
             Expanded(
-              child: BaseBackgroundButton(
-                borderRadius:
-                    const BorderRadius.only(bottomLeft: Radius.circular(10)),
-                title: Text(
-                  S.current.exampleDisagree,
-                  style: TextStyle(
-                    fontSize: adaptDp(14),
-                    color: Colors.white,
+              child: SizedBox(
+                height: 44,
+                child: BaseTextButton(
+                  borderRadius:
+                      const BorderRadius.only(bottomLeft: Radius.circular(10)),
+                  child: Text(
+                    S.current.exampleDisagree,
+                    style: TextStyle(
+                      fontSize: adaptDp(14),
+                      color: Colors.white,
+                    ),
                   ),
+                  onPressed: () {
+                    exit(exitCode);
+                  },
                 ),
-                onPressed: () {
-                  exit(exitCode);
-                },
               ),
             ),
             const VerticalDivider(width: 0.5),
             Expanded(
-              child: BaseBackgroundButton(
-                borderRadius:
-                    const BorderRadius.only(bottomRight: Radius.circular(10)),
-                title: Text(
-                  S.current.exampleAgree,
-                  style: TextStyle(
-                    fontSize: adaptDp(14),
-                    color: Colors.white,
+              child: SizedBox(
+                height: 44,
+                child: BaseTextButton(
+                  borderRadius:
+                      const BorderRadius.only(bottomRight: Radius.circular(10)),
+                  child: Text(
+                    S.current.exampleAgree,
+                    style: TextStyle(
+                      fontSize: adaptDp(14),
+                      color: Colors.white,
+                    ),
                   ),
+                  onPressed: () {
+                    setStorageBool(kNonFirstUseAppKey, true);
+                    offBack(true);
+                  },
                 ),
-                onPressed: () {
-                  setStorageBool(kNonFirstUseAppKey, true);
-                  offBack(true);
-                },
               ),
             ),
           ],

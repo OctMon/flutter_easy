@@ -37,15 +37,24 @@ class ThemeMenuPopupView extends StatelessWidget {
                   children: _themeModes.map((e) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: BaseBackgroundButton(
-                          title: Text("$e"),
-                          onPressed: () {
-                            showLoading();
-                            mode.value = e;
-                            Get.changeThemeMode(mode.value);
-                            showSuccessToast("$mode");
-                            offBack();
-                          }),
+                      child: SizedBox(
+                        height: 44,
+                        child: BaseTextButton(
+                            borderRadius: BorderRadius.circular(32),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("$e"),
+                              ],
+                            ),
+                            onPressed: () {
+                              showLoading();
+                              mode.value = e;
+                              Get.changeThemeMode(mode.value);
+                              showSuccessToast("$mode");
+                              offBack();
+                            }),
+                      ),
                     );
                   }).toList(),
                 )

@@ -22,43 +22,52 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "account": MessageLookupByLibrary.simpleMessage("アカウント"),
-        "cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
-        "example": MessageLookupByLibrary.simpleMessage("例"),
-        "exampleAgree": MessageLookupByLibrary.simpleMessage("同意する"),
-        "exampleCheckPrivacyAlertBegin": MessageLookupByLibrary.simpleMessage(
-            "個人情報やプライバシー保護は大切にしておりますので、本製品やサービスをご利用いただく前に、よくご確認ください"),
-        "exampleCheckPrivacyAlertEnd": MessageLookupByLibrary.simpleMessage(
-            "より良いサービスを提供できるよう、個人情報を厳格に活用していきたいと考えております。"),
-        "exampleDisagree": MessageLookupByLibrary.simpleMessage("同意しない"),
-        "example_AgreeToContinueTip":
-            MessageLookupByLibrary.simpleMessage("使用を継続することに同意する必要があります"),
-        "example_And": MessageLookupByLibrary.simpleMessage("と"),
-        "example_ExtractProminentColorsFromAnImage":
-            MessageLookupByLibrary.simpleMessage("画像から目立つ色を抽出す"),
-        "example_ForgetPassword":
-            MessageLookupByLibrary.simpleMessage("パスワードをお忘れですか？"),
-        "example_InputPassword":
-            MessageLookupByLibrary.simpleMessage("パスワードを入力してください"),
-        "example_InputPhoneNumber":
-            MessageLookupByLibrary.simpleMessage("電話番号を入力してください"),
-        "example_Navigator":
-            MessageLookupByLibrary.simpleMessage("使用ナビゲーター進む行局部跳転页面"),
-        "example_NewUserRegister":
-            MessageLookupByLibrary.simpleMessage("新しいユーザー登録"),
-        "example_PictureWaterfallFlow":
-            MessageLookupByLibrary.simpleMessage("画像の滝の流れ"),
-        "example_PrivacyPolicy":
-            MessageLookupByLibrary.simpleMessage("プライバシーポリシー "),
-        "example_ReadAndAgree":
-            MessageLookupByLibrary.simpleMessage("私は読んで同意しました"),
-        "example_UserAgreement":
-            MessageLookupByLibrary.simpleMessage("《ユーザー合意》"),
-        "example_ValidPhoneNumberTip":
-            MessageLookupByLibrary.simpleMessage("有効な電話番号を入力して下さい"),
-        "home": MessageLookupByLibrary.simpleMessage("ホーム"),
-        "language": MessageLookupByLibrary.simpleMessage("言語"),
-        "login": MessageLookupByLibrary.simpleMessage("ログイン"),
-        "systemDefault": MessageLookupByLibrary.simpleMessage("システムデフォルト")
-      };
+    "account": MessageLookupByLibrary.simpleMessage("アカウント"),
+    "cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
+    "example": MessageLookupByLibrary.simpleMessage("例"),
+    "exampleAgree": MessageLookupByLibrary.simpleMessage("同意する"),
+    "exampleCheckPrivacyAlertBegin": MessageLookupByLibrary.simpleMessage(
+      "個人情報やプライバシー保護は大切にしておりますので、本製品やサービスをご利用いただく前に、よくご確認ください",
+    ),
+    "exampleCheckPrivacyAlertEnd": MessageLookupByLibrary.simpleMessage(
+      "より良いサービスを提供できるよう、個人情報を厳格に活用していきたいと考えております。",
+    ),
+    "exampleDisagree": MessageLookupByLibrary.simpleMessage("同意しない"),
+    "example_AgreeToContinueTip": MessageLookupByLibrary.simpleMessage(
+      "使用を継続することに同意する必要があります",
+    ),
+    "example_And": MessageLookupByLibrary.simpleMessage("と"),
+    "example_ExtractProminentColorsFromAnImage":
+        MessageLookupByLibrary.simpleMessage("画像から目立つ色を抽出す"),
+    "example_ForgetPassword": MessageLookupByLibrary.simpleMessage(
+      "パスワードをお忘れですか？",
+    ),
+    "example_InputPassword": MessageLookupByLibrary.simpleMessage(
+      "パスワードを入力してください",
+    ),
+    "example_InputPhoneNumber": MessageLookupByLibrary.simpleMessage(
+      "電話番号を入力してください",
+    ),
+    "example_Navigator": MessageLookupByLibrary.simpleMessage(
+      "使用ナビゲーター進む行局部跳転页面",
+    ),
+    "example_NewUserRegister": MessageLookupByLibrary.simpleMessage(
+      "新しいユーザー登録",
+    ),
+    "example_PictureWaterfallFlow": MessageLookupByLibrary.simpleMessage(
+      "画像の滝の流れ",
+    ),
+    "example_PrivacyPolicy": MessageLookupByLibrary.simpleMessage(
+      "プライバシーポリシー ",
+    ),
+    "example_ReadAndAgree": MessageLookupByLibrary.simpleMessage("私は読んで同意しました"),
+    "example_UserAgreement": MessageLookupByLibrary.simpleMessage("《ユーザー合意》"),
+    "example_ValidPhoneNumberTip": MessageLookupByLibrary.simpleMessage(
+      "有効な電話番号を入力して下さい",
+    ),
+    "home": MessageLookupByLibrary.simpleMessage("ホーム"),
+    "language": MessageLookupByLibrary.simpleMessage("言語"),
+    "login": MessageLookupByLibrary.simpleMessage("ログイン"),
+    "systemDefault": MessageLookupByLibrary.simpleMessage("システムデフォルト"),
+  };
 }

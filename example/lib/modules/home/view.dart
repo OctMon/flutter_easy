@@ -312,17 +312,21 @@ class HomePage extends StatelessWidget {
               );
             }),
             const SizedBox(height: 15),
-            BaseBackgroundButton(
-              title: const Text(
-                "BaseBackgroundButton",
-                style: TextStyle(color: Colors.white),
+            SizedBox(
+              height: 44,
+              child: BaseTextButton(
+                borderRadius: BorderRadius.circular(6),
+                child: const Text(
+                  "BaseTextButton",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  showToast("status");
+                  1.seconds.delay(() {
+                    showSuccessToast("success");
+                  });
+                },
               ),
-              onPressed: () {
-                showToast("status");
-                1.seconds.delay(() {
-                  showSuccessToast("success");
-                });
-              },
             ),
             const SizedBox(height: 15),
             BaseGradientButton(

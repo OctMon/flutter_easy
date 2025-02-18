@@ -70,7 +70,7 @@ dependencies:
   # 来源：https://pub.dev/packages/palette_generator
   # GitHub：https://github.com/flutter/packages/tree/master/packages/palette_generator
   # 说明：A Flutter package to extract prominent colors from an Image, typically used to find colors for a user interface.
-  palette_generator: ^0.3.3+2
+  palette_generator: ^0.3.3+6
 
   # ===============================================================================
   # 名称： locale names from locale codes (ISO 639‑2 and ISO 639-3) for 563 locales.

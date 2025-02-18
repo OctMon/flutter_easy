@@ -340,7 +340,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "3.11.0"
+    version: "3.11.1"
   flutter_easyloading:
     dependency: transitive
     description:
@@ -656,10 +656,10 @@ packages:
     dependency: "direct main"
     description:
       name: palette_generator
-      sha256: "0b20245c451f14a5ca0818ab7a377765162389f8e8f0db361cceabf0fed9d1ea"
+      sha256: "5a96b78983752faeb94866b30cb8f52e94ef176722bf51d1c5541d6a3044368f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.3+5"
+    version: "0.3.3+6"
   path:
     dependency: transitive
     description:

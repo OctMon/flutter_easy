@@ -18,17 +18,20 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -41,8 +44,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,32 +57,17 @@ class S {
 
   /// `Home`
   String get home {
-    return Intl.message(
-      'Home',
-      name: 'home',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Home', name: 'home', desc: '', args: []);
   }
 
   /// `Account`
   String get account {
-    return Intl.message(
-      'Account',
-      name: 'account',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Account', name: 'account', desc: '', args: []);
   }
 
   /// `Language`
   String get language {
-    return Intl.message(
-      'Language',
-      name: 'language',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Language', name: 'language', desc: '', args: []);
   }
 
   /// `System default`
@@ -92,32 +82,17 @@ class S {
 
   /// `Login`
   String get login {
-    return Intl.message(
-      'Login',
-      name: 'login',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Login', name: 'login', desc: '', args: []);
   }
 
   /// `Cancel`
   String get cancel {
-    return Intl.message(
-      'Cancel',
-      name: 'cancel',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
   /// `Example`
   String get example {
-    return Intl.message(
-      'Example',
-      name: 'example',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Example', name: 'example', desc: '', args: []);
   }
 
   /// `Picture waterfall flow`
@@ -212,12 +187,7 @@ class S {
 
   /// `and`
   String get example_And {
-    return Intl.message(
-      'and',
-      name: 'example_And',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('and', name: 'example_And', desc: '', args: []);
   }
 
   /// `"Privacy Policy"`
@@ -232,12 +202,7 @@ class S {
 
   /// `agree`
   String get exampleAgree {
-    return Intl.message(
-      'agree',
-      name: 'exampleAgree',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('agree', name: 'exampleAgree', desc: '', args: []);
   }
 
   /// `disagree`
