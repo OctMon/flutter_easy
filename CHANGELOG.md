@@ -1,3 +1,7 @@
+## 3.11.1
+* add log file wrap splitter
+* add base text button
+
 ## 3.11.0
 
 * upgrade pub dependencies
