@@ -1,4 +1,4 @@
-## 3.10.0
+## 3.12.0
 * base button min size default set 0
 
 ## 3.11.1
