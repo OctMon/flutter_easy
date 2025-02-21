@@ -1,3 +1,6 @@
+## 3.10.0
+* base button min size default set 0
+
 ## 3.11.1
 * add log file wrap splitter
 * add base text button
