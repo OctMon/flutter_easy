@@ -856,7 +856,7 @@ class BaseInkWell extends StatelessWidget {
 
 class BaseButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
-  final double? minSize;
+  final double minSize;
   final Color? color;
   final Color disabledColor;
   final BorderRadius? borderRadius;
@@ -867,7 +867,7 @@ class BaseButton extends StatelessWidget {
   BaseButton(
       {super.key,
       this.padding,
-      this.minSize,
+      this.minSize = 0,
       this.color,
       this.disabledColor = CupertinoColors.quaternarySystemFill,
       this.pressedOpacity = 0.4,
