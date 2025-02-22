@@ -1,3 +1,6 @@
+## 3.12.1
+* upgrade pub dependencies
+
 ## 3.12.0
 * base button min size default set 0
 
