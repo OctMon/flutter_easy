@@ -29,11 +29,22 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   }
 
   String? getPlaceholderMessage(String? placeholderEmptyMessage) {
-    return status.isLoading
-        ? null
-        : (status.isEmpty
-            ? placeholderEmptyMessage
-            : kPlaceholderMessageConnection);
+    if (status.isLoading) {
+      return null;
+    }
+    if (placeholderEmptyMessage != null) {
+      return placeholderEmptyMessage;
+    }
+    if (status.isEmpty) {
+      return kEmptyList;
+    } else {
+      if (status.errorMessage == kPlaceholderTitleBadResponse) {
+        return kPlaceholderMessageBadResponse;
+      } else if (status.errorMessage == kPlaceholderTitleConnection) {
+        return kPlaceholderMessageConnection;
+      }
+    }
+    return null;
   }
 
   Widget baseState(
