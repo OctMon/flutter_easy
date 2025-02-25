@@ -5,13 +5,11 @@ import 'package:image/image.dart';
 
 Future<bool> imageIsJpeg(File file) async {
   // 读取前8个字节，足够判断大部分常见文件格式
-  final bytes = await file
-      .openRead(0, 8)
-      .first;
+  final bytes = await file.openRead(0, 8).first;
 
   // 打印文件头字节的十六进制表示
   final header =
-  bytes.map((byte) => byte.toRadixString(16).padLeft(2, '0')).join(' ');
+      bytes.map((byte) => byte.toRadixString(16).padLeft(2, '0')).join(' ');
   logDebug('文件头: $header');
   if (header.startsWith('ff d8')) {
     return true;
@@ -30,11 +28,34 @@ Future<Uint8List?> convertImageToJpg({
   final image = decodeImage(imageBytes);
 
   if (image == null) {
-    logDebug('covert image to jpg failed');
     return null;
   }
 
   final jpgBytes = encodeJpg(image);
 
   return jpgBytes;
+}
+
+Future<File?> compressImageToJpg(
+    {required File inputFile,
+    int? width,
+    int? height,
+    File? outputFile,
+    int quality = 100}) async {
+  List<int> imageBytes = await inputFile.readAsBytes();
+  Image? image = decodeImage(Uint8List.fromList(imageBytes));
+
+  if (image != null) {
+    Image resized = copyResize(image, width: width, height: height);
+    outputFile = outputFile ??
+        File(
+            "${getDirname(inputFile.path)}/${getBasenameWithoutExtension(inputFile.path)}_compressed.jpg");
+    File compressedFile = outputFile
+      ..writeAsBytesSync(encodeJpg(resized, quality: quality));
+
+    logDebug(
+        'compressed: ${compressedFile.path} before: ${inputFile.lengthSync()} after: ${compressedFile.lengthSync()}');
+    return compressedFile;
+  }
+  return null;
 }
