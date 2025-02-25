@@ -340,7 +340,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "3.12.1"
+    version: "3.12.2"
   flutter_easyloading:
     dependency: transitive
     description:
