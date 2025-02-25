@@ -230,7 +230,7 @@ class _CupertinoPickerState extends State<BasePickerComponent> {
     // have to just do a color blend. And a due to the way we are layering
     // the magnifier and the gradient on the background, using a transparent
     // background color makes the picker look odd.
-    if (widget.backgroundColor.a < 255) return Container();
+    if (widget.backgroundColor.alpha < 255) return Container();
 
     final Color widgetBackgroundColor = widget.backgroundColor;
     return Positioned.fill(
@@ -271,7 +271,7 @@ class _CupertinoPickerState extends State<BasePickerComponent> {
   /// the lens and partially grayed out around it.
   Widget _buildMagnifierScreen() {
     final Color foreground = widget.backgroundColor.withAlpha(
-        (widget.backgroundColor.a * _kForegroundScreenOpacityFraction)
+        (widget.backgroundColor.alpha * _kForegroundScreenOpacityFraction)
             .toInt());
 
     return IgnorePointer(
@@ -309,7 +309,7 @@ class _CupertinoPickerState extends State<BasePickerComponent> {
 
   Widget _buildUnderMagnifierScreen() {
     final Color foreground = widget.backgroundColor.withAlpha(
-        (widget.backgroundColor.a * _kForegroundScreenOpacityFraction)
+        (widget.backgroundColor.alpha * _kForegroundScreenOpacityFraction)
             .toInt());
 
     return Column(
@@ -366,7 +366,7 @@ class _CupertinoPickerState extends State<BasePickerComponent> {
     );
     // Adds the appropriate opacity under the magnifier if the background
     // color is transparent.
-    if (widget.backgroundColor.a < 255) {
+    if (widget.backgroundColor.alpha < 255) {
       result = Stack(
         children: <Widget>[
           _buildUnderMagnifierScreen(),
