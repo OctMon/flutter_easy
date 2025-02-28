@@ -1,11 +1,11 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 3.12.1
+version: 3.12.2
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
-  flutter: ">=3.27.0"
+  sdk: '>=3.5.0 <4.0.0'
+  flutter: ">=3.24.0"
 
 dependencies:
   flutter:

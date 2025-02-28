@@ -1,3 +1,6 @@
+## 3.12.2
+* revert flutter version 3.24
+
 ## 3.12.1
 * upgrade pub dependencies
 
