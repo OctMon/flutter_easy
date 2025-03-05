@@ -49,6 +49,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
 
   Widget baseState(
     NotifierBuilder<T?> widget, {
+    bool validNullable = true,
     Widget Function()? onPlaceholderWidget,
     String? placeholderEmptyImagePath,
     String? placeholderEmptyTitle,
@@ -60,7 +61,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
         if (status.isLoading ||
             status.isEmpty ||
             status.isError ||
-            state.isEmptyOrNull) {
+            (validNullable && state.isEmptyOrNull)) {
           return onPlaceholderWidget != null
               ? onPlaceholderWidget()
               : BasePlaceholderView(
@@ -81,6 +82,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
 
   Widget baseShimmerState(
     NotifierBuilder<T?> widget, {
+    bool validNullable = true,
     Color? baseColor,
     Color? highlightColor,
     Widget Function()? onPlaceholderWidget,
@@ -95,7 +97,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
         if (status.isLoading ||
             status.isEmpty ||
             status.isError ||
-            state.isEmptyOrNull) {
+            (validNullable && state.isEmptyOrNull)) {
           if (status.isLoading) {
             return BaseShimmer(
               visible: status.isLoading,
@@ -237,6 +239,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   Widget baseRefreshState(
     NotifierBuilder<T?> widget, {
     ScrollController? scrollController,
+    bool validNullable = true,
     bool? shimmer,
     Color? baseColor,
     Color? highlightColor,
@@ -278,7 +281,8 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
       return BaseRefresh(
         controller: refreshController,
         scrollController: scrollController,
-        emptyWidget: state.isEmptyOrNull ? emptyWidget() : null,
+        emptyWidget:
+            (validNullable && state.isEmptyOrNull) ? emptyWidget() : null,
         firstRefresh: firstRefresh,
         onRefresh: implementationOnRefresh && !status.isLoading
             ? (onRefresh ?? () async => onRequestPage(kFirstPage))
@@ -286,7 +290,8 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
         onLoading: implementationOnLoad && state != null && !status.isLoading
             ? (onLoading ?? () async => onRequestPage(page + 1))
             : null,
-        child: (state == null && !status.isSuccess || state.isEmptyOrNull)
+        child: (state == null && !status.isSuccess ||
+                (validNullable && state.isEmptyOrNull))
             ? emptyWidget() ?? SizedBox()
             : widget(state),
       );
