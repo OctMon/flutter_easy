@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:image/image.dart';
 
@@ -36,26 +37,80 @@ Future<Uint8List?> convertImageToJpg({
   return jpgBytes;
 }
 
-Future<File?> compressImageToJpg(
-    {required File inputFile,
-    int? width,
-    int? height,
-    File? outputFile,
-    int quality = 100}) async {
-  List<int> imageBytes = await inputFile.readAsBytes();
-  Image? image = decodeImage(Uint8List.fromList(imageBytes));
+Future<File?> compressImageToJpg({
+  required File inputFile,
+  int? width,
+  int? height,
+  File? outputFile,
+  int quality = 100,
+}) async {
+  // 异步读取文件字节
+  final imageBytes = await inputFile.readAsBytes();
 
-  if (image != null) {
-    Image resized = copyResize(image, width: width, height: height);
-    outputFile = outputFile ??
-        File(
-            "${getDirname(inputFile.path)}/${getBasenameWithoutExtension(inputFile.path)}_compressed.jpg");
-    File compressedFile = outputFile
-      ..writeAsBytesSync(encodeJpg(resized, quality: quality));
+  // 在isolate中执行图像解码和调整大小
+  final resized = await compute(
+      _decodeAndResize,
+      _ResizeParams(
+        imageBytes: imageBytes,
+        width: width,
+        height: height,
+      ));
 
-    logDebug(
-        'compressed: ${compressedFile.path} before: ${inputFile.lengthSync()} after: ${compressedFile.lengthSync()}');
-    return compressedFile;
-  }
-  return null;
+  if (resized == null) return null;
+
+  // 在isolate中执行JPEG编码
+  final jpegData = await compute(
+      _encodeJpeg,
+      _EncodeParams(
+        image: resized,
+        quality: quality,
+      ));
+
+  outputFile ??= File(
+      "${getDirname(inputFile.path)}/${getBasenameWithoutExtension(inputFile.path)}_compressed.jpg");
+
+  // 异步写入文件
+  final compressedFile = await outputFile.writeAsBytes(jpegData);
+
+  logDebug('compressed: ${compressedFile.path} '
+      'width: ${resized.width} height: ${resized.height} '
+      'before: ${inputFile.lengthSync()} '
+      'after: ${compressedFile.lengthSync()}');
+
+  return compressedFile;
+}
+
+// 需要在文件顶部添加的参数类
+class _ResizeParams {
+  final Uint8List imageBytes;
+  final int? width;
+  final int? height;
+
+  _ResizeParams({
+    required this.imageBytes,
+    required this.width,
+    required this.height,
+  });
+}
+
+class _EncodeParams {
+  final Image image;
+  final int quality;
+
+  _EncodeParams({
+    required this.image,
+    required this.quality,
+  });
+}
+
+// 需要在isolate中执行的函数
+Image? _decodeAndResize(_ResizeParams params) {
+  final image = decodeImage(params.imageBytes);
+  return image != null
+      ? copyResize(image, width: params.width, height: params.height)
+      : null;
+}
+
+Uint8List _encodeJpeg(_EncodeParams params) {
+  return encodeJpg(params.image, quality: params.quality);
 }
