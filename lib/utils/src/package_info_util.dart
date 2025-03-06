@@ -29,4 +29,8 @@ final String appVersion = PackageInfoUtil.packageInfo.version;
 /// The app build number. `CFBundleVersion` on iOS, `versionCode` on Android.
 final String appBuildNumber = PackageInfoUtil.packageInfo.buildNumber;
 
+final String? appInstallerStore = PackageInfoUtil.packageInfo.installerStore;
+
 final DateTime? appInstallTime = PackageInfoUtil.packageInfo.installTime;
+
+final DateTime? appUpdateTime = PackageInfoUtil.packageInfo.updateTime;

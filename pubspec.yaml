@@ -1,6 +1,6 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 3.12.2
+version: 3.12.3
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
@@ -75,7 +75,7 @@ dependencies:
   # pub: https://pub.dev/packages/package_info_plus
   # git: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus
   # ———————————————————————————————————————————————————————————————————————————————
-  package_info_plus: ^8.2.1
+  package_info_plus: ^8.3.0
 
   # ===============================================================================
   # Flutter plugin providing detailed information about the device (make, model, etc.), and Android or iOS version the app is running on.

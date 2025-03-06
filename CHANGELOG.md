@@ -1,3 +1,9 @@
+## 3.12.3
+* base state add valid nullable args
+* compressed computed image
+* add app install store
+* add app update time
+
 ## 3.12.2
 * revert flutter version 3.24
 
