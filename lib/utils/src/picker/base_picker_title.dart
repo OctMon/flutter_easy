@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-import 'base_picker_title_config.dart';
 import 'base_multi_data_picker.dart';
 
 /// DatePicker's title widget.
 class BasePickerTitle extends StatelessWidget {
-  final BasePickerTitleConfig pickerTitleConfig;
+  final BasePickerTitleConfig? pickerTitleConfig;
   final VoidCallback onCancel, onConfirm;
 
   const BasePickerTitle({
     super.key,
     required this.onCancel,
     required this.onConfirm,
-    this.pickerTitleConfig = BasePickerTitleConfig.config,
+    this.pickerTitleConfig,
   });
+
+  BasePickerTitleConfig get config =>
+      pickerTitleConfig ?? BasePickerTitleConfig.config;
 
   @override
   Widget build(BuildContext context) {
-    if (pickerTitleConfig.title != null) {
-      return pickerTitleConfig.title!;
+    final config = pickerTitleConfig ?? BasePickerTitleConfig.config;
+    if (config.title != null) {
+      return config.title!;
     }
+    logDebug("BasePickerTitleConfig.config: ${BasePickerTitleConfig.config.titleBackgroundColor}");
     return Container(
       height: pickerTitleHeight,
-      decoration: const ShapeDecoration(
-        color: pickerBackgroundColor,
+      decoration: ShapeDecoration(
+        color: config.backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(8),
@@ -39,6 +43,7 @@ class BasePickerTitle extends StatelessWidget {
           Container(
             height: pickerTitleHeight - 0.5,
             padding: const EdgeInsets.symmetric(horizontal: 20),
+            color: config.titleBackgroundColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -54,8 +59,7 @@ class BasePickerTitle extends StatelessWidget {
                   },
                 ),
                 Text(
-                  pickerTitleConfig.titleContent ?? "",
-                  // style: themeData!.titleTextStyle.generateTextStyle(),
+                  config.titleContent ?? "",
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -83,12 +87,12 @@ class BasePickerTitle extends StatelessWidget {
 
   /// render cancel button widget
   Widget _renderCancelWidget(BuildContext context) {
-    Widget? cancelWidget = pickerTitleConfig.cancel;
+    Widget? cancelWidget = config.cancel;
     cancelWidget ??= Text(
-      pickerTitleConfig.cancelTitle ?? "",
+      config.cancelTitle,
       style: const TextStyle(
-        fontSize: 16,
-        color: colorWithHex3,
+        fontSize: 17,
+        color: colorWithHex6,
       ),
       textAlign: TextAlign.left,
     );
@@ -97,12 +101,12 @@ class BasePickerTitle extends StatelessWidget {
 
   /// render confirm button widget
   Widget _renderConfirmWidget(BuildContext context) {
-    Widget? confirmWidget = pickerTitleConfig.confirm;
+    Widget? confirmWidget = config.confirm;
     confirmWidget ??= Text(
-      pickerTitleConfig.confirmTitle ?? "",
+      config.confirmTitle,
       style: TextStyle(
-        fontSize: 16,
-        color: appTheme(context).primaryColor,
+        fontSize: 17,
+        color: colorWithHex3,
       ),
       textAlign: TextAlign.right,
     );

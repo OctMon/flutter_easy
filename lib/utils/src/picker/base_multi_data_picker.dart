@@ -4,10 +4,6 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'base_picker_clip_r_rect.dart';
 import 'base_picker_component.dart';
 import 'base_picker_title.dart';
-import 'base_picker_title_config.dart';
-
-/// Default value of DatePicker's background color.
-const pickerBackgroundColor = Colors.white;
 
 /// Default value of whether show title widget or not.
 const pickerShowTitleDefault = true;
@@ -156,10 +152,8 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
   // 头部widget
   Widget _configHeaderWidget() {
     return BasePickerTitle(
-      pickerTitleConfig: BasePickerTitleConfig(
+      pickerTitleConfig: BasePickerTitleConfig.config.copyWith(
         titleContent: widget.title,
-        cancelTitle: kBaseMultiDataPickerCancelTitle,
-        confirmTitle: kBaseMultiDataPickerConfirmTitle,
       ),
       onCancel: () {
         Navigator.of(context).pop();
@@ -177,7 +171,7 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
   Widget _configMultiDataPickerWidget() {
     return Container(
         height: pickerHeight,
-        color: pickerBackgroundColor,
+        color: BasePickerTitleConfig.config.backgroundColor,
         child: Row(
             mainAxisSize: MainAxisSize.max,
             children: widget.pickerTitles != null
@@ -236,7 +230,7 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
   // 构建单列数据
   Widget _configSinglePicker(int component) {
     return MyPicker(
-      backgroundColor: pickerBackgroundColor,
+      backgroundColor: BasePickerTitleConfig.config.backgroundColor,
       lineColor: const Color(0xFFF0F0F0),
       controller: widget.controllers[component],
       key: Key(component.toString()),

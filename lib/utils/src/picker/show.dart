@@ -1,7 +1,6 @@
 import 'base_multi_data_picker.dart';
 
-String kBaseMultiDataPickerCancelTitle = "Cancel";
-String kBaseMultiDataPickerConfirmTitle = "Confirm";
+export 'base_picker_title_config.dart';
 
 Future<void> showBaseMultiDataPicker(
     {required List<List<String>> list,
