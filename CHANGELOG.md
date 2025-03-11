@@ -1,3 +1,6 @@
+## 3.12.4
+* base picker customize
+
 ## 3.12.3
 * base state add valid nullable args
 * compressed computed image
