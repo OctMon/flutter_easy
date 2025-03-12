@@ -44,7 +44,31 @@ extension IntExtensions on int {
   Color get hexColor => Color(this);
 }
 
-extension TimeExt on num {
+extension DoubleExtensions on double {
+  /// 显示价格、权重等需要精确小数的情况
+  /// Examples:
+  /// ```dart
+  /// double num1 = 123.45000;
+  /// double num2 = 100.00;
+  /// double num3 = 99.999;
+  /// double num4 = 12.0;
+  ///
+  /// print(num1.awesome());  // 输出: "123.45"
+  /// print(num2.awesome());  // 输出: "100"
+  /// print(num3.awesome(3)); // 输出: "99.999"
+  /// print(num4.awesome());  // 输出: "12"
+  /// ```
+  String awesome([int fractionDigits = 2]) {
+    String s = toStringAsFixed(fractionDigits);
+    while (s.endsWith("0") && s.contains(".")) {
+      s = s.substring(0, s.length - 1);
+    }
+    if (s.endsWith(".")) s = s.substring(0, s.length - 1);
+    return s;
+  }
+}
+
+extension TimeExtensions on num {
   String _toTime(bool all) {
     if (this > 0 && this < 60) {
       final sec = "$this".padLeft(2, '0');
