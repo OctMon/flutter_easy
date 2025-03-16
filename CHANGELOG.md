@@ -1,3 +1,7 @@
+## 3.12.5
+* add date time extension
+* add widget extension
+
 ## 3.12.4
 * base picker customize
 
