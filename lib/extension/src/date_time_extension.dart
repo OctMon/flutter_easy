@@ -1,9 +1,41 @@
 import '../../utils/src/vendor_util.dart';
 
 extension DateTimeExtension on DateTime {
-  bool get isToday {
-    final now = DateTime.now();
-    return year == now.year && month == now.month && day == now.day;
+  /// 检查是否已经过期
+  bool isOverdue({DateTime? today}) {
+    final dateTime = today ?? DateTime.now();
+    return isBefore(dateTime) && !isToday(today: dateTime);
+  }
+
+  /// 检查是否为今天
+  bool isToday({DateTime? today}) {
+    final now = today ?? DateTime.now();
+    return isSameDay(now);
+  }
+
+  /// 检查是否为明天
+  bool isTomorrow({DateTime? today}) {
+    DateTime tomorrow = (today ?? DateTime.now()).add(Duration(days: 1));
+    return isSameDay(tomorrow);
+  }
+
+  /// 检查是否为后天
+  bool isDayAfterTomorrow({DateTime? today}) {
+    DateTime dayAfterTomorrow =
+        (today ?? DateTime.now()).add(Duration(days: 2));
+    return isSameDay(dayAfterTomorrow);
+  }
+
+  /// 检查是否为同一天
+  bool isSameDay(DateTime compareDate) {
+    return year == compareDate.year &&
+        month == compareDate.month &&
+        day == compareDate.day;
+  }
+
+  bool isSameMonth({DateTime? compareDate}) {
+    final dateTime = compareDate ?? DateTime.now();
+    return year == dateTime.year && month == dateTime.month;
   }
 
   String toChatTimeFormat() {
