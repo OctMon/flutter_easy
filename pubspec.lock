@@ -125,10 +125,10 @@ packages:
     dependency: "direct main"
     description:
       name: dart_art
-      sha256: "1391d7f2c36a81c9bd2ec10c9ec1eeab960398c5815f57bc6a020e5250580ade"
+      sha256: "3d11cd58520a5eea0516f61ad289a595eaf7eb4e4fbe47b7470034b3a133561c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0+1"
+    version: "0.1.2"
   dbus:
     dependency: transitive
     description:

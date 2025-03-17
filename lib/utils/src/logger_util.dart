@@ -116,7 +116,7 @@ class LogFile {
   String getFileName() {
     var file = File('$location/$_fileId.log');
     if (file.existsSync()) {
-      var size = BinarySize()..bytesCount = file.lengthSync();
+      var size = BinarySize()..bytesCount = BigInt.from(file.lengthSync());
       if (DateTime.tryParse(_fileId) != null &&
           DateTime.parse(_fileId)
               .add(Duration(hours: _hours))
@@ -200,7 +200,7 @@ class LogFile {
         logError("Error calculating size: $e");
         return null;
       }
-      var size = BinarySize()..bytesCount = totalSize;
+      var size = BinarySize()..bytesCount = BigInt.from(totalSize);
       return size;
     }
     return null;
