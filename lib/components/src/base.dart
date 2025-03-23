@@ -1048,6 +1048,7 @@ class BaseBackgroundButton extends StatelessWidget {
   }
 }
 
+@Deprecated('use [BaseButton()] instead')
 class BaseOutlineButton extends StatelessWidget {
   final double width;
   final double height;

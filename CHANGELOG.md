@@ -1,3 +1,6 @@
+## 3.12.6
+* upgrade dart_art version 0.1.2
+
 ## 3.12.5
 * add date time extension
 * add widget extension
