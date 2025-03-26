@@ -539,6 +539,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final Color? tintColor;
   final Color? backgroundColor;
   final SystemUiOverlayStyle? systemOverlayStyle;
+  final bool forceMaterialTransparency;
   final double? height;
   final bool? centerTitle;
 
@@ -552,6 +553,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
     this.tintColor,
     this.backgroundColor,
     this.systemOverlayStyle,
+    this.forceMaterialTransparency = false,
     this.height,
     this.centerTitle,
   });
@@ -575,6 +577,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
       backgroundColor: backgroundColor,
       systemOverlayStyle:
           systemOverlayStyle ?? AppBarTheme.of(context).systemOverlayStyle,
+      forceMaterialTransparency: forceMaterialTransparency,
     );
   }
 
@@ -599,6 +602,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
         backgroundColor: backgroundColor,
         systemOverlayStyle:
             systemOverlayStyle ?? AppBarTheme.of(context).systemOverlayStyle,
+        forceMaterialTransparency: forceMaterialTransparency,
       ),
     );
   }
@@ -618,6 +622,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   final double? expandedHeight;
   final Widget? flexibleSpace;
   final SystemUiOverlayStyle? systemOverlayStyle;
+  final bool forceMaterialTransparency;
 
   BaseSliverAppBar({
     this.title,
@@ -633,6 +638,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
     this.expandedHeight,
     this.flexibleSpace,
     this.systemOverlayStyle,
+    this.forceMaterialTransparency = false,
   });
 
   @override
@@ -653,6 +659,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
       flexibleSpace: flexibleSpace,
       systemOverlayStyle:
           systemOverlayStyle ?? AppBarTheme.of(context).systemOverlayStyle,
+      forceMaterialTransparency: forceMaterialTransparency,
     );
   }
 
@@ -688,6 +695,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
         flexibleSpace: flexibleSpace,
         systemOverlayStyle:
             systemOverlayStyle ?? AppBarTheme.of(context).systemOverlayStyle,
+        forceMaterialTransparency: forceMaterialTransparency,
       ),
     );
   }

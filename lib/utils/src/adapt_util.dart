@@ -73,10 +73,11 @@ double get screenHeightDp => AdaptUtil.screenHeightDp();
 double get screenStatusBarHeightDp => AdaptUtil.screenStatusBarHeightDp();
 
 /// 导航栏高度 dp
-double screenToolbarHeightDp = 44;
+double screenToolbarHeightDp = isIOS ? 44 : kToolbarHeight;
 
 /// 状态栏高度+AppBar高度 dp
-double get screenAppBarHeightDp => screenToolbarHeightDp + screenStatusBarHeightDp;
+double get screenAppBarHeightDp =>
+    screenToolbarHeightDp + screenStatusBarHeightDp;
 
 /// 底部安全区距离 dp
 double get screenBottomBarHeightDp => AdaptUtil.screenBottomBarHeightDp();
