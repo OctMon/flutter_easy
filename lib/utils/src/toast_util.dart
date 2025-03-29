@@ -62,33 +62,42 @@ void showInfoToast(
 }
 
 Color? kNotificationToastBackgroundColor;
-Duration kNotificationToastDuration = Duration(seconds: 2);
+Duration? kNotificationToastDuration = Duration(seconds: 2);
 TextStyle? kNotificationToastTitleStyle;
 var kNotificationToastBorderRadius =
     const BorderRadius.all(Radius.circular(10.0));
 
-void showNotificationToast(String title,
+void showNotificationTextToast(String title,
+    {Duration? duration, Alignment? align}) {
+  showNotificationCustomToast(
+    Container(
+      margin: EdgeInsets.symmetric(horizontal: 16),
+      child: BaseCard(
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: kNotificationToastTitleStyle,
+            ),
+          ],
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+        borderRadius: kNotificationToastBorderRadius,
+        color: kNotificationToastBackgroundColor,
+      ),
+    ),
+    duration: duration,
+    align: align,
+  );
+}
+
+void showNotificationCustomToast(Widget widget,
     {Duration? duration, Alignment? align}) {
   BaseBotToast.showCustomNotification(
     align: align ?? Alignment.topCenter,
     duration: duration ?? kNotificationToastDuration,
     toastBuilder: (void Function() cancelFunc) {
-      return Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
-        child: BaseCard(
-          child: Row(
-            children: [
-              Text(
-                title,
-                style: kNotificationToastTitleStyle,
-              ),
-            ],
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 7),
-          borderRadius: kNotificationToastBorderRadius,
-          color: kNotificationToastBackgroundColor,
-        ),
-      );
+      return widget;
     },
   );
 }
