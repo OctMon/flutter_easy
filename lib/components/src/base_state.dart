@@ -5,8 +5,50 @@ typedef BaseComputeResult<T> = void Function(T state, RxStatus status);
 
 typedef BaseStateMixin<T> = StateMixin<T>;
 
-abstract class BaseLifeCycleController extends FullLifeCycleController
-    with FullLifeCycleMixin {}
+/// 判断应用程序处于前台
+bool appIsForeground = true;
+
+AppLifecycleState appLifecycleState = AppLifecycleState.resumed;
+
+abstract class BaseStateLifeCycleMixin extends FullLifeCycleController
+    with FullLifeCycleMixin {
+  @mustCallSuper
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    logDebug("生命周期更新: $state");
+    appLifecycleState = state;
+    switch (state) {
+      case AppLifecycleState.resumed:
+        appIsForeground = true;
+        onResumed();
+        break;
+      case AppLifecycleState.inactive:
+        onInactive();
+        break;
+      case AppLifecycleState.paused:
+        appIsForeground = false;
+        onPaused();
+        break;
+      case AppLifecycleState.detached:
+        onDetached();
+        break;
+      case AppLifecycleState.hidden:
+        onHidden();
+        break;
+    }
+  }
+
+  void onResumed();
+
+  void onPaused();
+
+  void onInactive();
+
+  void onDetached();
+
+  void onHidden();
+}
 
 class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
   /// 在onInit自动调用onRequestPage(page)
