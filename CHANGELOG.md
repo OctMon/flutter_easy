@@ -1,3 +1,7 @@
+## 3.12.7
+* add appIsForeground
+* add appLifecycleState
+
 ## 3.12.6
 * upgrade dart_art version 0.1.2
 
