@@ -1,3 +1,7 @@
+## 3.12.8
+* add base resizeable view
+* add calc text height
+
 ## 3.12.7
 * add appIsForeground
 * add appLifecycleState
