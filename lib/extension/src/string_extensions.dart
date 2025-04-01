@@ -235,6 +235,21 @@ extension IdentityCardExtensions on String {
   }
 }
 
+extension StringTextHeightExtension on String {
+  double calculateTextHeight({
+    required TextStyle style,
+    required double maxWidth,
+    int maxLines = 1,
+  }) {
+    final TextPainter textPainter = TextPainter(
+      text: TextSpan(text: this, style: style),
+      textDirection: TextDirection.ltr,
+      maxLines: maxLines,
+    )..layout(maxWidth: maxWidth);
+    return textPainter.size.height;
+  }
+}
+
 extension FixAutoLinesExtensions on String {
   String get fixAutoLines {
     return Characters(this).join('\u200B');

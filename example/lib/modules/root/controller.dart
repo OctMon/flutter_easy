@@ -1,6 +1,6 @@
 import 'package:flutter_easy/flutter_easy.dart';
 
-class RootController extends BaseStateLifeCycleMixin {
+class RootController extends BaseStateLifeCycleController {
   /// 当前下标
   var currentIndex = 0.obs;
 

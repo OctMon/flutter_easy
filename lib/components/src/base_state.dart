@@ -10,7 +10,7 @@ bool appIsForeground = true;
 
 AppLifecycleState appLifecycleState = AppLifecycleState.resumed;
 
-abstract class BaseStateLifeCycleMixin extends FullLifeCycleController
+abstract class BaseStateLifeCycleController extends FullLifeCycleController
     with FullLifeCycleMixin {
   @mustCallSuper
   @override
