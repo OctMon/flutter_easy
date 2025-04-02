@@ -23,6 +23,7 @@ export 'src/image_util.dart';
 export 'src/intl_util.dart';
 export 'src/share_util.dart';
 export 'src/vendor_util.dart';
+export 'src/password_util.dart';
 
 export 'package:get/get.dart'
     hide GetStringUtils, GetNumUtils, GetDurationUtils;
