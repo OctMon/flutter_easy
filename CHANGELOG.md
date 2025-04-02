@@ -1,3 +1,6 @@
+## 3.12.9
+* add generate secure password
+
 ## 3.12.8
 * add base resizeable view
 * add calc text height
