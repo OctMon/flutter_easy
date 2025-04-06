@@ -35,12 +35,12 @@ class _BaseResizableViewState extends State<BaseResizableView> {
   }
 
   // 四角调整逻辑
-  void _handleCornerResize(DragUpdateDetails details, String cornerType) {
+  void _handleCornerResize(DragUpdateDetails details, Alignment cornerType) {
     final delta = details.delta;
 
     setState(() {
       switch (cornerType) {
-        case 'topLeft':
+        case Alignment.topLeft:
           _position = Offset(
               (_position.dx + delta.dx)
                   .clamp(0, _position.dx + _size.width - 50),
@@ -50,7 +50,7 @@ class _BaseResizableViewState extends State<BaseResizableView> {
               (_size.width - delta.dx).clamp(50, widget.boundary.width),
               (_size.height - delta.dy).clamp(50, widget.boundary.height));
           break;
-        case 'topRight':
+        case Alignment.topRight:
           _position = Offset(
               _position.dx,
               (_position.dy + delta.dy)
@@ -60,7 +60,7 @@ class _BaseResizableViewState extends State<BaseResizableView> {
                   .clamp(50, widget.boundary.width - _position.dx),
               (_size.height - delta.dy).clamp(50, widget.boundary.height));
           break;
-        case 'bottomLeft':
+        case Alignment.bottomLeft:
           _position = Offset(
               (_position.dx + delta.dx)
                   .clamp(0, _position.dx + _size.width - 50),
@@ -70,7 +70,7 @@ class _BaseResizableViewState extends State<BaseResizableView> {
               (_size.height + delta.dy)
                   .clamp(50, widget.boundary.height - _position.dy));
           break;
-        case 'bottomRight':
+        case Alignment.bottomRight:
           _size = Size(
               (_size.width + delta.dx)
                   .clamp(50, widget.boundary.width - _position.dx),
@@ -85,7 +85,7 @@ class _BaseResizableViewState extends State<BaseResizableView> {
   }
 
   // 圆形手柄构建
-  Widget _buildHandle(Offset offset, String cornerType) {
+  Widget _buildHandle(Offset offset, Alignment cornerType) {
     return Positioned(
       left: offset.dx - widget.cornerSize * 0.5,
       top: offset.dy - widget.cornerSize * 0.5,
@@ -108,10 +108,10 @@ class _BaseResizableViewState extends State<BaseResizableView> {
   @override
   Widget build(BuildContext context) {
     final corners = {
-      'topLeft': _position,
-      'topRight': _position + Offset(_size.width, 0),
-      'bottomLeft': _position + Offset(0, _size.height),
-      'bottomRight': _position + Offset(_size.width, _size.height),
+      Alignment.topLeft: _position,
+      Alignment.topRight: _position + Offset(_size.width, 0),
+      Alignment.bottomLeft: _position + Offset(0, _size.height),
+      Alignment.bottomRight: _position + Offset(_size.width, _size.height),
     };
 
     return Stack(
