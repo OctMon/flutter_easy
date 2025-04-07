@@ -236,15 +236,17 @@ extension IdentityCardExtensions on String {
 }
 
 extension StringTextHeightExtension on String {
-  double calculateTextHeight({
-    required TextStyle style,
-    required double maxWidth,
-    int maxLines = 1,
-  }) {
+  double calculateTextHeight(
+      {required TextStyle style,
+      required double maxWidth,
+      int maxLines = 1,
+      TextAlign textAlign = TextAlign.start}) {
     final TextPainter textPainter = TextPainter(
+      locale: appLocale,
       text: TextSpan(text: this, style: style),
       textDirection: TextDirection.ltr,
       maxLines: maxLines,
+      textAlign: textAlign,
     )..layout(maxWidth: maxWidth);
     return textPainter.size.height;
   }
