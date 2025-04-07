@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BaseResizableView extends StatefulWidget {
+  final bool enabled;
   final Offset offset;
   final Size size;
   final Rect boundary;
@@ -11,6 +12,7 @@ class BaseResizableView extends StatefulWidget {
 
   const BaseResizableView(
       {super.key,
+      this.enabled = true,
       required this.boundary,
       required this.offset,
       required this.size,
@@ -121,17 +123,19 @@ class _BaseResizableViewState extends State<BaseResizableView> {
           left: _position.dx,
           top: _position.dy,
           child: GestureDetector(
-            onPanUpdate: (details) {
-              setState(() {
-                _position = Offset(
-                    (_position.dx + details.delta.dx)
-                        .clamp(0, widget.boundary.width - _size.width),
-                    (_position.dy + details.delta.dy)
-                        .clamp(0, widget.boundary.height - _size.height));
-              });
-              widget.onResize?.call(Rect.fromLTWH(
-                  _position.dx, _position.dy, _size.width, _size.height));
-            },
+            onPanUpdate: widget.enabled
+                ? (details) {
+                    setState(() {
+                      _position = Offset(
+                          (_position.dx + details.delta.dx)
+                              .clamp(0, widget.boundary.width - _size.width),
+                          (_position.dy + details.delta.dy)
+                              .clamp(0, widget.boundary.height - _size.height));
+                    });
+                    widget.onResize?.call(Rect.fromLTWH(
+                        _position.dx, _position.dy, _size.width, _size.height));
+                  }
+                : null,
             child: Container(
               width: _size.width,
               height: _size.height,
@@ -140,8 +144,9 @@ class _BaseResizableViewState extends State<BaseResizableView> {
           ),
         ),
 
-        // 四角圆形手柄
-        ...corners.entries.map((e) => _buildHandle(e.value, e.key)),
+        if (widget.enabled)
+          // 四角圆形手柄
+          ...corners.entries.map((e) => _buildHandle(e.value, e.key)),
 
         // 中心点标记（可选）
         // Positioned(
