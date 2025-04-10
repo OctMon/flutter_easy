@@ -1,3 +1,7 @@
+## 3.13.0
+* date picker default use 24h format
+* add docx to text
+
 ## 3.12.9
 * add generate secure password
 
