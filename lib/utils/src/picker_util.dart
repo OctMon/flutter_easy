@@ -6,9 +6,12 @@ import 'picker/base_multi_data_picker.dart';
 import 'picker/base_picker_clip_r_rect.dart';
 import 'picker/base_picker_title.dart';
 
-Future<DateTime?> showModalPopupDatePicker(BuildContext context,
+typedef BaseDatePickerMode = CupertinoDatePickerMode;
+
+Future<DateTime?> showModalPopupDatePicker(
     {double? height,
-    CupertinoDatePickerMode mode = CupertinoDatePickerMode.dateAndTime,
+    BaseDatePickerMode mode = BaseDatePickerMode.dateAndTime,
+    bool use24hFormat = true,
     DateTime? initialDateTime,
     DateTime? minimumDate,
     DateTime? maximumDate,
@@ -32,10 +35,10 @@ Future<DateTime?> showModalPopupDatePicker(BuildContext context,
                 ),
                 child: BasePickerTitle(
                   onCancel: () {
-                    Navigator.of(context).pop();
+                    offBack();
                   },
                   onConfirm: () {
-                    Navigator.of(context).pop(dateTime);
+                    offBack(dateTime);
                   },
                 ),
               ),
@@ -44,6 +47,7 @@ Future<DateTime?> showModalPopupDatePicker(BuildContext context,
                 color: BasePickerTitleConfig.config.backgroundColor,
                 child: CupertinoDatePicker(
                   mode: mode,
+                  use24hFormat: use24hFormat,
                   onDateTimeChanged: (changed) {
                     dateTime = changed;
                   },

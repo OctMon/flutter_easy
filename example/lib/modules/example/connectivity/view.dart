@@ -25,6 +25,24 @@ class ConnectivityPage extends StatelessWidget {
             );
           }),
           const SizedBox(height: 30),
+          ObxValue(
+            (date) => BaseButton(
+              padding: const EdgeInsets.all(5),
+              child: Text(
+                "${date.value}",
+              ),
+              onPressed: () async {
+                final result = await showModalPopupDatePicker(
+                  mode: BaseDatePickerMode.time,
+                  initialDateTime: date.value,
+                );
+                if (result == null) return;
+                date.value = result;
+              },
+            ),
+            DateTime.now().obs,
+          ),
+          SizedBox(height: 20),
           BaseRatingBar.builder(
             glow: false,
             initialRating: 3,
