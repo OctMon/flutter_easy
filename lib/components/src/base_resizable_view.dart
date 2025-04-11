@@ -88,20 +88,27 @@ class _BaseResizableViewState extends State<BaseResizableView> {
 
   // 圆形手柄构建
   Widget _buildHandle(Offset offset, Alignment cornerType) {
+    final expandedSize = widget.cornerSize * 5;  // 扩大5倍的操作区域
     return Positioned(
-      left: offset.dx - widget.cornerSize * 0.5,
-      top: offset.dy - widget.cornerSize * 0.5,
+      left: offset.dx - expandedSize * 0.5,  // 调整位置使操作区域居中
+      top: offset.dy - expandedSize * 0.5,  // 调整位置使操作区域居中
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onPanUpdate: (d) => _handleCornerResize(d, cornerType),
         child: Container(
-          width: widget.cornerSize,
-          height: widget.cornerSize,
-          decoration: widget.cornerDecoration ??
-              BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
-              ),
+          width: expandedSize,
+          height: expandedSize,
+          alignment: Alignment.center,
+          child: Container(
+            width: widget.cornerSize,  // 保持圆点原始大小
+            height: widget.cornerSize,  // 保持圆点原始大小
+            decoration: widget.cornerDecoration ??
+                BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+          ),
         ),
       ),
     );
