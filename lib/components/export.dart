@@ -5,6 +5,7 @@ export 'src/base_tab_page.dart';
 export 'src/base_loading_view.dart';
 export 'src/base_navigator_pop_exit.dart';
 export 'src/base_animation_image.dart';
+export 'src/base_gallery_view_page.dart';
 export 'src/base_progress_bar.dart';
 export 'src/base_refresh.dart';
 export 'src/base_resizable_view.dart';

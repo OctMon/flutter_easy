@@ -39,16 +39,6 @@ dependencies:
   intl:
 
   # ===============================================================================
-  # 名称：A simple zoomable image
-  # 来源：https://pub.dev/packages/photo_view
-  # GitHub：https://github.com/fireslime/photo_view
-  # 说明： Easy to use yet very customizable zoomable image widget for Flutter,
-  # Photo View provides a gesture sensitive zoomable widget.
-  # Photo View is largely used to show interactive images and other stuff such as SVG.
-  # ===============================================================================
-  photo_view: ^0.15.0
-
-  # ===============================================================================
   # 名称：File picker plugin for Flutter, compatible with mobile (iOS & Android), Web, Desktop (Mac, Linux, Windows) platforms with Flutter Go support.
   # 来源：https://pub.dev/packages/file_selector
   # GitHub：https://github.com/flutter/plugins/tree/main/packages/file_selector/file_selector

@@ -3,6 +3,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 /// 指定登录路由
 final routesLoginNamed = '/login';
+final routesPhotoViewNamed = '/photo_view';
 
 void Function()? routesInterceptOffBack;
 
@@ -14,6 +15,22 @@ Future<bool> toLogin({
       (await toNamed(routesLoginNamed, preventDuplicates: preventDuplicates)) ??
           false;
   return success;
+}
+
+/// 导航到图片预览
+Future toBaseGalleryView({
+  required List<String> images,
+  int currentIndex = 0,
+  bool preventDuplicates = true,
+}) async {
+  return to(
+    () => BaseGalleryViewPage(
+      images: images,
+      currentIndex: currentIndex,
+    ),
+    preventDuplicates: preventDuplicates,
+    transition: Transition.fade,
+  );
 }
 
 /// Navigation.push()** shortcut.

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-import '../../../routes.dart';
 import 'logic.dart';
 
 class ImageGirlListPage extends StatelessWidget {
@@ -35,29 +34,31 @@ class ImageGirlListPage extends StatelessWidget {
             final imageWidth = int.tryParse(imageSize.first) ?? width;
             final imageHeight = int.tryParse(imageSize.last) ?? width;
 
-            return BaseButton(
-              padding: EdgeInsets.zero,
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  BaseWebImage.clip(
-                    width: width,
-                    height: width * imageHeight / imageWidth,
-                    url: model.imageUrl,
-                    borderRadius: 6,
-                    fit: BoxFit.cover,
-                  ),
-                ],
+            final imageURL = model.imageUrl;
+
+            return Hero(
+              tag: imageURL ?? "",
+              child: BaseButton(
+                padding: EdgeInsets.zero,
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    BaseWebImage.clip(
+                      width: width,
+                      height: width * imageHeight / imageWidth,
+                      url: imageURL,
+                      borderRadius: 6,
+                      fit: BoxFit.cover,
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  toBaseGalleryView(
+                    images: state?.map((e) => e.imageUrl ?? "").toList() ?? [],
+                    currentIndex: index,
+                  );
+                },
               ),
-              onPressed: () {
-                toNamed(Routes.photoView, arguments: {
-                  "data": state
-                      ?.map((e) => BaseKeyValue(
-                          key: e.imageSize ?? "", value: e.imageUrl ?? ""))
-                      .toList(),
-                  "index": index
-                });
-              },
             );
           },
           itemCount: state?.length ?? 0,

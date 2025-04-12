@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
-import 'package:flutter_easy_example/routes.dart';
 
 import 'package:flutter_easy_example/modules/example/tu_chong/model.dart';
 import 'controller.dart';
@@ -76,24 +75,28 @@ class TuChongPage extends StatelessWidget {
                       crossAxisSpacing: _kSpacing,
                       itemCount: data.imageList?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
-                        return BaseButton(
-                          padding: EdgeInsets.zero,
-                          child: BaseWebImage(
-                            data.imageList![index].imageURL,
-                            placeholder: Container(
-                              color: colorWithRandom(),
+                        final imageURL = data.imageList![index].imageURL;
+                        return Hero(
+                          tag: imageURL,
+                          child: BaseButton(
+                            padding: EdgeInsets.zero,
+                            child: BaseWebImage(
+                              imageURL,
+                              placeholder: Container(
+                                color: colorWithRandom(),
+                              ),
+                              fit: BoxFit.contain,
                             ),
-                            fit: BoxFit.contain,
+                            onPressed: () {
+                              toBaseGalleryView(
+                                images: data.imageList
+                                        ?.map((e) => e.imageURL)
+                                        .toList() ??
+                                    [],
+                                currentIndex: index,
+                              );
+                            },
                           ),
-                          onPressed: () {
-                            toNamed(Routes.photoView, arguments: {
-                              "data": data.imageList
-                                  ?.map((e) => BaseKeyValue(
-                                      key: e.title ?? "", value: e.imageURL))
-                                  .toList(),
-                              "index": index
-                            });
-                          },
                         );
                       },
                     ),

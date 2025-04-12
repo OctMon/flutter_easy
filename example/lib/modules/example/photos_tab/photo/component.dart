@@ -39,7 +39,7 @@ class PhotoComponent extends StatelessWidget {
                     UserStore.find.save(user);
                   }
                 });
-                showToast(url);
+                toBaseGalleryView(images: [url]);
               },
             );
           },

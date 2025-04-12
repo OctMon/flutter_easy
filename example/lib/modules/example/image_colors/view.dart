@@ -87,21 +87,31 @@ class ImageColorsPage extends StatelessWidget {
         builder: (controller) {
           if (controller.imagePath.isNotEmpty &&
               controller.paletteGenerator != null) {
+            final image =
+                isWeb ? controller.imagePath.value : controller.imagePath.value;
             return SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  isWeb
-                      ? Image.network(
-                          controller.imagePath.value,
-                          width: screenWidthDp,
-                        )
-                      : Image.file(
-                          File(controller.imagePath.value),
-                          width: screenWidthDp,
-                        ),
+                  BaseButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      toBaseGalleryView(
+                        images: [image],
+                      );
+                    },
+                    child: isWeb
+                        ? Image.network(
+                            image,
+                            width: screenWidthDp,
+                          )
+                        : Image.file(
+                            File(image),
+                            width: screenWidthDp,
+                          ),
+                  ),
                   Container(
                       margin: const EdgeInsets.all(15),
                       child: PaletteSwatches(
