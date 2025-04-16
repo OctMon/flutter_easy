@@ -1,3 +1,6 @@
+## 3.13.1
+* add base gallery view page
+
 ## 3.13.0
 * date picker default use 24h format
 * add docx to text

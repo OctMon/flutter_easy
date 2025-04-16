@@ -6,9 +6,14 @@ class BaseGalleryViewPage extends StatefulWidget {
   final List<String> images;
   final int currentIndex;
   final BaseAppBar? appBar;
+  final bool enableRotation;
 
   const BaseGalleryViewPage(
-      {super.key, required this.images, this.currentIndex = 0, this.appBar});
+      {super.key,
+      required this.images,
+      this.currentIndex = 0,
+      this.appBar,
+      this.enableRotation = false});
 
   @override
   State<StatefulWidget> createState() => _BaseGalleryViewPageState();
@@ -30,7 +35,7 @@ class _BaseGalleryViewPageState extends State<BaseGalleryViewPage> {
         backgroundDecoration: BoxDecoration(),
         pageController: PageController(initialPage: pageIndex),
         itemCount: widget.images.length,
-        enableRotation: true,
+        enableRotation: widget.enableRotation,
         onPageChanged: changeIndex,
         scrollPhysics: const AlwaysScrollableScrollPhysics(
           parent: BouncingScrollPhysics(),
