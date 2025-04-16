@@ -120,7 +120,7 @@ dependencies:
   # pub：https://pub.dev/packages/photo_view
   # git：https://github.com/fireslime/photo_view
   # ===============================================================================
-  photo_view: 0.15.0
+  photo_view: ^0.15.0
 
   # ===============================================================================
   # a widget provided to the flutter scroll component drop-down refresh and pull up load.
