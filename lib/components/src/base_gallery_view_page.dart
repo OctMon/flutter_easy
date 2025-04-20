@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../flutter_easy.dart';
 
 class BaseGalleryViewPage extends StatefulWidget {
   final List<String> images;
   final int currentIndex;
-  final BaseAppBar? appBar;
+  final SystemUiOverlayStyle? systemOverlayStyle;
+  final Widget? leading;
+  final Color? tintColor;
+  final Color? backgroundColor;
   final bool enableRotation;
 
   const BaseGalleryViewPage(
       {super.key,
       required this.images,
       this.currentIndex = 0,
-      this.appBar,
+      this.systemOverlayStyle,
+      this.leading,
+      this.tintColor,
+      this.backgroundColor,
       this.enableRotation = false});
 
   @override
@@ -25,12 +32,19 @@ class _BaseGalleryViewPageState extends State<BaseGalleryViewPage> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: widget.appBar ??
-          BaseAppBar(
-            backgroundColor: Colors.transparent,
-            title: Text("${pageIndex + 1}/${widget.images.length}"), // 显示图片序号
-          ),
+      appBar: BaseAppBar(
+        systemOverlayStyle: widget.systemOverlayStyle,
+        leading: widget.leading,
+        backgroundColor: Colors.transparent,
+        tintColor: widget.tintColor,
+        title: Text(
+          "${pageIndex + 1}/${widget.images.length}",
+          style: TextStyle(color: widget.tintColor),
+        ), // 显示图片序号
+      ),
       extendBodyBehindAppBar: true,
+      backgroundColor:
+          widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       body: BasePhotoViewGallery.builder(
         backgroundDecoration: BoxDecoration(),
         pageController: PageController(initialPage: pageIndex),

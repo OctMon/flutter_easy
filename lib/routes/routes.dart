@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 /// 指定登录路由
@@ -21,15 +22,26 @@ Future<bool> toLogin({
 Future toBaseGalleryView({
   required List<String> images,
   int currentIndex = 0,
+  SystemUiOverlayStyle? systemOverlayStyle,
+  Widget? leading,
+  Color? tintColor,
+  Color? backgroundColor,
+  bool enableRotation = false,
   bool preventDuplicates = true,
+  Transition transition = Transition.noTransition,
 }) async {
   return to(
     () => BaseGalleryViewPage(
       images: images,
       currentIndex: currentIndex,
+      systemOverlayStyle: systemOverlayStyle,
+      leading: leading,
+      tintColor: tintColor,
+      backgroundColor: backgroundColor,
+      enableRotation: enableRotation,
     ),
     preventDuplicates: preventDuplicates,
-    transition: Transition.fade,
+    transition: transition,
   );
 }
 
