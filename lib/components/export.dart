@@ -1,5 +1,6 @@
 export 'src/base.dart';
 export 'src/base_example_view.dart';
+export 'src/base_expandable_text.dart';
 export 'src/base_state.dart';
 export 'src/base_tab_page.dart';
 export 'src/base_loading_view.dart';
