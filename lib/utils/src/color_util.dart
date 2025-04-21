@@ -159,6 +159,7 @@ ThemeData getTheme({bool darkMode = false, required bool useMaterial3}) {
       centerTitle: setAppBarCenterTitle,
     ),
     fontFamily: setThemeDataFontFamily,
+    fontFamilyFallback: ["PingFang SC"],
     textTheme: TextTheme(
       // 默认 Text 样式
       bodyMedium: darkMode ? setDarkBodyMediumStyle : setLightBodyMediumStyle,
