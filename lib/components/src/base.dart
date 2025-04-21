@@ -1194,30 +1194,39 @@ class BaseTextField extends StatelessWidget {
       child: maxLines > 1
           ? Padding(
               padding: padding,
-              child: TextField(
-                controller: controller,
-                maxLines: maxLength,
-                readOnly: readOnly,
-                obscureText: obscureText,
-                autofocus: autofocus,
-                focusNode: focusNode,
-                cursorColor: appTheme(context).primaryColor,
-                keyboardType: keyboardType,
-                textAlign: textAlign,
-                textInputAction: textInputAction,
-                inputFormatters: inputFormatters,
-                style: style ??
-                    (appDarkMode(context)
-                        ? setDarkTextFieldStyle
-                        : setLightTextFieldStyle),
-                decoration: InputDecoration.collapsed(
-                  hintText: placeholder,
-                  hintStyle: placeholderStyle,
-                ),
-                maxLength: maxLength,
-                onChanged: onChanged,
-                onSubmitted: onSubmitted,
-                onTap: onTap,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (prefix != null) prefix!,
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      maxLines: maxLength,
+                      readOnly: readOnly,
+                      obscureText: obscureText,
+                      autofocus: autofocus,
+                      focusNode: focusNode,
+                      cursorColor: appTheme(context).primaryColor,
+                      keyboardType: keyboardType,
+                      textAlign: textAlign,
+                      textInputAction: textInputAction,
+                      inputFormatters: inputFormatters,
+                      style: style ??
+                          (appDarkMode(context)
+                              ? setDarkTextFieldStyle
+                              : setLightTextFieldStyle),
+                      decoration: InputDecoration.collapsed(
+                        hintText: placeholder,
+                        hintStyle: placeholderStyle,
+                      ),
+                      maxLength: maxLength,
+                      onChanged: onChanged,
+                      onSubmitted: onSubmitted,
+                      onTap: onTap,
+                    ),
+                  ),
+                  if (suffix != null) suffix!,
+                ],
               ),
             )
           : CupertinoTextField(
