@@ -136,6 +136,8 @@ class BaseWebImage extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
+        errorBuilder: (_, __, ___) =>
+            errorWidget ?? baseWebImageDefaultErrorPlaceholder.debugRandomColor,
       );
     }
 
