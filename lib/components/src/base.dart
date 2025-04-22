@@ -1192,36 +1192,33 @@ class BaseTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius ?? adaptDp(5)),
       ),
       child: maxLines > 1
-          ? TextField(
-              controller: controller,
-              maxLines: maxLength,
-              readOnly: readOnly,
-              obscureText: obscureText,
-              autofocus: autofocus,
-              focusNode: focusNode,
-              cursorColor: appTheme(context).primaryColor,
-              keyboardType: TextInputType.multiline,
-              textAlign: textAlign,
-              textInputAction: textInputAction,
-              inputFormatters: inputFormatters,
-              style: style ??
-                  (appDarkMode(context)
-                      ? setDarkTextFieldStyle
-                      : setLightTextFieldStyle),
-              decoration: InputDecoration(
-                contentPadding: padding,
-                hintText: placeholder,
-                hintStyle: placeholderStyle ??
+          ? Padding(
+              padding: padding,
+              child: TextField(
+                controller: controller,
+                maxLines: maxLength,
+                readOnly: readOnly,
+                obscureText: obscureText,
+                autofocus: autofocus,
+                focusNode: focusNode,
+                cursorColor: appTheme(context).primaryColor,
+                keyboardType: keyboardType,
+                textAlign: textAlign,
+                textInputAction: textInputAction,
+                inputFormatters: inputFormatters,
+                style: style ??
                     (appDarkMode(context)
-                        ? setDarkPlaceholderTextFieldStyle
-                        : setLightPlaceholderTextFieldStyle),
-                border: InputBorder.none,
-                counterText: '',
+                        ? setDarkTextFieldStyle
+                        : setLightTextFieldStyle),
+                decoration: InputDecoration.collapsed(
+                  hintText: placeholder,
+                  hintStyle: placeholderStyle,
+                ),
+                maxLength: maxLength,
+                onChanged: onChanged,
+                onSubmitted: onSubmitted,
+                onTap: onTap,
               ),
-              maxLength: maxLength,
-              onChanged: onChanged,
-              onSubmitted: onSubmitted,
-              onTap: onTap,
             )
           : CupertinoTextField(
               padding: padding,
