@@ -86,6 +86,7 @@ Color colorWithLightSecondary = Colors.tealAccent;
 Color colorWithDarkSecondary = Colors.blueAccent;
 
 String? setThemeDataFontFamily;
+var setUseSystemChineseFont = false;
 
 const colorWithHex2 = Color(0xFF222222);
 
@@ -126,7 +127,7 @@ Color colorWithRandom() {
 }
 
 ThemeData getTheme({bool darkMode = false, required bool useMaterial3}) {
-  return ThemeData(
+  final theme = ThemeData(
     useMaterial3: useMaterial3,
     platform: setTargetPlatform,
     splashColor: Colors.transparent,
@@ -164,5 +165,10 @@ ThemeData getTheme({bool darkMode = false, required bool useMaterial3}) {
       // 默认 Text 样式
       bodyMedium: darkMode ? setDarkBodyMediumStyle : setLightBodyMediumStyle,
     ),
-  ).useSystemChineseFont(darkMode ? Brightness.dark : Brightness.light);
+  );
+  if (setUseSystemChineseFont) {
+    return theme
+        .useSystemChineseFont(darkMode ? Brightness.dark : Brightness.light);
+  }
+  return theme;
 }

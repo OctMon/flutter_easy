@@ -17,6 +17,8 @@ Future<void> initApp() async {
   // Load user info
   await Get.putAsync(() => UserStore().load());
 
+  setUseSystemChineseFont = true;
+
   if (isDebug || isAppDebugFlag) {
     BaseWebImage.logEnabled = true;
     baseWebImageHandleLoadingProgress = true;
