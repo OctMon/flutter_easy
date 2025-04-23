@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:chinese_font_library/chinese_font_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -159,10 +160,9 @@ ThemeData getTheme({bool darkMode = false, required bool useMaterial3}) {
       centerTitle: setAppBarCenterTitle,
     ),
     fontFamily: setThemeDataFontFamily,
-    fontFamilyFallback: ["PingFang SC"],
     textTheme: TextTheme(
       // 默认 Text 样式
       bodyMedium: darkMode ? setDarkBodyMediumStyle : setLightBodyMediumStyle,
     ),
-  );
+  ).useSystemChineseFont(darkMode ? Brightness.dark : Brightness.light);
 }

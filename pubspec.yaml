@@ -183,6 +183,13 @@ dependencies:
   # ===============================================================================
   share_plus: ^10.1.4
 
+  # ===============================================================================
+  # 优化中文字体的跨平台渲染
+  # pub：https://pub.dev/packages/chinese_font_library
+  # git：https://github.com/LastMonopoly/chinese_font_library
+  # ===============================================================================
+  chinese_font_library: ^1.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
