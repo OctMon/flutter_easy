@@ -85,6 +85,23 @@ class BaseSettingsObx<T> extends BaseSettings<T> {
   });
 }
 
+class BaseTextDialogAction {
+  final String? title;
+  final Widget? child;
+  final BorderRadius? borderRadius;
+  final Color? background;
+  final TextStyle? textStyle;
+  final VoidCallback? onPressed;
+
+  BaseTextDialogAction(
+      {this.title,
+      this.child,
+      this.borderRadius,
+      this.background,
+      this.textStyle,
+      this.onPressed});
+}
+
 mixin BaseUpdateValidMixin {
   final canSubmit = false.obs;
 
