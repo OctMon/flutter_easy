@@ -1,9 +1,11 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 
+import 'package:archive/archive_io.dart';
 import 'package:dart_art/dart_art.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/extension/src/dynamic_extensions.dart';
 import 'package:get/get.dart';
@@ -57,6 +59,39 @@ void _log(LoggerLevel level, dynamic message) {
       }
     }
   }
+}
+
+Future<String> _zipLog(Map<String, dynamic> params) async {
+  try {
+    String path = params["path"];
+    Directory directory = params["dir"];
+    File file = File("$path/log.zip");
+    if (file.existsSync()) {
+      file.deleteSync();
+    }
+    final encoder = ZipFileEncoder();
+    encoder.create("$path/log.zip", level: 9);
+    await encoder.addDirectory(directory, level: 9);
+    encoder.closeSync();
+    return file.path;
+  } catch (e) {
+    return "";
+  }
+}
+
+Future<String?> appLogZipFile() async {
+  final dir = logFile?.getDir();
+  if (dir?.existsSync() ?? false) {
+    String path = (await getAppDocumentsDirectory()).path;
+    String result = await compute(_zipLog, {
+      "path": path,
+      "dir": dir,
+    });
+    if (result.isNotEmpty) {
+      return result;
+    }
+  }
+  return null;
 }
 
 class LogFile {

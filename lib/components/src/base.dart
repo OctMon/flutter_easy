@@ -202,22 +202,27 @@ Future<void> initEasyApp({
   // 清除分享图片缓存
   clearShareDirectory();
 
-  if (customExceptionReport != null) {
-    // 先将 onError 保存起来
-    var onError = FlutterError.onError;
-    // onError是FlutterError的一个静态属性，它有一个默认的处理方法 dumpErrorToConsole
-    FlutterError.onError = (errorDetails) {
+  // 先将 onError 保存起来
+  var onError = FlutterError.onError;
+  // onError是FlutterError的一个静态属性，它有一个默认的处理方法 dumpErrorToConsole
+  FlutterError.onError = (errorDetails) {
+    if (customExceptionReport != null) {
       customExceptionReport.call(errorDetails.exception, errorDetails.stack);
-      // 调用默认的onError处理
-      onError?.call(errorDetails);
-    };
-    // 官方推荐使用
-    PlatformDispatcher.instance.onError = (error, stack) {
+    } else {
+      logError("${errorDetails.exception}\n${errorDetails.stack}");
+    }
+    // 调用默认的onError处理
+    onError?.call(errorDetails);
+  };
+  // 官方推荐使用
+  PlatformDispatcher.instance.onError = (error, stack) {
+    if (customExceptionReport != null) {
       customExceptionReport.call(error, stack);
+    } else {
       logError("$error\n$stack");
-      return true;
-    };
-  }
+    }
+    return true;
+  };
 }
 
 /// 默认返回按钮的样式
