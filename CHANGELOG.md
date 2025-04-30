@@ -1,3 +1,12 @@
+## 3.13.2
+* logs record flutter errors to file
+* add chinese_font_library
+* add base text dialog action
+* add base upload model
+* add set use system chinese font
+* add customize base gallery view
+* add base expandable text
+
 ## 3.13.1
 * add base gallery view page
 
