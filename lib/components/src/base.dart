@@ -51,6 +51,38 @@ class BaseKeyValue {
   }
 }
 
+class BaseUploadModel {
+  BaseUploadModel({
+    this.id,
+    this.width,
+    this.height,
+    this.url,
+    this.isSelected = false,
+  });
+
+  BaseUploadModel.fromJson(dynamic json) {
+    id = json['id'];
+    width = json['width'];
+    height = json['height'];
+    url = json['url'];
+  }
+
+  String? id;
+  num? width;
+  num? height;
+  String? url;
+  bool isSelected = false;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['width'] = width;
+    map['height'] = height;
+    map['url'] = url;
+    return map;
+  }
+}
+
 class BaseSettings<T> {
   final String? title;
   final String? hint;

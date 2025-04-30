@@ -116,6 +116,13 @@ dependencies:
   # ===============================================================================
 
   # ===============================================================================
+  # Flutter Logo which can be rendered by this package!
+  # pub: https://pub.dev/packages/flutter_svg
+  # git: https://github.com/flutter/packages/tree/main/third_party/packages/flutter_svg
+  # ===============================================================================
+  flutter_svg: ^2.0.17
+
+  # ===============================================================================
   # A simple zoomable image
   # pub：https://pub.dev/packages/photo_view
   # git：https://github.com/fireslime/photo_view

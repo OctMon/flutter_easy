@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:extended_image/extended_image.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils/src/hw/hw_mp.dart';
 
@@ -131,13 +132,24 @@ class BaseWebImage extends StatelessWidget {
     }
 
     if (!img.startsWith("http")) {
+      final ext = getExtension(img);
+      if (ext == ".svg") {
+        return SvgPicture.asset(
+          img,
+          width: width,
+          height: height,
+          fit: fit ?? BoxFit.cover,
+          errorBuilder: (_, __, ___) =>
+              errorWidget ?? baseWebImageDefaultErrorPlaceholder,
+        );
+      }
       return Image.file(
         File(img),
         width: width,
         height: height,
         fit: fit,
         errorBuilder: (_, __, ___) =>
-            errorWidget ?? baseWebImageDefaultErrorPlaceholder.debugRandomColor,
+            errorWidget ?? baseWebImageDefaultErrorPlaceholder,
       );
     }
 
