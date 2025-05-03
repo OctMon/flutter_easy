@@ -1208,6 +1208,7 @@ class BaseTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
   final GestureTapCallback? onTap;
+  final InputCounterWidgetBuilder? buildCounter;
 
   const BaseTextField(
       {super.key,
@@ -1235,6 +1236,7 @@ class BaseTextField extends StatelessWidget {
       this.decoration,
       this.onChanged,
       this.onSubmitted,
+      this.buildCounter,
       this.onTap});
 
   @override
@@ -1277,6 +1279,7 @@ class BaseTextField extends StatelessWidget {
                       onChanged: onChanged,
                       onSubmitted: onSubmitted,
                       onTap: onTap,
+                      buildCounter: buildCounter,
                     ),
                   ),
                   if (suffix != null) suffix!,
