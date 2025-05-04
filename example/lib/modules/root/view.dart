@@ -40,10 +40,7 @@ class RootPage extends StatelessWidget {
             index: data.value,
             children: children,
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            selectedFontSize: 12,
-            selectedItemColor: appTheme(context).indicatorColor,
+          bottomNavigationBar: BaseBottomBar(
             currentIndex: data.value,
             items: List.generate(titles.length, (index) {
               return BottomNavigationBarItem(
@@ -53,14 +50,34 @@ class RootPage extends StatelessWidget {
                   color: appTheme(context).indicatorColor,
                 ),
                 label: titles[index],
-                // title: Container(),
               );
             }),
-            onTap: (index) {
+            onPressed: (index) {
               data.value = index;
               controller.currentIndex.value = index;
             },
           ),
+          // bottomNavigationBar: BottomNavigationBar(
+          //   type: BottomNavigationBarType.fixed,
+          //   selectedFontSize: 12,
+          //   selectedItemColor: appTheme(context).indicatorColor,
+          //   currentIndex: data.value,
+          //   items: List.generate(titles.length, (index) {
+          //     return BottomNavigationBarItem(
+          //       icon: Icon(icons[index]),
+          //       activeIcon: Icon(
+          //         icons[index],
+          //         color: appTheme(context).indicatorColor,
+          //       ),
+          //       label: titles[index],
+          //       // title: Container(),
+          //     );
+          //   }),
+          //   onTap: (index) {
+          //     data.value = index;
+          //     controller.currentIndex.value = index;
+          //   },
+          // ),
         );
       }, controller.currentIndex),
     );

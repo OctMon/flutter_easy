@@ -1904,3 +1904,134 @@ class BaseTextButton extends StatelessWidget {
     );
   }
 }
+
+class BaseBottomBarItem extends StatelessWidget {
+  final EdgeInsetsGeometry padding;
+
+  final Widget icon;
+
+  final Widget? label;
+
+  final double spacing;
+
+  final VoidCallback? onPressed;
+
+  const BaseBottomBarItem({
+    super.key,
+    this.padding = const EdgeInsets.all(5),
+    required this.icon,
+    this.label,
+    this.spacing = 0,
+    this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseButton(
+      padding: padding,
+      onPressed: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          icon,
+          SizedBox(height: spacing),
+          if (label != null) label!,
+        ],
+      ),
+    );
+  }
+}
+
+class BaseBottomBar extends StatelessWidget {
+  final double height;
+  final MainAxisAlignment mainAxisAlignment;
+  final double mainAxisSpacing;
+  final double crossAxisSpacing;
+  final List<BottomNavigationBarItem> items;
+  final int currentIndex;
+  final BorderRadiusGeometry borderRadius;
+  final Color? selectedItemColor;
+  final Color? unselectedItemColor;
+  final TextStyle? selectedLabelStyle;
+  final TextStyle? unselectedLabelStyle;
+  final Color? backgroundColor;
+  final List<BoxShadow>? boxShadow;
+  final ValueChanged<int>? onPressed;
+
+  const BaseBottomBar(
+      {super.key,
+      this.height = kBottomNavigationBarHeight,
+      this.mainAxisAlignment = MainAxisAlignment.spaceAround,
+      this.mainAxisSpacing = 0.0,
+      this.crossAxisSpacing = 4.0,
+      required this.items,
+      this.currentIndex = 0,
+      this.borderRadius = BorderRadius.zero,
+      this.selectedItemColor,
+      this.unselectedItemColor,
+      this.selectedLabelStyle,
+      this.unselectedLabelStyle,
+      this.backgroundColor = Colors.white,
+      this.boxShadow = const [
+        BoxShadow(
+          color: Color(0x08000000),
+          offset: Offset(0, -4),
+          blurRadius: 8,
+        ),
+      ],
+      this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          height: height,
+          decoration: BoxDecoration(
+            borderRadius: borderRadius,
+            color: backgroundColor,
+            boxShadow: boxShadow,
+          ),
+          child: Row(
+            mainAxisAlignment: mainAxisAlignment,
+            spacing: mainAxisSpacing,
+            children: List.generate(items.length, (index) {
+              final item = items[index];
+              final isSelected = index == currentIndex;
+              return BaseBottomBarItem(
+                spacing: crossAxisSpacing,
+                icon: isSelected ? item.activeIcon : item.icon,
+                label: item.label != null
+                    ? Text(
+                        item.label!,
+                        style: isSelected
+                            ? selectedLabelStyle ??
+                                TextStyle(
+                                  fontSize: 13,
+                                  color: selectedItemColor ??
+                                      appTheme(context).primaryColor,
+                                )
+                            : unselectedLabelStyle ??
+                                TextStyle(
+                                  fontSize: 13,
+                                  color: unselectedItemColor,
+                                ),
+                      )
+                    : null,
+                onPressed: () => onPressed?.call(index),
+              );
+            }).toList(),
+          ),
+        ),
+        Container(
+          height: screenBottomBarHeightDp,
+          color: backgroundColor,
+        ),
+      ],
+    );
+  }
+}
