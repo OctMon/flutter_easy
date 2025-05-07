@@ -1957,6 +1957,7 @@ class BaseBottomBar extends StatelessWidget {
   final TextStyle? selectedLabelStyle;
   final TextStyle? unselectedLabelStyle;
   final Color? backgroundColor;
+  final bool ignoreSafeArea;
   final List<BoxShadow>? boxShadow;
   final ValueChanged<int>? onPressed;
 
@@ -1974,6 +1975,7 @@ class BaseBottomBar extends StatelessWidget {
       this.selectedLabelStyle,
       this.unselectedLabelStyle,
       this.backgroundColor = Colors.white,
+      this.ignoreSafeArea = false,
       this.boxShadow = const [
         BoxShadow(
           color: Color(0x08000000),
@@ -2027,10 +2029,11 @@ class BaseBottomBar extends StatelessWidget {
             }).toList(),
           ),
         ),
-        Container(
-          height: screenBottomBarHeightDp,
-          color: backgroundColor,
-        ),
+        if (!ignoreSafeArea)
+          Container(
+            height: screenBottomBarHeightDp,
+            color: backgroundColor,
+          ),
       ],
     );
   }
