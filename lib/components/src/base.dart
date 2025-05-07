@@ -2038,3 +2038,52 @@ class BaseBottomBar extends StatelessWidget {
     );
   }
 }
+
+class BaseSlider extends StatelessWidget {
+  final double value;
+  final double min;
+  final double max;
+  final Color? activeColor;
+  final Color? inactiveColor;
+  final int? divisions;
+  final String? label;
+  final double? trackHeight;
+  final ValueChanged<double>? onChanged;
+  final ValueChanged<double>? onChangeEnd;
+
+  const BaseSlider(
+      {super.key,
+      required this.value,
+      required this.min,
+      required this.max,
+      this.activeColor,
+      this.inactiveColor,
+      this.divisions,
+      this.label,
+      this.trackHeight,
+      this.onChanged,
+      this.onChangeEnd});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliderTheme(
+      data: Get.theme.sliderTheme.copyWith(
+        trackHeight: trackHeight,
+        overlayShape: RoundSliderOverlayShape(
+          overlayRadius: 0, // 禁用触摸涟漪扩展
+        ),
+      ),
+      child: Slider(
+        value: value,
+        min: min,
+        max: max,
+        divisions: divisions,
+        label: label,
+        onChanged: onChanged,
+        onChangeEnd: onChangeEnd,
+        activeColor: activeColor,
+        inactiveColor: inactiveColor,
+      ),
+    );
+  }
+}
