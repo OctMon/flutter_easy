@@ -1,3 +1,6 @@
+## 3.13.3
+* upgrade session 1.5.0
+
 ## 3.13.2
 * logs record flutter errors to file
 * add chinese_font_library

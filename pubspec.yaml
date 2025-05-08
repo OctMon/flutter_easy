@@ -1,6 +1,6 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 3.13.2
+version: 3.13.3
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
@@ -16,7 +16,7 @@ dependencies:
   # pub: https://pub.dev/packages/session
   # git: https://github.com/OctMon/session
   # ———————————————————————————————————————————————————————————————————————————————
-  session: ^1.4.0
+  session: ^1.5.0
   dio: ^5.8.0+1
   # ===============================================================================
 
