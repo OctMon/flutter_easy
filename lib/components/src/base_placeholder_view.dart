@@ -70,7 +70,7 @@ class BasePlaceholderView extends StatelessWidget {
                       : setLightPlaceholderTitleTextStyle,
                   textAlign: TextAlign.center,
                 ),
-              if (message != null)
+              if (message != null && message != title)
                 Text(
                   message ?? "",
                   style: appDarkMode(context)

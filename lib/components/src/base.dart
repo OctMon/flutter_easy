@@ -1848,6 +1848,7 @@ class BaseTextButton extends StatelessWidget {
   final Color? color;
   final Color? pressedColor;
   final Color? disableColor;
+  final List<BoxShadow>? boxShadow;
   final bool autofocus;
   final VoidCallback? onPressed;
   final VoidCallback? onLongPress;
@@ -1861,6 +1862,7 @@ class BaseTextButton extends StatelessWidget {
     this.color,
     this.pressedColor,
     this.disableColor,
+    this.boxShadow,
     this.autofocus = false,
     this.onPressed,
     this.onLongPress,
@@ -1875,6 +1877,7 @@ class BaseTextButton extends StatelessWidget {
         color: (onPressed != null || onLongPress != null)
             ? (color ?? appTheme(context).primaryColor)
             : (disableColor ?? Colors.black12),
+        boxShadow: boxShadow,
       ),
       child: TextButton(
         autofocus: autofocus,
