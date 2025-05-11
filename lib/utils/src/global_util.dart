@@ -87,6 +87,11 @@ bool isPhone = isIOS || isAndroid;
 /// Android Studio可以配置运行Flutter参数 --dart-define=app-channel=official
 const appChannel = String.fromEnvironment('app-channel', defaultValue: '');
 
+late String appDocumentsDirectoryPath;
+late String appTemporaryDirectoryPath;
+late String appLibraryDirectoryPath;
+late String appSupportDirectoryPath;
+
 /// 将文本内容复制到剪贴板
 Future<void> setClipboard(String text) =>
     Clipboard.setData(ClipboardData(text: text));

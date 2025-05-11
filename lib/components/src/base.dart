@@ -200,6 +200,11 @@ Future<void> initEasyApp({
   final network = await initSelectedBaseURLType();
   logInfo("Network: $network $kBaseURLType");
 
+  appDocumentsDirectoryPath = (await getAppDocumentsDirectory()).path;
+  appTemporaryDirectoryPath = (await getAppTemporaryDirectory()).path;
+  appLibraryDirectoryPath = (await getAppLibraryDirectory()).path;
+  appSupportDirectoryPath = (await getAppSupportDirectory()).path;
+
   // 清除分享图片缓存
   clearShareDirectory();
 

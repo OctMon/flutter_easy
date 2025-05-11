@@ -162,6 +162,22 @@ class HomePage extends StatelessWidget {
                       code: "appTheme.primaryColor",
                       value: "${appTheme(context).primaryColor}"),
                   buildTableRow(
+                    code: "appDocumentsDirectoryPath",
+                    value: appDocumentsDirectoryPath,
+                  ),
+                  buildTableRow(
+                    code: "appTemporaryDirectoryPath",
+                    value: appTemporaryDirectoryPath,
+                  ),
+                  buildTableRow(
+                    code: "appLibraryDirectoryPath",
+                    value: appLibraryDirectoryPath,
+                  ),
+                  buildTableRow(
+                    code: "appSupportDirectoryPath",
+                    value: appSupportDirectoryPath,
+                  ),
+                  buildTableRow(
                     code: "translationAsset",
                     value:
                         assetsImagesPath("placeholder_empty").translationAsset,
