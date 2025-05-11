@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:chinese_font_library/chinese_font_library.dart';
 import 'package:dio/dio.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -77,3 +78,5 @@ typedef BasePhotoViewGallery = PhotoViewGallery;
 typedef BasePhotoViewGalleryPageOptions = PhotoViewGalleryPageOptions;
 typedef BasePhotoViewComputedScale = PhotoViewComputedScale;
 typedef BasePhotoViewHeroAttributes = PhotoViewHeroAttributes;
+
+typedef BaseDynamicFont = DynamicFont;

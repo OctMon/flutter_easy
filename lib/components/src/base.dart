@@ -20,6 +20,7 @@ import '../../utils/src/package_info_util.dart';
 import '../../utils/src/share_util.dart';
 import '../../utils/src/shared_preferences_util.dart';
 import '../../utils/src/vendor_util.dart';
+import '../../extension/src/widget_extension.dart';
 
 /// TextScaler.linear(1.adaptRatio),
 TextScaler? baseDefaultTextScale = TextScaler.noScaling;
@@ -2003,7 +2004,6 @@ class BaseBottomBar extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: mainAxisAlignment,
-            spacing: mainAxisSpacing,
             children: List.generate(items.length, (index) {
               final item = items[index];
               final isSelected = index == currentIndex;
@@ -2030,7 +2030,7 @@ class BaseBottomBar extends StatelessWidget {
                 onPressed: () => onPressed?.call(index),
               );
             }).toList(),
-          ),
+          ).withSpacing(mainAxisSpacing),
         ),
         if (!ignoreSafeArea)
           Container(
