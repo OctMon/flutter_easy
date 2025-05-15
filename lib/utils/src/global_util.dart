@@ -89,7 +89,6 @@ const appChannel = String.fromEnvironment('app-channel', defaultValue: '');
 
 late String appDocumentsDirectoryPath;
 late String appTemporaryDirectoryPath;
-late String appLibraryDirectoryPath;
 late String appSupportDirectoryPath;
 
 /// 将文本内容复制到剪贴板

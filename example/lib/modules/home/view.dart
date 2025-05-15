@@ -170,10 +170,6 @@ class HomePage extends StatelessWidget {
                     value: appTemporaryDirectoryPath,
                   ),
                   buildTableRow(
-                    code: "appLibraryDirectoryPath",
-                    value: appLibraryDirectoryPath,
-                  ),
-                  buildTableRow(
                     code: "appSupportDirectoryPath",
                     value: appSupportDirectoryPath,
                   ),

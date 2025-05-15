@@ -58,6 +58,7 @@ class BaseUploadModel {
     this.width,
     this.height,
     this.url,
+    this.createdAt,
     this.isSelected = false,
   });
 
@@ -66,12 +67,14 @@ class BaseUploadModel {
     width = json['width'];
     height = json['height'];
     url = json['url'];
+    createdAt = json['createdAt'];
   }
 
   String? id;
   num? width;
   num? height;
   String? url;
+  num? createdAt;
   bool isSelected = false;
 
   Map<String, dynamic> toJson() {
@@ -80,6 +83,7 @@ class BaseUploadModel {
     map['width'] = width;
     map['height'] = height;
     map['url'] = url;
+    map['createdAt'] = createdAt;
     return map;
   }
 }
@@ -202,7 +206,6 @@ Future<void> initEasyApp({
 
   appDocumentsDirectoryPath = (await getAppDocumentsDirectory()).path;
   appTemporaryDirectoryPath = (await getAppTemporaryDirectory()).path;
-  appLibraryDirectoryPath = (await getAppLibraryDirectory()).path;
   appSupportDirectoryPath = (await getAppSupportDirectory()).path;
 
   // 清除分享图片缓存
