@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-final kDefaultWidth = adaptDp(80);
-final _kDefaultHeight = adaptDp(15);
+final kDefaultWidth = 80.w;
+final _kDefaultHeight = 15.w;
 
 /// 进度条
 class BaseProgressBar extends StatelessWidget {

@@ -41,14 +41,14 @@ class AccountPage extends StatelessWidget {
                           });
                         },
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50.adaptRatio),
+                          borderRadius: BorderRadius.circular(50.r),
                           child: BaseWebImage(
                             UserStore.find.user.value.avatar,
-                            width: 80.adaptRatio,
-                            height: 80.adaptRatio,
+                            width: 80.w,
+                            height: 80.w,
                             fit: BoxFit.cover,
                             placeholder: FlutterLogo(
-                              size: 80.adaptRatio,
+                              size: 80.w,
                               style: FlutterLogoStyle.markOnly,
                             ),
                           ),
@@ -69,7 +69,7 @@ class AccountPage extends StatelessWidget {
                                 ? (UserStore.find.user.value.nickname ?? "")
                                 : S.of(context).login,
                             style: TextStyle(
-                              fontSize: 30.adaptRatio,
+                              fontSize: 30.sp,
                               fontWeight: FontWeight.w500,
                               color: appDarkMode(context)
                                   ? Colors.white

@@ -61,11 +61,11 @@ class PhotosTabPage extends StatelessWidget {
                         controller: controller.tabController,
                         isScrollable: true,
                         labelStyle: TextStyle(
-                          fontSize: 18.adaptRatio,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w600,
                         ),
                         unselectedLabelStyle: TextStyle(
-                          fontSize: 18.adaptRatio,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.normal,
                         ),
                         labelColor: appTheme(context).primaryColor,

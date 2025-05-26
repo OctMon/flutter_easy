@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../extension/src/font_extensions.dart';
+import 'global_util.dart';
 
 Color setLightScaffoldBackgroundColor = Colors.white;
 Color setDarkScaffoldBackgroundColor = Colors.black;
@@ -166,7 +167,7 @@ ThemeData getTheme({bool darkMode = false, required bool useMaterial3}) {
       bodyMedium: darkMode ? setDarkBodyMediumStyle : setLightBodyMediumStyle,
     ),
   );
-  if (setUseSystemChineseFont) {
+  if (!isWeb && setUseSystemChineseFont) {
     return theme
         .useSystemChineseFont(darkMode ? Brightness.dark : Brightness.light);
   }

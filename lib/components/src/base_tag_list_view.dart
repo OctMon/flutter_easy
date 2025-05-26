@@ -36,7 +36,7 @@ class BaseTagListView extends StatelessWidget {
                 ),
                 borderRadius: borderRadius ??
                     BorderRadius.circular(
-                      adaptDp(3),
+                      3.r,
                     ),
               ),
               child: child,

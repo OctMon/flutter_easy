@@ -17,7 +17,7 @@ String? kPlaceholderImageEmpty;
 Widget? kPlaceholderReloadButton;
 
 /// 占位图默认宽高
-double kPlaceholderImageWidth = 180.adaptRatio;
+double kPlaceholderImageWidth = 180.w;
 double kPlaceholderImageBottom = 8;
 double kPlaceholderTitleBottom = 8;
 

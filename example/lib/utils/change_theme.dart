@@ -23,7 +23,7 @@ void showChangeColorDialog(BuildContext context, Color color,
                 return Column(
                   children: [
                     FlutterLogo(
-                      size: 200.adaptRatio,
+                      size: 200.w,
                       style: FlutterLogoStyle.horizontal,
                       textColor: color.value,
                     ),

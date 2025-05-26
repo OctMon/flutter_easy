@@ -46,6 +46,13 @@ dependencies:
   convert: ^3.1.2
 
   # ===============================================================================
+  # A flutter plugin for adapting screen and font size.Guaranteed to look good on different models
+  # pub：https://pub.dev/packages/flutter_screenutil
+  # git：https://github.com/OpenFlutter/flutter_screenutil
+  # ===============================================================================
+  flutter_screenutil: ^5.9.3
+
+  # ===============================================================================
   # Flutter EasyLoading
   # pub：https://pub.dev/packages/flutter_easyloading
   # git：https://github.com/kokohuang/flutter_easyloading

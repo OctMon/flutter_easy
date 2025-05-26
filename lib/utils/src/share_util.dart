@@ -46,6 +46,7 @@ Future<String> getShareDirectoryPath() async =>
     (await getShareDirectory()).path;
 
 Future<void> clearShareDirectory() async {
+  if (isWeb) return;
   final dir = await getShareDirectory();
   if (dir.existsSync()) {
     final List<FileSystemEntity> children = dir.listSync();

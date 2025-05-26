@@ -81,8 +81,8 @@ class BaseCycleView extends StatelessWidget {
     return ConstrainedBox(
       constraints: BoxConstraints.loose(
         Size(
-          this.width ?? adaptDp(375),
-          this.height ?? adaptDp(180),
+          this.width ?? 375.w,
+          this.height ?? 180.w,
         ),
       ),
       child: BaseSwiper(

@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:encrypt/encrypt.dart';
 
-import 'package:path_provider/path_provider.dart';
-
+import 'global_util.dart';
 import 'json_util.dart';
 import 'logger_util.dart';
 import 'shared_preferences_util.dart';
@@ -139,7 +138,8 @@ Future<String> calcTemporaryDirectoryCacheSize() async {
   }
 
   try {
-    Directory tempDir = await getTemporaryDirectory();
+    if (isWeb) return "";
+    Directory tempDir = await getAppTemporaryDirectory();
     double value = await getTotalSizeOfFilesInDir(tempDir);
     return convertSize(value);
   } catch (err) {
@@ -166,11 +166,13 @@ Future<bool> clearTemporaryDirectoryCache() async {
   }
 
   try {
-    Directory tempDir = await getTemporaryDirectory();
-    // 删除缓存目录
-    await delDir(tempDir).then((bool) {
-      return true;
-    });
+    if (!isWeb) {
+      Directory tempDir = await getAppTemporaryDirectory();
+      // 删除缓存目录
+      await delDir(tempDir).then((bool) {
+        return true;
+      });
+    }
     return false;
   } catch (err) {
     logError(err);

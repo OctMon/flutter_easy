@@ -85,8 +85,8 @@ class ExampleListPage extends StatelessWidget {
                       type: MaterialType.transparency,
                       child: Center(
                         child: SizedBox(
-                          height: adaptDp(350),
-                          width: adaptDp(300),
+                          height: 350.w,
+                          width: 300.w,
                           child: Navigator(
                             initialRoute: '/',
                             onGenerateRoute: (RouteSettings settings) {
@@ -146,9 +146,9 @@ class ExampleListPage extends StatelessWidget {
                                                           children: [
                                                             SizedBox(
                                                               width:
-                                                                  50.adaptRatio,
+                                                                  50.w,
                                                               height:
-                                                                  50.adaptRatio,
+                                                                  50.w,
                                                               child:
                                                                   BaseWebImage(
                                                                 "https://flagpedia.net/data/flags/h160/${(locale.key as String).split("_").last.toLowerCase()}.webp",

@@ -42,15 +42,15 @@ class HomeController extends GetxController
       return;
     }
     final functions = [
-      "getAppTemporaryDirectory()",
-      "getAppDocumentsDirectory()",
+      if (!isWeb) "getAppTemporaryDirectory()",
+      if (!isWeb) "getAppDocumentsDirectory()",
       if (isIOS) "getAppLibraryDirectory()",
       "getAppSupportDirectory()",
       if (isAndroid) "getAppExternalStorageDirectory()",
     ];
     final list = await Future.wait([
-      getAppTemporaryDirectory(),
-      getAppDocumentsDirectory(),
+      if (!isWeb) getAppTemporaryDirectory(),
+      if (!isWeb) getAppDocumentsDirectory(),
       if (isIOS) getAppLibraryDirectory(),
       getAppSupportDirectory(),
       if (isAndroid) getAppExternalStorageDirectory(),

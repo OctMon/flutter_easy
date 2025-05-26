@@ -242,11 +242,10 @@ class HomePage extends StatelessWidget {
                   buildTableRow(code: "isMacOS", value: "$isMacOS"),
                   buildTableRow(code: "isIPhoneX", value: "$isIPhoneX"),
                   buildTableRowTop(code: "adapt", value: "value"),
-                  buildTableRow(code: "adaptDp(1)", value: "${adaptDp(1)}"),
-                  buildTableRow(
-                      code: "100.adaptRatio", value: "${100.adaptRatio}"),
-                  buildTableRow(code: "adaptPx(2)", value: "${adaptPx(2)}"),
-                  buildTableRow(code: "adaptOnePx()", value: "${adaptOnePx()}"),
+                  buildTableRow(code: "1.w", value: "${1.w}"),
+                  buildTableRow(code: "100.w", value: "${100.w}"),
+                  buildTableRow(code: "100.h", value: "${100.h}"),
+                  buildTableRow(code: "14.sp", value: "${14.sp}"),
                   buildTableRow(code: "screenWidthDp", value: "$screenWidthDp"),
                   buildTableRow(
                       code: "screenHeightDp", value: "$screenHeightDp"),

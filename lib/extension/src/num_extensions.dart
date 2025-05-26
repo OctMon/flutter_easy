@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 extension NumExtensions on num {
-  double get adaptRatio => adaptDp(this);
+  @Deprecated('use [.w] instead')
+  double get adaptRatio => w;
 
   /// Example:
   /// ```

@@ -204,9 +204,11 @@ Future<void> initEasyApp({
   final network = await initSelectedBaseURLType();
   logInfo("Network: $network $kBaseURLType");
 
-  appDocumentsDirectoryPath = (await getAppDocumentsDirectory()).path;
-  appTemporaryDirectoryPath = (await getAppTemporaryDirectory()).path;
-  appSupportDirectoryPath = (await getAppSupportDirectory()).path;
+  appDocumentsDirectoryPath =
+      isWeb ? "" : (await getAppDocumentsDirectory()).path;
+  appTemporaryDirectoryPath =
+      isWeb ? "" : (await getAppTemporaryDirectory()).path;
+  appSupportDirectoryPath = isWeb ? "" : (await getAppSupportDirectory()).path;
 
   // 清除分享图片缓存
   clearShareDirectory();
@@ -274,6 +276,9 @@ class BaseApp extends StatefulWidget {
   final LocaleResolutionCallback? localeResolutionCallback;
   final bool? debugShowCheckedModeBanner;
   final bool? showDebugTools;
+  final Size designSize;
+  final bool splitScreenMode;
+  final bool minTextAdapt;
 
   BaseApp({
     this.title = "",
@@ -292,6 +297,9 @@ class BaseApp extends StatefulWidget {
     this.localeResolutionCallback,
     this.debugShowCheckedModeBanner,
     this.showDebugTools,
+    this.designSize = BaseScreenUtil.defaultSize,
+    this.splitScreenMode = false,
+    this.minTextAdapt = false,
   });
 
   @override
@@ -365,33 +373,40 @@ class _BaseAppState extends State<BaseApp> {
 
     var navigatorObservers = widget.navigatorObservers.toList();
     navigatorObservers.add(BotToastNavigatorObserver());
-    return GetMaterialApp(
-      title: widget.title,
-      initialRoute: widget.initialRoute,
-      theme: getTheme(useMaterial3: widget.useMaterial3),
-      darkTheme: getTheme(darkMode: true, useMaterial3: widget.useMaterial3),
-      themeMode: widget.themeMode,
-      home: widget.home,
-      scrollBehavior: isPhone ? null : _MyCustomScrollBehavior(),
-      builder: widget.builder ??
-          BaseEasyLoading.init(
-            builder: (context, child) {
-              AdaptUtil.initContext(context);
-              child = botToastBuilder(context, child);
-              return _buildBannerUrlType(
-                child: _buildTextScaleFactor(context: context, child: child),
-              );
-            },
-          ),
-      navigatorObservers: navigatorObservers,
-      routingCallback: widget.routingCallback,
-      onGenerateRoute: widget.onGenerateRoute,
-      getPages: widget.getPages,
-      localizationsDelegates: widget.localizationsDelegates,
-      supportedLocales: widget.supportedLocales,
-      locale: widget.locale,
-      localeResolutionCallback: widget.localeResolutionCallback,
-      debugShowCheckedModeBanner: false,
+    return BaseScreenUtilInit(
+      // 填入设计稿中设备的屏幕尺寸,单位dp
+      designSize: widget.designSize,
+      // 是否根据宽度/高度中的最小值适配文字
+      minTextAdapt: widget.minTextAdapt,
+      // 支持分屏尺寸
+      splitScreenMode: widget.splitScreenMode,
+      child: GetMaterialApp(
+        title: widget.title,
+        initialRoute: widget.initialRoute,
+        theme: getTheme(useMaterial3: widget.useMaterial3),
+        darkTheme: getTheme(darkMode: true, useMaterial3: widget.useMaterial3),
+        themeMode: widget.themeMode,
+        home: widget.home,
+        scrollBehavior: isPhone ? null : _MyCustomScrollBehavior(),
+        builder: widget.builder ??
+            BaseEasyLoading.init(
+              builder: (context, child) {
+                child = botToastBuilder(context, child);
+                return _buildBannerUrlType(
+                  child: _buildTextScaleFactor(context: context, child: child),
+                );
+              },
+            ),
+        navigatorObservers: navigatorObservers,
+        routingCallback: widget.routingCallback,
+        onGenerateRoute: widget.onGenerateRoute,
+        getPages: widget.getPages,
+        localizationsDelegates: widget.localizationsDelegates,
+        supportedLocales: widget.supportedLocales,
+        locale: widget.locale,
+        localeResolutionCallback: widget.localeResolutionCallback,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
@@ -1173,7 +1188,7 @@ class BaseOutlineButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(
-            adaptDp(borderRadius),
+            borderRadius,
           ),
           border: Border.all(
               width: borderWidth,
@@ -1254,7 +1269,7 @@ class BaseTextField extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(borderRadius ?? adaptDp(5)),
+        borderRadius: BorderRadius.circular(borderRadius ?? 5.r),
       ),
       child: maxLines > 1
           ? Padding(
@@ -1435,7 +1450,7 @@ class BaseAlertDialog extends Dialog {
                     child: Center(
                       child: DefaultTextStyle(
                         style: TextStyle(
-                          fontSize: adaptDp(16),
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                           color: colorWithHex3,
                         ),
@@ -1447,7 +1462,7 @@ class BaseAlertDialog extends Dialog {
                     padding: contentPadding,
                     child: DefaultTextStyle(
                       style: TextStyle(
-                        fontSize: adaptDp(14),
+                        fontSize: 14.sp,
                         color: colorWithHex3,
                       ),
                       child: content,
@@ -2031,7 +2046,7 @@ class BaseBottomBar extends StatelessWidget {
                             : unselectedLabelStyle ??
                                 TextStyle(
                                   fontSize: 13,
-                                  color: unselectedItemColor,
+                                  color: unselectedItemColor ?? Colors.black,
                                 ),
                       )
                     : null,

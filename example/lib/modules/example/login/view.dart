@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           FlutterLogo(
-            size: adaptDp(100),
+            size: 100.w,
             style: FlutterLogoStyle.markOnly,
           ),
           Column(
@@ -122,7 +122,7 @@ class LoginPage extends StatelessWidget {
                           checked.value
                               ? Icons.check_circle
                               : Icons.radio_button_unchecked,
-                          size: adaptDp(20),
+                          size: 20.w,
                           color: checked.value
                               ? setLightPrimaryColor
                               : colorWithHex9,
@@ -135,8 +135,8 @@ class LoginPage extends StatelessWidget {
                       child: Text.rich(
                         TextSpan(
                           style: TextStyle(
-                            fontSize: adaptDp(12),
-                            color: const Color(0xff7a7a7a),
+                            fontSize: 12.sp,
+                            color: const Color(0xff7A7A7A),
                           ),
                           children: [
                             TextSpan(

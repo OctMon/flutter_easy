@@ -28,7 +28,7 @@ Future<bool> checkPrivacy() async {
               Text.rich(
                 TextSpan(
                   style: TextStyle(
-                    fontSize: adaptDp(14),
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                     height: 1.5,
                   ),
@@ -75,7 +75,7 @@ Future<bool> checkPrivacy() async {
                   child: Text(
                     S.current.exampleDisagree,
                     style: TextStyle(
-                      fontSize: adaptDp(14),
+                      fontSize: 14.sp,
                       color: Colors.white,
                     ),
                   ),
@@ -95,7 +95,7 @@ Future<bool> checkPrivacy() async {
                   child: Text(
                     S.current.exampleAgree,
                     style: TextStyle(
-                      fontSize: adaptDp(14),
+                      fontSize: 14.sp,
                       color: Colors.white,
                     ),
                   ),
