@@ -59,6 +59,7 @@ typedef BaseBotToast = BotToast;
 
 typedef BaseAlignedGridView = AlignedGridView;
 typedef BaseMasonryGridView = MasonryGridView;
+typedef BaseStaggeredGrid = StaggeredGrid;
 typedef BaseSliverAlignedGrid = SliverAlignedGrid;
 typedef BaseSliverMasonryGrid = SliverMasonryGrid;
 typedef BaseStaggeredGridTile = StaggeredGridTile;
@@ -66,6 +67,13 @@ typedef BaseSliverSimpleGridDelegateWithFixedCrossAxisCount
     = SliverSimpleGridDelegateWithFixedCrossAxisCount;
 typedef BaseSliverSimpleGridDelegateWithMaxCrossAxisExtent
     = SliverSimpleGridDelegateWithMaxCrossAxisExtent;
+typedef BaseSliverStairedGridDelegate = SliverStairedGridDelegate;
+typedef BaseStairedGridTile = StairedGridTile;
+typedef BaseSliverQuiltedGridDelegate = SliverQuiltedGridDelegate;
+typedef BaseQuiltedGridTile = QuiltedGridTile;
+typedef BaseQuiltedGridRepeatPattern = QuiltedGridRepeatPattern;
+typedef BaseSliverWovenGridDelegate = SliverWovenGridDelegate;
+typedef BaseWovenGridTile = WovenGridTile;
 
 typedef BaseSmartRefresher = SmartRefresher;
 typedef BaseRefreshController = RefreshController;
