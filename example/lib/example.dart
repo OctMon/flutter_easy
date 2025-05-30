@@ -183,28 +183,27 @@ List<BaseExampleWrap> get exampleList {
               );
             },
           ),
-          // BaseKeyValue(
-          //   key: "底部弹出",
-          //   value: "日期选择",
-          //   extend: () async {
-          //     showBaseDatePicker(
-          //       pickerMode: BaseDateTimePickerMode.datetime,
-          //       onConfirm: (dateTime, list) {
-          //         showToast("onConfirm:  $dateTime   $list");
-          //         logDebug(dateTime);
-          //       },
-          //       onClose: () {
-          //         logDebug("onClose");
-          //       },
-          //       onCancel: () {
-          //         logDebug("onCancel");
-          //       },
-          //       onChange: (dateTime, list) {
-          //         logDebug("onChange:  $dateTime    $list");
-          //       },
-          //     );
-          //   },
-          // ),
+          BaseKeyValue(
+            key: "底部弹出",
+            value: "日期选择",
+            extend: () async {
+              showBaseDatePicker(
+                pickerMode: BaseDateTimePickerMode.date,
+                onConfirm: (dateTime, list) {
+                  logDebug(dateTime);
+                },
+                onClose: () {
+                  logDebug("onClose");
+                },
+                onCancel: () {
+                  logDebug("onCancel");
+                },
+                onChange: (dateTime, list) {
+                  logDebug("onChange:  $dateTime    $list");
+                },
+              );
+            },
+          ),
         ],
       ),
     ];

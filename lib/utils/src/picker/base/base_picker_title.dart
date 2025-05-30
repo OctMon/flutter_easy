@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../configs/src/base_default_config.dart';
 import '../../../../configs/src/base_picker_config.dart';
 import 'base_picker_title_config.dart';
 
-/// DatePicker's title widget.
 // ignore: must_be_immutable
 class BasePickerTitle extends StatelessWidget {
   BasePickerTitleConfig? pickerTitleConfig;
@@ -17,6 +17,7 @@ class BasePickerTitle extends StatelessWidget {
     this.pickerTitleConfig,
     this.themeData,
   }) : super(key: key) {
+    themeData ??= BaseDefaultConfig.defaultPickerConfig;
     pickerTitleConfig ??= BasePickerTitleConfig.defaultConfig;
   }
 
@@ -26,7 +27,7 @@ class BasePickerTitle extends StatelessWidget {
       return pickerTitleConfig!.title!;
     }
     return Container(
-      height: themeData!.titleHeight,
+      height: themeData?.titleHeight,
       decoration: ShapeDecoration(
         color: themeData!.backgroundColor,
         shape: RoundedRectangleBorder(

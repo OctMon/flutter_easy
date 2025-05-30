@@ -8,7 +8,7 @@ class BasePickerTitleConfig {
     this.confirmLocalized = "Confirm",
     this.title,
     this.titleLocalized = "",
-    this.showTitle = false,
+    this.showTitle = true,
     this.titleContent,
   });
 
