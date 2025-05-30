@@ -2,6 +2,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/routes.dart';
 
 import '../../app.dart';
+import '../../generated/l10n.dart';
 import '../../utils/check_privacy.dart';
 
 class SplashController extends GetxController {
@@ -13,6 +14,12 @@ class SplashController extends GetxController {
 
   @override
   void onReady() {
+    BasePickerTitleConfig.defaultConfig =
+        BasePickerTitleConfig.defaultConfig.copyWith(
+      cancelLocalized: S.current.cancel,
+      confirmLocalized: S.current.confirm,
+    );
+
     if (isAndroid) {
       checkPrivacy().then((first) async {
         if (first) {

@@ -1,5 +1,6 @@
 import 'package:flutter_easy/flutter_easy.dart';
 
+import 'example.dart';
 import 'modules/example/connectivity/view.dart';
 import 'modules/example/image_colors/view.dart';
 import 'modules/example/image_girl_list/view.dart';
@@ -15,8 +16,8 @@ import 'middleware/login_middleware.dart';
 class Routes {
   static const String root = '/';
   static const String splash = '/splash';
-  static const String example = '/example';
   static const String profile = '/profile';
+  static const String example = '/example';
   static const String tuChong = '$example/tu_chong';
   static const String girlList = '$example/girl_list';
   static const String imageColors = '$example/image_colors';
@@ -38,6 +39,10 @@ class Routes {
     GetPage(
       name: routesLoginNamed,
       page: () => LoginPage(),
+    ),
+    GetPage(
+      name: Routes.example,
+      page: () => ExamplePage(),
     ),
     GetPage(
       name: Routes.profile,

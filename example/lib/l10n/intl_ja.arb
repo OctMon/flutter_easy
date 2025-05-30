@@ -6,6 +6,7 @@
   "systemDefault": "システムデフォルト",
   "login": "ログイン",
   "cancel": "キャンセル",
+  "confirm": "確認します",
   "example": "例",
   "example_PictureWaterfallFlow": "画像の滝の流れ",
   "example_ExtractProminentColorsFromAnImage": "画像から目立つ色を抽出す",

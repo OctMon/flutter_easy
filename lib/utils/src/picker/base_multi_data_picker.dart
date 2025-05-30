@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy/flutter_easy.dart';
 
-import 'base_picker_clip_r_rect.dart';
-import 'base_picker_component.dart';
-import 'base_picker_title.dart';
-
-/// Default value of whether show title widget or not.
-const pickerShowTitleDefault = true;
-
-/// Default value of DatePicker's height.
-const double pickerHeight = 240.0;
-
-/// Default value of DatePicker's title height.
-const double pickerTitleHeight = 48.0;
-
-/// Default value of DatePicker's column height.
-const double pickerItemHeight = 48.0;
+import '../../../configs/src/base_default_config.dart';
+import '../../../configs/src/base_picker_config.dart';
+import 'base/base_picker.dart';
+import 'base/base_picker_cliprrect.dart';
+import 'base/base_picker_title.dart';
+import 'base/base_picker_title_config.dart';
 
 /// 可以自定义实现 item Widget样式，更灵活
 /// [isSelect] 是否被选中
@@ -26,13 +16,13 @@ typedef BaseMultiDataPickerCreateWidgetCallback = Widget Function(
     bool isSelect, int column, int row, List selectedItems);
 
 /// 创建一级数据widget列表
-typedef CreateWidgetList = List<Widget> Function();
+typedef BaseCreateWidgetList = List<Widget> Function();
 
 /// 确定筛选内容事件回调
-typedef ConfirmButtonClick = void Function(List selectedIndexList);
+typedef BaseConfirmButtonClick = void Function(List selectedIndexList);
 
 /// 数据适配 Delegate
-abstract class GeneralMultiDataPickerDelegate {
+abstract class BaseMultiDataPickerDelegate {
   /// 定义显示几列内容
   int numberOfComponent();
 
@@ -53,15 +43,25 @@ abstract class GeneralMultiDataPickerDelegate {
 }
 
 /// 多级数据选择弹窗
-class GeneralMultiDataPicker extends StatefulWidget {
+// ignore: must_be_immutable
+class BaseMultiDataPicker extends StatefulWidget {
   /// 多级数据选择弹窗标题
   final String title;
 
   ///多级数据选择标题文案样式
   final TextStyle? titleTextStyle;
 
+  /// 多级数据选择弹窗所要覆盖页面的context
+  final BuildContext context;
+
   /// 多级数据选择弹窗的数据来源，自定义delegate继承该类，实现具体方法即可自定义每一列、每一行的具体内容
-  final GeneralMultiDataPickerDelegate delegate;
+  final BaseMultiDataPickerDelegate delegate;
+
+  ///多级数据选择确认文案样式
+  final TextStyle? confirmTextStyle;
+
+  ///多级数据选择取消文案样式
+  final TextStyle? cancelTextStyle;
 
   /// 多级数据选择每一级的默认标题
   final List<String>? pickerTitles;
@@ -72,11 +72,20 @@ class GeneralMultiDataPicker extends StatefulWidget {
   /// 多级数据选择每一级默认标题的文案颜色
   final Color? pickerTitleColor;
 
+  /// 多级数据选择数据字体大小
+  final double? textFontSize;
+
+  /// 多级数据选择数据文案颜色
+  final Color? textColor;
+
+  /// 多级数据选择数据选中文案颜色
+  final Color? textSelectedColor;
+
   /// 多级数据选择数据widget容器
   final List<FixedExtentScrollController> controllers = [];
 
   /// 多级数据选择确认点击回调
-  final ConfirmButtonClick? confirmClick;
+  final BaseConfirmButtonClick? confirmClick;
 
   /// 选择轮盘的滚动行为
   final ScrollBehavior? behavior;
@@ -87,36 +96,49 @@ class GeneralMultiDataPicker extends StatefulWidget {
   /// 是否复位数据位置。默认 true
   final bool sync;
 
-  GeneralMultiDataPicker(
-      {super.key,
+  BasePickerConfig? themeData;
+
+  BaseMultiDataPicker(
+      {Key? key,
+      required this.context,
       required this.delegate,
       this.title = "",
       this.titleTextStyle,
+      this.confirmTextStyle,
+      this.cancelTextStyle,
       this.pickerTitles,
       this.pickerTitleFontSize,
       this.pickerTitleColor,
+      this.textFontSize,
+      this.textColor,
+      this.textSelectedColor,
       this.behavior,
       this.confirmClick,
       this.createItemWidget,
-      this.sync = true});
+      this.themeData,
+      this.sync = true}) {
+    themeData ??= BaseDefaultConfig.defaultPickerConfig;
+  }
 
   @override
-  State<GeneralMultiDataPicker> createState() => _GeneralMultiDataPickerState();
+  _BaseMultiDataPickerState createState() => _BaseMultiDataPickerState();
 
   void show({bool isDismissible = true}) {
-    showBaseBottomSheet(
-      GestureDetector(
-        child: this,
-        onVerticalDragUpdate: (v) => false,
-      ),
-      backgroundColor: Colors.transparent,
-      isDismissible: isDismissible,
-    );
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        isDismissible: isDismissible,
+        builder: (BuildContext context) {
+          return GestureDetector(
+            child: this,
+            onVerticalDragUpdate: (v) => false,
+          );
+        }).then((value) {});
   }
 }
 
-class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
-  final List _selectedIndexList = [];
+class _BaseMultiDataPickerState extends State<BaseMultiDataPicker> {
+  List _selectedIndexList = [];
 
   @override
   void initState() {
@@ -128,17 +150,17 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: pickerHeight + pickerTitleHeight,
+    return Container(
+      height: widget.themeData!.pickerHeight + widget.themeData!.titleHeight,
       child: Material(
         type: MaterialType.transparency,
-        child: Column(
+        child: new Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            BaseClickerClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(18),
-                topRight: Radius.circular(18),
+            BasePickerClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(widget.themeData!.cornerRadius),
+                topRight: Radius.circular(widget.themeData!.cornerRadius),
               ),
               child: _configHeaderWidget(),
             ),
@@ -149,10 +171,10 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
     );
   }
 
-  // 头部widget
   Widget _configHeaderWidget() {
     return BasePickerTitle(
-      pickerTitleConfig: BasePickerTitleConfig.config.copyWith(
+      themeData: widget.themeData,
+      pickerTitleConfig: BasePickerTitleConfig.defaultConfig.copyWith(
         titleContent: widget.title,
       ),
       onCancel: () {
@@ -167,11 +189,11 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
     );
   }
 
-  // 选择的内容widget
+  //选择的内容widget
   Widget _configMultiDataPickerWidget() {
     return Container(
-        height: pickerHeight,
-        color: BasePickerTitleConfig.config.backgroundColor,
+        height: widget.themeData?.pickerHeight,
+        color: widget.themeData?.backgroundColor,
         child: Row(
             mainAxisSize: MainAxisSize.max,
             children: widget.pickerTitles != null
@@ -196,7 +218,7 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 25),
+                  padding: EdgeInsets.only(top: 25),
                   child: Text(
                     widget.pickerTitles == null ? '' : widget.pickerTitles![i],
                     style: TextStyle(
@@ -212,7 +234,7 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
     return pickersWithTitle;
   }
 
-  // picker数据
+  //picker数据
   List<Widget> _pickers() {
     List<Widget> pickers = [];
     for (int i = 0; i < widget.delegate.numberOfComponent(); i++) {
@@ -227,11 +249,11 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
     return pickers;
   }
 
-  // 构建单列数据
+  //构建单列数据
   Widget _configSinglePicker(int component) {
     return MyPicker(
-      backgroundColor: BasePickerTitleConfig.config.backgroundColor,
-      lineColor: const Color(0xFFF0F0F0),
+      backgroundColor: widget.themeData!.backgroundColor,
+      lineColor: widget.themeData!.dividerColor,
       controller: widget.controllers[component],
       key: Key(component.toString()),
       createWidgetList: () {
@@ -252,24 +274,20 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
           for (int i = 0;
               i < widget.delegate.numberOfRowsInComponent(component);
               i++) {
-            final selected = _selectedIndexList[component] == i;
             list.add(Center(
               child: Text(
                 widget.delegate.titleForRowInComponent(component, i),
-                style: TextStyle(
-                    fontSize: selected ? 18 : 16,
-                    fontWeight: selected ? fontWeightMedium : fontWeightRegular,
-                    color: selected
-                        ? appTheme(context).primaryColor
-                        : colorWithHex6),
+                style: _selectedIndexList[component] == i
+                    ? widget.themeData!.itemTextSelectedStyle
+                    : widget.themeData!.itemTextStyle,
               ),
             ));
           }
           return list;
         }
       },
-      itemExtent:
-          widget.delegate.rowHeightForComponent(component) ?? pickerItemHeight,
+      itemExtent: widget.delegate.rowHeightForComponent(component) ??
+          widget.themeData!.itemHeight,
       changed: (int index) {
         widget.delegate.selectRowInComponent(component, index);
         _selectedIndexList[component] = index;
@@ -300,7 +318,7 @@ class _GeneralMultiDataPickerState extends State<GeneralMultiDataPicker> {
 /// 一级数据选择widget
 class MyPicker extends StatefulWidget {
   ///创建数据widget列表
-  final CreateWidgetList? createWidgetList;
+  final BaseCreateWidgetList? createWidgetList;
 
   ///数据选择改变回调
   final ValueChanged<int>? changed;
@@ -315,8 +333,8 @@ class MyPicker extends StatefulWidget {
   final Color backgroundColor;
   final Color? lineColor;
 
-  const MyPicker({
-    super.key,
+  MyPicker({
+    Key? key,
     this.createWidgetList,
     this.changed,
     this.scrollBehavior,
@@ -324,7 +342,7 @@ class MyPicker extends StatefulWidget {
     this.controller,
     this.backgroundColor = Colors.white,
     this.lineColor,
-  });
+  }) : super(key: key);
 
   @override
   State createState() {
@@ -336,24 +354,26 @@ class _MyPickerState extends State<MyPicker> {
   @override
   Widget build(BuildContext context) {
     var children = widget.createWidgetList!();
-    return ScrollConfiguration(
-      behavior: widget.scrollBehavior ?? _DefaultScrollBehavior(),
-      child: BasePickerComponent(
-        key: widget.key,
-        scrollController: widget.controller,
-        itemExtent: widget.itemExtent,
-        backgroundColor: widget.backgroundColor,
-        lineColor: widget.lineColor,
-        onSelectedItemChanged: (index) {
-          if (widget.changed != null) {
-            widget.changed!(index);
-          }
-        },
-        children: children.isNotEmpty
-            ? children
-            : [
-                const Center(child: Text('')),
-              ],
+    return Container(
+      child: ScrollConfiguration(
+        behavior: widget.scrollBehavior ?? _DefaultScrollBehavior(),
+        child: BasePicker(
+          key: widget.key,
+          scrollController: widget.controller,
+          itemExtent: widget.itemExtent,
+          backgroundColor: widget.backgroundColor,
+          lineColor: widget.lineColor,
+          onSelectedItemChanged: (index) {
+            if (widget.changed != null) {
+              widget.changed!(index);
+            }
+          },
+          children: children.isNotEmpty
+              ? children
+              : [
+                  Center(child: Text('')),
+                ],
+        ),
       ),
     );
   }
@@ -368,10 +388,10 @@ class _DefaultScrollBehavior extends ScrollBehavior {
 }
 
 /// 实现了部分默认逻辑的 Delegate
-class BrnDefaultMultiDataPickerDelegate
-    implements GeneralMultiDataPickerDelegate {
+class BaseDefaultMultiDataPickerDelegate
+    implements BaseMultiDataPickerDelegate {
   ///数据源
-  List<GeneralMultiDataPickerEntity> data;
+  List<BaseMultiDataPickerEntity> data;
 
   ///第一列选中角标，默认0
   int firstSelectedIndex;
@@ -384,20 +404,19 @@ class BrnDefaultMultiDataPickerDelegate
 
   int _numberOfComponent = 0;
 
-  BrnDefaultMultiDataPickerDelegate(
+  BaseDefaultMultiDataPickerDelegate(
       {required this.data,
       this.firstSelectedIndex = 0,
       this.secondSelectedIndex = 0,
       this.thirdSelectedIndex = 0}) {
     if (data.isNotEmpty) {
       _numberOfComponent = 1;
-      for (GeneralMultiDataPickerEntity brnPickerItem in data) {
-        if (brnPickerItem.children.isNotEmpty) {
+      for (BaseMultiDataPickerEntity pickerItem in data) {
+        if (pickerItem.children.isNotEmpty) {
           _numberOfComponent = 2;
 
-          for (GeneralMultiDataPickerEntity brnPickerItem1
-              in brnPickerItem.children) {
-            if (brnPickerItem1.children.isNotEmpty) {
+          for (BaseMultiDataPickerEntity pickerItem1 in pickerItem.children) {
+            if (pickerItem1.children.isNotEmpty) {
               _numberOfComponent = 3;
             }
           }
@@ -435,7 +454,7 @@ class BrnDefaultMultiDataPickerDelegate
       List fl = data[firstSelectedIndex].children;
       return fl.length;
     } else {
-      List<GeneralMultiDataPickerEntity> secondMap =
+      List<BaseMultiDataPickerEntity> secondMap =
           data[firstSelectedIndex].children;
       List thirdMap = secondMap[secondSelectedIndex].children;
       return thirdMap.length;
@@ -444,7 +463,7 @@ class BrnDefaultMultiDataPickerDelegate
 
   @override
   double rowHeightForComponent(int component) {
-    return pickerItemHeight;
+    return BaseDefaultConfig.defaultPickerConfig.itemHeight;
   }
 
   @override
@@ -463,21 +482,21 @@ class BrnDefaultMultiDataPickerDelegate
     if (0 == component) {
       return data[index].text;
     } else if (1 == component) {
-      GeneralMultiDataPickerEntity brnPickerItem = data[firstSelectedIndex];
-      List<GeneralMultiDataPickerEntity> secondList = brnPickerItem.children;
+      BaseMultiDataPickerEntity pickerItem = data[firstSelectedIndex];
+      List<BaseMultiDataPickerEntity> secondList = pickerItem.children;
       return secondList[index].text;
     } else {
-      GeneralMultiDataPickerEntity brnPickerItem = data[firstSelectedIndex];
-      List<GeneralMultiDataPickerEntity> secondList = brnPickerItem.children;
-      List<GeneralMultiDataPickerEntity> threeList =
+      BaseMultiDataPickerEntity pickerItem = data[firstSelectedIndex];
+      List<BaseMultiDataPickerEntity> secondList = pickerItem.children;
+      List<BaseMultiDataPickerEntity> threeList =
           secondList[secondSelectedIndex].children;
       return threeList[index].text;
     }
   }
 }
 
-/// 适用于 BrnDefaultMultiDataPickerDelegate 的数据类
-class GeneralMultiDataPickerEntity {
+/// 适用于 BaseDefaultMultiDataPickerDelegate 的数据类
+class BaseMultiDataPickerEntity {
   /// 显示内容
   final String text;
 
@@ -485,9 +504,9 @@ class GeneralMultiDataPickerEntity {
   final dynamic value;
 
   /// 子项
-  final List<GeneralMultiDataPickerEntity> children;
+  final List<BaseMultiDataPickerEntity> children;
 
-  GeneralMultiDataPickerEntity({
+  BaseMultiDataPickerEntity({
     required this.text,
     this.value,
     this.children = const [],

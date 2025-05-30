@@ -6,6 +6,7 @@
   "systemDefault": "跟随系统",
   "login": "登录",
   "cancel": "取消",
+  "confirm": "确认",
   "example": "示例",
   "example_PictureWaterfallFlow": "图片瀑布流",
   "example_ExtractProminentColorsFromAnImage": "从图像中提取突出的颜色",

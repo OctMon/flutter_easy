@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy/flutter_easy.dart';
 
-import 'base_multi_data_picker.dart';
+import '../../../../configs/src/base_picker_config.dart';
+import 'base_picker_title_config.dart';
 
 /// DatePicker's title widget.
+// ignore: must_be_immutable
 class BasePickerTitle extends StatelessWidget {
-  final BasePickerTitleConfig? pickerTitleConfig;
+  BasePickerTitleConfig? pickerTitleConfig;
   final VoidCallback onCancel, onConfirm;
+  BasePickerConfig? themeData;
 
-  const BasePickerTitle({
-    super.key,
+  BasePickerTitle({
+    Key? key,
     required this.onCancel,
     required this.onConfirm,
     this.pickerTitleConfig,
-  });
-
-  BasePickerTitleConfig get config =>
-      pickerTitleConfig ?? BasePickerTitleConfig.config;
+    this.themeData,
+  }) : super(key: key) {
+    pickerTitleConfig ??= BasePickerTitleConfig.defaultConfig;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final config = pickerTitleConfig ?? BasePickerTitleConfig.config;
-    if (config.title != null) {
-      return config.title!;
+    if (pickerTitleConfig?.title != null) {
+      return pickerTitleConfig!.title!;
     }
-    logDebug("BasePickerTitleConfig.config: ${BasePickerTitleConfig.config.titleBackgroundColor}");
     return Container(
-      height: pickerTitleHeight,
+      height: themeData!.titleHeight,
       decoration: ShapeDecoration(
-        color: config.backgroundColor,
+        color: themeData!.backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8),
-            topRight: Radius.circular(8),
+            topLeft: Radius.circular(themeData!.cornerRadius),
+            topRight: Radius.circular(themeData!.cornerRadius),
           ),
         ),
       ),
@@ -41,42 +41,42 @@ class BasePickerTitle extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            height: pickerTitleHeight - 0.5,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            color: config.titleBackgroundColor,
+            height: themeData!.titleHeight - 0.5,
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   child: Container(
-                    height: pickerTitleHeight,
+                    height: themeData!.titleHeight,
                     alignment: Alignment.center,
                     child: _renderCancelWidget(context),
                   ),
                   onTap: () {
-                    onCancel();
+                    this.onCancel();
                   },
                 ),
                 Text(
-                  config.titleContent ?? "",
+                  pickerTitleConfig!.titleContent ?? "",
+                  style: themeData!.titleTextStyle,
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   child: Container(
-                    height: pickerTitleHeight,
+                    height: themeData!.titleHeight,
                     alignment: Alignment.center,
                     child: _renderConfirmWidget(context),
                   ),
                   onTap: () {
-                    onConfirm();
+                    this.onConfirm();
                   },
                 ),
               ],
             ),
           ),
-          const Divider(
-            color: Color(0xFFF0F0F0),
+          Divider(
+            color: themeData!.dividerColor,
             indent: 0.0,
             height: 0.5,
           ),
@@ -87,29 +87,29 @@ class BasePickerTitle extends StatelessWidget {
 
   /// render cancel button widget
   Widget _renderCancelWidget(BuildContext context) {
-    Widget? cancelWidget = config.cancel;
-    cancelWidget ??= Text(
-      config.cancelTitle,
-      style: const TextStyle(
-        fontSize: 17,
-        color: colorWithHex6,
-      ),
-      textAlign: TextAlign.left,
-    );
+    Widget? cancelWidget = pickerTitleConfig!.cancel;
+    if (cancelWidget == null) {
+      TextStyle textStyle = themeData!.cancelTextStyle;
+      cancelWidget = Text(
+        pickerTitleConfig!.cancelLocalized,
+        style: textStyle,
+        textAlign: TextAlign.left,
+      );
+    }
     return cancelWidget;
   }
 
   /// render confirm button widget
   Widget _renderConfirmWidget(BuildContext context) {
-    Widget? confirmWidget = config.confirm;
-    confirmWidget ??= Text(
-      config.confirmTitle,
-      style: TextStyle(
-        fontSize: 17,
-        color: colorWithHex3,
-      ),
-      textAlign: TextAlign.right,
-    );
+    Widget? confirmWidget = pickerTitleConfig!.confirm;
+    if (confirmWidget == null) {
+      TextStyle textStyle = themeData!.confirmTextStyle;
+      confirmWidget = Text(
+        pickerTitleConfig!.confirmLocalized,
+        style: textStyle,
+        textAlign: TextAlign.right,
+      );
+    }
     return confirmWidget;
   }
 }

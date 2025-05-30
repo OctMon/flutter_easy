@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "account": MessageLookupByLibrary.simpleMessage("アカウント"),
     "cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
+    "confirm": MessageLookupByLibrary.simpleMessage("確認します"),
     "example": MessageLookupByLibrary.simpleMessage("例"),
     "exampleAgree": MessageLookupByLibrary.simpleMessage("同意する"),
     "exampleCheckPrivacyAlertBegin": MessageLookupByLibrary.simpleMessage(

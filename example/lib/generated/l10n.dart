@@ -90,6 +90,11 @@ class S {
     return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
+  /// `Confirm`
+  String get confirm {
+    return Intl.message('Confirm', name: 'confirm', desc: '', args: []);
+  }
+
   /// `Example`
   String get example {
     return Intl.message('Example', name: 'example', desc: '', args: []);

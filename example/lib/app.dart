@@ -7,6 +7,7 @@ import 'api/api.dart';
 import 'generated/l10n.dart';
 import 'routes.dart';
 import 'store/user/store.dart';
+import 'style.dart';
 
 /// 非首次使用 app
 final kNonFirstUseAppKey = "first_open_key".md5;
@@ -17,7 +18,7 @@ Future<void> initApp() async {
   // Load user info
   await Get.putAsync(() => UserStore().load());
 
-  setUseSystemChineseFont = true;
+  configStyle();
 
   if (isDebug || isAppDebugFlag) {
     BaseWebImage.logEnabled = true;

@@ -27,6 +27,16 @@ class ExampleListPage extends StatelessWidget {
         children: [
           GlobalListCell(
             item: BaseKeyValue(
+              key: "Example",
+              value: "",
+              extend: Icons.density_medium_outlined,
+            ),
+            onPressed: () {
+              toNamed(Routes.example);
+            },
+          ),
+          GlobalListCell(
+            item: BaseKeyValue(
               key: "Connectivity",
               value: "",
               extend: Icons.earbuds,
@@ -145,10 +155,8 @@ class ExampleListPage extends StatelessWidget {
                                                         child: Row(
                                                           children: [
                                                             SizedBox(
-                                                              width:
-                                                                  50.w,
-                                                              height:
-                                                                  50.w,
+                                                              width: 50.w,
+                                                              height: 50.w,
                                                               child:
                                                                   BaseWebImage(
                                                                 "https://flagpedia.net/data/flags/h160/${(locale.key as String).split("_").last.toLowerCase()}.webp",

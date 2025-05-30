@@ -1,7 +1,3 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
@@ -38,7 +34,7 @@ const double _kForegroundScreenOpacityFraction = 0.4;
 ///  * [ListWheelScrollView], the generic widget backing this picker without
 ///    the iOS design specific chrome.
 ///  * <https://developer.apple.com/ios/human-interface-guidelines/controls/pickers/>
-class BasePickerComponent extends StatefulWidget {
+class BasePicker extends StatefulWidget {
   /// Creates a picker from a concrete list of children.
   ///
   /// The [diameterRatio] and [itemExtent] arguments must not be null. The
@@ -57,8 +53,8 @@ class BasePickerComponent extends StatefulWidget {
   /// scrolled infinitely.  If set to true, scrolling past the end of the list
   /// will loop the list back to the beginning.  If set to false, the list will
   /// stop scrolling when you reach the end or the beginning.
-  BasePickerComponent({
-    super.key,
+  BasePicker({
+    Key? key,
     this.diameterRatio = _kDefaultDiameterRatio,
     this.backgroundColor = _kDefaultBackground,
     this.lineColor = _kHighlighterBorder,
@@ -78,7 +74,8 @@ class BasePickerComponent extends StatefulWidget {
         assert(squeeze > 0),
         childDelegate = looping
             ? ListWheelChildLoopingListDelegate(children: children)
-            : ListWheelChildListDelegate(children: children);
+            : ListWheelChildListDelegate(children: children),
+        super(key: key);
 
   /// Creates a picker from an [IndexedWidgetBuilder] callback where the builder
   /// is dynamically invoked during layout.
@@ -97,8 +94,8 @@ class BasePickerComponent extends StatefulWidget {
   /// The [backgroundColor] defaults to light gray. It can be set to null to
   /// disable the background painting entirely; this is mildly more efficient
   /// than using [Colors.transparent].
-  BasePickerComponent.builder({
-    super.key,
+  BasePicker.builder({
+    Key? key,
     this.diameterRatio = _kDefaultDiameterRatio,
     this.backgroundColor = _kDefaultBackground,
     this.lineColor = _kHighlighterBorder,
@@ -117,7 +114,8 @@ class BasePickerComponent extends StatefulWidget {
         assert(itemExtent > 0),
         assert(squeeze > 0),
         childDelegate = ListWheelChildBuilderDelegate(
-            builder: itemBuilder, childCount: childCount);
+            builder: itemBuilder, childCount: childCount),
+        super(key: key);
 
   /// Relative ratio between this picker's height and the simulated cylinder's diameter.
   ///
@@ -183,7 +181,7 @@ class BasePickerComponent extends StatefulWidget {
   State<StatefulWidget> createState() => _CupertinoPickerState();
 }
 
-class _CupertinoPickerState extends State<BasePickerComponent> {
+class _CupertinoPickerState extends State<BasePicker> {
   int? _lastHapticIndex;
   FixedExtentScrollController? _controller;
 
@@ -196,7 +194,7 @@ class _CupertinoPickerState extends State<BasePickerComponent> {
   }
 
   @override
-  void didUpdateWidget(BasePickerComponent oldWidget) {
+  void didUpdateWidget(BasePicker oldWidget) {
     if (widget.scrollController != null && oldWidget.scrollController == null) {
       _controller = null;
     } else if (widget.scrollController == null &&
@@ -388,9 +386,10 @@ class _CupertinoPickerState extends State<BasePickerComponent> {
 // scroll controller.
 class _CupertinoPickerSemantics extends SingleChildRenderObjectWidget {
   const _CupertinoPickerSemantics({
-    super.child,
+    Key? key,
+    Widget? child,
     required this.scrollController,
-  });
+  }) : super(key: key, child: child);
 
   final FixedExtentScrollController scrollController;
 

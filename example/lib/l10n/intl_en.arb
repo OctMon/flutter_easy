@@ -6,6 +6,7 @@
   "systemDefault": "System default",
   "login": "Login",
   "cancel": "Cancel",
+  "confirm": "Confirm",
   "example": "Example",
   "example_PictureWaterfallFlow": "Picture waterfall flow",
   "example_ExtractProminentColorsFromAnImage": "Extract prominent colors from an Image",
