@@ -21,20 +21,15 @@ abstract class BaseStateLifeCycleController extends FullLifeCycleController
     switch (state) {
       case AppLifecycleState.resumed:
         appIsForeground = true;
-        onResumed();
         break;
       case AppLifecycleState.inactive:
-        onInactive();
         break;
       case AppLifecycleState.paused:
         appIsForeground = false;
-        onPaused();
         break;
       case AppLifecycleState.detached:
-        onDetached();
         break;
       case AppLifecycleState.hidden:
-        onHidden();
         break;
     }
   }
