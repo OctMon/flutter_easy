@@ -30,6 +30,8 @@ class BaseWebImage extends StatelessWidget {
   final int retries;
   final Duration? timeLimit;
   final Map<String, String>? headers;
+  final int? cacheWidth;
+  final int? cacheHeight;
 
   final ValueChanged<ImageInfo?>? imageCompletionHandler;
 
@@ -45,7 +47,9 @@ class BaseWebImage extends StatelessWidget {
       this.imageCompletionHandler,
       this.retries = 3,
       this.timeLimit,
-      this.headers});
+      this.headers,
+      this.cacheWidth,
+      this.cacheHeight});
 
   static Widget clip({
     String? url,
@@ -57,6 +61,8 @@ class BaseWebImage extends StatelessWidget {
     double? width,
     double? height,
     BoxFit? fit,
+    int? cacheWidth,
+    int? cacheHeight,
     int retries = 3,
     Duration? timeLimit,
     Map<String, String>? headers,
@@ -93,6 +99,8 @@ class BaseWebImage extends StatelessWidget {
           width: width,
           height: height,
           fit: fit,
+          cacheWidth: cacheWidth,
+          cacheHeight: cacheHeight,
           retries: retries,
           timeLimit: timeLimit,
           headers: headers,
@@ -148,6 +156,8 @@ class BaseWebImage extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
+        cacheWidth: cacheWidth,
+        cacheHeight: cacheHeight,
         errorBuilder: (_, __, ___) =>
             errorWidget ?? baseWebImageDefaultErrorPlaceholder,
       );
@@ -158,6 +168,8 @@ class BaseWebImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
       cacheKey: keyToTagMd5(img, cacheKey, cacheTag),
       timeLimit: timeLimit ?? baseWebImageDefaultTimeLimit,
       retries: retries,
