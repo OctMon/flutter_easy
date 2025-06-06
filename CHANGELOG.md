@@ -1,3 +1,7 @@
+## 3.15.1
+* fix app life cycle call two times
+* design size default Size(375, 812)
+
 ## 3.15.0
 * add show base date picker
 * add show base multi data picker
