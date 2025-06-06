@@ -245,7 +245,11 @@ class BaseWebImage extends StatelessWidget {
   /// 手动缓存文件
   static Future<File?> cachePutFile(
       {required String url, required File file, String? cacheTag}) async {
-    final String key = keyToTagMd5(url, null, cacheTag) ?? url.md5;
+    var img = url;
+    if (kWebImagePrefix != null && !img.startsWith("http")) {
+      img = getJoin(kWebImagePrefix!, img);
+    }
+    final String key = keyToTagMd5(img, null, cacheTag) ?? img.md5;
     final Directory cacheImagesDirectory = Directory(
         getJoin((await getAppTemporaryDirectory()).path, cacheImageFolderName));
     if (cacheImagesDirectory.existsSync()) {
@@ -257,8 +261,12 @@ class BaseWebImage extends StatelessWidget {
   /// 取缓存文件
   static Future<File?> cacheGetFile(String url,
       {String? cacheKey, String? cacheTag}) async {
-    return await hwCacheGetFile(url,
-        cacheKey: keyToTagMd5(url, cacheKey, cacheTag));
+    var img = url;
+    if (kWebImagePrefix != null && !img.startsWith("http")) {
+      img = getJoin(kWebImagePrefix!, img);
+    }
+    return await hwCacheGetFile(img,
+        cacheKey: keyToTagMd5(img, cacheKey, cacheTag));
   }
 
   /// get network image data from cached
@@ -269,8 +277,12 @@ class BaseWebImage extends StatelessWidget {
     String? cacheTag,
     StreamController<ImageChunkEvent>? chunkEvents,
   }) async {
-    return BaseExtendedNetworkImageProvider(url,
-            cache: useCache, cacheKey: keyToTagMd5(url, cacheKey, cacheTag))
+    var img = url;
+    if (kWebImagePrefix != null && !img.startsWith("http")) {
+      img = getJoin(kWebImagePrefix!, img);
+    }
+    return BaseExtendedNetworkImageProvider(img,
+            cache: useCache, cacheKey: keyToTagMd5(img, cacheKey, cacheTag))
         .getNetworkImageData(
       chunkEvents: chunkEvents,
     );
@@ -287,7 +299,11 @@ class BaseWebImage extends StatelessWidget {
 
   /// 删除缓存图片
   static void clean(String url, {String? cacheKey, String? cacheTag}) {
-    clearDiskCachedImage(url, cacheKey: keyToTagMd5(url, cacheKey, cacheTag));
+    var img = url;
+    if (kWebImagePrefix != null && !img.startsWith("http")) {
+      img = getJoin(kWebImagePrefix!, img);
+    }
+    clearDiskCachedImage(img, cacheKey: keyToTagMd5(img, cacheKey, cacheTag));
   }
 
   /// Clear the disk cache directory then return if it succeed.
