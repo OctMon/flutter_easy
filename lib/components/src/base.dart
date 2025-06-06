@@ -297,7 +297,7 @@ class BaseApp extends StatefulWidget {
     this.localeResolutionCallback,
     this.debugShowCheckedModeBanner,
     this.showDebugTools,
-    this.designSize = BaseScreenUtil.defaultSize,
+    this.designSize = const Size(375, 812),
     this.splitScreenMode = false,
     this.minTextAdapt = false,
   });
@@ -434,7 +434,7 @@ class _DebugPage extends StatefulWidget {
 class __DebugPageState extends State<_DebugPage> {
   bool _flag = false;
 
-  late Offset _offset = Offset(0, screenHeightDp - 100);
+  late Offset _offset = Offset(0, screenHeightDp * 0.8);
 
   @override
   Widget build(BuildContext context) {
@@ -457,39 +457,37 @@ class __DebugPageState extends State<_DebugPage> {
           return Positioned(
             left: _offset.dx,
             top: _offset.dy,
-            child: Opacity(
-              opacity: 0.6,
-              child: Container(
-                width: _kDebugIconSize,
-                height: _kDebugIconSize,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: appTheme(context).primaryColor,
-                  borderRadius: BorderRadius.circular(_kDebugIconSize / 2),
-                ),
-                child: GestureDetector(
-                  onPanEnd: _onPanEnd,
-                  onPanUpdate: _onPanUpdate,
-                  child: BaseButton(
-                    padding: EdgeInsets.zero,
-                    child: Icon(
-                      _flag ? Icons.clear : Icons.connect_without_contact,
-                      color: Colors.white,
-                    ),
-                    onPressed: () async {
-                      if (!mounted) {
-                        return;
-                      }
-                      setState(() {
-                        _flag = !_flag;
-                      });
-                      if (_flag) {
-                        showBaseBottomSheet(EasyLogPage(),
-                            isScrollControlled: true, ignoreSafeArea: false);
-                      } else {
-                        offBack();
-                      }
-                    },
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onPanEnd: _onPanEnd,
+              onPanUpdate: _onPanUpdate,
+              onTap: () async {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {
+                  _flag = !_flag;
+                });
+                if (_flag) {
+                  showBaseBottomSheet(EasyLogPage(),
+                      isScrollControlled: true, ignoreSafeArea: false);
+                } else {
+                  offBack();
+                }
+              },
+              child: Opacity(
+                opacity: 0.25,
+                child: Container(
+                  width: _kDebugIconSize,
+                  height: _kDebugIconSize,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: appTheme(context).primaryColor,
+                    borderRadius: BorderRadius.circular(_kDebugIconSize / 2),
+                  ),
+                  child: Icon(
+                    _flag ? Icons.clear : Icons.connect_without_contact,
+                    color: Colors.white,
                   ),
                 ),
               ),
