@@ -83,6 +83,13 @@ Future<void> shareFiles({required List<String> path}) async {
   }
 }
 
+Future<void> shareLogZiPFile() async {
+  final zipFile = await appLogZipFile();
+  if (zipFile != null) {
+    shareFiles(path: [zipFile]);
+  }
+}
+
 Future<String?> downloadCopyFile(
     {required String url, String? savePath, bool loading = true}) async {
   if (!BaseEasyLoading.isShow) {
