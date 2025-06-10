@@ -1,3 +1,7 @@
+## 3.15.2
+* share log zip file
+* base web image cache width and height
+
 ## 3.15.1
 * fix app life cycle call two times
 * design size default Size(375, 812)
