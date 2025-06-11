@@ -111,7 +111,7 @@ class LogFile {
 
   BaseDateFormat _format = BaseDateFormat("yyyy-MM-dd HH:mm:ss");
 
-  late int _hours = 6;
+  late int _hours = 24;
 
   LogFile(this.location,
       {required bool enable,
