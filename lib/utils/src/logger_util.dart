@@ -509,7 +509,7 @@ class EasyLogPage extends StatelessWidget {
               CupertinoIcons.share,
             ),
             onPressed: () {
-              shareText(controller.logs.join("\n"));
+              shareLogZiPFile();
             },
           ),
           BaseButton(
