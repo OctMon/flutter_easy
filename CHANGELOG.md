@@ -1,3 +1,8 @@
+## 3.15.3
+* log page add share log zip file
+* add typedef base svg picture
+* log hours default 24h
+
 ## 3.15.2
 * share log zip file
 * base web image cache width and height
