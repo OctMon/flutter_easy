@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -92,3 +93,5 @@ typedef BasePhotoViewComputedScale = PhotoViewComputedScale;
 typedef BasePhotoViewHeroAttributes = PhotoViewHeroAttributes;
 
 typedef BaseDynamicFont = DynamicFont;
+
+typedef BaseSvgPicture = SvgPicture;
