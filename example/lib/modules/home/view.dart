@@ -144,6 +144,8 @@ class HomePage extends StatelessWidget {
                 ),
                 children: [
                   buildTableRowTop(code: "app", value: "value"),
+                  buildTableRow(code: "git branch", value: gitBranch),
+                  buildTableRow(code: "git commit", value: gitCommit),
                   buildTableRow(code: "appName", value: appName),
                   buildTableRow(code: "appPackageName", value: appPackageName),
                   buildTableRow(code: "appBuildNumber", value: appBuildNumber),

@@ -87,6 +87,12 @@ bool isPhone = isIOS || isAndroid;
 /// Android Studio可以配置运行Flutter参数 --dart-define=app-channel=official
 const appChannel = String.fromEnvironment('app-channel', defaultValue: '');
 
+/// 当前分支
+const gitBranch = String.fromEnvironment('git-branch', defaultValue: '');
+
+/// 提交哈希
+const gitCommit = String.fromEnvironment('git-commit', defaultValue: '');
+
 late String appDocumentsDirectoryPath;
 late String appTemporaryDirectoryPath;
 late String appSupportDirectoryPath;
