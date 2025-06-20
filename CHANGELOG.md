@@ -1,3 +1,6 @@
+## 3.15.4
+* add git branch git commit
+
 ## 3.15.3
 * log page add share log zip file
 * add typedef base svg picture
