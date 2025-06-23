@@ -1,3 +1,7 @@
+## 3.15.5
+* add base tab state controller
+* log page customize
+
 ## 3.15.4
 * add git branch git commit
 
