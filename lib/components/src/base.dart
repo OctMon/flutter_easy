@@ -200,7 +200,7 @@ Future<void> initEasyApp({
     logWriterCallback: localLogWriter,
   );
 
-  logInfo("Init: $utils");
+  logInfo("Init: $utils ${appChannel} ${gitBranch} ${gitCommit}");
   final network = await initSelectedBaseURLType();
   logInfo("Network: $network $kBaseURLType");
 
