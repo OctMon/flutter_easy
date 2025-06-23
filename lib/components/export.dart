@@ -3,6 +3,7 @@ export 'src/base_example_view.dart';
 export 'src/base_expandable_text.dart';
 export 'src/base_state.dart';
 export 'src/base_tab_page.dart';
+export 'src/base_tab_state_controller.dart';
 export 'src/base_loading_view.dart';
 export 'src/base_navigator_pop_exit.dart';
 export 'src/base_animation_image.dart';

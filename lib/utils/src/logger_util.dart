@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:path/path.dart' as Path;
 
 import '../../components/src/base.dart';
+import '../../components/src/base_state.dart';
+import '../../extension/src/font_extensions.dart';
 import 'color_util.dart';
 import 'date_util.dart';
 import 'global_util.dart';
@@ -28,17 +30,17 @@ String _costumeSplitter = " ";
 String _addCostumeSplitter(String? message) =>
     message == null || message == '' ? '' : "[$message]";
 
-String _colorize(String message, LoggerLevel logLevel) {
-  if (logLevel.ansiColor == null) return message;
-  return logLevel.ansiColorTemplate.replaceFirst("@message", message);
+String _colorize(String message, LoggerLevel LoggerLevel) {
+  if (LoggerLevel.ansiColor == null) return message;
+  return LoggerLevel.ansiColorTemplate.replaceFirst("@message", message);
 }
 
 void _log(LoggerLevel level, dynamic message) {
   final dateTime = DateTime.now();
   var timestamp = _addCostumeSplitter(
       '${dateTime.year}-${twoDigits(dateTime.month)}-${twoDigits(dateTime.day)} ${twoDigits(dateTime.hour)}:${twoDigits(dateTime.minute)}:${twoDigits(dateTime.second)}');
-  var logLevel = _addCostumeSplitter(level.name);
-  var formattedMessage = timestamp + _costumeSplitter + logLevel;
+  var LoggerLevel = _addCostumeSplitter(level.name);
+  var formattedMessage = timestamp + _costumeSplitter + LoggerLevel;
   formattedMessage += _costumeSplitter + "$message";
 
   logFile?.log(formattedMessage);
@@ -425,34 +427,41 @@ ${result.response?.data is Map ? jsonEncode(result.response?.data) : result.resp
   logInfo(string);
 }
 
-class EasyLogController extends GetxController {
+class EasyLogController extends BaseStateController {
   final scrollController = ScrollController();
 
-  /// 所有的日志
-  var logs = <String>[].obs;
+  final RxList<String> logs = <String>[].obs;
+  final RxString searchKeyword = ''.obs;
+  final Rx<LoggerLevel?> selectedLevel = Rx<LoggerLevel?>(null);
+  final RxSet<int> expandedIndexes = <int>{}.obs;
 
   /// 在最下面标志
   var followBottom = false.obs;
 
   @override
   void onInit() {
-    logFile?.read().then((value) => logs.value = value.split("\n"));
     scrollController.addListener(() {
       updateFollowBottom();
     });
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    scrollController.jumpTo(scrollController.position.maxScrollExtent);
-    super.onReady();
+    // 日志更新时滚动
+    ever(logs, (_) {
+      scrollToBottom();
+    });
+    super.onInit();
   }
 
   @override
   void onClose() {
     scrollController.dispose();
     super.onClose();
+  }
+
+  @override
+  Future<void> onRequestData() async {
+    await 0.25.delay();
+    logs.value = (await logFile?.read())?.split("\n") ?? [];
+    change(logs, status: RxStatus.success());
   }
 
   void updateFollowBottom() {
@@ -463,22 +472,98 @@ class EasyLogController extends GetxController {
     }
   }
 
-  void scrollToBottom() {
-    if (scrollController.hasClients) {
+  void scrollToBottom({bool animated = false}) {
+    Future.delayed(const Duration(milliseconds: 50), () {
+      if (!scrollController.hasClients) return;
       followBottom.value = true;
+      final maxExtent = scrollController.position.maxScrollExtent;
+      if (animated) {
+        scrollController.animateTo(maxExtent,
+            duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
+      } else {
+        scrollController.jumpTo(maxExtent);
+      }
+    });
+  }
 
-      var scrollPosition = scrollController.position;
-      // scrollController.jumpTo(scrollPosition.maxScrollExtent);
-      scrollController.animateTo(
-        scrollPosition.maxScrollExtent,
-        duration: new Duration(milliseconds: 200),
-        curve: Curves.ease,
-      );
+  LoggerLevel? getLevel(String log) {
+    final match =
+        RegExp(r'\[(Debug|Info|Warning|Error|Fatal)\]').firstMatch(log);
+    switch (match?.group(1)?.toLowerCase()) {
+      case 'debug':
+        return LoggerLevel.debug;
+      case 'info':
+        return LoggerLevel.info;
+      case 'warning':
+        return LoggerLevel.warning;
+      case 'error':
+        return LoggerLevel.error;
+      case 'fatal':
+        return LoggerLevel.fatal;
+      default:
+        return null;
     }
   }
+
+  String getLogTime(String log) {
+    final match =
+        RegExp(r'\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]').firstMatch(log);
+    return match?.group(1) ?? '';
+  }
+
+  String getMessage(String log) {
+    final match =
+        RegExp(r'\[\d{4}-\d{2}-\d{2}.*?\]\s*\[(.*?)\]\s*(.*)').firstMatch(log);
+    return match != null ? match.group(2) ?? log : log;
+  }
+
+  List<int> get filteredIndexes {
+    final keyword = searchKeyword.value.toLowerCase();
+    final levelFilter = selectedLevel.value;
+    final indexes = <int>[];
+
+    for (var i = 0; i < logs.length; i++) {
+      final log = logs[i];
+      final level = getLevel(log);
+      final matchLevel = levelFilter == null || level == levelFilter;
+      final matchKeyword =
+          keyword.isEmpty || log.toLowerCase().contains(keyword);
+      if (matchLevel && matchKeyword) indexes.add(i);
+    }
+
+    return indexes;
+  }
+
+  void toggleExpand(int index) {
+    if (expandedIndexes.contains(index)) {
+      expandedIndexes.remove(index);
+    } else {
+      expandedIndexes.add(index);
+    }
+  }
+
+  bool isExpanded(int index) => expandedIndexes.contains(index);
 }
 
 class EasyLogPage extends StatelessWidget {
+  final tabs = [
+    const Tab(text: "All"),
+    const Tab(text: "Debug"),
+    const Tab(text: "Info"),
+    const Tab(text: "Warning"),
+    const Tab(text: "Error"),
+    const Tab(text: "Fatal"),
+  ];
+
+  final levels = <LoggerLevel?>[
+    null,
+    LoggerLevel.debug,
+    LoggerLevel.info,
+    LoggerLevel.warning,
+    LoggerLevel.error,
+    LoggerLevel.fatal
+  ];
+
   @override
   Widget build(BuildContext context) {
     final EasyLogController controller = Get.put(EasyLogController());
@@ -502,6 +587,14 @@ class EasyLogPage extends StatelessWidget {
             });
           },
         ),
+        centerTitle: true,
+        title: BaseTextField(
+          backgroundColor: Get.isDarkMode ? Colors.grey[900] : Colors.grey[200],
+          prefix: Icon(Icons.search).marginOnly(left: 10),
+          placeholder: "Search",
+          textInputAction: TextInputAction.search,
+          onChanged: (val) => controller.searchKeyword.value = val,
+        ),
         actions: [
           BaseButton(
             padding: EdgeInsets.symmetric(horizontal: 5),
@@ -524,55 +617,121 @@ class EasyLogPage extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Obx(() {
-          final debugColor = LoggerLevel.debug.ansiColor ?? "";
-          final infoColor = LoggerLevel.info.ansiColor ?? "";
-          final warningColor = LoggerLevel.warning.ansiColor ?? "";
-          final errorColor = LoggerLevel.error.ansiColor ?? "";
-          final fatalColor = LoggerLevel.fatal.ansiColor ?? "";
-          return ListView.separated(
-            controller: controller.scrollController,
-            padding: EdgeInsets.symmetric(vertical: 15),
-            itemBuilder: (context, index) {
-              var log = controller.logs[index];
-              Color? color;
-              if (log.startsWith("[$debugColor")) {
-                color = Colors.blue;
-              } else if (log.startsWith("[$infoColor")) {
-                color = Colors.green;
-              } else if (log.startsWith("[$warningColor")) {
-                color = Colors.yellow;
-              } else if (log.startsWith("[$errorColor")) {
-                color = Colors.red;
-              } else if (log.startsWith("[$fatalColor")) {
-                color = Colors.deepPurple;
-              }
-              return Container(
-                alignment: Alignment.centerLeft,
-                child: BaseButton(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    log,
-                    style: TextStyle(
-                      color: color,
-                    ),
-                  ),
-                  onPressed: () {
-                    setClipboard(log);
-                  },
+      body: DefaultTabController(
+        length: levels.length,
+        child: Column(
+          children: [
+            Container(
+              height: 30,
+              color: context.theme.scaffoldBackgroundColor,
+              child: TabBar(
+                tabs: tabs,
+                padding: EdgeInsets.zero,
+                onTap: (index) => controller
+                  ..selectedLevel.value = levels[index]
+                  ..scrollToBottom(),
+                labelColor: Theme.of(context).colorScheme.primary,
+                unselectedLabelColor:
+                    Theme.of(context).textTheme.bodySmall?.color,
+                indicatorColor: Theme.of(context).colorScheme.primary,
+                labelPadding: EdgeInsets.zero,
+                labelStyle: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: fontWeightSemiBold,
                 ),
-              );
-            },
-            itemCount: controller.logs.length,
-            separatorBuilder: (BuildContext context, int index) {
-              return BaseDivider(
-                  thickness: 1, margin: EdgeInsets.symmetric(vertical: 5));
-            },
-          );
-        }),
+                unselectedLabelStyle: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: fontWeightSemiBold,
+                ),
+                indicatorPadding: EdgeInsets.zero,
+                indicatorSize: TabBarIndicatorSize.label,
+                dividerHeight: 0,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: controller.baseState((state) {
+                return Obx(() {
+                  final indexes = controller.filteredIndexes;
+                  return ListView.builder(
+                    padding: EdgeInsets.only(bottom: 80),
+                    controller: controller.scrollController,
+                    itemCount: indexes.length,
+                    itemBuilder: (_, idx) {
+                      final index = indexes[idx];
+                      final log = controller.logs[index];
+                      final level =
+                          controller.getLevel(log) ?? LoggerLevel.info;
+                      final message = controller.getMessage(log);
+
+                      return Obx(() {
+                        final expanded =
+                            controller.isExpanded(index); // ✅ 每次都响应式获取
+                        return InkWell(
+                          onTap: () => controller.toggleExpand(index),
+                          onLongPress: () => setClipboard(log),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 10),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  bottom:
+                                      BorderSide(color: Colors.grey.shade300)),
+                              color: _getLevelColor(level).withOpacity(0.05),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(_getLevelIcon(level),
+                                        size: 18, color: _getLevelColor(level)),
+                                    const SizedBox(width: 2),
+                                    Expanded(
+                                      child: Text(
+                                        "${controller.getLogTime(log)} ${message.split('\n').first}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: _getLevelColor(level),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Icon(
+                                      expanded
+                                          ? Icons.expand_less
+                                          : Icons.expand_more,
+                                      size: 18,
+                                      color: Colors.grey,
+                                    ),
+                                  ],
+                                ),
+                                if (expanded)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 6),
+                                    child: Text(
+                                      message,
+                                      style: const TextStyle(
+                                          color: Colors.black87),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                    },
+                  );
+                });
+              }),
+            )
+          ],
+        ),
       ),
       floatingActionButton: Obx(() {
+        final keyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
+        if (keyboardVisible) return const SizedBox.shrink();
         return AnimatedOpacity(
           opacity: controller.followBottom.value ? 0 : 1,
           duration: Duration(milliseconds: 150),
@@ -583,11 +742,29 @@ class EasyLogPage extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               child: Icon(Icons.arrow_downward),
               backgroundColor: appTheme(context).primaryColor,
-              onPressed: controller.scrollToBottom,
+              onPressed: () => controller.scrollToBottom(animated: true),
             ),
           ),
         );
       }),
     );
+  }
+
+  Color _getLevelColor(LoggerLevel level) {
+    if (level == LoggerLevel.debug) return Colors.blue;
+    if (level == LoggerLevel.info) return Colors.green;
+    if (level == LoggerLevel.warning) return Colors.orange;
+    if (level == LoggerLevel.error) return Colors.red;
+    if (level == LoggerLevel.fatal) return Colors.deepPurple;
+    return Colors.black;
+  }
+
+  IconData _getLevelIcon(LoggerLevel level) {
+    if (level == LoggerLevel.debug) return Icons.bug_report;
+    if (level == LoggerLevel.info) return Icons.info;
+    if (level == LoggerLevel.warning) return Icons.warning;
+    if (level == LoggerLevel.error) return Icons.error;
+    if (level == LoggerLevel.fatal) return Icons.dangerous;
+    return Icons.help_outline;
   }
 }

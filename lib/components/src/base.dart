@@ -469,8 +469,7 @@ class __DebugPageState extends State<_DebugPage> {
                   _flag = !_flag;
                 });
                 if (_flag) {
-                  showBaseBottomSheet(EasyLogPage(),
-                      isScrollControlled: true, ignoreSafeArea: false);
+                  to(() => EasyLogPage(), transition: Transition.downToUp);
                 } else {
                   offBack();
                 }
@@ -611,6 +610,8 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final Widget? leading;
   final VoidCallback? leadingOnPressed;
   final List<Widget>? actions;
+  final PreferredSizeWidget? bottom;
+  final double bottomOpacity;
   final double? elevation;
   final Color? tintColor;
   final Color? backgroundColor;
@@ -625,6 +626,8 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
     this.leading,
     this.leadingOnPressed,
     this.actions,
+    this.bottom,
+    this.bottomOpacity = 1.0,
     this.elevation,
     this.tintColor,
     this.backgroundColor,
@@ -649,6 +652,8 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
       title: title,
       centerTitle: centerTitle,
       actions: actions ?? [],
+      bottom: bottom,
+      bottomOpacity: bottomOpacity,
       elevation: elevation,
       backgroundColor: backgroundColor,
       systemOverlayStyle:
@@ -674,6 +679,8 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
         title: title,
         centerTitle: centerTitle,
         actions: actions ?? [],
+        bottom: bottom,
+        bottomOpacity: bottomOpacity,
         elevation: elevation,
         backgroundColor: backgroundColor,
         systemOverlayStyle:
