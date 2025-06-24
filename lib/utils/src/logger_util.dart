@@ -14,6 +14,7 @@ import 'package:path/path.dart' as Path;
 import '../../components/src/base.dart';
 import '../../components/src/base_state.dart';
 import '../../extension/src/font_extensions.dart';
+import '../../routes/routes.dart';
 import 'color_util.dart';
 import 'date_util.dart';
 import 'global_util.dart';
@@ -592,7 +593,19 @@ class EasyLogPage extends StatelessWidget {
           ),
           actions: [
             BaseButton(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: EdgeInsets.zero,
+              child: Icon(
+                Icons.app_registration,
+              ),
+              onPressed: () {
+                if (!isAppDebugFlag) {
+                  return;
+                }
+                toNamed(routesExampleNamed);
+              },
+            ),
+            BaseButton(
+              padding: EdgeInsets.only(left: 15),
               child: Icon(
                 CupertinoIcons.share,
               ),

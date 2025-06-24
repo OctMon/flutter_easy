@@ -5,6 +5,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 /// 指定登录路由
 final routesLoginNamed = '/login';
 final routesPhotoViewNamed = '/photo_view';
+final routesExampleNamed = '/example';
 
 void Function()? routesInterceptOffBack;
 
@@ -43,6 +44,10 @@ Future toBaseGalleryView({
     preventDuplicates: preventDuplicates,
     transition: transition,
   );
+}
+
+Future toExamplePage() async {
+  return toNamed(routesExampleNamed);
 }
 
 /// Navigation.push()** shortcut.
