@@ -21,6 +21,7 @@ import 'json_util.dart';
 import 'network_util.dart';
 import 'package_info_util.dart';
 import 'share_util.dart';
+import 'toast_util.dart';
 import 'vendor_util.dart';
 
 LogFile? logFile;
@@ -427,26 +428,22 @@ ${result.response?.data is Map ? jsonEncode(result.response?.data) : result.resp
   logInfo(string);
 }
 
-class EasyLogController extends BaseStateController {
+class EasyLogController extends BaseStateController<List<int>> {
   final scrollController = ScrollController();
 
-  final RxList<String> logs = <String>[].obs;
-  final RxString searchKeyword = ''.obs;
-  final Rx<LoggerLevel?> selectedLevel = Rx<LoggerLevel?>(null);
+  var logs = <String>[];
+  var searchKeyword = '';
+  LoggerLevel? selectedLevel;
+
   final RxSet<int> expandedIndexes = <int>{}.obs;
 
   /// 在最下面标志
-  var followBottom = false.obs;
+  var followBottom = true.obs;
 
   @override
   void onInit() {
     scrollController.addListener(() {
-      updateFollowBottom();
-    });
-
-    // 日志更新时滚动
-    ever(logs, (_) {
-      scrollToBottom();
+      followBottom.value = scrollController.offset == 0;
     });
     super.onInit();
   }
@@ -460,30 +457,17 @@ class EasyLogController extends BaseStateController {
   @override
   Future<void> onRequestData() async {
     await 0.25.delay();
-    logs.value = (await logFile?.read())?.split("\n") ?? [];
-    change(logs, status: RxStatus.success());
+    logs = (await logFile?.read())?.split("\n") ?? [];
+    logs = logs.reversed.toList();
+    filteredIndexes();
   }
 
-  void updateFollowBottom() {
+  void scrollerToTop() {
     if (scrollController.hasClients) {
-      var scrolledToBottom =
-          scrollController.offset >= scrollController.position.maxScrollExtent;
-      followBottom.value = scrolledToBottom;
-    }
-  }
-
-  void scrollToBottom({bool animated = false}) {
-    Future.delayed(const Duration(milliseconds: 50), () {
-      if (!scrollController.hasClients) return;
       followBottom.value = true;
-      final maxExtent = scrollController.position.maxScrollExtent;
-      if (animated) {
-        scrollController.animateTo(maxExtent,
-            duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
-      } else {
-        scrollController.jumpTo(maxExtent);
-      }
-    });
+      scrollController.animateTo(0,
+          duration: 0.25.seconds, curve: Curves.bounceIn);
+    }
   }
 
   LoggerLevel? getLevel(String log) {
@@ -517,9 +501,11 @@ class EasyLogController extends BaseStateController {
     return match != null ? match.group(2) ?? log : log;
   }
 
-  List<int> get filteredIndexes {
-    final keyword = searchKeyword.value.toLowerCase();
-    final levelFilter = selectedLevel.value;
+  void filteredIndexes() {
+    cleanState();
+    expandedIndexes.clear();
+    final keyword = searchKeyword.toLowerCase();
+    final levelFilter = selectedLevel;
     final indexes = <int>[];
 
     for (var i = 0; i < logs.length; i++) {
@@ -530,8 +516,12 @@ class EasyLogController extends BaseStateController {
           keyword.isEmpty || log.toLowerCase().contains(keyword);
       if (matchLevel && matchKeyword) indexes.add(i);
     }
-
-    return indexes;
+    if (indexes.isNotEmpty) {
+      change(indexes, status: RxStatus.success());
+      scrollerToTop();
+    } else {
+      change(null, status: RxStatus.empty());
+    }
   }
 
   void toggleExpand(int index) {
@@ -567,98 +557,103 @@ class EasyLogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final EasyLogController controller = Get.put(EasyLogController());
-    return BaseScaffold(
-      appBar: BaseAppBar(
-        leading: BaseButton(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Icon(
-            Icons.developer_mode,
-          ),
-          onPressed: () {
-            if (!isAppDebugFlag) {
-              return;
-            }
-            showSelectBaseURLTypeAlert().then((success) {
-              if (success != null && success) {
-                if (baseURLChangedCallback != null) {
-                  baseURLChangedCallback!();
-                }
-              }
-            });
-          },
-        ),
-        centerTitle: true,
-        title: BaseTextField(
-          backgroundColor: Get.isDarkMode ? Colors.grey[900] : Colors.grey[200],
-          prefix: Icon(Icons.search).marginOnly(left: 10),
-          placeholder: "Search",
-          textInputAction: TextInputAction.search,
-          onChanged: (val) => controller.searchKeyword.value = val,
-        ),
-        actions: [
-          BaseButton(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Icon(
-              CupertinoIcons.share,
-            ),
-            onPressed: () {
-              shareLogZiPFile();
-            },
-          ),
-          BaseButton(
+    return PopScope(
+      canPop: false,
+      child: BaseScaffold(
+        appBar: BaseAppBar(
+          leading: BaseButton(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Icon(
-              CupertinoIcons.bin_xmark,
+              Icons.developer_mode,
             ),
             onPressed: () {
-              logFile?.clear();
-              controller.logs.clear();
+              if (!isAppDebugFlag) {
+                return;
+              }
+              showSelectBaseURLTypeAlert().then((success) {
+                if (success != null && success) {
+                  if (baseURLChangedCallback != null) {
+                    baseURLChangedCallback!();
+                  }
+                }
+              });
             },
           ),
-        ],
-      ),
-      body: DefaultTabController(
-        length: levels.length,
-        child: Column(
-          children: [
-            Container(
-              height: 30,
-              color: context.theme.scaffoldBackgroundColor,
-              child: TabBar(
-                tabs: tabs,
-                padding: EdgeInsets.zero,
-                onTap: (index) => controller
-                  ..selectedLevel.value = levels[index]
-                  ..scrollToBottom(),
-                labelColor: Theme.of(context).colorScheme.primary,
-                unselectedLabelColor:
-                    Theme.of(context).textTheme.bodySmall?.color,
-                indicatorColor: Theme.of(context).colorScheme.primary,
-                labelPadding: EdgeInsets.zero,
-                labelStyle: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: fontWeightSemiBold,
-                ),
-                unselectedLabelStyle: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: fontWeightSemiBold,
-                ),
-                indicatorPadding: EdgeInsets.zero,
-                indicatorSize: TabBarIndicatorSize.label,
-                dividerHeight: 0,
+          centerTitle: true,
+          title: BaseTextField(
+            backgroundColor:
+                Get.isDarkMode ? Colors.grey[900] : Colors.grey[200],
+            prefix: Icon(Icons.search).marginOnly(left: 10),
+            placeholder: "Search",
+            textInputAction: TextInputAction.search,
+            onChanged: (val) => controller
+              ..searchKeyword = val
+              ..filteredIndexes(),
+          ),
+          actions: [
+            BaseButton(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: Icon(
+                CupertinoIcons.share,
               ),
+              onPressed: () {
+                shareLogZiPFile();
+              },
             ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: controller.baseState((state) {
-                return Obx(() {
-                  final indexes = controller.filteredIndexes;
+            BaseButton(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(
+                CupertinoIcons.bin_xmark,
+              ),
+              onPressed: () {
+                logFile?.clear();
+                controller.logs.clear();
+              },
+            ),
+          ],
+        ),
+        body: DefaultTabController(
+          length: levels.length,
+          child: Column(
+            children: [
+              Container(
+                height: 30,
+                color: context.theme.scaffoldBackgroundColor,
+                child: TabBar(
+                  tabs: tabs,
+                  padding: EdgeInsets.zero,
+                  onTap: (index) => controller
+                    ..selectedLevel = levels[index]
+                    ..filteredIndexes(),
+                  labelColor: Theme.of(context).colorScheme.primary,
+                  unselectedLabelColor:
+                      Theme.of(context).textTheme.bodySmall?.color,
+                  indicatorColor: Theme.of(context).colorScheme.primary,
+                  labelPadding: EdgeInsets.zero,
+                  labelStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: fontWeightSemiBold,
+                  ),
+                  unselectedLabelStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: fontWeightSemiBold,
+                  ),
+                  indicatorPadding: EdgeInsets.zero,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  dividerHeight: 0,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Expanded(
+                child: controller.baseState((state) {
                   return ListView.builder(
                     padding: EdgeInsets.only(bottom: 80),
                     controller: controller.scrollController,
-                    itemCount: indexes.length,
+                    reverse: true,
+                    itemCount: state?.length ?? 0,
                     itemBuilder: (_, idx) {
-                      final index = indexes[idx];
+                      if (state == null) return SizedBox.shrink();
+                      final index = state[idx];
                       final log = controller.logs[index];
                       final level =
                           controller.getLevel(log) ?? LoggerLevel.info;
@@ -669,7 +664,10 @@ class EasyLogPage extends StatelessWidget {
                             controller.isExpanded(index); // ✅ 每次都响应式获取
                         return InkWell(
                           onTap: () => controller.toggleExpand(index),
-                          onLongPress: () => setClipboard(log),
+                          onLongPress: () {
+                            setClipboard(log);
+                            showToast("Log copied", duration: 1.seconds);
+                          },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 10),
@@ -710,11 +708,7 @@ class EasyLogPage extends StatelessWidget {
                                 if (expanded)
                                   Padding(
                                     padding: const EdgeInsets.only(top: 6),
-                                    child: Text(
-                                      message,
-                                      style: const TextStyle(
-                                          color: Colors.black87),
-                                    ),
+                                    child: Text(message),
                                   ),
                               ],
                             ),
@@ -723,30 +717,30 @@ class EasyLogPage extends StatelessWidget {
                       });
                     },
                   );
-                });
-              }),
-            )
-          ],
-        ),
-      ),
-      floatingActionButton: Obx(() {
-        final keyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
-        if (keyboardVisible) return const SizedBox.shrink();
-        return AnimatedOpacity(
-          opacity: controller.followBottom.value ? 0 : 1,
-          duration: Duration(milliseconds: 150),
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 60),
-            child: FloatingActionButton(
-              mini: true,
-              clipBehavior: Clip.antiAlias,
-              child: Icon(Icons.arrow_downward),
-              backgroundColor: appTheme(context).primaryColor,
-              onPressed: () => controller.scrollToBottom(animated: true),
-            ),
+                }),
+              )
+            ],
           ),
-        );
-      }),
+        ),
+        floatingActionButton: Obx(() {
+          final keyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
+          if (keyboardVisible) return const SizedBox.shrink();
+          return AnimatedOpacity(
+            opacity: controller.followBottom.value ? 0 : 1,
+            duration: Duration(milliseconds: 150),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 60),
+              child: FloatingActionButton(
+                mini: true,
+                clipBehavior: Clip.antiAlias,
+                child: Icon(Icons.arrow_downward),
+                backgroundColor: appTheme(context).primaryColor,
+                onPressed: controller.scrollerToTop,
+              ),
+            ),
+          );
+        }),
+      ),
     );
   }
 

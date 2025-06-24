@@ -420,7 +420,7 @@ class _MyCustomScrollBehavior extends MaterialScrollBehavior {
       };
 }
 
-const double _kDebugIconSize = 50;
+const double _kDebugIconSize = 44;
 
 class _DebugPage extends StatefulWidget {
   final Widget child;
@@ -469,25 +469,22 @@ class __DebugPageState extends State<_DebugPage> {
                   _flag = !_flag;
                 });
                 if (_flag) {
-                  to(() => EasyLogPage(), transition: Transition.downToUp);
+                  to(() => EasyLogPage(), transition: Transition.noTransition);
                 } else {
                   offBack();
                 }
               },
-              child: Opacity(
-                opacity: 0.25,
-                child: Container(
-                  width: _kDebugIconSize,
-                  height: _kDebugIconSize,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: appTheme(context).primaryColor,
-                    borderRadius: BorderRadius.circular(_kDebugIconSize / 2),
-                  ),
-                  child: Icon(
-                    _flag ? Icons.clear : Icons.connect_without_contact,
-                    color: Colors.white,
-                  ),
+              child: Container(
+                width: _kDebugIconSize,
+                height: _kDebugIconSize,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(_kDebugIconSize / 2),
+                  border: Border.all(color: appTheme(context).primaryColor),
+                ),
+                child: Icon(
+                  _flag ? Icons.clear : Icons.connect_without_contact,
+                  color: appTheme(context).primaryColor,
                 ),
               ),
             ),
