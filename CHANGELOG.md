@@ -1,3 +1,7 @@
+## 3.15.6
+* logs load optimized
+* add example routes
+
 ## 3.15.5
 * add base tab state controller
 * log page customize
