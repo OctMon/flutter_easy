@@ -25,7 +25,8 @@ export 'src/share_util.dart';
 export 'src/vendor_util.dart';
 export 'src/password_util.dart';
 export 'src/docx_util.dart';
-export 'src/Text_paginate_util.dart';
+export 'src/text_paginate_util.dart';
+export 'src/formatter_util.dart';
 
 export 'package:get/get.dart'
     hide GetStringUtils, GetNumUtils, GetDurationUtils;
