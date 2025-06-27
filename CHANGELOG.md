@@ -1,3 +1,7 @@
+## 3.15.7
+* fix: log file name cannot create file on windows
+* add strict length formatter
+
 ## 3.15.6
 * logs load optimized
 * add example routes
