@@ -113,7 +113,7 @@ class LogFile {
 
   late bool enable;
 
-  BaseDateFormat _format = BaseDateFormat("yyyy-MM-dd HH:mm:ss");
+  BaseDateFormat _format = BaseDateFormat("yyyy_MM_dd_HH_mm_ss");
 
   late int _hours = 24;
 
@@ -142,10 +142,10 @@ class LogFile {
       name = name.replaceAll(".log", "");
       maxFileName = maxFileName.compareTo(name) < 0 ? name : maxFileName;
     }
-    if (DateTime.tryParse(maxFileName) != null &&
+    if (_format.tryParse(maxFileName) != null &&
         DateTime.now()
             .subtract(Duration(hours: _hours))
-            .isBefore(DateTime.parse(maxFileName))) {
+            .isBefore(_format.parse(maxFileName))) {
       _fileId = maxFileName;
     } else {
       _fileId = _format.format(DateTime.now());
@@ -156,8 +156,8 @@ class LogFile {
     var file = File('$location/$_fileId.log');
     if (file.existsSync()) {
       var size = BinarySize()..bytesCount = BigInt.from(file.lengthSync());
-      if (DateTime.tryParse(_fileId) != null &&
-          DateTime.parse(_fileId)
+      if (_format.tryParse(_fileId) != null &&
+          _format.parse(_fileId)
               .add(Duration(hours: _hours))
               .isAfter(DateTime.now()) &&
           size < singleFileSizeLimit) {
@@ -273,8 +273,8 @@ class LogFile {
     for (var pathStr in files()) {
       var name = Path.basename(pathStr);
       name = name.replaceAll(".log", "");
-      if (DateTime.tryParse(name) != null &&
-          DateTime.parse(name)
+      if (_format.tryParse(name) != null &&
+          _format.parse(name)
               .isBefore(DateTime.now().subtract(Duration(hours: _hours * 2)))) {
         await File(pathStr).delete();
       } else if ((int.tryParse(name) ?? 0) > 0) {
