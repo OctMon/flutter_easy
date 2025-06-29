@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget keepAliveWrapper(Widget child) => _KeepAlive(child: child);
+Widget baseKeepAliveWrapper(Widget child) => _KeepAlive(child: child);
 
 class _KeepAlive extends StatefulWidget {
   final Widget child;

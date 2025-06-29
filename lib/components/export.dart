@@ -21,4 +21,5 @@ export 'src/base_segment_bar.dart';
 export 'src/base_shimmer.dart';
 export 'src/base_sliver_persistent_header.dart';
 export 'src/base_sliver_expanded.dart';
-export 'src/keep_alive.dart';
+export 'src/base_keep_alive.dart';
+export 'src/base_history_mixin.dart';
