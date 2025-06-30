@@ -4,9 +4,13 @@ import 'package:flutter_easy/flutter_easy.dart';
 class BaseExampleWrap extends StatelessWidget {
   final String title;
   final List<BaseKeyValue> children;
+  final Color? backgroundColor;
 
   const BaseExampleWrap(
-      {super.key, required this.title, required this.children});
+      {super.key,
+      required this.title,
+      required this.children,
+      this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +18,26 @@ class BaseExampleWrap extends StatelessWidget {
       children: [
         if (title.isNotEmpty) Text("$title:"),
         Flexible(
-          child: Wrap(
-            children: children
-                .map(
-                  (element) => BaseButton(
-                    padding: EdgeInsets.all(6),
-                    onPressed: element.extend,
-                    child: Column(
-                      children: [
-                        if (element.key.isNotEmpty) Text(element.key),
-                        if (element.value.isNotEmpty) Text(element.value),
-                      ],
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: backgroundColor,
+            ),
+            child: Wrap(
+              children: children
+                  .map(
+                    (element) => BaseButton(
+                      padding: EdgeInsets.all(6),
+                      onPressed: element.extend,
+                      child: Column(
+                        children: [
+                          if (element.key.isNotEmpty) Text(element.key),
+                          if (element.value.isNotEmpty) Text(element.value),
+                        ],
+                      ),
                     ),
-                  ),
-                )
-                .toList(),
+                  )
+                  .toList(),
+            ),
           ),
         ),
       ],
