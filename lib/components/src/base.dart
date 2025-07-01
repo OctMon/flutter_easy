@@ -42,7 +42,7 @@ class BaseKeyValue {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['key'] = key;
     data['value'] = value;
-    data['extend'] = extend;
+    data['extend'] = "$extend";
     return data;
   }
 

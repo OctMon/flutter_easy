@@ -28,7 +28,8 @@ mixin BaseHistoryMixin {
         listKey: _kListKey, list: history.toList());
   }
 
-  Future<void> saveHistory({required BaseKeyValue model}) async {
+  Future<void> saveHistory(
+      {required BaseKeyValue model, required bool atFront}) async {
     logDebug("搜索保存历史记录: $model");
     var models = await getStorageList<BaseKeyValue>(historyKey,
         listKey: _kListKey, onModels: (json) {
@@ -40,9 +41,17 @@ mixin BaseHistoryMixin {
       if (index > -1) {
         models.removeAt(index);
       }
-      models.insert(0, model);
+      if (atFront) {
+        models.insert(0, model);
+      } else {
+        models.add(model);
+      }
     } else {
-      models.insert(0, model);
+      if (atFront) {
+        models.insert(0, model);
+      } else {
+        models.add(model);
+      }
     }
     history.value = models;
     _saveList();
