@@ -913,6 +913,7 @@ class BaseInkWell extends StatelessWidget {
   final Color? color;
   final Color? pressedColor;
   final BorderRadius? borderRadius;
+  final BoxBorder? border;
   final VoidCallback? onPressed;
   final VoidCallback? onLongPress;
 
@@ -921,6 +922,7 @@ class BaseInkWell extends StatelessWidget {
       this.color,
       this.pressedColor,
       this.borderRadius,
+      this.border,
       this.onPressed,
       this.onLongPress});
 
@@ -938,7 +940,13 @@ class BaseInkWell extends StatelessWidget {
           onLongPress: onLongPress,
           borderRadius: borderRadius,
           highlightColor: pressedColor,
-          child: child,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              border: border,
+            ),
+            child: child,
+          ),
         ),
       ),
     );
