@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
-class BaseTabStateController extends GetxController
+class BaseTabStateController<T> extends BaseStateController<T>
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
 
