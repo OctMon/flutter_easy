@@ -1,3 +1,8 @@
+## 3.16.0
+* bump remove base placeholder image path use widget
+* base inkwell add border
+* base history add at front
+
 ## 3.15.7
 * fix: log file name cannot create file on windows
 * add strict length formatter
