@@ -88,7 +88,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
     NotifierBuilder<T?> widget, {
     bool validNullable = true,
     Widget Function()? onPlaceholderWidget,
-    String? placeholderEmptyImagePath,
+    Widget? placeholderEmptyWidget,
     String? placeholderEmptyTitle,
     String? placeholderEmptyMessage,
     void Function()? onReloadTap,
@@ -104,7 +104,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
               : BasePlaceholderView(
                   title: getPlaceholderTitle(placeholderEmptyTitle),
                   message: getPlaceholderMessage(placeholderEmptyMessage),
-                  image: placeholderEmptyImagePath,
+                  image: placeholderEmptyWidget,
                   onTap: onReloadTap ??
                       () {
                         change(null, status: RxStatus.loading());
@@ -123,7 +123,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
     Color? baseColor,
     Color? highlightColor,
     Widget Function()? onPlaceholderWidget,
-    String? placeholderEmptyImagePath,
+    Widget? placeholderEmptyWidget,
     String? placeholderEmptyTitle,
     String? placeholderEmptyMessage,
     EdgeInsetsGeometry? placeholderPadding,
@@ -150,7 +150,7 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
                 : BasePlaceholderView(
                     title: getPlaceholderTitle(placeholderEmptyTitle),
                     message: getPlaceholderMessage(placeholderEmptyMessage),
-                    image: placeholderEmptyImagePath,
+                    image: placeholderEmptyWidget,
                     onTap: onReloadTap ??
                         () {
                           change(null, status: RxStatus.loading());
@@ -281,7 +281,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     Color? baseColor,
     Color? highlightColor,
     Widget Function()? onPlaceholderWidget,
-    String? placeholderEmptyImagePath,
+    Widget? placeholderEmptyWidget,
     String? placeholderEmptyTitle,
     String? placeholderEmptyMessage,
     bool firstRefresh = false,
@@ -306,7 +306,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
                 title: getPlaceholderTitle(placeholderEmptyTitle),
                 message: getPlaceholderMessage(placeholderEmptyMessage),
                 // 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
-                image: placeholderEmptyImagePath,
+                image: placeholderEmptyWidget,
                 onTap: onReloadTap ??
                     () {
                       change(state, status: RxStatus.loading());

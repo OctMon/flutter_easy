@@ -10,21 +10,20 @@ String? kPlaceholderTitleBadResponse = "服务器错误，请稍后重试";
 String? kPlaceholderMessageBadResponse;
 
 /// 网络错误的占位图
-String? kPlaceholderImageConnection;
-String? kPlaceholderImageEmpty;
+Widget? kPlaceholderWidgetConnection;
+Widget? kPlaceholderWidgetEmpty;
 
 /// 重试按钮
 Widget? kPlaceholderReloadButton;
 
 /// 占位图默认宽高
-double kPlaceholderImageWidth = 180.w;
-double kPlaceholderImageBottom = 8;
-double kPlaceholderTitleBottom = 8;
+double? kPlaceholderImageBottom = 8;
+double? kPlaceholderTitleBottom = 8;
 
 class BasePlaceholderView extends StatelessWidget {
   final String? title;
   final String? message;
-  final String? image;
+  final Widget? image;
   final VoidCallback? onTap;
 
   const BasePlaceholderView({
@@ -42,10 +41,10 @@ class BasePlaceholderView extends StatelessWidget {
         child: BaseLoadingView(),
       );
     }
-    var placeholderImagePath = image ?? kPlaceholderImageEmpty;
+    var placeholderWidget = image ?? kPlaceholderWidgetEmpty;
     if (title == kPlaceholderTitleConnection ||
         title == kPlaceholderTitleBadResponse) {
-      placeholderImagePath = kPlaceholderImageConnection;
+      placeholderWidget = kPlaceholderWidgetConnection;
     }
     return Center(
       child: GestureDetector(
@@ -54,13 +53,11 @@ class BasePlaceholderView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              if (placeholderImagePath != null)
+              if (placeholderWidget != null)
                 Padding(
-                  padding: EdgeInsets.only(bottom: kPlaceholderImageBottom),
-                  child: Image.asset(
-                    placeholderImagePath,
-                    width: kPlaceholderImageWidth,
-                  ),
+                  padding:
+                      EdgeInsets.only(bottom: kPlaceholderImageBottom ?? 0),
+                  child: placeholderWidget,
                 ),
               if (title != null)
                 Text(
@@ -77,7 +74,7 @@ class BasePlaceholderView extends StatelessWidget {
                       ? setDarkPlaceholderMessageTextStyle
                       : setLightPlaceholderMessageTextStyle,
                   textAlign: TextAlign.center,
-                ).marginOnly(top: kPlaceholderTitleBottom),
+                ).marginOnly(top: kPlaceholderTitleBottom ?? 0),
               if ((title == kPlaceholderTitleConnection ||
                       title == kPlaceholderTitleBadResponse) &&
                   kPlaceholderReloadButton != null)

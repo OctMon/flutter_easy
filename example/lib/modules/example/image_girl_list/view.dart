@@ -63,7 +63,10 @@ class ImageGirlListPage extends StatelessWidget {
           },
           itemCount: state?.length ?? 0,
         ).paddingOnly(bottom: 85.w),
-        placeholderEmptyImagePath: assetsImagesPath("placeholder_appstore"),
+        placeholderEmptyWidget: Image.asset(
+          width: 80.w,
+          assetsImagesPath("placeholder_appstore"),
+        ),
       ),
     );
   }

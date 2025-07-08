@@ -106,7 +106,9 @@ class TuChongPage extends StatelessWidget {
             );
           },
         ),
-        placeholderEmptyImagePath: assetsImagesPath("placeholder_appstore"),
+        placeholderEmptyWidget: Image.asset(
+          assetsImagesPath("placeholder_appstore"),
+        ),
       ),
     );
   }
