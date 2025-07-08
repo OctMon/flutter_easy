@@ -689,6 +689,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
 }
 
 class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
+  final bool automaticallyImplyLeading;
   final Widget? title;
   final Widget? leading;
   final VoidCallback? leadingOnPressed;
@@ -705,6 +706,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   final bool forceMaterialTransparency;
 
   BaseSliverAppBar({
+    this.automaticallyImplyLeading = true,
     this.title,
     this.leading,
     this.leadingOnPressed,
@@ -724,12 +726,15 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   @override
   SliverAppBar buildMaterialWidget(BuildContext context) {
     return SliverAppBar(
-      leading: _buildLeading(
-        context: context,
-        leading: leading,
-        leadingOnPressed: leadingOnPressed,
-        tintColor: tintColor,
-      ),
+      automaticallyImplyLeading: false,
+      leading: automaticallyImplyLeading
+          ? _buildLeading(
+              context: context,
+              leading: leading,
+              leadingOnPressed: leadingOnPressed,
+              tintColor: tintColor,
+            )
+          : null,
       title: title,
       actions: actions ?? [],
       elevation: elevation,
@@ -749,15 +754,18 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
     return PreferredSize(
       preferredSize: Size.fromHeight(screenToolbarHeightDp),
       child: SliverAppBar(
-        leading: Transform.translate(
-          offset: Offset(0, _offsetY),
-          child: _buildLeading(
-            context: context,
-            leading: leading,
-            leadingOnPressed: leadingOnPressed,
-            tintColor: tintColor,
-          ),
-        ),
+        automaticallyImplyLeading: automaticallyImplyLeading,
+        leading: automaticallyImplyLeading
+            ? Transform.translate(
+                offset: Offset(0, _offsetY),
+                child: _buildLeading(
+                  context: context,
+                  leading: leading,
+                  leadingOnPressed: leadingOnPressed,
+                  tintColor: tintColor,
+                ),
+              )
+            : null,
         title: title != null
             ? Transform.translate(offset: Offset(0, _offsetY), child: title)
             : title,
