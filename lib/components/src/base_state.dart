@@ -91,6 +91,9 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
     Widget? placeholderEmptyWidget,
     String? placeholderEmptyTitle,
     String? placeholderEmptyMessage,
+    TextStyle? Function(TextStyle)? placeholderEmptyTitleStyle,
+    TextStyle? Function(TextStyle)? placeholderEmptyMessageStyle,
+    EdgeInsetsGeometry? placeholderPadding,
     void Function()? onReloadTap,
   }) {
     return SimpleBuilder(
@@ -99,18 +102,30 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
             status.isEmpty ||
             status.isError ||
             (validNullable && state.isEmptyOrNull)) {
-          return onPlaceholderWidget != null
-              ? onPlaceholderWidget()
-              : BasePlaceholderView(
-                  title: getPlaceholderTitle(placeholderEmptyTitle),
-                  message: getPlaceholderMessage(placeholderEmptyMessage),
-                  image: placeholderEmptyWidget,
-                  onTap: onReloadTap ??
-                      () {
-                        change(null, status: RxStatus.loading());
-                        onRequestData();
-                      },
-                );
+          final titleStyle = Get.isDarkMode
+              ? setDarkPlaceholderTitleTextStyle
+              : setLightPlaceholderTitleTextStyle;
+          final messageStyle = Get.isDarkMode
+              ? setDarkPlaceholderMessageTextStyle
+              : setLightPlaceholderMessageTextStyle;
+          return Padding(
+            padding: placeholderPadding ?? EdgeInsets.zero,
+            child: onPlaceholderWidget != null
+                ? onPlaceholderWidget()
+                : BasePlaceholderView(
+                    title: getPlaceholderTitle(placeholderEmptyTitle),
+                    message: getPlaceholderMessage(placeholderEmptyMessage),
+                    image: placeholderEmptyWidget,
+                    titleStyle: placeholderEmptyTitleStyle?.call(titleStyle),
+                    messageStyle:
+                        placeholderEmptyMessageStyle?.call(messageStyle),
+                    onTap: onReloadTap ??
+                        () {
+                          change(null, status: RxStatus.loading());
+                          onRequestData();
+                        },
+                  ),
+          );
         }
         return widget(state);
       },
@@ -126,6 +141,8 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
     Widget? placeholderEmptyWidget,
     String? placeholderEmptyTitle,
     String? placeholderEmptyMessage,
+    TextStyle? Function(TextStyle)? placeholderEmptyTitleStyle,
+    TextStyle? Function(TextStyle)? placeholderEmptyMessageStyle,
     EdgeInsetsGeometry? placeholderPadding,
     void Function()? onReloadTap,
   }) {
@@ -143,6 +160,12 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
               highlightColor: highlightColor,
             );
           }
+          final titleStyle = Get.isDarkMode
+              ? setDarkPlaceholderTitleTextStyle
+              : setLightPlaceholderTitleTextStyle;
+          final messageStyle = Get.isDarkMode
+              ? setDarkPlaceholderMessageTextStyle
+              : setLightPlaceholderMessageTextStyle;
           return Padding(
             padding: placeholderPadding ?? EdgeInsets.zero,
             child: onPlaceholderWidget != null
@@ -151,6 +174,9 @@ class BaseStateController<T> extends GetxController with BaseStateMixin<T> {
                     title: getPlaceholderTitle(placeholderEmptyTitle),
                     message: getPlaceholderMessage(placeholderEmptyMessage),
                     image: placeholderEmptyWidget,
+                    titleStyle: placeholderEmptyTitleStyle?.call(titleStyle),
+                    messageStyle:
+                        placeholderEmptyMessageStyle?.call(messageStyle),
                     onTap: onReloadTap ??
                         () {
                           change(null, status: RxStatus.loading());
@@ -284,6 +310,8 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     Widget? placeholderEmptyWidget,
     String? placeholderEmptyTitle,
     String? placeholderEmptyMessage,
+    TextStyle? Function(TextStyle)? placeholderEmptyTitleStyle,
+    TextStyle? Function(TextStyle)? placeholderEmptyMessageStyle,
     bool firstRefresh = false,
     VoidCallback? onRefresh,
     VoidCallback? onLoading,
@@ -300,11 +328,20 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
             highlightColor: highlightColor,
           );
         }
+
+        final titleStyle = Get.isDarkMode
+            ? setDarkPlaceholderTitleTextStyle
+            : setLightPlaceholderTitleTextStyle;
+        final messageStyle = Get.isDarkMode
+            ? setDarkPlaceholderMessageTextStyle
+            : setLightPlaceholderMessageTextStyle;
         return onPlaceholderWidget != null
             ? onPlaceholderWidget()
             : BasePlaceholderView(
                 title: getPlaceholderTitle(placeholderEmptyTitle),
                 message: getPlaceholderMessage(placeholderEmptyMessage),
+                titleStyle: placeholderEmptyTitleStyle?.call(titleStyle),
+                messageStyle: placeholderEmptyMessageStyle?.call(messageStyle),
                 // 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
                 image: placeholderEmptyWidget,
                 onTap: onReloadTap ??

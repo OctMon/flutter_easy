@@ -22,14 +22,18 @@ double? kPlaceholderTitleBottom = 8;
 
 class BasePlaceholderView extends StatelessWidget {
   final String? title;
+  final TextStyle? titleStyle;
   final String? message;
+  final TextStyle? messageStyle;
   final Widget? image;
   final VoidCallback? onTap;
 
   const BasePlaceholderView({
     super.key,
     this.title,
+    this.titleStyle,
     this.message,
+    this.messageStyle,
     this.image,
     this.onTap,
   });
@@ -62,17 +66,19 @@ class BasePlaceholderView extends StatelessWidget {
               if (title != null)
                 Text(
                   title ?? "",
-                  style: appDarkMode(context)
-                      ? setDarkPlaceholderTitleTextStyle
-                      : setLightPlaceholderTitleTextStyle,
+                  style: titleStyle ??
+                      (appDarkMode(context)
+                          ? setDarkPlaceholderTitleTextStyle
+                          : setLightPlaceholderTitleTextStyle),
                   textAlign: TextAlign.center,
                 ),
               if (message != null && message != title)
                 Text(
                   message ?? "",
-                  style: appDarkMode(context)
-                      ? setDarkPlaceholderMessageTextStyle
-                      : setLightPlaceholderMessageTextStyle,
+                  style: messageStyle ??
+                      (appDarkMode(context)
+                          ? setDarkPlaceholderMessageTextStyle
+                          : setLightPlaceholderMessageTextStyle),
                   textAlign: TextAlign.center,
                 ).marginOnly(top: kPlaceholderTitleBottom ?? 0),
               if ((title == kPlaceholderTitleConnection ||
