@@ -1,6 +1,6 @@
 name: flutter_easy
 description: A common Flutter package.
-version: 3.16.0
+version: 3.16.1
 homepage: https://github.com/OctMon/flutter_easy
 
 environment:
@@ -188,7 +188,7 @@ dependencies:
   # desc：On Android, this does not guarantee connection to Internet.
   # For instance, the app might have wifi access but it might be a VPN or a hotel WiFi > with no access.
   # ===============================================================================
-  connectivity_plus: ^6.1.3
+  connectivity_plus: ^6.1.4
 
   # ===============================================================================
   # A Flutter plugin to share content from your Flutter app via the platform's share dialog.

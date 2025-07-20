@@ -1,3 +1,7 @@
+## 3.16.1
+* placeholder empty style
+* upgrade connectivity_plus 6.1.4
+
 ## 3.16.0
 * bump remove base placeholder image path use widget
 * base inkwell add border
