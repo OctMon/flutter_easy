@@ -1,3 +1,7 @@
+## 3.16.2
+* base text field add border and boxShadow
+* base refresh state add header footer custom
+
 ## 3.16.1
 * placeholder empty style
 * upgrade connectivity_plus 6.1.4
