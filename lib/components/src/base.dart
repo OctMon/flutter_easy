@@ -1229,6 +1229,7 @@ class BaseTextField extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final BoxBorder? border;
   final double? borderRadius;
+  final List<BoxShadow>? boxShadow;
   final Color? backgroundColor;
   final int maxLines;
   final TextEditingController? controller;
@@ -1259,6 +1260,7 @@ class BaseTextField extends StatelessWidget {
       this.padding = const EdgeInsets.all(6.0),
       this.border,
       this.borderRadius,
+      this.boxShadow,
       this.backgroundColor,
       this.maxLines = 1,
       this.style,
@@ -1291,6 +1293,7 @@ class BaseTextField extends StatelessWidget {
         color: backgroundColor,
         border: border,
         borderRadius: BorderRadius.circular(borderRadius ?? 5.r),
+        boxShadow: boxShadow,
       ),
       child: maxLines > 1
           ? Padding(
