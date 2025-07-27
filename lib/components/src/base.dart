@@ -1227,6 +1227,7 @@ class BaseOutlineButton extends StatelessWidget {
 class BaseTextField extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry padding;
+  final BoxBorder? border;
   final double? borderRadius;
   final Color? backgroundColor;
   final int maxLines;
@@ -1256,6 +1257,7 @@ class BaseTextField extends StatelessWidget {
       {super.key,
       this.margin,
       this.padding = const EdgeInsets.all(6.0),
+      this.border,
       this.borderRadius,
       this.backgroundColor,
       this.maxLines = 1,
@@ -1287,6 +1289,7 @@ class BaseTextField extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         color: backgroundColor,
+        border: border,
         borderRadius: BorderRadius.circular(borderRadius ?? 5.r),
       ),
       child: maxLines > 1
