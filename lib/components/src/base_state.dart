@@ -306,6 +306,8 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     bool? shimmer,
     Color? baseColor,
     Color? highlightColor,
+    Widget? header,
+    Widget? footer,
     Widget Function()? onPlaceholderWidget,
     Widget? placeholderEmptyWidget,
     String? placeholderEmptyTitle,
@@ -355,6 +357,8 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
       return BaseRefresh(
         controller: refreshController,
         scrollController: scrollController,
+        header: header,
+        footer: footer,
         emptyWidget:
             (validNullable && state.isEmptyOrNull) ? emptyWidget() : null,
         firstRefresh: firstRefresh,
