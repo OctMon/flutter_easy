@@ -174,6 +174,13 @@ dependencies:
   flutter_rating_bar: ^4.0.1
 
   # ===============================================================================
+  # A package for creating badges. Badges can be used for an additional marker for any widget
+  # pub：https://pub.dev/packages/badges
+  # git：https://github.com/yako-dev/flutter_badges
+  # ===============================================================================
+  badges: ^3.1.2  # 确保使用的是最新版本
+
+  # ===============================================================================
   # GetX
   # pub：https://pub.dev/packages/get
   # get：https://github.com/jonataslaw/getx

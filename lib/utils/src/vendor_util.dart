@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:badges/badges.dart' as badges;
 
 typedef BaseScreenUtil = ScreenUtil;
 typedef BaseScreenUtilInit = ScreenUtilInit;
@@ -95,3 +96,12 @@ typedef BasePhotoViewHeroAttributes = PhotoViewHeroAttributes;
 typedef BaseDynamicFont = DynamicFont;
 
 typedef BaseSvgPicture = SvgPicture;
+
+typedef BaseBadge = badges.Badge;
+typedef BaseBadgeAnimationType = badges.BadgeAnimationType;
+typedef BaseBadgePosition = badges.BadgePosition;
+typedef BaseBadgePositioned = badges.BadgePositioned;
+typedef BaseBadgeShape = badges.BadgeShape;
+typedef BaseBadgeStyle = badges.BadgeStyle;
+typedef BaseBadgeAnimation = badges.BadgeAnimation;
+typedef BaseBadgeBadgeGradient = badges.BadgeGradient;
