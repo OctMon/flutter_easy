@@ -1,3 +1,7 @@
+## 3.16.3
+* add base badge
+* filter empty toast
+
 ## 3.16.2
 * base text field add border and boxShadow
 * base refresh state add header footer custom
