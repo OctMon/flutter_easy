@@ -10,6 +10,9 @@ void showToast(
   BaseEasyLoadingMaskType? maskType,
   bool? dismissOnTap,
 }) {
+  if (status.isEmpty) {
+    return;
+  }
   BaseEasyLoading.showToast(
     status,
     duration: duration,
@@ -25,6 +28,9 @@ void showSuccessToast(
   BaseEasyLoadingMaskType? maskType,
   bool? dismissOnTap,
 }) {
+  if (status.isEmpty) {
+    return;
+  }
   BaseEasyLoading.showSuccess(
     status,
     duration: duration,
@@ -39,6 +45,9 @@ void showErrorToast(
   BaseEasyLoadingMaskType? maskType,
   bool? dismissOnTap,
 }) {
+  if (status.isEmpty) {
+    return;
+  }
   BaseEasyLoading.showError(
     status,
     duration: duration,
@@ -53,6 +62,9 @@ void showInfoToast(
   BaseEasyLoadingMaskType? maskType,
   bool? dismissOnTap,
 }) {
+  if (status.isEmpty) {
+    return;
+  }
   BaseEasyLoading.showInfo(
     status,
     duration: duration,
