@@ -8,6 +8,9 @@ class BaseBannerView extends StatelessWidget {
   final double? width;
   final double? height;
   final int? playDelay;
+  final double? scale;
+  final BaseSwiperLayout layout;
+  final double viewportFraction;
   final bool showPagination;
   final BaseSwiperPlugin? pagination;
   final Widget placeholder;
@@ -19,6 +22,9 @@ class BaseBannerView extends StatelessWidget {
       this.width,
       this.height,
       this.playDelay,
+      this.scale,
+      this.layout = BaseSwiperLayout.DEFAULT,
+      this.viewportFraction = 1.0,
       this.showPagination = true,
       this.pagination,
       required this.placeholder,
@@ -30,6 +36,9 @@ class BaseBannerView extends StatelessWidget {
       width: width,
       height: height,
       playDelay: playDelay,
+      viewportFraction: viewportFraction,
+      scale: scale,
+      layout: layout,
       showPagination: showPagination,
       pagination: pagination,
       items: urls.map((url) {
@@ -58,6 +67,9 @@ class BaseCycleView extends StatelessWidget {
   final Axis scrollDirection;
   final ScrollPhysics? physics;
   final int? playDelay;
+  final double? scale;
+  final BaseSwiperLayout layout;
+  final double viewportFraction;
   final bool showPagination;
   final BaseSwiperPlugin? pagination;
   final ValueChanged<int>? onTap;
@@ -71,6 +83,9 @@ class BaseCycleView extends StatelessWidget {
       this.scrollDirection = Axis.horizontal,
       this.physics,
       this.playDelay,
+      this.scale,
+      this.layout = BaseSwiperLayout.DEFAULT,
+      this.viewportFraction = 1.0,
       this.showPagination = true,
       this.onTap,
       this.onIndexChanged,
@@ -91,6 +106,9 @@ class BaseCycleView extends StatelessWidget {
         loop: items.length > 1,
         autoplay: items.length > 1,
         autoplayDelay: playDelay ?? 4000,
+        viewportFraction: viewportFraction,
+        scale: scale,
+        layout: layout,
         itemCount: items.length,
         itemBuilder: (context, index) {
           return items[index];
