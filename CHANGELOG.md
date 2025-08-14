@@ -1,3 +1,6 @@
+## 3.17.0
+* Bump easy refresh
+
 ## 3.16.4
 * base cycle view add layout
 
