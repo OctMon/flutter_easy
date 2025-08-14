@@ -1,9 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../flutter_easy.dart';
+import 'picker/base/base_picker_cliprrect.dart';
+import 'picker/base/base_picker_title.dart';
 import 'picker/time_picker/base_date_picker_constants.dart';
 
 export 'picker/time_picker/date_picker/base_date_picker.dart';
+
+typedef BaseDatePickerMode = CupertinoDatePickerMode;
 
 void showBaseDatePicker({
   /// If rootNavigator is set to true, the state from the furthest instance of this class is given instead.
@@ -82,5 +87,77 @@ void showBaseDatePicker({
     onChange: onChange,
     onConfirm: onConfirm,
     themeData: themeData,
+  );
+}
+
+Future<DateTime?> showBasePopupDatePicker(
+    {double? height,
+    BaseDatePickerMode mode = BaseDatePickerMode.dateAndTime,
+    bool use24hFormat = true,
+    DateTime? initialDateTime,
+    DateTime? minimumDate,
+    DateTime? maximumDate,
+    int? minimumYear,
+    int? maximumYear}) {
+  DateTime dateTime = initialDateTime ?? DateTime.now();
+
+  return showBaseBottomSheet(
+    GestureDetector(
+      child: SizedBox(
+        height: BaseDefaultConfig.defaultPickerConfig.pickerHeight +
+            BaseDefaultConfig.defaultPickerConfig.titleHeight,
+        child: Material(
+          type: MaterialType.transparency,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              BasePickerClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                      BaseDefaultConfig.defaultPickerConfig.cornerRadius),
+                  topRight: Radius.circular(
+                      BaseDefaultConfig.defaultPickerConfig.cornerRadius),
+                ),
+                child: BasePickerTitle(
+                  onCancel: () {
+                    offBack();
+                  },
+                  onConfirm: () {
+                    offBack(dateTime);
+                  },
+                ),
+              ),
+              Container(
+                height: BaseDefaultConfig.defaultPickerConfig.pickerHeight,
+                color: BaseDefaultConfig.defaultPickerConfig.backgroundColor,
+                child: CupertinoTheme(
+                  data: CupertinoThemeData(
+                    textTheme: CupertinoTextThemeData(
+                      dateTimePickerTextStyle: BaseDefaultConfig
+                          .defaultPickerConfig.itemTextSelectedStyle,
+                    ),
+                  ),
+                  child: CupertinoDatePicker(
+                    mode: mode,
+                    use24hFormat: use24hFormat,
+                    onDateTimeChanged: (changed) {
+                      dateTime = changed;
+                    },
+                    initialDateTime: initialDateTime ?? DateTime.now(),
+                    minimumDate: minimumDate,
+                    maximumDate: maximumDate,
+                    minimumYear: minimumYear ?? 1,
+                    maximumYear: maximumYear,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      onVerticalDragUpdate: (v) => false,
+    ),
+    backgroundColor: Colors.transparent,
+    isDismissible: true,
   );
 }

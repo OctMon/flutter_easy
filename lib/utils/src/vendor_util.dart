@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:chinese_font_library/chinese_font_library.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:badges/badges.dart' as badges;
 
 typedef BaseScreenUtil = ScreenUtil;
@@ -77,13 +77,14 @@ typedef BaseQuiltedGridRepeatPattern = QuiltedGridRepeatPattern;
 typedef BaseSliverWovenGridDelegate = SliverWovenGridDelegate;
 typedef BaseWovenGridTile = WovenGridTile;
 
-typedef BaseSmartRefresher = SmartRefresher;
-typedef BaseRefreshController = RefreshController;
-typedef BaseRefreshLocalizations = RefreshLocalizations;
-typedef BaseRefreshConfiguration = RefreshConfiguration;
+typedef BaseEasyRefresher = EasyRefresh;
+typedef BaseRefreshController = EasyRefreshController;
 typedef BaseClassicHeader = ClassicHeader;
 typedef BaseClassicFooter = ClassicFooter;
-typedef BaseCustomFooter = CustomFooter;
+typedef BaseHeader = Header;
+typedef BaseFooter = Footer;
+typedef BaseIndicatorResult = IndicatorResult;
+typedef BaseIndicatorState = IndicatorState;
 
 typedef BaseRatingBar = RatingBar;
 typedef BaseRatingWidget = RatingWidget;

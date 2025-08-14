@@ -24,5 +24,15 @@
   "exampleCheckPrivacyAlertBegin": "我们非常重视您的个人信息和隐私保护，在您使用本产品和服务之前，请仔细阅读",
   "exampleCheckPrivacyAlertEnd": "，我们将严格按照各项条款使用您的个人信息，以便为您提供更好的服务。",
   "example_AgreeToContinueTip": "需同意才能继续使用",
-  "example_ValidPhoneNumberTip": "请输入正确的手机号"
+  "example_ValidPhoneNumberTip": "请输入正确的手机号",
+
+  "refresher_pull_to_refresh": "下拉刷新",
+  "refresher_release_ready": "释放开始",
+  "refresher_refreshing": "刷新中...",
+  "refresher_succeeded": "成功了",
+  "refresher_no_more": "没有更多",
+  "refresher_failed": "失败了",
+  "refresher_last_updated_at_time": "最后更新于 %T",
+  "refresher_pull_to_load": "上拉加载",
+  "refresher_loading": "加载中..."
 }

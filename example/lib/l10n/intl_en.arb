@@ -24,5 +24,15 @@
   "exampleCheckPrivacyAlertBegin": "We take your personal information and privacy very seriously. Please read this product and service carefully before you use it",
   "exampleCheckPrivacyAlertEnd": ", we will use your personal information in strict accordance with the terms and conditions in order to provide you with better services.",
   "example_AgreeToContinueTip": "Need to agree to continue using",
-  "example_ValidPhoneNumberTip": "Please enter a valid phone number"
+  "example_ValidPhoneNumberTip": "Please enter a valid phone number",
+
+  "refresher_pull_to_refresh": "Pull to refresh",
+  "refresher_release_ready": "Release ready",
+  "refresher_refreshing": "Refreshing...",
+  "refresher_succeeded": "Succeeded",
+  "refresher_no_more": "No more",
+  "refresher_failed": "Failed",
+  "refresher_last_updated_at_time": "Last updated at %T",
+  "refresher_pull_to_load": "Pull to load",
+  "refresher_loading": "Loading..."
 }

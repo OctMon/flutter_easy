@@ -75,6 +75,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "refresher_failed": MessageLookupByLibrary.simpleMessage("Failed"),
+    "refresher_last_updated_at_time": MessageLookupByLibrary.simpleMessage(
+      "Last updated at %T",
+    ),
+    "refresher_loading": MessageLookupByLibrary.simpleMessage("Loading..."),
+    "refresher_no_more": MessageLookupByLibrary.simpleMessage("No more"),
+    "refresher_pull_to_load": MessageLookupByLibrary.simpleMessage(
+      "Pull to load",
+    ),
+    "refresher_pull_to_refresh": MessageLookupByLibrary.simpleMessage(
+      "Pull to refresh",
+    ),
+    "refresher_refreshing": MessageLookupByLibrary.simpleMessage(
+      "Refreshing...",
+    ),
+    "refresher_release_ready": MessageLookupByLibrary.simpleMessage(
+      "Release ready",
+    ),
+    "refresher_succeeded": MessageLookupByLibrary.simpleMessage("Succeeded"),
     "systemDefault": MessageLookupByLibrary.simpleMessage("System default"),
   };
 }

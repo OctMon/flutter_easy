@@ -59,6 +59,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "home": MessageLookupByLibrary.simpleMessage("首页"),
     "language": MessageLookupByLibrary.simpleMessage("语言"),
     "login": MessageLookupByLibrary.simpleMessage("登录"),
+    "refresher_failed": MessageLookupByLibrary.simpleMessage("失败了"),
+    "refresher_last_updated_at_time": MessageLookupByLibrary.simpleMessage(
+      "最后更新于 %T",
+    ),
+    "refresher_loading": MessageLookupByLibrary.simpleMessage("加载中..."),
+    "refresher_no_more": MessageLookupByLibrary.simpleMessage("没有更多"),
+    "refresher_pull_to_load": MessageLookupByLibrary.simpleMessage("上拉加载"),
+    "refresher_pull_to_refresh": MessageLookupByLibrary.simpleMessage("下拉刷新"),
+    "refresher_refreshing": MessageLookupByLibrary.simpleMessage("刷新中..."),
+    "refresher_release_ready": MessageLookupByLibrary.simpleMessage("释放开始"),
+    "refresher_succeeded": MessageLookupByLibrary.simpleMessage("成功了"),
     "systemDefault": MessageLookupByLibrary.simpleMessage("跟随系统"),
   };
 }

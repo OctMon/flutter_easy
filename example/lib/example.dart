@@ -204,6 +204,23 @@ List<BaseExampleWrap> get exampleList {
               );
             },
           ),
+          BaseKeyValue(
+            key: "底部弹出",
+            value: "系统日期选择",
+            extend: () async {
+              final date =
+                  await showBasePopupDatePicker(mode: BaseDatePickerMode.date);
+              logDebug("date: $date");
+            },
+          ),
+          BaseKeyValue(
+            key: "底部弹出",
+            value: "系统时间选择",
+            extend: () async {
+              final date = await showBasePopupDatePicker();
+              logDebug("date: $date");
+            },
+          ),
         ],
       ),
     ];

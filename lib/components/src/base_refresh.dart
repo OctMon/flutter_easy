@@ -3,16 +3,41 @@ import 'package:flutter/material.dart';
 import '../../utils/src/vendor_util.dart';
 import 'base_sliver_expanded.dart';
 
+String? baseDefaultHeaderDragText;
+String? baseDefaultHeaderArmedText;
+String? baseDefaultHeaderReadyText;
+String? baseDefaultHeaderProcessingText;
+String? baseDefaultHeaderProcessedText;
+String? baseDefaultHeaderNoMoreText;
+String? baseDefaultHeaderFailedText;
+String? baseDefaultHeaderMessageText;
+
+String? baseDefaultFooterDragText;
+String? baseDefaultFooterArmedText;
+String? baseDefaultFooterReadyText;
+String? baseDefaultFooterProcessingText;
+String? baseDefaultFooterProcessedText;
+String? baseDefaultFooterNoMoreText;
+String? baseDefaultFooterFailedText;
+String? baseDefaultFooterMessageText;
+
+bool baseDefaultHeaderShowText = true;
+bool baseDefaultHeaderShowMessage = false;
+bool baseDefaultFooterShowText = true;
+bool baseDefaultFooterShowMessage = false;
+
+Widget? baseDefaultSucceededIcon;
+Widget? baseDefaultFailedIcon;
+Widget? baseDefaultNoMoreIcon;
+
 class BaseRefresh extends StatelessWidget {
   final BaseRefreshController controller;
   final ScrollController? scrollController;
-  final Widget? header;
-  final bool firstRefresh;
-  final Widget? firstRefreshWidget;
+  final TextStyle? textStyle;
+  final BaseHeader? header;
   final VoidCallback? onRefresh;
-  final Widget? footer;
-  final VoidCallback? onLoading;
-  final Widget? emptyWidget;
+  final BaseFooter? footer;
+  final VoidCallback? onLoad;
   final List<Widget>? slivers;
   final Widget? child;
 
@@ -20,32 +45,95 @@ class BaseRefresh extends StatelessWidget {
       {super.key,
       required this.controller,
       this.scrollController,
+      this.textStyle,
       this.header,
-      this.firstRefresh = false,
-      this.firstRefreshWidget,
       this.onRefresh,
       this.footer,
-      this.onLoading,
-      this.emptyWidget,
+      this.onLoad,
       this.child})
       : this.slivers = null;
 
+  static BaseHeader defaultHeader({
+    String? dragText,
+    String? armedText,
+    String? readyText,
+    String? processingText,
+    String? processedText,
+    String? noMoreText,
+    String? failedText,
+    String? messageText,
+    bool? showText,
+    bool? showMessage,
+    TextStyle? textStyle,
+    TextStyle? messageStyle,
+    Widget? succeededIcon,
+    Widget? failedIcon,
+    Widget? noMoreIcon,
+  }) {
+    return BaseClassicHeader(
+      dragText: dragText ?? baseDefaultHeaderDragText,
+      armedText: armedText ?? baseDefaultHeaderDragText,
+      readyText: readyText ?? baseDefaultHeaderDragText,
+      processingText: processingText ?? baseDefaultHeaderProcessingText,
+      processedText: processedText ?? baseDefaultHeaderProcessedText,
+      noMoreText: noMoreText ?? baseDefaultHeaderNoMoreText,
+      failedText: failedText ?? baseDefaultHeaderFailedText,
+      messageText: messageText ?? baseDefaultHeaderMessageText,
+      showText: showText ?? baseDefaultHeaderShowText,
+      showMessage: showMessage ?? baseDefaultHeaderShowMessage,
+      textStyle: textStyle,
+      messageStyle: messageStyle,
+      succeededIcon: succeededIcon ?? baseDefaultSucceededIcon,
+      failedIcon: failedIcon ?? baseDefaultFailedIcon,
+      noMoreIcon: noMoreIcon ?? baseDefaultNoMoreIcon,
+    );
+  }
+
+  static BaseFooter defaultFooter({
+    String? dragText,
+    String? armedText,
+    String? readyText,
+    String? processingText,
+    String? processedText,
+    String? noMoreText,
+    String? failedText,
+    String? messageText,
+    bool? showText,
+    bool? showMessage,
+    TextStyle? textStyle,
+    TextStyle? messageStyle,
+    Widget? succeededIcon,
+    Widget? failedIcon,
+    Widget? noMoreIcon,
+  }) {
+    return BaseClassicFooter(
+      dragText: dragText ?? baseDefaultFooterDragText,
+      armedText: armedText ?? baseDefaultFooterArmedText,
+      readyText: readyText ?? baseDefaultFooterReadyText,
+      processingText: processingText ?? baseDefaultFooterProcessingText,
+      processedText: processedText ?? baseDefaultFooterProcessedText,
+      noMoreText: noMoreText ?? baseDefaultFooterNoMoreText,
+      failedText: failedText ?? baseDefaultFooterFailedText,
+      messageText: messageText ?? baseDefaultFooterMessageText,
+      showText: showText ?? baseDefaultFooterShowText,
+      showMessage: showMessage ?? baseDefaultFooterShowMessage,
+      textStyle: textStyle,
+      messageStyle: messageStyle,
+      succeededIcon: succeededIcon ?? baseDefaultSucceededIcon,
+      failedIcon: failedIcon ?? baseDefaultFailedIcon,
+      noMoreIcon: noMoreIcon ?? baseDefaultNoMoreIcon,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final configuration = BaseRefreshConfiguration.of(context);
-    return BaseSmartRefresher(
+    return BaseEasyRefresher(
       controller: controller,
       scrollController: scrollController,
-      header: header ??
-          (configuration?.headerBuilder != null
-              ? configuration?.headerBuilder!()
-              : null) ??
-          BaseClassicHeader(),
-      footer: footer,
-      enablePullDown: onRefresh != null,
-      enablePullUp: onLoading != null,
+      header: header ?? BaseRefresh.defaultHeader(),
+      footer: footer ?? BaseRefresh.defaultFooter(),
       onRefresh: onRefresh,
-      onLoading: onLoading,
+      onLoad: onLoad,
       child: child,
     );
   }
@@ -53,14 +141,12 @@ class BaseRefresh extends StatelessWidget {
   static message(
       {required BaseRefreshController controller,
       ScrollController? scrollController,
-      VoidCallback? onLoading,
+      VoidCallback? onLoad,
       Widget? footer,
       required Widget sliver}) {
-    return BaseSmartRefresher(
-      enablePullDown: false,
-      onLoading: onLoading,
-      footer: footer ?? BaseClassicFooter(),
-      enablePullUp: true,
+    return BaseEasyRefresher(
+      onLoad: onLoad,
+      footer: BaseRefresh.defaultFooter(),
       controller: controller,
       child: Scrollable(
         controller: scrollController,

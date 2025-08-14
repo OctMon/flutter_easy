@@ -259,6 +259,91 @@ class S {
       args: [],
     );
   }
+
+  /// `Pull to refresh`
+  String get refresher_pull_to_refresh {
+    return Intl.message(
+      'Pull to refresh',
+      name: 'refresher_pull_to_refresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release ready`
+  String get refresher_release_ready {
+    return Intl.message(
+      'Release ready',
+      name: 'refresher_release_ready',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshing...`
+  String get refresher_refreshing {
+    return Intl.message(
+      'Refreshing...',
+      name: 'refresher_refreshing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Succeeded`
+  String get refresher_succeeded {
+    return Intl.message(
+      'Succeeded',
+      name: 'refresher_succeeded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No more`
+  String get refresher_no_more {
+    return Intl.message(
+      'No more',
+      name: 'refresher_no_more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed`
+  String get refresher_failed {
+    return Intl.message('Failed', name: 'refresher_failed', desc: '', args: []);
+  }
+
+  /// `Last updated at %T`
+  String get refresher_last_updated_at_time {
+    return Intl.message(
+      'Last updated at %T',
+      name: 'refresher_last_updated_at_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pull to load`
+  String get refresher_pull_to_load {
+    return Intl.message(
+      'Pull to load',
+      name: 'refresher_pull_to_load',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading...`
+  String get refresher_loading {
+    return Intl.message(
+      'Loading...',
+      name: 'refresher_loading',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

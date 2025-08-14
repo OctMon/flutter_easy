@@ -271,7 +271,10 @@ extension CountResult on Result {
 
 class BaseRefreshStateController<T> extends BaseStateController<T> {
   /// 刷新控制器
-  final refreshController = BaseRefreshController();
+  final refreshController = BaseRefreshController(
+    controlFinishRefresh: true,
+    controlFinishLoad: true,
+  );
 
   /// 当前页码
   int page = kFirstPage;
@@ -306,8 +309,8 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     bool? shimmer,
     Color? baseColor,
     Color? highlightColor,
-    Widget? header,
-    Widget? footer,
+    BaseHeader? header,
+    BaseFooter? footer,
     Widget Function()? onPlaceholderWidget,
     Widget? placeholderEmptyWidget,
     String? placeholderEmptyTitle,
@@ -359,13 +362,10 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
         scrollController: scrollController,
         header: header,
         footer: footer,
-        emptyWidget:
-            (validNullable && state.isEmptyOrNull) ? emptyWidget() : null,
-        firstRefresh: firstRefresh,
         onRefresh: implementationOnRefresh && !status.isLoading
             ? (onRefresh ?? () async => onRequestPage(kFirstPage))
             : null,
-        onLoading: implementationOnLoad && state != null && !status.isLoading
+        onLoad: implementationOnLoad && state != null && !status.isLoading
             ? (onLoading ?? () async => onRequestPage(page + 1))
             : null,
         child: (state == null && !status.isSuccess ||
@@ -378,7 +378,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
 
   Widget baseRefreshMessageState(
     NotifierBuilder<T?> widget, {
-    VoidCallback? onLoading,
+    VoidCallback? onLoad,
     ScrollController? scrollController,
     Widget? footer,
   }) {
@@ -387,7 +387,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
         controller: refreshController,
         scrollController: scrollController,
         footer: footer,
-        onLoading: onLoading,
+        onLoad: onLoad,
         sliver: widget(state),
       );
     });
@@ -396,34 +396,13 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
   Future<void> onRequestPage(int page) async {}
 
   /// 完成下拉刷新
-  void finishRefresh({
-    required bool success,
-    required bool noMore,
-  }) {
-    if (success) {
-      if (noMore) {
-        refreshController.loadNoData();
-      }
-      refreshController.refreshCompleted(resetFooterState: !noMore);
-    } else {
-      refreshController.refreshFailed();
-    }
+  void finishRefresh(BaseIndicatorResult result) {
+    refreshController.finishRefresh(result);
   }
 
   /// 完成上拉加载
-  void finishLoad({
-    required bool success,
-    required bool noMore,
-  }) {
-    if (success) {
-      if (noMore) {
-        refreshController.loadNoData();
-      } else {
-        refreshController.loadComplete();
-      }
-    } else {
-      refreshController.loadFailed();
-    }
+  void finishLoad(BaseIndicatorResult result) {
+    refreshController.finishLoad(result);
   }
 
   /// [noMore] - 没有更多? 没有更多数据: true, 有更多数据: false
@@ -457,13 +436,20 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
           compute != null
               ? compute(_tmp, RxStatus.success())
               : change(_tmp, status: RxStatus.success());
-          finishLoad(success: result.valid, noMore: noMoreJudge);
+          finishLoad(result.valid
+              ? (noMoreJudge
+                  ? BaseIndicatorResult.noMore
+                  : BaseIndicatorResult.success)
+              : BaseIndicatorResult.fail);
         } else {
           // 下拉刷新第1页数据
           compute != null
               ? compute(models, RxStatus.success())
               : change(models, status: RxStatus.success());
-          finishRefresh(success: result.valid, noMore: noMoreJudge);
+          finishRefresh(result.valid
+              ? BaseIndicatorResult.success
+              : BaseIndicatorResult.fail);
+          refreshController.resetFooter();
         }
       } else if (page == kFirstPage && state != null) {
         // 下野刷新时已有数据
@@ -475,7 +461,9 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
               : change(null,
                   status: RxStatus.error(_placeholderEmptyTitle ?? kEmptyList));
         }
-        finishRefresh(success: result.valid, noMore: false);
+        finishRefresh(result.valid
+            ? BaseIndicatorResult.success
+            : BaseIndicatorResult.fail);
       } else if (state == null) {
         // 未约定的无数据
         compute != null
@@ -483,16 +471,18 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
                 null, RxStatus.error(_placeholderEmptyTitle ?? kEmptyList))
             : change(null,
                 status: RxStatus.error(_placeholderEmptyTitle ?? kEmptyList));
-        finishRefresh(success: true, noMore: true);
+        finishRefresh(BaseIndicatorResult.success);
       } else {
         // 已经有1页数据再次上拉加载 无更多数据
-        finishLoad(success: result.valid, noMore: true);
+        finishLoad(BaseIndicatorResult.noMore);
       }
     } else {
       if (page > kFirstPage) {
-        finishLoad(success: result.valid, noMore: true);
+        finishLoad(BaseIndicatorResult.noMore);
       } else {
-        finishRefresh(success: result.valid, noMore: false);
+        finishRefresh(result.valid
+            ? BaseIndicatorResult.success
+            : BaseIndicatorResult.fail);
       }
       dynamic tmp = state;
       compute != null
