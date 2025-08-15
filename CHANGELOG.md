@@ -1,3 +1,6 @@
+## 3.17.1
+* to base gallery long press callback
+
 ## 3.17.0
 * Bump easy refresh
 
