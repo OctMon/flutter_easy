@@ -7,6 +7,7 @@ import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:palette_generator/palette_generator.dart';
 
+import '../../../routes.dart';
 import 'controller.dart';
 
 class ImageColorsPage extends StatelessWidget {
@@ -98,7 +99,7 @@ class ImageColorsPage extends StatelessWidget {
                   BaseButton(
                     padding: EdgeInsets.zero,
                     onPressed: () {
-                      toBaseGalleryView(
+                      toGalleryView(
                         images: [image],
                       );
                     },

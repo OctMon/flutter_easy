@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/store/user/store.dart';
 
+import '../../../../routes.dart';
 import 'controller.dart';
 
 class PhotoComponent extends StatelessWidget {
@@ -39,7 +40,7 @@ class PhotoComponent extends StatelessWidget {
                     UserStore.find.save(user);
                   }
                 });
-                toBaseGalleryView(images: [url]);
+                toGalleryView(images: [url]);
               },
             );
           },

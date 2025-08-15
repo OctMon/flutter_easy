@@ -73,3 +73,16 @@ class Routes {
     ),
   ];
 }
+
+Future toGalleryView({
+  required List<String> images,
+  int currentIndex = 0,
+}) async {
+  return toBaseGalleryView(
+    images: images,
+    currentIndex: currentIndex,
+    onLongPress: () {
+
+    },
+  );
+}

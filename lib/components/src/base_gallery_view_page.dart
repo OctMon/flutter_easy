@@ -11,6 +11,7 @@ class BaseGalleryViewPage extends StatefulWidget {
   final Color? tintColor;
   final Color? backgroundColor;
   final bool enableRotation;
+  final GestureLongPressCallback? onLongPress;
 
   const BaseGalleryViewPage(
       {super.key,
@@ -20,7 +21,8 @@ class BaseGalleryViewPage extends StatefulWidget {
       this.leading,
       this.tintColor,
       this.backgroundColor,
-      this.enableRotation = false});
+      this.enableRotation = false,
+      this.onLongPress});
 
   @override
   State<StatefulWidget> createState() => _BaseGalleryViewPageState();
@@ -56,7 +58,10 @@ class _BaseGalleryViewPageState extends State<BaseGalleryViewPage> {
         ),
         builder: (context, index) {
           return BasePhotoViewGalleryPageOptions.customChild(
-            child: BaseWebImage(widget.images[index]),
+            child: GestureDetector(
+              onLongPress: widget.onLongPress,
+              child: BaseWebImage(widget.images[index]),
+            ),
             heroAttributes:
                 BasePhotoViewHeroAttributes(tag: widget.images[index]),
           );

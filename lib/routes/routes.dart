@@ -30,6 +30,7 @@ Future toBaseGalleryView({
   bool enableRotation = false,
   bool preventDuplicates = true,
   Transition transition = Transition.noTransition,
+  GestureLongPressCallback? onLongPress,
 }) async {
   return to(
     () => BaseGalleryViewPage(
@@ -40,6 +41,7 @@ Future toBaseGalleryView({
       tintColor: tintColor,
       backgroundColor: backgroundColor,
       enableRotation: enableRotation,
+      onLongPress: onLongPress,
     ),
     preventDuplicates: preventDuplicates,
     transition: transition,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
+import '../../../routes.dart';
 import 'logic.dart';
 
 class ImageGirlListPage extends StatelessWidget {
@@ -53,7 +54,7 @@ class ImageGirlListPage extends StatelessWidget {
                   ],
                 ),
                 onPressed: () {
-                  toBaseGalleryView(
+                  toGalleryView(
                     images: state?.map((e) => e.imageUrl ?? "").toList() ?? [],
                     currentIndex: index,
                   );

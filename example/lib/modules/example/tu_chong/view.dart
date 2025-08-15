@@ -3,6 +3,7 @@ import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 
 import 'package:flutter_easy_example/modules/example/tu_chong/model.dart';
+import '../../../routes.dart';
 import 'controller.dart';
 
 const int _kCrossAxisCount = 2;
@@ -88,7 +89,7 @@ class TuChongPage extends StatelessWidget {
                               fit: BoxFit.contain,
                             ),
                             onPressed: () {
-                              toBaseGalleryView(
+                              toGalleryView(
                                 images: data.imageList
                                         ?.map((e) => e.imageURL)
                                         .toList() ??
