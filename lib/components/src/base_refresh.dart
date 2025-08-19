@@ -54,6 +54,8 @@ class BaseRefresh extends StatelessWidget {
       : this.slivers = null;
 
   static BaseHeader defaultHeader({
+    bool safeArea = true,
+    bool hapticFeedback = false,
     String? dragText,
     String? armedText,
     String? readyText,
@@ -71,6 +73,8 @@ class BaseRefresh extends StatelessWidget {
     Widget? noMoreIcon,
   }) {
     return BaseClassicHeader(
+      safeArea: safeArea,
+      hapticFeedback: hapticFeedback,
       dragText: dragText ?? baseDefaultHeaderDragText,
       armedText: armedText ?? baseDefaultHeaderDragText,
       readyText: readyText ?? baseDefaultHeaderDragText,
@@ -90,6 +94,8 @@ class BaseRefresh extends StatelessWidget {
   }
 
   static BaseFooter defaultFooter({
+    bool safeArea = true,
+    bool hapticFeedback = false,
     String? dragText,
     String? armedText,
     String? readyText,
@@ -107,6 +113,8 @@ class BaseRefresh extends StatelessWidget {
     Widget? noMoreIcon,
   }) {
     return BaseClassicFooter(
+      safeArea: safeArea,
+      hapticFeedback: hapticFeedback,
       dragText: dragText ?? baseDefaultFooterDragText,
       armedText: armedText ?? baseDefaultFooterArmedText,
       readyText: readyText ?? baseDefaultFooterReadyText,

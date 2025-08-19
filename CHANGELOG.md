@@ -1,3 +1,6 @@
+## 3.17.2
+* base header footer add safe area haptics feedback
+
 ## 3.17.1
 * to base gallery long press callback
 
