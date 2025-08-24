@@ -376,11 +376,89 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
     });
   }
 
+  Widget baseRefreshBuilderState(
+    Widget Function(T? state, BuildContext context, ScrollPhysics physics)
+        widget, {
+    ScrollController? scrollController,
+    bool validNullable = true,
+    bool? shimmer,
+    Color? baseColor,
+    Color? highlightColor,
+    BaseHeader? header,
+    BaseFooter? footer,
+    Widget Function()? onPlaceholderWidget,
+    Widget? placeholderEmptyWidget,
+    String? placeholderEmptyTitle,
+    String? placeholderEmptyMessage,
+    TextStyle? Function(TextStyle)? placeholderEmptyTitleStyle,
+    TextStyle? Function(TextStyle)? placeholderEmptyMessageStyle,
+    bool firstRefresh = false,
+    VoidCallback? onRefresh,
+    VoidCallback? onLoading,
+    void Function()? onReloadTap,
+  }) {
+    _placeholderEmptyTitle = placeholderEmptyTitle;
+    return SimpleBuilder(builder: (_) {
+      return BaseRefresh.builder(
+        controller: refreshController,
+        scrollController: scrollController,
+        header: header,
+        footer: footer,
+        onRefresh: implementationOnRefresh && !status.isLoading
+            ? (onRefresh ?? () async => onRequestPage(kFirstPage))
+            : null,
+        onLoad: implementationOnLoad && state != null && !status.isLoading
+            ? (onLoading ?? () async => onRequestPage(page + 1))
+            : null,
+        childBuilder: (context, physics) {
+          Widget? emptyWidget() {
+            if (status.isLoading && shimmer == true) {
+              return BaseShimmer(
+                visible: true,
+                child: widget(state, context, physics),
+                baseColor: baseColor,
+                highlightColor: highlightColor,
+              );
+            }
+
+            final titleStyle = Get.isDarkMode
+                ? setDarkPlaceholderTitleTextStyle
+                : setLightPlaceholderTitleTextStyle;
+            final messageStyle = Get.isDarkMode
+                ? setDarkPlaceholderMessageTextStyle
+                : setLightPlaceholderMessageTextStyle;
+            return onPlaceholderWidget != null
+                ? onPlaceholderWidget()
+                : BasePlaceholderView(
+                    title: getPlaceholderTitle(placeholderEmptyTitle),
+                    message: getPlaceholderMessage(placeholderEmptyMessage),
+                    titleStyle: placeholderEmptyTitleStyle?.call(titleStyle),
+                    messageStyle:
+                        placeholderEmptyMessageStyle?.call(messageStyle),
+                    // 指定当前页面的占位图路径（网络默认placeholder_remote错误除外, 默认placeholder_empty）
+                    image: placeholderEmptyWidget,
+                    onTap: onReloadTap ??
+                        () {
+                          change(state, status: RxStatus.loading());
+                          onRequestPage(page);
+                        },
+                  );
+          }
+
+          return (state == null && !status.isSuccess ||
+                  (validNullable && state.isEmptyOrNull))
+              ? emptyWidget() ?? SizedBox()
+              : widget(state, context, physics);
+        },
+      );
+    });
+  }
+
   Widget baseRefreshMessageState(
     NotifierBuilder<T?> widget, {
     VoidCallback? onLoad,
     ScrollController? scrollController,
-    Widget? footer,
+    BaseFooter? footer,
   }) {
     return SimpleBuilder(builder: (_) {
       return BaseRefresh.message(

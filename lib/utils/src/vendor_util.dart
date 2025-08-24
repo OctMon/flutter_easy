@@ -85,6 +85,11 @@ typedef BaseHeader = Header;
 typedef BaseFooter = Footer;
 typedef BaseIndicatorResult = IndicatorResult;
 typedef BaseIndicatorState = IndicatorState;
+typedef BaseChildBuilder = ERChildBuilder;
+typedef BaseScrollBehavior = ERScrollBehavior;
+typedef BaseIndicatorPosition = IndicatorPosition;
+typedef BaseHeaderLocator = HeaderLocator;
+typedef BaseFooterLocator = FooterLocator;
 
 typedef BaseRatingBar = RatingBar;
 typedef BaseRatingWidget = RatingWidget;

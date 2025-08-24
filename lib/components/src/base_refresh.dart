@@ -31,9 +31,8 @@ Widget? baseDefaultFailedIcon;
 Widget? baseDefaultNoMoreIcon;
 
 class BaseRefresh extends StatelessWidget {
-  final BaseRefreshController controller;
+  final BaseRefreshController? controller;
   final ScrollController? scrollController;
-  final TextStyle? textStyle;
   final BaseHeader? header;
   final VoidCallback? onRefresh;
   final BaseFooter? footer;
@@ -43,9 +42,8 @@ class BaseRefresh extends StatelessWidget {
 
   const BaseRefresh(
       {super.key,
-      required this.controller,
+      this.controller,
       this.scrollController,
-      this.textStyle,
       this.header,
       this.onRefresh,
       this.footer,
@@ -56,6 +54,8 @@ class BaseRefresh extends StatelessWidget {
   static BaseHeader defaultHeader({
     bool safeArea = true,
     bool hapticFeedback = false,
+    BaseIndicatorPosition position = BaseIndicatorPosition.above,
+    bool clamping = false,
     String? dragText,
     String? armedText,
     String? readyText,
@@ -75,6 +75,8 @@ class BaseRefresh extends StatelessWidget {
     return BaseClassicHeader(
       safeArea: safeArea,
       hapticFeedback: hapticFeedback,
+      position: position,
+      clamping: clamping,
       dragText: dragText ?? baseDefaultHeaderDragText,
       armedText: armedText ?? baseDefaultHeaderDragText,
       readyText: readyText ?? baseDefaultHeaderDragText,
@@ -96,6 +98,8 @@ class BaseRefresh extends StatelessWidget {
   static BaseFooter defaultFooter({
     bool safeArea = true,
     bool hapticFeedback = false,
+    BaseIndicatorPosition position = BaseIndicatorPosition.above,
+    bool clamping = false,
     String? dragText,
     String? armedText,
     String? readyText,
@@ -115,6 +119,8 @@ class BaseRefresh extends StatelessWidget {
     return BaseClassicFooter(
       safeArea: safeArea,
       hapticFeedback: hapticFeedback,
+      position: position,
+      clamping: clamping,
       dragText: dragText ?? baseDefaultFooterDragText,
       armedText: armedText ?? baseDefaultFooterArmedText,
       readyText: readyText ?? baseDefaultFooterReadyText,
@@ -146,15 +152,35 @@ class BaseRefresh extends StatelessWidget {
     );
   }
 
-  static message(
+  static BaseEasyRefresher builder({
+    BaseChildBuilder? childBuilder,
+    BaseRefreshController? controller,
+    ScrollController? scrollController,
+    BaseHeader? header,
+    VoidCallback? onRefresh,
+    BaseFooter? footer,
+    VoidCallback? onLoad,
+  }) {
+    return BaseEasyRefresher.builder(
+      childBuilder: childBuilder,
+      controller: controller,
+      scrollController: scrollController,
+      header: header ?? BaseRefresh.defaultHeader(),
+      footer: footer ?? BaseRefresh.defaultFooter(),
+      onRefresh: onRefresh,
+      onLoad: onLoad,
+    );
+  }
+
+  static BaseRefresh message(
       {required BaseRefreshController controller,
       ScrollController? scrollController,
       VoidCallback? onLoad,
-      Widget? footer,
+      BaseFooter? footer,
       required Widget sliver}) {
-    return BaseEasyRefresher(
+    return BaseRefresh(
       onLoad: onLoad,
-      footer: BaseRefresh.defaultFooter(),
+      footer: footer,
       controller: controller,
       child: Scrollable(
         controller: scrollController,
