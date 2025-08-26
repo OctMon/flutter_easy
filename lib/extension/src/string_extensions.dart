@@ -250,6 +250,23 @@ extension StringTextHeightExtension on String {
     )..layout(maxWidth: maxWidth);
     return textPainter.size.height;
   }
+
+  /// 超过多少行文本是否溢出
+  bool didExceedMaxLines({
+    required TextStyle style,
+    int maxLines = 1,
+    required double maxWidth,
+  }) {
+    final tp = TextPainter(
+      text: TextSpan(text: this, style: style),
+      maxLines: maxLines,
+      textDirection: TextDirection.ltr,
+    );
+
+    tp.layout(maxWidth: maxWidth);
+
+    return tp.didExceedMaxLines;
+  }
 }
 
 extension FixAutoLinesExtensions on String {
