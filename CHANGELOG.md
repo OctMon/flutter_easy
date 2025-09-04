@@ -1,3 +1,6 @@
+## 3.17.4
+* compatible pinyin input limited
+
 ## 3.17.3
 * base refresher builder
 * did exceed max lines
