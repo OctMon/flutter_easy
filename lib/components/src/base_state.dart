@@ -490,6 +490,7 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
       int? limitPage,
       int? pageCount,
       bool? noMore,
+      bool errToast = false,
       BaseComputeResult? compute}) {
     dynamic models = result.models.toList();
     if (result.valid) {
@@ -566,7 +567,9 @@ class BaseRefreshStateController<T> extends BaseStateController<T> {
       compute != null
           ? compute(tmp, RxStatus.error(result.message))
           : change(tmp, status: RxStatus.error(result.message));
-      showToast(result.message);
+      if (errToast) {
+        showToast(result.message);
+      }
     }
   }
 }
