@@ -1305,7 +1305,7 @@ class BaseTextField extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: controller,
-                      maxLines: maxLength,
+                      maxLines: maxLines,
                       readOnly: readOnly,
                       obscureText: obscureText,
                       autofocus: autofocus,
