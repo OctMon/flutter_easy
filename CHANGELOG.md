@@ -1,3 +1,7 @@
+## 3.18.0
+* base state err toast default hide
+* fix: maxLines ineffective
+
 ## 3.17.4
 * compatible pinyin input limited
 
