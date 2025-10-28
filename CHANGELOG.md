@@ -1,3 +1,6 @@
+## 3.18.1
+* add base date range picker
+
 ## 3.18.0
 * base state err toast default hide
 * fix: maxLines ineffective
