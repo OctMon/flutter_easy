@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'base_date_picker_constants.dart';
 import 'date_picker/base_date_picker.dart';
+import 'date_range_picker/base_date_range_picker.dart';
 
 const String DATE_FORMAT_SEPARATOR = r'[|,-\._: ]+';
 
@@ -38,6 +39,19 @@ class DateTimeFormatter {
         return datetimePickerTimeFormat;
       case BaseDateTimePickerMode.datetime:
         return datetimePickerDatetimeFormat;
+    }
+  }
+
+  static String generateDateRangePickerFormat(
+      String? dateFormat, BaseDateTimeRangePickerMode pickerMode) {
+    if (dateFormat != null && dateFormat.isNotEmpty) {
+      return dateFormat;
+    }
+    switch (pickerMode) {
+      case BaseDateTimeRangePickerMode.date:
+        return datetimeRangePickerDateFormat;
+      case BaseDateTimeRangePickerMode.time:
+        return datetimeRangePickerTimeFormat;
     }
   }
 

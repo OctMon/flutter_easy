@@ -10,6 +10,7 @@ class BasePickerTitleConfig {
     this.titleLocalized = "",
     this.showTitle = true,
     this.titleContent,
+    this.toLocalized = "~",
   });
 
   static BasePickerTitleConfig defaultConfig = const BasePickerTitleConfig();
@@ -34,6 +35,8 @@ class BasePickerTitleConfig {
 
   final String? titleContent;
 
+  final String toLocalized;
+
   BasePickerTitleConfig copyWith({
     Widget? cancel,
     String? cancelLocalized,
@@ -43,6 +46,7 @@ class BasePickerTitleConfig {
     String? titleLocalized,
     bool? showTitle,
     String? titleContent,
+    String? toLocalized,
   }) {
     return BasePickerTitleConfig(
       cancel: cancel ?? this.cancel,
@@ -53,6 +57,7 @@ class BasePickerTitleConfig {
       titleLocalized: titleLocalized ?? this.titleLocalized,
       showTitle: showTitle ?? this.showTitle,
       titleContent: titleContent ?? this.titleContent,
+      toLocalized: toLocalized ?? this.toLocalized,
     );
   }
 }

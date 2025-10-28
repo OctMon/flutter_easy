@@ -206,6 +206,68 @@ List<BaseExampleWrap> get exampleList {
           ),
           BaseKeyValue(
             key: "底部弹出",
+            value: "日期范围选择",
+            extend: () async {
+              showBaseDateRangePicker(
+                  isDismissible: true,
+                  minDateTime: DateTime(2010, 06, 01, 00, 00, 00),
+                  maxDateTime: DateTime(2029, 07, 24, 23, 59, 59),
+                  pickerMode: BaseDateTimeRangePickerMode.date,
+                  minuteDivider: 10,
+                  pickerTitleConfig: BasePickerTitleConfig.defaultConfig.copyWith(toLocalized: "至"),
+                  dateFormat: 'yyyy年-MM月-dd日',
+                  initialStartDateTime: DateTime(2023, 01, 01, 11, 00, 00),
+                  initialEndDateTime: DateTime(2025, 10, 01, 10, 00, 00),
+                  onConfirm: (startDateTime, endDateTime, startList, endList) {
+                    logDebug(
+                        "onConfirm:  $startDateTime   $endDateTime     $startList     $endList");
+                  },
+                  onClose: () {
+                    logDebug("onClose");
+                  },
+                  onCancel: () {
+                    logDebug("onCancel");
+                  },
+                  onChange: (startDateTime, endDateTime, startList, endList) {
+                    showToast(
+                      "onChange:  $startDateTime   $endDateTime     $startList     $endList",
+                    );
+                  });
+            },
+          ),
+          BaseKeyValue(
+            key: "底部弹出",
+            value: "时间范围选择",
+            extend: () async {
+              showBaseDateRangePicker(
+                  isDismissible: true,
+                  // minDateTime: DateTime(2025, 01, 01, 00, 00, 00),
+                  // maxDateTime: DateTime(2025, 01, 01, 23, 59, 59),
+                  pickerMode: BaseDateTimeRangePickerMode.time,
+                  minuteDivider: 10,
+                  // pickerTitleConfig: pickerTitleConfig,
+                  dateFormat: 'HH时:mm分',
+                  initialStartDateTime: DateTime(2025, 01, 01, 11, 00, 00),
+                  initialEndDateTime: DateTime(2025, 01, 01, 22, 00, 00),
+                  onConfirm: (startDateTime, endDateTime, startList, endList) {
+                    logDebug(
+                        "onConfirm:  $startDateTime   $endDateTime     $startList     $endList");
+                  },
+                  onClose: () {
+                    logDebug("onClose");
+                  },
+                  onCancel: () {
+                    logDebug("onCancel");
+                  },
+                  onChange: (startDateTime, endDateTime, startList, endList) {
+                    showToast(
+                      "onChange:  $startDateTime   $endDateTime     $startList     $endList",
+                    );
+                  });
+            },
+          ),
+          BaseKeyValue(
+            key: "底部弹出",
             value: "系统日期选择",
             extend: () async {
               final date =

@@ -7,6 +7,7 @@ import 'picker/base/base_picker_title.dart';
 import 'picker/time_picker/base_date_picker_constants.dart';
 
 export 'picker/time_picker/date_picker/base_date_picker.dart';
+export 'picker/time_picker/date_range_picker/base_date_range_picker.dart';
 
 typedef BaseDatePickerMode = CupertinoDatePickerMode;
 
@@ -88,6 +89,48 @@ void showBaseDatePicker({
     onConfirm: onConfirm,
     themeData: themeData,
   );
+}
+
+void showBaseDateRangePicker({
+  bool isDismissible = true,
+  DateTime? minDateTime,
+  DateTime? maxDateTime,
+  bool isLimitTimeRange = true,
+  DateTime? initialStartDateTime,
+  DateTime? initialEndDateTime,
+  String? dateFormat,
+  int minuteDivider = 1,
+  BaseDateTimeRangePickerMode pickerMode = BaseDateTimeRangePickerMode.date,
+  BasePickerTitleConfig? pickerTitleConfig,
+
+  /// 点击【取消】回调给调用方的回调事件
+  DateVoidCallback? onCancel,
+
+  /// 弹框点击外围消失的回调事件
+  DateVoidCallback? onClose,
+
+  /// 时间滚动选择时候的回调事件
+  DateRangeValueCallback? onChange,
+
+  /// 点击【完成】回调给调用方的数据
+  DateRangeValueCallback? onConfirm,
+  BasePickerConfig? themeData,
+}) {
+  BaseDateRangePicker.showDatePicker(Get.context!,
+      isDismissible: isDismissible,
+      minDateTime: minDateTime,
+      maxDateTime: maxDateTime,
+      pickerMode: pickerMode,
+      minuteDivider: minuteDivider,
+      pickerTitleConfig: pickerTitleConfig,
+      dateFormat: dateFormat,
+      initialStartDateTime: initialStartDateTime,
+      initialEndDateTime: initialEndDateTime,
+      onConfirm: onConfirm,
+      onClose: onClose,
+      onCancel: onCancel,
+      onChange: onChange,
+      themeData: themeData);
 }
 
 Future<DateTime?> showBasePopupDatePicker(
