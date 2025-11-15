@@ -1,3 +1,6 @@
+## 3.18.2
+* add web get params
+
 ## 3.18.1
 * add base date range picker
 
