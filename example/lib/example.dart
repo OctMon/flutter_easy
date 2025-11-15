@@ -3,7 +3,18 @@ import 'package:flutter_easy/flutter_easy.dart';
 
 import 'generated/l10n.dart';
 
-class ExampleController extends GetxController {}
+class ExampleController extends GetxController {
+
+  @override
+  void onInit() {
+    logDebug("-------");
+    final params = webGetAllParams();
+    logDebug(params);
+    logDebug("-------");
+    super.onInit();
+  }
+
+}
 
 class ExamplePage extends StatelessWidget {
   ExamplePage({super.key});

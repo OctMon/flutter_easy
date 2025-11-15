@@ -41,3 +41,11 @@ BaseExtendedImageProvider hwBaseExtendedFileImageProvider(String url,
     imageCacheName: imageCacheName,
   );
 }
+
+String? hwGetQueryParam(String key) => null;
+
+Map<String, String> hwGetAllParams() => {};
+
+String? hwGetHash() => null;
+
+void hwSetLocationHref(String href) {}

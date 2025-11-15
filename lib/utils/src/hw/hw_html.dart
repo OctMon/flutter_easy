@@ -53,3 +53,22 @@ BaseExtendedImageProvider hwBaseExtendedFileImageProvider(String url,
     imageCacheName: imageCacheName,
   );
 }
+
+String? hwGetQueryParam(String key) {
+  final uri = Uri.parse(window.location.href);
+  return uri.queryParameters[key];
+}
+
+Map<String, String> hwGetAllParams() {
+  final uri = Uri.parse(window.location.href);
+  return uri.queryParameters;
+}
+
+String? hwGetHash() {
+  final hash = window.location.hash;
+  return hash.isEmpty ? null : hash.substring(1);
+}
+
+void hwSetLocationHref(String href) {
+  window.location.href = href;
+}

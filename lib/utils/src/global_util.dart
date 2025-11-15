@@ -313,3 +313,11 @@ BaseExtendedWebImageProvider(String url,
         scale: scale,
         cacheRawData: cacheRawData,
         imageCacheName: imageCacheName);
+
+String? webGetQueryParam(String key) => mp.hwGetQueryParam(key);
+
+Map<String, String> webGetAllParams() => mp.hwGetAllParams();
+
+String? webGetHash() => mp.hwGetHash();
+
+void webSetLocationHref(String href) => mp.hwSetLocationHref(href);
