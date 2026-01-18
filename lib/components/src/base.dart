@@ -390,15 +390,15 @@ class _BaseAppState extends State<BaseApp> {
         themeMode: widget.themeMode,
         home: widget.home,
         scrollBehavior: widget.scrollBehavior,
-        builder: widget.builder ??
-            BaseEasyLoading.init(
-              builder: (context, child) {
-                child = botToastBuilder(context, child);
-                return _buildBannerUrlType(
-                  child: _buildTextScaleFactor(context: context, child: child),
-                );
-              },
-            ),
+        builder: BaseEasyLoading.init(
+          builder: (context, child) {
+            child = widget.builder?.call(context, child) ?? child;
+            child = botToastBuilder(context, child);
+            return _buildBannerUrlType(
+              child: _buildTextScaleFactor(context: context, child: child),
+            );
+          },
+        ),
         navigatorObservers: navigatorObservers,
         routingCallback: widget.routingCallback,
         onGenerateRoute: widget.onGenerateRoute,
