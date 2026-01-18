@@ -279,6 +279,7 @@ class BaseApp extends StatefulWidget {
   final Size designSize;
   final bool splitScreenMode;
   final bool minTextAdapt;
+  final ScrollBehavior? scrollBehavior;
 
   BaseApp({
     this.title = "",
@@ -300,6 +301,7 @@ class BaseApp extends StatefulWidget {
     this.designSize = const Size(375, 812),
     this.splitScreenMode = false,
     this.minTextAdapt = false,
+    this.scrollBehavior,
   });
 
   @override
@@ -387,7 +389,7 @@ class _BaseAppState extends State<BaseApp> {
         darkTheme: getTheme(darkMode: true, useMaterial3: widget.useMaterial3),
         themeMode: widget.themeMode,
         home: widget.home,
-        scrollBehavior: isPhone ? null : _MyCustomScrollBehavior(),
+        scrollBehavior: widget.scrollBehavior,
         builder: widget.builder ??
             BaseEasyLoading.init(
               builder: (context, child) {
@@ -412,14 +414,6 @@ class _BaseAppState extends State<BaseApp> {
 }
 
 /// https://github.com/peng8350/flutter_pulltorefresh/issues/544#issuecomment-953643946
-class _MyCustomScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
-}
-
 const double _kDebugIconSize = 44;
 
 class _DebugPage extends StatefulWidget {
