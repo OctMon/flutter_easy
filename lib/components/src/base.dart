@@ -279,6 +279,7 @@ class BaseApp extends StatefulWidget {
   final Size designSize;
   final bool splitScreenMode;
   final bool minTextAdapt;
+  final ScrollBehavior? scrollBehavior;
 
   BaseApp({
     this.title = "",
@@ -300,6 +301,7 @@ class BaseApp extends StatefulWidget {
     this.designSize = const Size(375, 812),
     this.splitScreenMode = false,
     this.minTextAdapt = false,
+    this.scrollBehavior,
   });
 
   @override
@@ -387,16 +389,16 @@ class _BaseAppState extends State<BaseApp> {
         darkTheme: getTheme(darkMode: true, useMaterial3: widget.useMaterial3),
         themeMode: widget.themeMode,
         home: widget.home,
-        scrollBehavior: isPhone ? null : _MyCustomScrollBehavior(),
-        builder: widget.builder ??
-            BaseEasyLoading.init(
-              builder: (context, child) {
-                child = botToastBuilder(context, child);
-                return _buildBannerUrlType(
-                  child: _buildTextScaleFactor(context: context, child: child),
-                );
-              },
-            ),
+        scrollBehavior: widget.scrollBehavior,
+        builder: BaseEasyLoading.init(
+          builder: (context, child) {
+            child = widget.builder?.call(context, child) ?? child;
+            child = botToastBuilder(context, child);
+            return _buildBannerUrlType(
+              child: _buildTextScaleFactor(context: context, child: child),
+            );
+          },
+        ),
         navigatorObservers: navigatorObservers,
         routingCallback: widget.routingCallback,
         onGenerateRoute: widget.onGenerateRoute,
@@ -412,14 +414,6 @@ class _BaseAppState extends State<BaseApp> {
 }
 
 /// https://github.com/peng8350/flutter_pulltorefresh/issues/544#issuecomment-953643946
-class _MyCustomScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
-}
-
 const double _kDebugIconSize = 44;
 
 class _DebugPage extends StatefulWidget {
@@ -1240,7 +1234,7 @@ class BaseTextField extends StatelessWidget {
   final double? borderRadius;
   final List<BoxShadow>? boxShadow;
   final Color? backgroundColor;
-  final int maxLines;
+  final int? maxLines;
   final TextEditingController? controller;
   final TextStyle? style;
   final TextStyle? placeholderStyle;
@@ -1271,7 +1265,7 @@ class BaseTextField extends StatelessWidget {
       this.borderRadius,
       this.boxShadow,
       this.backgroundColor,
-      this.maxLines = 1,
+      this.maxLines,
       this.style,
       this.placeholderStyle,
       this.controller,
@@ -1304,7 +1298,7 @@ class BaseTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius ?? 5.r),
         boxShadow: boxShadow,
       ),
-      child: maxLines > 1
+      child: maxLength == null || maxLines! > 1
           ? Padding(
               padding: padding,
               child: Row(

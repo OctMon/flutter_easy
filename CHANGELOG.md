@@ -1,3 +1,8 @@
+## 3.18.3
+* base text field maxLines ineffective
+* base app add builder
+* base app add scrollBehavior
+
 ## 3.18.2
 * add web get params
 
