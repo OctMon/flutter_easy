@@ -604,6 +604,7 @@ Widget? _buildLeading(
 class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   final bool automaticallyImplyLeading;
   final Widget? title;
+  final double? titleSpacing;
   final Widget? leading;
   final VoidCallback? leadingOnPressed;
   final List<Widget>? actions;
@@ -620,6 +621,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
   BaseAppBar({
     this.automaticallyImplyLeading = true,
     this.title,
+    this.titleSpacing,
     this.leading,
     this.leadingOnPressed,
     this.actions,
@@ -647,6 +649,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
             )
           : null,
       title: title,
+      titleSpacing: titleSpacing,
       centerTitle: centerTitle,
       actions: actions ?? [],
       bottom: bottom,
@@ -674,6 +677,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
               )
             : null,
         title: title,
+        titleSpacing: titleSpacing,
         centerTitle: centerTitle,
         actions: actions ?? [],
         bottom: bottom,
@@ -691,6 +695,7 @@ class BaseAppBar extends PlatformWidget<AppBar, PreferredSize> {
 class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   final bool automaticallyImplyLeading;
   final Widget? title;
+  final double? titleSpacing;
   final Widget? leading;
   final VoidCallback? leadingOnPressed;
   final List<Widget>? actions;
@@ -708,6 +713,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
   BaseSliverAppBar({
     this.automaticallyImplyLeading = true,
     this.title,
+    this.titleSpacing,
     this.leading,
     this.leadingOnPressed,
     this.actions,
@@ -736,6 +742,8 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
             )
           : null,
       title: title,
+      titleSpacing: titleSpacing,
+      centerTitle: centerTitle,
       actions: actions ?? [],
       elevation: elevation,
       backgroundColor: backgroundColor,
@@ -769,6 +777,8 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
         title: title != null
             ? Transform.translate(offset: Offset(0, _offsetY), child: title)
             : title,
+        titleSpacing: titleSpacing,
+        centerTitle: centerTitle,
         actions: actions
                 ?.map((e) =>
                     Transform.translate(offset: Offset(0, _offsetY), child: e))
@@ -776,7 +786,6 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
             [],
         elevation: elevation,
         backgroundColor: backgroundColor,
-        centerTitle: centerTitle,
         floating: floating,
         pinned: pinned,
         expandedHeight: expandedHeight,
