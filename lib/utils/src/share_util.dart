@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:share_plus/share_plus.dart';
 
@@ -77,9 +78,11 @@ Future<void> shareFile({required String url, String? savePath}) async {
   }
 }
 
-Future<void> shareFiles({required List<String> path}) async {
+Future<void> shareFiles(
+    {required List<String> path, Rect? sharePositionOrigin}) async {
   if (path.isNotEmpty) {
-    Share.shareXFiles(path.map((e) => XFile(e)).toList());
+    Share.shareXFiles(path.map((e) => XFile(e)).toList(),
+        sharePositionOrigin: sharePositionOrigin);
   }
 }
 
