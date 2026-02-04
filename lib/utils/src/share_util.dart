@@ -58,23 +58,28 @@ Future<void> clearShareDirectory() async {
   }
 }
 
-Future<ShareResult> shareURL(String url) {
-  return Share.shareUri(Uri.parse(url));
+Future<ShareResult> shareURL(String url, {Rect? sharePositionOrigin}) {
+  return Share.shareUri(Uri.parse(url),
+      sharePositionOrigin: sharePositionOrigin);
 }
 
-Future<ShareResult> shareApp() {
-  return shareURL(shareAppStoreDownloadURL);
+Future<ShareResult> shareApp({Rect? sharePositionOrigin}) {
+  return shareURL(shareAppStoreDownloadURL,
+      sharePositionOrigin: sharePositionOrigin);
 }
 
-Future<ShareResult> shareText(String text, {String? subject}) {
-  return Share.share(text, subject: subject);
+Future<ShareResult> shareText(String text,
+    {String? subject, Rect? sharePositionOrigin}) {
+  return Share.share(text,
+      subject: subject, sharePositionOrigin: sharePositionOrigin);
 }
 
-Future<void> shareFile({required String url, String? savePath}) async {
+Future<void> shareFile(
+    {required String url, String? savePath, Rect? sharePositionOrigin}) async {
   final path = await downloadCopyFile(url: url, savePath: savePath);
 
   if (path != null) {
-    Share.shareXFiles([XFile(path)]);
+    shareFiles(path: [path], sharePositionOrigin: sharePositionOrigin);
   }
 }
 
@@ -86,10 +91,10 @@ Future<void> shareFiles(
   }
 }
 
-Future<void> shareLogZiPFile() async {
+Future<void> shareLogZiPFile({Rect? sharePositionOrigin}) async {
   final zipFile = await appLogZipFile();
   if (zipFile != null) {
-    shareFiles(path: [zipFile]);
+    shareFiles(path: [zipFile], sharePositionOrigin: sharePositionOrigin);
   }
 }
 
