@@ -43,13 +43,21 @@ bool isLinux = kIsWeb ? false : Platform.isLinux;
 
 bool isAndroid = kIsWeb ? false : Platform.isAndroid;
 
-bool get isIPad {
-  final deviceInfo = DeviceInfoUtil.deviceInfo;
-  if (deviceInfo is IosDeviceInfo) {
-    return deviceInfo.utsname.machine.toLowerCase().contains("ipad");
+bool get isTablet {
+  if (kIsWeb) return false;
+  if (isIOS || isAndroid) {
+    try {
+      final view = WidgetsBinding.instance.platformDispatcher.views.first;
+      final logicalSize = view.physicalSize / view.devicePixelRatio;
+      return logicalSize.shortestSide >= 600;
+    } catch (_) {
+      return false;
+    }
   }
   return false;
 }
+
+bool get isIPad => isIOS && isTablet;
 
 bool get isDesktop => !kIsWeb && !isPhone && !isTablet;
 
@@ -79,21 +87,6 @@ bool get isWebInAndroid => userAgent.contains("android");
 bool get isWebInMobile => isWebInIos || isWebInAndroid;
 
 bool get isWebInWeChat => userAgent.contains("Micro" + "Messenger");
-
-bool get isTablet {
-  if (kIsWeb) return false;
-  if (isIPad) return true;
-  if (isAndroid) {
-    try {
-      final view = WidgetsBinding.instance.platformDispatcher.views.first;
-      final logicalSize = view.physicalSize / view.devicePixelRatio;
-      return logicalSize.shortestSide >= 600;
-    } catch (_) {
-      return false;
-    }
-  }
-  return false;
-}
 
 bool get isPhone {
   if (kIsWeb) return false;
