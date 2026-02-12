@@ -51,7 +51,7 @@ bool get isIPad {
   return false;
 }
 
-bool isDesktop = (kIsWeb || isPhone) ? false : true;
+bool get isDesktop => !kIsWeb && !isPhone && !isTablet;
 
 bool isWeb = kIsWeb;
 
@@ -80,7 +80,26 @@ bool get isWebInMobile => isWebInIos || isWebInAndroid;
 
 bool get isWebInWeChat => userAgent.contains("Micro" + "Messenger");
 
-bool isPhone = isIOS || isAndroid;
+bool get isTablet {
+  if (kIsWeb) return false;
+  if (isIPad) return true;
+  if (isAndroid) {
+    try {
+      final view = WidgetsBinding.instance.platformDispatcher.views.first;
+      final logicalSize = view.physicalSize / view.devicePixelRatio;
+      return logicalSize.shortestSide >= 600;
+    } catch (_) {
+      return false;
+    }
+  }
+  return false;
+}
+
+bool get isPhone {
+  if (kIsWeb) return false;
+  if (isIOS || isAndroid) return !isTablet;
+  return false;
+}
 
 /// flutter run --dart-define=app-channel=official
 /// 多渠道打包
