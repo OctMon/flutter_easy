@@ -1,4 +1,4 @@
-## 3.14.4
+## 3.18.4
 * add isTablet
 * add sharePositionOrigin
 
