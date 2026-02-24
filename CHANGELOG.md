@@ -1,3 +1,7 @@
+## 3.14.4
+* add isTablet
+* add sharePositionOrigin
+
 ## 3.18.3
 * base text field maxLines ineffective
 * base app add builder
