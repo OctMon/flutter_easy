@@ -1,15 +1,13 @@
+import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:archive/archive_io.dart';
 import 'package:dart_art/dart_art.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy/extension/src/dynamic_extensions.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart' as Path;
 
 import '../../components/src/base.dart';
 import '../../components/src/base_state.dart';
@@ -19,11 +17,12 @@ import 'color_util.dart';
 import 'date_util.dart';
 import 'global_util.dart';
 import 'json_util.dart';
+import 'logger/log_backend.dart';
+import 'logger/log_backend_factory.dart';
 import 'network_util.dart';
 import 'package_info_util.dart';
 import 'share_util.dart';
 import 'toast_util.dart';
-import 'vendor_util.dart';
 
 LogFile? logFile;
 
@@ -37,23 +36,48 @@ String _colorize(String message, LoggerLevel LoggerLevel) {
   return LoggerLevel.ansiColorTemplate.replaceFirst("@message", message);
 }
 
-void _log(LoggerLevel level, dynamic message) {
+void _log(
+  LoggerLevel level,
+  dynamic message, {
+  String? name,
+  String? tag,
+  Object? error,
+  StackTrace? stackTrace,
+}) {
   final dateTime = DateTime.now();
+  final rawMessage = '$message';
+  final messageBuffer = StringBuffer(rawMessage);
+  if (error != null) {
+    messageBuffer.write(' error=$error');
+  }
+  if (stackTrace != null) {
+    messageBuffer
+      ..write('\n')
+      ..write(stackTrace);
+  }
+  final messageText = messageBuffer.toString();
   var timestamp = _addCostumeSplitter(
       '${dateTime.year}-${twoDigits(dateTime.month)}-${twoDigits(dateTime.day)} ${twoDigits(dateTime.hour)}:${twoDigits(dateTime.minute)}:${twoDigits(dateTime.second)}');
-  var LoggerLevel = _addCostumeSplitter(level.name);
-  var formattedMessage = timestamp + _costumeSplitter + LoggerLevel;
-  formattedMessage += _costumeSplitter + "$message";
+  var loggerLevel = _addCostumeSplitter(level.name);
+  var formattedMessage = timestamp + _costumeSplitter + loggerLevel;
+  formattedMessage += _costumeSplitter + messageText;
 
-  logFile?.log(formattedMessage);
+  logFile?._write(
+    level,
+    rawMessage,
+    formattedMessage,
+    timestamp: dateTime,
+    name: name,
+    tag: tag,
+    error: error?.toString(),
+    stackTrace: stackTrace?.toString(),
+  );
 
   if (isDebug || isAppDebugFlag) {
     if (isIOS) {
       developer.log(formattedMessage, name: appName);
     } else {
-      var colorMessage =
-          _addCostumeSplitter(appName) + _costumeSplitter + formattedMessage;
-      colorMessage = _colorize(formattedMessage, level);
+      var colorMessage = _colorize(formattedMessage, level);
 
       for (var line in colorMessage.split('\n')) {
         print(line);
@@ -65,37 +89,35 @@ void _log(LoggerLevel level, dynamic message) {
   }
 }
 
-Future<String> _zipLog(Map<String, dynamic> params) async {
+void _reportLogBackendFailure(Object error, StackTrace stackTrace) {
+  var loggerName = 'flutter_easy';
   try {
-    String path = params["path"];
-    Directory directory = params["dir"];
-    File file = File("$path/log.zip");
-    if (file.existsSync()) {
-      file.deleteSync();
+    if (appName.isNotEmpty) {
+      loggerName = appName;
     }
-    final encoder = ZipFileEncoder();
-    encoder.create("$path/log.zip", level: 9);
-    await encoder.addDirectory(directory, level: 9);
-    encoder.closeSync();
-    return file.path;
-  } catch (e) {
-    return "";
+  } catch (_) {
+    // PackageInfoUtil may not have been initialized by direct LogFile users.
   }
+  developer.log(
+    'Log backend failure: $error',
+    name: loggerName,
+    error: error,
+    stackTrace: stackTrace,
+  );
 }
 
 Future<String?> appLogZipFile() async {
-  final dir = logFile?.getDir();
-  if (dir?.existsSync() ?? false) {
-    String path = (await getAppDocumentsDirectory()).path;
-    String result = await compute(_zipLog, {
-      "path": path,
-      "dir": dir,
-    });
-    if (result.isNotEmpty) {
-      return result;
-    }
+  final file = logFile;
+  if (file == null) {
+    return null;
   }
-  return null;
+  try {
+    final path = (await getAppDocumentsDirectory()).path;
+    return await file.createArchive(path);
+  } catch (error, stackTrace) {
+    _reportLogBackendFailure(error, stackTrace);
+    return null;
+  }
 }
 
 class LogFile {
@@ -111,17 +133,26 @@ class LogFile {
 
   late String _fileId = "";
 
-  late bool enable;
-
-  BaseDateFormat _format = BaseDateFormat("yyyy_MM_dd_HH_mm_ss");
-
   late int _hours = 24;
+
+  late final EasyLogBackend _backend;
+  late final Future<void> _initializing;
+  final List<EasyLogBackendRecord> _pendingRecords = <EasyLogBackendRecord>[];
+  bool _initialized = false;
+  bool _enable = false;
+  int _sequence = 0;
+
+  static const int _memoryBufferLimit = 2000;
 
   LogFile(this.location,
       {required bool enable,
       this.wrapSplitter,
       String? singleFileSizeLimit,
-      int? singleFileHourLimit}) {
+      int? singleFileHourLimit,
+      String? nameSpace,
+      LoggerLevel? minLevel,
+      Duration? retention,
+      int maxDiskSizeBytes = 0}) {
     if (singleFileSizeLimit != null) {
       final size = BinarySize.parse(singleFileSizeLimit);
       if (size != null) {
@@ -131,161 +162,201 @@ class LogFile {
     if (singleFileHourLimit != null) {
       _hours = singleFileHourLimit;
     }
-    getFileId();
-    this.enable = enable;
+    _enable = enable;
+    _backend = createEasyLogBackend(
+      EasyLogBackendConfig(
+        location: location,
+        nameSpace: _validNameSpace(nameSpace),
+        enabled: enable,
+        minLevel: (minLevel ?? LoggerLevel.debug).nativeValue,
+        rotationHours: _hours <= 0 ? 24 : _hours,
+        singleFileSizeBytes: this.singleFileSizeLimit.bytesCount.toInt(),
+        retention: retention ?? const Duration(hours: 48),
+        maxDiskSizeBytes: maxDiskSizeBytes,
+      ),
+      onFailure: _reportLogBackendFailure,
+    );
+    _initializing = _initialize();
   }
 
+  bool get enable => _enable;
+
+  set enable(bool value) {
+    _enable = value;
+    _backend.enable = value;
+  }
+
+  Future<void> _initialize() async {
+    await _backend.initialize();
+    _initialized = true;
+    final pending = List<EasyLogBackendRecord>.of(_pendingRecords);
+    _pendingRecords.clear();
+    for (final record in pending) {
+      _backend.write(record);
+    }
+  }
+
+  Future<void> initialize() => _initializing;
+
   void getFileId() {
-    var maxFileName = "";
-    for (var pathStr in files()) {
-      var name = Path.basename(pathStr);
-      name = name.replaceAll(".log", "");
-      maxFileName = maxFileName.compareTo(name) < 0 ? name : maxFileName;
-    }
-    if (_format.tryParse(maxFileName) != null &&
-        DateTime.now()
-            .subtract(Duration(hours: _hours))
-            .isBefore(_format.parse(maxFileName))) {
-      _fileId = maxFileName;
-    } else {
-      _fileId = _format.format(DateTime.now());
-    }
+    _fileId = getFileName().replaceAll(RegExp(r'\.(log|mx)$'), '');
   }
 
   String getFileName() {
-    var file = File('$location/$_fileId.log');
-    if (file.existsSync()) {
-      var size = BinarySize()..bytesCount = BigInt.from(file.lengthSync());
-      if (_format.tryParse(_fileId) != null &&
-          _format.parse(_fileId)
-              .add(Duration(hours: _hours))
-              .isAfter(DateTime.now()) &&
-          size < singleFileSizeLimit) {
-        return "$_fileId.log";
-      }
+    final current = _backend.currentFileObject;
+    final path = current?.path?.toString() ?? '';
+    if (path.isEmpty) {
+      return _fileId.isEmpty ? '' : _fileId;
     }
-    clearCache();
-    _fileId = _format.format(DateTime.now());
-    return "$_fileId.log";
+    return path.split(RegExp(r'[/\\]')).last;
   }
 
   void log(String message) {
-    if (enable) {
-      _pushLine(wrapSplitter != null
-          ? message.replaceAll("\n", wrapSplitter!)
-          : message);
-    }
+    _write(
+      LoggerLevel.info,
+      message,
+      message,
+      timestamp: DateTime.now(),
+    );
   }
 
-  void _pushLine(String line) {
-    buffer.add(line);
-
-    // if (options.useBuffer == false || buffer.length >= options.bufferLineLength) {
-    flush();
-
-    buffer.clear();
-    // }
+  void _write(
+    LoggerLevel level,
+    String message,
+    String formattedMessage, {
+    required DateTime timestamp,
+    String? name,
+    String? tag,
+    String? error,
+    String? stackTrace,
+  }) {
+    if (!enable) {
+      return;
+    }
+    final persistedMessage = wrapSplitter == null
+        ? message
+        : message.replaceAll('\n', wrapSplitter!);
+    final persistedFormatted = wrapSplitter == null
+        ? formattedMessage
+        : formattedMessage.replaceAll('\n', wrapSplitter!);
+    final record = EasyLogBackendRecord(
+      sequenceId: ++_sequence,
+      timestamp: timestamp,
+      level: level.nativeValue,
+      message: persistedMessage,
+      formattedMessage: persistedFormatted,
+      name: name,
+      tag: tag,
+      error: error,
+      stackTrace: stackTrace == null
+          ? null
+          : (wrapSplitter == null
+              ? stackTrace
+              : stackTrace.replaceAll('\n', wrapSplitter!)),
+    );
+    buffer.add(persistedFormatted);
+    if (buffer.length > _memoryBufferLimit) {
+      buffer.removeRange(0, buffer.length - _memoryBufferLimit);
+    }
+    if (_initialized) {
+      _backend.write(record);
+    } else {
+      _pendingRecords.add(record);
+    }
   }
 
   void flush() {
-    var file = File('$location/${getFileName()}');
-    if (file.existsSync() == false) {
-      file.createSync(recursive: true);
-    }
-
-    var content = '${buffer.join('\n')}\n';
-    file.writeAsStringSync(content, mode: FileMode.writeOnlyAppend);
+    unawaited(flushAsync().catchError((Object error, StackTrace stackTrace) {
+      _reportLogBackendFailure(error, stackTrace);
+    }));
   }
 
-  Future<String> read() {
-    var file = File('$location/${getFileName()}');
-    if (file.existsSync() == false) {
-      file.createSync(recursive: true);
-    }
+  Future<void> flushAsync() async {
+    await initialize();
+    await _backend.flush();
+  }
 
-    return file.readAsString();
+  Future<String> read() async {
+    await initialize();
+    if (_backend.isBinary) {
+      return buffer.isEmpty ? '' : '${buffer.join('\n')}\n';
+    }
+    return _backend.readCurrent();
   }
 
   Future<File?> getCurrentFile() async {
-    var file = File('$location/${getFileName()}');
-    if (file.existsSync() == false) {
-      return null;
-    }
-    return file;
+    await initialize();
+    final current = _backend.currentFileObject;
+    final currentPath = current?.path?.toString() ?? '';
+    return currentPath.isEmpty ? null : File(currentPath);
   }
 
   Future<int> filesCount() async {
-    var dir = Directory(location);
-    if (dir.existsSync()) {
-      return await dir.list().length;
-    }
-    return 0;
+    await initialize();
+    return (await _backend.files()).length;
   }
 
   Future<BinarySize?> filesSize() async {
-    var dir = Directory(location);
-    if (dir.existsSync()) {
-      int totalSize = 0;
-      try {
-        // 列出目录下的所有文件和子目录
-        await for (var entity
-            in dir.list(recursive: true, followLinks: false)) {
-          // 如果是文件，则获取其大小并累加
-          if (entity is File) {
-            totalSize += await entity.length();
-          }
-        }
-      } catch (e) {
-        logError("Error calculating size: $e");
-        return null;
-      }
-      var size = BinarySize()..bytesCount = BigInt.from(totalSize);
-      return size;
-    }
-    return null;
+    await initialize();
+    final files = await _backend.files();
+    final total = files.fold<int>(0, (sum, file) => sum + file.sizeBytes);
+    return BinarySize()..bytesCount = BigInt.from(total);
   }
 
   List<String> files() {
-    var dir = Directory(location);
-    var list = <String>[];
-    if (dir.existsSync()) {
-      for (var value in dir.listSync()) {
-        FileSystemEntityType type = FileSystemEntity.typeSync(value.path);
-        if (type == FileSystemEntityType.file) {
-          list.add(value.path);
-        }
-      }
-    }
-    return list;
+    return _backend
+        .filesSnapshot()
+        .map((file) => file.path)
+        .toList(growable: false);
   }
 
-  Directory getDir() {
-    return Directory(location);
-  }
+  Directory getDir() => Directory(location);
 
   Future<void> clear() async {
-    for (var path in files()) {
-      await File(path).delete();
-    }
+    await initialize();
+    await _backend.clear();
+    buffer.clear();
   }
 
   Future<void> clearCache() async {
-    for (var pathStr in files()) {
-      var name = Path.basename(pathStr);
-      name = name.replaceAll(".log", "");
-      if (_format.tryParse(name) != null &&
-          _format.parse(name)
-              .isBefore(DateTime.now().subtract(Duration(hours: _hours * 2)))) {
-        await File(pathStr).delete();
-      } else if ((int.tryParse(name) ?? 0) > 0) {
-        int time = int.tryParse(name) ?? 0;
-        if (DateTime.fromMillisecondsSinceEpoch(time)
-            .isBefore(DateTime.now().subtract(Duration(hours: _hours * 2)))) {
-          await File(pathStr).delete();
-        }
-      }
-    }
+    await initialize();
+    await _backend.clearExpired();
   }
+
+  Future<String?> createArchive(String outputDirectory) async {
+    await flushAsync();
+    return _backend.createArchive(outputDirectory);
+  }
+
+  Future<void> dispose() async {
+    await initialize();
+    await _backend.dispose();
+  }
+}
+
+String _validNameSpace(String? value) {
+  if (value != null && value.trim().isNotEmpty) {
+    return value.trim();
+  }
+  try {
+    if (appPackageName.isNotEmpty) {
+      return appPackageName;
+    }
+  } catch (_) {
+    // LogFile can be constructed before PackageInfoUtil.init().
+  }
+  try {
+    if (appName.isNotEmpty) {
+      return appName;
+    }
+  } catch (_) {
+    // Fall back to a stable internal namespace below.
+  }
+  return 'flutter_easy';
+}
+
+Future<void> flushLog() async {
+  await logFile?.flushAsync();
 }
 
 class LogFileClearMode {
@@ -307,6 +378,22 @@ class LoggerLevel {
 
   final String name;
 
+  int get nativeValue {
+    switch (name.toLowerCase()) {
+      case 'info':
+        return 1;
+      case 'warning':
+      case 'warn':
+        return 2;
+      case 'error':
+        return 3;
+      case 'fatal':
+        return 4;
+      default:
+        return 0;
+    }
+  }
+
   late String? ansiColor;
 
   String get ansiColorTemplate => "\x1B[$ansiColor@message\x1B[0m";
@@ -314,24 +401,42 @@ class LoggerLevel {
   LoggerLevel(this.name, {this.ansiColor});
 }
 
-void logDebug(dynamic message) {
-  _log(LoggerLevel.debug, message);
+void logDebug(dynamic message, {String? name, String? tag}) {
+  _log(LoggerLevel.debug, message, name: name, tag: tag);
 }
 
-void logInfo(dynamic message) {
-  _log(LoggerLevel.info, message);
+void logInfo(dynamic message, {String? name, String? tag}) {
+  _log(LoggerLevel.info, message, name: name, tag: tag);
 }
 
-void logWarning(dynamic message) {
-  _log(LoggerLevel.warning, message);
+void logWarning(
+  dynamic message, {
+  String? name,
+  String? tag,
+}) {
+  _log(LoggerLevel.warning, message, name: name, tag: tag);
 }
 
-void logError(dynamic message) {
-  _log(LoggerLevel.error, message);
+void logError(
+  dynamic message, {
+  String? name,
+  String? tag,
+  Object? error,
+  StackTrace? stackTrace,
+}) {
+  _log(LoggerLevel.error, message,
+      name: name, tag: tag, error: error, stackTrace: stackTrace);
 }
 
-void logFatal(dynamic message) {
-  _log(LoggerLevel.fatal, message);
+void logFatal(
+  dynamic message, {
+  String? name,
+  String? tag,
+  Object? error,
+  StackTrace? stackTrace,
+}) {
+  _log(LoggerLevel.fatal, message,
+      name: name, tag: tag, error: error, stackTrace: stackTrace);
 }
 
 void logRequest(RequestOptions options) {

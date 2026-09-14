@@ -160,6 +160,10 @@ Future<void> initEasyApp({
   String? logFileWrapSplitter,
   String? singleFileSizeLimit,
   int? singleFileHourLimit,
+  LoggerLevel? minLogLevel,
+  String? logNameSpace,
+  Duration? logRetention,
+  int maxLogDiskSizeBytes = 0,
 }) async {
   /// https://api.flutter-io.cn/flutter/dart-core/bool/bool.fromEnvironment.html
   const appDebugFlag = bool.fromEnvironment("app-debug-flag");
@@ -177,13 +181,19 @@ Future<void> initEasyApp({
 
   if (!isWeb) {
     logToFile ??= isAppDebugFlag;
+    await logFile?.dispose();
     logFile = LogFile(
       join((await getAppDocumentsDirectory()).path, "logs"),
       enable: logToFile,
       wrapSplitter: logFileWrapSplitter,
       singleFileSizeLimit: singleFileSizeLimit,
       singleFileHourLimit: singleFileHourLimit,
+      minLevel: minLogLevel,
+      nameSpace: logNameSpace,
+      retention: logRetention,
+      maxDiskSizeBytes: maxLogDiskSizeBytes,
     );
+    await logFile!.initialize();
     logDebug("logFile: ${logFile?.location}");
   }
 
