@@ -1,3 +1,12 @@
+## 3.19.0
+* refactor log persistence with FIFO plaintext backend
+* add configurable log level, namespace, retention and disk size limit
+* decouple log file rotation from total retention period
+* add daily log files with ordered sequence numbers
+* harden expired and oversized log cleanup
+* preserve logs directory in shared zip archives
+* add flushLog and bounded in-memory log viewer
+
 ## 3.18.4
 * add isTablet
 * add sharePositionOrigin
