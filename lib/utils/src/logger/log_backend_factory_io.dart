@@ -166,11 +166,16 @@ final class TextEasyLogBackend extends QueuedEasyLogBackend {
     }
     final oldestKeep = _oldestKeepDay(DateTime.now(), _config.retention);
     await for (final entity in directory.list()) {
-      if (entity is! File || entity.path == _currentFile?.path) {
+      if (entity is! File ||
+          entity.path == _currentFile?.path ||
+          !entity.path.toLowerCase().endsWith('.log')) {
         continue;
       }
       final fileDate = _parseLogFileDate(entity.path, _config.nameSpace);
-      if (fileDate != null && fileDate.isBefore(oldestKeep)) {
+      final isExpired = fileDate != null
+          ? fileDate.isBefore(oldestKeep)
+          : (await entity.lastModified()).isBefore(oldestKeep);
+      if (isExpired) {
         await entity.delete();
       }
     }
@@ -181,6 +186,7 @@ final class TextEasyLogBackend extends QueuedEasyLogBackend {
     if (limit <= 0) {
       return;
     }
+    await _sink?.flush();
     final fileList = filesSnapshot()
       ..sort((a, b) => a.updatedAt.compareTo(b.updatedAt));
     var total = fileList.fold<int>(0, (sum, item) => sum + item.sizeBytes);

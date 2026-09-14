@@ -8,6 +8,10 @@ import 'app.dart';
 
 void main() async {
   await initEasyApp(
+    logToFile: true,
+    singleFileHourLimit: 24,
+    logRetention: const Duration(days: 7),
+    maxLogDiskSizeBytes: 0,
     appBaseURLChangedCallback: () {
       // Reload API
       configAPI(null);
