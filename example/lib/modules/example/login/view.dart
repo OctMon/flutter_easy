@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
                             ? Colors.white30
                             : Colors.black12,
                         controller: state.phoneNumberController,
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.all(12),
                         maxLength: 11,
                         placeholder: S.of(context).example_InputPhoneNumber,
                         keyboardType: TextInputType.number,
@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget {
                           ? Colors.white30
                           : Colors.black12,
                       controller: state.passwordController,
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      padding: const EdgeInsets.all(12),
                       maxLength: 16,
                       placeholder: S.of(context).example_InputPassword,
                       obscureText: true,

@@ -1275,7 +1275,7 @@ class BaseTextField extends StatelessWidget {
       this.borderRadius,
       this.boxShadow,
       this.backgroundColor,
-      this.maxLines,
+      this.maxLines = 1,
       this.style,
       this.placeholderStyle,
       this.controller,
@@ -1308,7 +1308,7 @@ class BaseTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius ?? 5.r),
         boxShadow: boxShadow,
       ),
-      child: maxLength == null || maxLines! > 1
+      child: maxLength == null || (maxLines != null && maxLines! > 1)
           ? Padding(
               padding: padding,
               child: Row(
