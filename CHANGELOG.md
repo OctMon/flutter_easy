@@ -1,3 +1,6 @@
+## 3.19.1
+* default text fields to a single line
+
 ## 3.19.0
 * refactor log persistence with FIFO plaintext backend
 * add configurable log level, namespace, retention and disk size limit
