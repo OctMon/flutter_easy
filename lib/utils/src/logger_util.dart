@@ -642,6 +642,10 @@ class EasyLogController extends BaseStateController<List<int>> {
 }
 
 class EasyLogPage extends StatelessWidget {
+  EasyLogPage({super.key});
+
+  final GlobalKey _shareButtonKey = GlobalKey();
+
   final tabs = [
     const Tab(text: "All"),
     const Tab(text: "Debug"),
@@ -710,12 +714,25 @@ class EasyLogPage extends StatelessWidget {
               },
             ),
             BaseButton(
+              key: _shareButtonKey,
               padding: EdgeInsets.only(left: 15),
               child: Icon(
                 CupertinoIcons.share,
               ),
-              onPressed: () {
-                shareLogZiPFile();
+              onPressed: () async {
+                final renderObject =
+                    _shareButtonKey.currentContext?.findRenderObject();
+                final sharePositionOrigin = renderObject is RenderBox
+                    ? renderObject.localToGlobal(Offset.zero) &
+                        renderObject.size
+                    : null;
+                try {
+                  await shareLogZiPFile(
+                      sharePositionOrigin: sharePositionOrigin);
+                } catch (error, stackTrace) {
+                  _reportLogBackendFailure(error, stackTrace);
+                  showErrorToast("Failed to share logs");
+                }
               },
             ),
             BaseButton(

@@ -79,14 +79,14 @@ Future<void> shareFile(
   final path = await downloadCopyFile(url: url, savePath: savePath);
 
   if (path != null) {
-    shareFiles(path: [path], sharePositionOrigin: sharePositionOrigin);
+    await shareFiles(path: [path], sharePositionOrigin: sharePositionOrigin);
   }
 }
 
 Future<void> shareFiles(
     {required List<String> path, Rect? sharePositionOrigin}) async {
   if (path.isNotEmpty) {
-    Share.shareXFiles(path.map((e) => XFile(e)).toList(),
+    await Share.shareXFiles(path.map((e) => XFile(e)).toList(),
         sharePositionOrigin: sharePositionOrigin);
   }
 }
@@ -94,7 +94,7 @@ Future<void> shareFiles(
 Future<void> shareLogZiPFile({Rect? sharePositionOrigin}) async {
   final zipFile = await appLogZipFile();
   if (zipFile != null) {
-    shareFiles(path: [zipFile], sharePositionOrigin: sharePositionOrigin);
+    await shareFiles(path: [zipFile], sharePositionOrigin: sharePositionOrigin);
   }
 }
 
