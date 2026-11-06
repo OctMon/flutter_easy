@@ -27,6 +27,9 @@ migration:
     - platform: web
       create_revision: dec2ee5c1f98f8e84a7d5380c05eb8a3d0a81668
       base_revision: dec2ee5c1f98f8e84a7d5380c05eb8a3d0a81668
+    - platform: ohos
+      create_revision: adaf911c35c9136a7d18fc424d714c9ec7724e60
+      base_revision: adaf911c35c9136a7d18fc424d714c9ec7724e60
 
   # User provided section
 
