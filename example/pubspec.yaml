@@ -12,7 +12,8 @@ version: 1.0.0+1
 web_base_href: /example/
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
+  sdk: '>=3.6.2 <4.0.0'
+  flutter: '>=3.27.0'
 
 dependencies:
   flutter:
@@ -28,6 +29,13 @@ dependencies:
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.
     path: ../
+
+  # Startup dependencies for the HarmonyOS example host.
+  shared_preferences_ohos: 2.2.0
+  path_provider_ohos: 2.2.1
+  package_info_plus_harmonyos: 0.0.1
+  device_info_plus_harmonyos: 0.0.5
+  url_launcher_ohos: ^6.3.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -17,7 +17,6 @@ void main() async {
       configAPI(null);
     },
     logFileWrapSplitter: " ",
-    customExceptionReport: (error, stack) {},
   );
   await initApp();
   if (isWeb && !isWebInMobile) {
