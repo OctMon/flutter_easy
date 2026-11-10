@@ -7,8 +7,20 @@ on:
 
 jobs:
   publish:
+    name: Publish to pub.dev
+    runs-on: ubuntu-latest
     permissions:
+      contents: read
       id-token: write # Required for authentication using OIDC
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    # with:
-    #   working-directory: path/to/package/within/repository
+    steps:
+      - uses: actions/checkout@v6
+      # Provision pub.dev OIDC authentication before adding Flutter's Dart to PATH.
+      - uses: dart-lang/setup-dart@v1
+      - name: Set up Flutter from example/pubspec.yaml
+        uses: ./.github/actions/setup-flutter
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Validate package
+        run: flutter pub publish --dry-run
+      - name: Publish to pub.dev
+        run: flutter pub publish --force

@@ -16,7 +16,7 @@ import '../../utils/src/intl_util.dart';
 import '../../utils/src/json_util.dart';
 import '../../utils/src/logger_util.dart';
 import '../../utils/src/network_util.dart';
-import '../../utils/src/package_info_util.dart';
+import '../../utils/src/package_info_util.dart' as package_info;
 import '../../utils/src/share_util.dart';
 import '../../utils/src/shared_preferences_util.dart';
 import '../../utils/src/vendor_util.dart';
@@ -175,7 +175,7 @@ Future<void> initEasyApp({
   BaseEasyLoading.instance.maskType = BaseEasyLoadingMaskType.black;
 
   final utils = await Future.wait([
-    PackageInfoUtil.init(),
+    package_info.PackageInfoUtil.init(),
     SharedPreferencesUtil.init(),
   ]);
 
@@ -351,7 +351,7 @@ class _BaseAppState extends State<BaseApp> {
                     color: Colors.transparent,
                     child: Center(
                       child: Text(
-                        "$appVersion+$appBuildNumber",
+                        "${package_info.appVersion}+${package_info.appBuildNumber}",
                         style: TextStyle(
                           fontSize: 12,
                           // color: Colors.black38,
