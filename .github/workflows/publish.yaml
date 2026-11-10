@@ -14,6 +14,15 @@ jobs:
       id-token: write # Required for authentication using OIDC
     steps:
       - uses: actions/checkout@v6
+      - name: Check generated files are not tracked
+        shell: bash
+        run: |
+          tracked_files=$(git ls-files -- ':(glob)**/Flutter/ephemeral/**')
+          if [[ -n "$tracked_files" ]]; then
+            echo '::error::Flutter/ephemeral contains tracked generated files. Remove them from version control before publishing.'
+            printf '%s\n' "$tracked_files"
+            exit 1
+          fi
       # Provision pub.dev OIDC authentication before adding Flutter's Dart to PATH.
       - uses: dart-lang/setup-dart@v1
       - name: Set up Flutter from example/pubspec.yaml
