@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 import 'package:flutter_easy_example/generated/l10n.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,58 +18,67 @@ class ImageColorsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ImageColorsController controller = Get.put(ImageColorsController());
 
-    void onImagePickerClicked() async {
-      if (isWeb) {
-        const label = 'multiImage';
-        const xType = XTypeGroup(
-            label: label, extensions: ["bmp", "gif", "jpeg", "jpg", "png"]);
-        final List<XFile> files = await openFiles(acceptedTypeGroups: [xType]);
-        if (files.isNotEmpty) {
-          List<String> paths = files.map((e) => e.path).toList();
-          if (paths.isNotEmpty) {
-            File file = File(paths.first);
-            controller.updateFile(file);
+    Future<void> onImagePickerClicked() async {
+      if (controller.isPicking) return;
+      controller.isPicking = true;
+      var usingCamera = false;
+      try {
+        const imageTypes = XTypeGroup(
+          label: 'Images',
+          extensions: ['bmp', 'gif', 'jpeg', 'jpg', 'png', 'webp'],
+          mimeTypes: ['image/*'],
+        );
+        XFile? image;
+        if (isWeb || isDesktop) {
+          image = await openFile(acceptedTypeGroups: [imageTypes]);
+        } else {
+          final selected = await showBaseBottomSheet<int>(
+            BaseActionSheet(
+              actions: <Widget>[
+                BaseActionSheetAction(
+                  child: const Text('拍照'),
+                  onPressed: () => offBack(0),
+                ),
+                BaseActionSheetAction(
+                  child: const Text('从相册选择'),
+                  onPressed: () => offBack(1),
+                ),
+                BaseActionSheetAction(
+                  child: const Text('从文件选择图片'),
+                  onPressed: () => offBack(2),
+                ),
+              ],
+              cancelButton: BaseActionSheetAction(
+                isDestructiveAction: true,
+                onPressed: () => offBack(),
+                child: const Text('取消'),
+              ),
+            ),
+          );
+          if (selected == null) return;
+          if (selected == 2) {
+            image = await openFile(acceptedTypeGroups: [imageTypes]);
+          } else {
+            usingCamera = selected == 0;
+            image = await ImagePicker().pickImage(
+              source: usingCamera ? ImageSource.camera : ImageSource.gallery,
+            );
           }
         }
-        return;
-      }
-      final selected = await showBaseBottomSheet<int>(
-        BaseActionSheet(
-          actions: <Widget>[
-            BaseActionSheetAction(
-              child: const Text('拍照'),
-              onPressed: () {
-                offBack(0);
-              },
-            ),
-            BaseActionSheetAction(
-              child: const Text('从相册选择'),
-              onPressed: () {
-                offBack(1);
-              },
-            ),
-          ],
-          cancelButton: BaseActionSheetAction(
-            isDestructiveAction: true,
-            onPressed: () {
-              offBack();
-            },
-            child: const Text('取消'),
-          ),
-        ),
-      );
-
-      final ImagePicker picker = ImagePicker();
-      String? path;
-      if (selected == 0) {
-        // 调用相机
-        path = (await picker.pickImage(source: ImageSource.camera))?.path;
-      } else if (selected == 1) {
-        // 调用相册
-        path = (await picker.pickImage(source: ImageSource.gallery))?.path;
-      }
-      if (path != null) {
-        controller.updateFile(File(path));
+        if (image != null) await controller.updateImage(image);
+      } catch (error, stack) {
+        logError(error, stackTrace: stack);
+        if (error is PlatformException &&
+            (error.code == 'camera_access_denied' ||
+                error.code == 'camera_permission_error')) {
+          showErrorToast('无法访问相机，请在系统设置中检查相机权限');
+        } else if (usingCamera) {
+          showErrorToast('无法打开相机，请确认设备有可用的相机应用');
+        } else {
+          showErrorToast('无法选择或读取图片，请重新选择有效的图片文件');
+        }
+      } finally {
+        controller.isPicking = false;
       }
     }
 
@@ -77,10 +87,8 @@ class ImageColorsPage extends StatelessWidget {
         title: Text(S.of(context).example_ExtractProminentColorsFromAnImage),
         actions: [
           BaseButton(
+            onPressed: onImagePickerClicked,
             child: const Icon(Icons.add),
-            onPressed: () {
-              onImagePickerClicked();
-            },
           ),
         ],
       ),

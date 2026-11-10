@@ -1,7 +1,35 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easy/flutter_easy.dart';
 
 import 'generated/l10n.dart';
+
+Future<void> _runShareExample(Future<dynamic> Function() action) async {
+  try {
+    await action();
+  } catch (error, stack) {
+    logError(error, stackTrace: stack);
+    showErrorToast('分享失败，请重试');
+  }
+}
+
+Future<void> _shareExampleFile() async {
+  if (isWeb) {
+    await shareFile(url: 'https://picsum.photos/400/400.jpg');
+    return;
+  }
+  // Use a bundled image so the native share example also works offline.
+  final data = await rootBundle.load('assets/images/placeholder_remote.png');
+  final directory = await getAppTemporaryDirectory();
+  await directory.create(recursive: true);
+  final path = getJoin(directory.path, 'share_example.png');
+  await File(path).writeAsBytes(
+    data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+  );
+  await shareFiles(path: [path]);
+}
 
 class ExampleController extends GetxController {
 
@@ -23,7 +51,7 @@ class ExamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!isAppDebugFlag) {
+    if (!isDebug && !isAppDebugFlag) {
       return const SizedBox.shrink();
     }
 
@@ -124,30 +152,28 @@ List<BaseExampleWrap> get exampleList {
             key: "分享",
             value: "APP",
             extend: () async {
-              shareApp();
+              await _runShareExample(shareApp);
             },
           ),
           BaseKeyValue(
             key: "分享",
             value: "URL",
             extend: () async {
-              shareURL("https://www.octmon.com/");
+              await _runShareExample(() => shareURL("https://www.octmon.com/"));
             },
           ),
           BaseKeyValue(
             key: "分享",
             value: "文本",
             extend: () async {
-              shareText("text", subject: "subject");
+              await _runShareExample(() => shareText("text", subject: "subject"));
             },
           ),
           BaseKeyValue(
             key: "分享",
             value: "文件",
             extend: () async {
-              shareFile(
-                  url:
-                      "https://picsum.photos/${(screenWidthDp * screenDevicePixelRatio).round()}/${(screenHeightDp * screenDevicePixelRatio).round()}.jpg");
+              await _runShareExample(_shareExampleFile);
             },
           ),
         ],

@@ -7,3 +7,13 @@ dependencies:
   package_info_plus_harmonyos: 0.0.1
   device_info_plus_harmonyos: 0.0.5
   url_launcher_ohos: ^6.3.0
+  image_picker_harmonyos: 1.2.4
+  file_selector_harmonyos: 1.1.0
+  connectivity_plus_harmonyos: 7.3.2
+dependency_overrides:
+  share_plus:
+    git:
+      url: https://gitcode.com/CPF-Flutter/flutter_plus_plugins.git
+      ref: 55de300a8627c55cd45ac86e6a26bcae8e0ca4cf
+      path: packages/share_plus/share_plus
+  share_plus_platform_interface: 5.0.2

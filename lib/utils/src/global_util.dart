@@ -302,6 +302,8 @@ Future<bool> canLaunch(String urlString) =>
 
 typedef BaseLaunchMode = urlLauncher.LaunchMode;
 
+/// 鸿蒙默认使用系统浏览器或对应应用打开，避免依赖宿主额外注册 WebView 页面。
+/// 显式指定应用内模式时，仍需按鸿蒙插件说明配置页面和路由。
 Future<bool> onLaunch(
   String urlString, {
   BaseLaunchMode mode = BaseLaunchMode.platformDefault,
@@ -310,7 +312,9 @@ Future<bool> onLaunch(
   String? webOnlyWindowName,
 }) =>
     urlLauncher.launchUrl(Uri.parse(urlString),
-        mode: mode,
+        mode: isOhos && mode == BaseLaunchMode.platformDefault
+            ? BaseLaunchMode.externalApplication
+            : mode,
         webViewConfiguration: webViewConfiguration,
         webOnlyWindowName: webOnlyWindowName);
 

@@ -75,14 +75,14 @@ class LoginPage extends StatelessWidget {
                               child: Text(
                                 S.of(context).example_NewUserRegister,
                               ),
-                              onPressed: () async {},
+                              onPressed: () => showToast("示例未接入注册服务"),
                             ),
                             BaseButton(
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 S.of(context).example_ForgetPassword,
                               ),
-                              onPressed: () async {},
+                              onPressed: () => showToast("示例未接入找回密码服务"),
                             ),
                           ],
                         ),
@@ -148,7 +148,8 @@ class LoginPage extends StatelessWidget {
                               style: TextStyle(
                                 color: setLightPrimaryColor,
                               ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => showToast("示例未配置用户协议链接"),
                             ),
                             TextSpan(
                               text: S.of(context).example_And,
@@ -158,7 +159,8 @@ class LoginPage extends StatelessWidget {
                               style: TextStyle(
                                 color: setLightPrimaryColor,
                               ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => showToast("示例未配置隐私政策链接"),
                             ),
                           ],
                         ),

@@ -16,9 +16,9 @@
         "name": "EntryAbility",
         "srcEntry": "./ets/entryability/EntryAbility.ets",
         "description": "$string:EntryAbility_desc",
-        "icon": "$media:icon",
+        "icon": "$media:flutter_easy_launcher_icon",
         "label": "$string:EntryAbility_label",
-        "startWindowIcon": "$media:icon",
+        "startWindowIcon": "$media:flutter_logo_color",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
         "skills": [
@@ -36,6 +36,14 @@
     "requestPermissions": [
       {"name" :  "ohos.permission.INTERNET"},
       {"name" :  "ohos.permission.GET_NETWORK_INFO"},
+      {
+        "name": "ohos.permission.CAMERA",
+        "reason": "$string:camera_permission_reason",
+        "usedScene": {
+          "abilities": ["EntryAbility"],
+          "when": "inuse"
+        }
+      },
     ]
   }
 }

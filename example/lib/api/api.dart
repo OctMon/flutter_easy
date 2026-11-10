@@ -9,6 +9,8 @@ extension BasePathExtension on String {
 
 Future<void> configAPI(String? baseURL) async {
   Config.logEnable = false;
+  // The example is not a published store app; share its project page.
+  shareAppStoreDownloadURL = 'https://github.com/OctMon/flutter_easy';
 
   /// 测试环境
   kTestBaseURL = "https://www.mxnzp.com/";

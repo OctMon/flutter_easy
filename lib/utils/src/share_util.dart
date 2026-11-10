@@ -18,9 +18,8 @@ String shareAppStoreDownloadURL = "";
 extension StringPathExtension on String {
   /// 生成一个临时图片路径
   Future<String> get crateNewSharePath async {
-    if (!(await getShareDirectory()).existsSync()) {
-      (await getShareDirectory()).createSync();
-    }
+    final directory = await getShareDirectory();
+    await directory.create(recursive: true);
 
     String removeQueryParams(String url) {
       return url.split('?').first;

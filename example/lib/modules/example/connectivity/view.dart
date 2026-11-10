@@ -19,11 +19,18 @@ class ConnectivityPage extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("connectionStatus: ${logic.connectionStatus}}"),
-                Text("hasInternetAccess: ${logic.hasInternetAccess.value}}"),
+                Text("connectionStatus: ${logic.connectionStatus}"),
+                Text("hasInternetAccess: ${logic.hasInternetAccess.value}"),
+                if (logic.errorMessage.isNotEmpty)
+                  Text(logic.errorMessage.value),
+                const Text('此处显示网络连接类型，不代表外网一定可访问。'),
               ],
             );
           }),
+          TextButton(
+            onPressed: logic.refreshStatus,
+            child: const Text('刷新网络状态'),
+          ),
           const SizedBox(height: 30),
           SizedBox(height: 20),
           BaseRatingBar.builder(

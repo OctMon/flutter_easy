@@ -1,3 +1,8 @@
+## 3.20.0
+* add HarmonyOS platform detection, device information and system back support
+* support HarmonyOS URL launching and AppGallery links
+* add hasBottomSafeArea and fix isIPhoneX detection
+
 ## 3.19.1
 * default text fields to a single line
 

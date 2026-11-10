@@ -12,13 +12,11 @@ jobs:
     steps:
     # Step 1: 检出代码
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v6
 
     # Step 2: 设置 Flutter 环境
     - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        channel: 'stable'
+      uses: ./.github/actions/setup-flutter
 
     # Step 3: 安装依赖
     - name: Install dependencies
@@ -32,7 +30,7 @@ jobs:
 
     # Step 5: 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: example/build/web

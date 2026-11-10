@@ -105,14 +105,15 @@ class HomePage extends StatelessWidget {
               currentAccountPicture: const CircleAvatar(
                 child: Icon(Icons.home),
               ),
-              onDetailsPressed: () {},
+              onDetailsPressed: null,
               otherAccountsPictures: const <Widget>[
                 CircleAvatar(child: Icon(Icons.settings)),
               ],
               decoration: const BoxDecoration(color: Colors.green),
             ),
-            const ListTile(
+            ListTile(
               title: Text('设置'),
+              onTap: () => showToast('设置仅为界面示例，尚未接入设置页'),
               leading: Icon(Icons.settings),
               trailing: Icon(Icons.arrow_forward_ios),
             )

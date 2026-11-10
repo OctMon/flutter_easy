@@ -1,0 +1,28 @@
+name: Set up project Flutter
+description: Install the Flutter version declared by the example environment.
+
+outputs:
+  flutter-version:
+    description: Flutter SDK version read from example/pubspec.yaml.
+    value: ${{ steps.flutter-version.outputs.version }}
+
+runs:
+  using: composite
+  steps:
+    - name: Read Flutter version
+      id: flutter-version
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      run: |
+        ruby <<'RUBY' >> "$GITHUB_OUTPUT"
+        require 'yaml'
+        constraint = YAML.load_file('example/pubspec.yaml').dig('environment', 'flutter').to_s.strip
+        version = constraint[/\A(?:>=\s*|\^\s*)?(\d+\.\d+\.\d+)\z/, 1]
+        abort "Unsupported environment.flutter: #{constraint.inspect}; use a version, >=version or ^version" unless version
+        puts "version=#{version}"
+        RUBY
+    - name: Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        flutter-version: ${{ steps.flutter-version.outputs.version }}

@@ -10,13 +10,14 @@
 A common Flutter package.
 [Example](https://octmon.github.io/flutter_easy/)
 
-## HarmonyOS（鸿蒙基础功能已支持）
+## HarmonyOS
 
-example 已通过 HarmonyOS 5.1.0 / API 18 ARM64 模拟器的构建、安装、启动和主页跳转验证，
-尚未完成真机及全部功能验收。实际验证使用 Flutter OH `3.41.10-ohos-1.0.1`（Dart 3.11.5）。
+example 已在 HarmonyOS 5.1.0 / API 18 ARM64 模拟器验证构建、安装、启动、图片与文件选择、
+图片预览和颜色提取、URL 跳转、系统分享面板及网络状态读取。
+使用 Flutter OH `3.41.10-ohos-1.0.1`（Dart 3.11.5）。
 
 鸿蒙应用需要在**自己的 `pubspec.yaml`** 中额外添加以下平台实现，保留原有的
-`flutter_easy` 依赖。主包尚未自动引入这些实现，example 的鸿蒙专用依赖也不会传递给使用者的应用。
+`flutter_easy` 依赖。平台实现由应用显式声明，example 的鸿蒙专用依赖不会传递给使用者的应用。
 
 ```yaml
 dependencies:
@@ -38,8 +39,11 @@ dependencies:
 业务代码继续使用原有插件 API，无需手动修改生成的注册文件。这些适配包只声明 `ohos` 平台，
 Android/iOS 继续使用原有平台实现；但新增依赖的 SDK 版本约束对整个应用都生效。
 
-目前网络状态、分享，以及 example 的图片和文件选择仍需接入相应鸿蒙实现，
-不能据此宣称全部功能已支持鸿蒙。工具链、宿主工程及 DevEco 运行步骤见
+example 已额外接入网络状态、分享、图片和文件选择的现成鸿蒙实现，配置集中在
+`example/ohos/scripts/harmony_overrides.yaml`。使用主包的应用仍需自行配置这些平台实现，
+它们不会随 example 传递。完整 example 依赖需要 Flutter OH ≥3.41 / Dart ≥3.11；
+分享使用已适配的 `share_plus` Git 版本，仅在鸿蒙隔离工程中覆盖依赖。
+运行流程见
 [example 鸿蒙运行说明](example/README.md)。
 
 仓库内的 example 已隔离普通平台与鸿蒙的 SDK、依赖和缓存。标准 Flutter 3.44.9 继续用于普通平台；
@@ -59,6 +63,10 @@ Android/iOS 继续使用原有平台实现；但新增依赖的 SDK 版本约束
 `appStoreUrl` 及评价链接在鸿蒙使用本机包名生成 AppGallery 详情链接，格式遵循
 [华为应用市场说明](https://developer.huawei.com/consumer/cn/doc/harmonyos-faqs/appgallery-kit-faq-0002/)。
 原有 `checkVersion` 只处理 Android APK / iOS IPA，不在鸿蒙发起错误平台的版本检查。
+
+`onLaunch(url)` 在鸿蒙默认使用系统浏览器或对应应用打开，继续调用已有 `url_launcher_ohos`
+实现。显式传入 `inAppWebView` / `inAppBrowserView` 时，需要按照插件说明在宿主配置
+WebView 页面、路由及 `webViewConfiguration.headers['harmony_browser_page']`。
 
 ## Getting Started
 

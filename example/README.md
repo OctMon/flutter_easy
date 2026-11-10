@@ -2,7 +2,7 @@
 
 Demonstrates how to use the flutter_easy package.
 
-接入自己应用时需要添加的鸿蒙依赖及支持范围，见[主包 HarmonyOS 接入说明](../README.md#harmonyos鸿蒙基础功能已支持)。
+接入自己应用时需要添加的鸿蒙依赖及支持范围，见[主包 HarmonyOS 接入说明](../README.md#harmonyos)。
 
 ## 普通平台与鸿蒙环境隔离
 
@@ -82,6 +82,28 @@ DevEco Sync/构建也会自动准备隔离依赖，包括在缓存删除后恢�
 `ohos/local.properties`、`ohos/signing/`、证书、生成的插件注册文件和构建缓存已忽略，
 不要提交 DevEco 写入的签名密码、证书路径或本机绝对路径。
 
-此前已通过 HarmonyOS 5.1.0 / API 18 ARM64 模拟器的安装、启动和主页跳转验证，
-尚未完成真机及全部功能验收。当前网络状态、分享以及图片和文件选择仍需接入相应鸿蒙实现。
-本次环境隔离沿用现有适配包，不能据此宣称所有功能都已支持鸿蒙。
+鸿蒙应用名称为 `Flutter Easy`，与 Android / iOS 一致。应用图标和桌面图标复用
+`icons/icon.png`，对应 `ohos/AppScope/resources/base/media/flutter_easy_app_icon.png`
+与 `ohos/entry/src/main/resources/base/media/flutter_easy_launcher_icon.png`。
+系统启动图复用 Android / iOS 的 `flutter_logo_color.png`，使用白色背景；API 18 的
+[简易启动页](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/launch-page-config/)
+由系统将图形居中显示。更换源图后需同步对应的鸿蒙 media 资源并重新构建。
+
+鸿蒙隔离配置已接入以下现成实现，普通平台依赖保持独立：
+
+- 图片选择：`image_picker_harmonyos 1.2.4`；拍照声明 `CAMERA`，相册使用系统 PhotoPicker。
+- 文件选择：`file_selector_harmonyos 1.1.0`；通过 `XFile.readAsBytes()` 读取系统 URI 返回的内容。
+- 网络状态：`connectivity_plus_harmonyos 7.3.2`；进入页面立即查询并监听变更，可手动刷新。
+- 分享：已适配的 `share_plus` Git 版本，固定提交见 `ohos/scripts/harmony_overrides.yaml`。
+
+颜色提取页面支持相册、文件和拍照入口；分析前将图片缩小到 256×256 范围，避免大图计算阻塞。
+文件分享使用内置图片，APP 分享使用本项目地址，避免依赖不存在的商店链接或下载接口。
+选择、读取、分享失败会给出提示；取消选择会保留原图。
+
+模拟器已验证相册选择、预览与颜色提取、文件选择器、文件分享面板及保存至图库、网络状态读取。
+当前 API 18 模拟器未安装系统相机应用，已验证相机权限弹窗，拍照仍需在具备相机的设备验收。
+振动等硬件效果也需真机验证。
+
+注册、找回密码、协议链接和抽屉设置属于界面占位，点击会明确提示未接入；登录仍是模拟用户状态，
+不代表已经接入账号服务。GirlList 依赖第三方接口凭据，需要通过 `--dart-define=app_id=...`
+和 `--dart-define=app_secret=...` 配置；图片瀑布流等远程示例还依赖对应接口的可用性。
