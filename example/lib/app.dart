@@ -28,7 +28,7 @@ Future<void> initApp() async {
 
   // 首次使用 app
   final noFirstOpen = await getStorageBool(kNonFirstUseAppKey);
-  if (isAndroid && !noFirstOpen) {
+  if ((isAndroid || isOhos) && !noFirstOpen) {
     // 需要在 RootController中 同意隐私弹窗
   } else {
     await initAfterPrivate();

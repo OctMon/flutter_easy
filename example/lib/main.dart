@@ -29,7 +29,7 @@ void main() async {
   } else {
     runApp(const MyApp());
   }
-  if (isAndroid) {
+  if (isAndroid || isOhos) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

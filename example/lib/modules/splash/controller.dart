@@ -20,7 +20,7 @@ class SplashController extends GetxController {
       confirmLocalized: S.current.confirm,
     );
 
-    if (isAndroid) {
+    if (isAndroid || isOhos) {
       checkPrivacy().then((first) async {
         if (first) {
           await initAfterPrivate();

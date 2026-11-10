@@ -803,6 +803,7 @@ class BaseSliverAppBar extends PlatformWidget<SliverAppBar, PreferredSize> {
 }
 
 class BasePopScope extends StatelessWidget {
+  /// 默认拦截 Android 和鸿蒙的系统返回；false 时所有平台均拦截。
   final bool onlyAndroid;
 
   final Widget child;
@@ -819,7 +820,7 @@ class BasePopScope extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (!onlyAndroid || isAndroid)
+    return (!onlyAndroid || isAndroid || isOhos)
         ? PopScope(
             canPop: BaseEasyLoading.isShow ? false : canPop,
             onPopInvokedWithResult: (bool didPop, result) {

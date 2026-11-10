@@ -1,13 +1,15 @@
 import 'package:device_info_plus/device_info_plus.dart';
 
+import 'global_util.dart';
+
 class DeviceInfoUtil {
   DeviceInfoUtil._();
 
   static late BaseDeviceInfo deviceInfo;
 
-  /// 初始化应用信息
-  static Future<BaseDeviceInfo> init() async {
-    final tmp = await DeviceInfoPlugin().deviceInfo;
+  /// 初始化设备信息，可传入已有的平台适配插件。
+  static Future<BaseDeviceInfo> init({DeviceInfoPlugin? plugin}) async {
+    final tmp = await (plugin ?? DeviceInfoPlugin()).deviceInfo;
     deviceInfo = tmp;
     if (tmp is AndroidDeviceInfo) {
       deviceModel = tmp.model;
@@ -33,6 +35,17 @@ class DeviceInfoUtil {
       deviceName = tmp.browserName.name;
       deviceSystemVersion = tmp.appVersion ?? "";
       deviceIsPhysicalDevice = true;
+    } else if (isOhos) {
+      // 已有鸿蒙插件通过标准通道返回 BaseDeviceInfo，无需在主包引入平台包。
+      final data = tmp.data;
+      deviceModel = data['productModel'] as String? ?? '';
+      deviceBrand = data['brand'] as String? ?? '';
+      deviceName = data['marketName'] as String? ?? '';
+      final osVersion = data['distributionOSVersion'] as String? ?? '';
+      deviceSystemVersion = osVersion.isNotEmpty
+          ? osVersion
+          : data['displayVersion'] as String? ?? '';
+      deviceIsPhysicalDevice = data['isPhysicalDevice'] as bool? ?? true;
     }
     return deviceInfo;
   }

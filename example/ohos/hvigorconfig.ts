@@ -1,4 +1,3 @@
-import path from 'path'
-import { injectNativeModules } from 'flutter-hvigor-plugin';
+import { flutterPlugin, flutterProjectPath } from './scripts/flutter-project';
 
-injectNativeModules(__dirname, path.dirname(__dirname))
+flutterPlugin.injectNativeModules(__dirname, flutterProjectPath);

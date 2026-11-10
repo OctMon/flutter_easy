@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+task_flutter_home="${FLUTTER_OH_HOME:-$HOME/fvm/versions/custom_flutter-oh-3.41.10-ohos-1.0.1}"
+task_deveco_home="${DEVECO_HOME:-/Applications/DevEco-Studio.app/Contents}"
+
+if [[ ! -x "$task_flutter_home/bin/flutter" ]]; then
+  printf 'Flutter OH not found at %s. Set FLUTTER_OH_HOME to its SDK directory.\n' "$task_flutter_home" >&2
+  exit 1
+fi
+
+export PATH="$task_flutter_home/bin:$task_deveco_home/tools/node/bin:$task_deveco_home/tools/ohpm/bin:$task_deveco_home/tools/hvigor/bin:$task_deveco_home/sdk/default/openharmony/toolchains:$PATH"
+export JAVA_HOME="$task_deveco_home/jbr/Contents/Home"
+export NODE_HOME="$task_deveco_home/tools/node"
+export DEVECO_SDK_HOME="$task_deveco_home/sdk"
+export FLUTTER_GIT_URL="https://gitcode.com/CPF-Flutter/flutter_flutter.git"
+
+task_project_root="$(cd "$(dirname "$0")/../.." && pwd)"
+task_harmony_project="$(ruby "$task_project_root/ohos/scripts/prepare_harmony.rb")"
+cd "$task_harmony_project"
+export GIT_LFS_SKIP_SMUDGE=1
+# A deleted .dart_tool invalidates --no-pub's assumption that dependencies exist.
+# Bootstrap only the isolated project; never resolve the normal app with Flutter OH.
+case "${1:-}" in
+  build|run|test|analyze|drive)
+    if [[ ! -f .dart_tool/package_config.json || ! -f .flutter-plugins-dependencies ]]; then
+      printf 'Preparing missing HarmonyOS dependencies in %s\n' "$task_harmony_project" >&2
+      "$task_flutter_home/bin/flutter" --no-version-check pub get
+    fi
+    ;;
+esac
+"$task_flutter_home/bin/flutter" --no-version-check "$@"
+if [[ -f pubspec.lock ]]; then
+  cp pubspec.lock "$task_project_root/ohos/scripts/pubspec_ohos.lock"
+fi
+if [[ "${1:-}" == build && "${2:-}" == hap && -f build/ohos/hap/entry-default-unsigned.hap ]]; then
+  mkdir -p "$task_project_root/build/ohos/hap"
+  cp build/ohos/hap/entry-default-unsigned.hap "$task_project_root/build/ohos/hap/"
+fi

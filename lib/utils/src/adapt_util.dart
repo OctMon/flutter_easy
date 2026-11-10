@@ -26,7 +26,11 @@ double get screenBottomBarHeightDp => BaseScreenUtil().bottomBarHeight;
 /// 设备的像素密度
 double get screenDevicePixelRatio => BaseScreenUtil().pixelRatio ?? 1.0;
 
-bool get isIPhoneX => screenBottomBarHeightDp > 0;
+/// 当前窗口是否有底部安全区，适用于所有平台。
+bool get hasBottomSafeArea => screenBottomBarHeightDp > 0;
+
+/// 带底部安全区的 iPhone（包含 iPhone X 及后续机型），不用于识别具体型号。
+bool get isIPhoneX => isIOS && isPhone && hasBottomSafeArea;
 
 extension BaseSizeExtension on num {
   ///[ScreenUtil.setWidth]

@@ -229,6 +229,7 @@ class HomePage extends StatelessWidget {
                   buildTableRow(
                       code: "isAppDebugFlag", value: "$isAppDebugFlag"),
                   buildTableRow(code: "isAndroid", value: "$isAndroid"),
+                  buildTableRow(code: "isOhos", value: "$isOhos"),
                   buildTableRow(code: "isIOS", value: "$isIOS"),
                   buildTableRow(code: "isIPad", value: "$isIPad"),
                   buildTableRow(code: "userAgent", value: userAgent),
@@ -245,6 +246,7 @@ class HomePage extends StatelessWidget {
                   buildTableRow(code: "isDesktop", value: "$isDesktop"),
                   buildTableRow(code: "isMacOS", value: "$isMacOS"),
                   buildTableRow(code: "isIPhoneX", value: "$isIPhoneX"),
+                  buildTableRow(code: "hasBottomSafeArea", value: "$hasBottomSafeArea"),
                   buildTableRowTop(code: "adapt", value: "value"),
                   buildTableRow(code: "1.w", value: "${1.w}"),
                   buildTableRow(code: "100.w", value: "${100.w}"),

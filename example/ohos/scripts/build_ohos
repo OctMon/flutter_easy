@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  printf '用法：example/ohos/build_ohos（example 内使用 ohos/build_ohos）\n自动准备隔离依赖、同步根目录 ohos 工程、构建并复制 debug 未签名 HAP。\n可通过 FLUTTER_OH_HOME、DEVECO_HOME 指定工具安装目录。\n'
+  exit 0
+fi
+if [[ $# -ne 0 ]]; then
+  printf '不支持的参数。使用 ohos/build_ohos --help 查看用法。\n' >&2
+  exit 2
+fi
+
+task_project_root="$(cd "$(dirname "$0")/../.." && pwd)"
+task_deveco_home="${DEVECO_HOME:-/Applications/DevEco-Studio.app/Contents}"
+task_node="$task_deveco_home/tools/node/bin/node"
+task_hvigor="$task_deveco_home/tools/hvigor/bin/hvigorw.js"
+export JAVA_HOME="$task_deveco_home/jbr/Contents/Home"
+export NODE_HOME="$task_deveco_home/tools/node"
+export DEVECO_SDK_HOME="$task_deveco_home/sdk"
+export PATH="$task_deveco_home/tools/node/bin:$task_deveco_home/tools/ohpm/bin:$task_deveco_home/tools/hvigor/bin:$JAVA_HOME/bin:$PATH"
+
+if [[ ! -x "$task_node" || ! -f "$task_hvigor" || ! -x "$JAVA_HOME/bin/java" ]]; then
+  printf '未找到 DevEco 构建工具，请检查 DEVECO_HOME：%s\n' "$task_deveco_home" >&2
+  exit 1
+fi
+for task_command in ruby rsync git unzip; do
+  if ! command -v "$task_command" >/dev/null 2>&1; then
+    printf '缺少构建工具：%s\n' "$task_command" >&2
+    exit 1
+  fi
+done
+
+cd "$task_project_root/ohos"
+printf '[1/3] 同步 ohos 工程并准备隔离的鸿蒙依赖…\n'
+# flutter-project.ts refreshes sources and bootstraps dependencies even without caches.
+"$task_node" "$task_hvigor" --sync -p product=default --no-daemon
+
+printf '[2/3] 编译 Flutter、鸿蒙插件和应用 HAP…\n'
+"$task_node" "$task_hvigor" --mode module -p module=entry@default \
+  -p product=default -p buildMode=debug -p requiredDeviceType=phone \
+  assembleHap --no-daemon
+
+printf '[3/3] 验证 HAP 配置与资源并复制构建产物…\n'
+task_hap="$task_project_root/ohos/entry/build/default/outputs/default/entry-default-unsigned.hap"
+if [[ ! -f "$task_hap" ]]; then
+  printf '未找到预期的 debug 未签名 HAP：%s\n' "$task_hap" >&2
+  exit 1
+fi
+# Check the packaged metadata, not just whether Hvigor exited successfully.
+ruby -rjson -ryaml -e '
+  name, code = YAML.load_file(ARGV[0]).fetch("version").to_s.split("+", 2)
+  metadata = IO.popen(["unzip", "-p", ARGV[1], "module.json"], &:read)
+  abort "Unable to read HAP metadata" unless $?.success?
+  app = JSON.parse(metadata).fetch("app")
+  unless app.fetch("versionName") == name && app.fetch("versionCode") == code.to_i
+    abort "HAP version mismatch: expected #{name}+#{code}, got #{app["versionName"]}+#{app["versionCode"]}"
+  end
+  abort "Expected a debug HAP" unless app["debug"] == true && app["buildMode"] == "debug"
+  mod = JSON.parse(metadata).fetch("module")
+  abort "Missing launcher ability" unless mod.fetch("abilities").any? { |a| a["name"] == mod["mainElement"] }
+  entries = IO.popen(["unzip", "-Z1", ARGV[1]], &:read).lines.map(&:chomp)
+  abort "Unable to list HAP resources" unless $?.success?
+  ["libs/arm64-v8a/libflutter.so", "resources/rawfile/flutter_assets/kernel_blob.bin",
+   "resources/rawfile/flutter_assets/AssetManifest.bin"].each do |entry|
+    abort "Missing HAP resource: #{entry}" unless entries.include?(entry)
+  end
+  puts "HAP 已验证：#{app.fetch("bundleName")} #{name}+#{code}，debug / ARM64 / Flutter 资源完整"
+' "$task_project_root/pubspec.yaml" "$task_hap"
+mkdir -p "$task_project_root/build/ohos/hap"
+cp "$task_hap" "$task_project_root/build/ohos/hap/"
+printf '\n鸿蒙构建完成：%s/build/ohos/hap/entry-default-unsigned.hap\nDevEco 可直接打开：%s/ohos\n' "$task_project_root" "$task_project_root"

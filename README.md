@@ -16,7 +16,7 @@ example 已通过 HarmonyOS 5.1.0 / API 18 ARM64 模拟器的构建、安装、�
 尚未完成真机及全部功能验收。实际验证使用 Flutter OH `3.41.10-ohos-1.0.1`（Dart 3.11.5）。
 
 鸿蒙应用需要在**自己的 `pubspec.yaml`** 中额外添加以下平台实现，保留原有的
-`flutter_easy` 依赖。主包尚未自动引入这些实现，example 的依赖也不会传递给使用者的应用。
+`flutter_easy` 依赖。主包尚未自动引入这些实现，example 的鸿蒙专用依赖也不会传递给使用者的应用。
 
 ```yaml
 dependencies:
@@ -41,6 +41,24 @@ Android/iOS 继续使用原有平台实现；但新增依赖的 SDK 版本约束
 目前网络状态、分享，以及 example 的图片和文件选择仍需接入相应鸿蒙实现，
 不能据此宣称全部功能已支持鸿蒙。工具链、宿主工程及 DevEco 运行步骤见
 [example 鸿蒙运行说明](example/README.md)。
+
+仓库内的 example 已隔离普通平台与鸿蒙的 SDK、依赖和缓存。标准 Flutter 3.44.9 继续用于普通平台；
+在仓库根目录执行 `example/ohos/build_ohos` 一键构建鸿蒙，DevEco 直接打开 `example/ohos/`。
+鸿蒙辅助脚本及专用依赖集中在 `example/ohos/scripts/`，不覆盖普通平台的锁文件和包解析配置。
+
+主包提供 `isOhos` 判断鸿蒙原生平台，标准 Flutter SDK 也可以编译。`isPhone`、`isTablet`
+包含鸿蒙，平板仍以逻辑短边 ≥600 判断；`isDesktop` 只匹配 macOS、Windows、Linux。
+跨平台布局可用 `hasBottomSafeArea` 判断底部安全区；`isIPhoneX` 仅表示带底部安全区的 iPhone，
+不匹配鸿蒙、Android 或 iPad，也不用于识别具体 iPhone 型号。
+`isWebInOhos` 判断鸿蒙浏览器，`isWebInMobile` 包含鸿蒙手机和平板浏览器，不包含鸿蒙 PC 浏览器。
+浏览器识别依据见[华为 User-Agent 说明](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/web-default-useragent/)。
+
+接入上述设备信息实现后，`DeviceInfoUtil.init()` 会从已有插件返回的数据中填充设备型号、品牌、
+名称、系统版本和真机标识。主包不额外引入鸿蒙插件依赖。`BasePopScope` 默认覆盖 Android
+和鸿蒙的系统返回拦截，保留原有 `onlyAndroid` 参数名以兼容现有调用。
+`appStoreUrl` 及评价链接在鸿蒙使用本机包名生成 AppGallery 详情链接，格式遵循
+[华为应用市场说明](https://developer.huawei.com/consumer/cn/doc/harmonyos-faqs/appgallery-kit-faq-0002/)。
+原有 `checkVersion` 只处理 Android APK / iOS IPA，不在鸿蒙发起错误平台的版本检查。
 
 ## Getting Started
 

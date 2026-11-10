@@ -424,6 +424,8 @@ Future<bool?> showSelectBaseURLTypeAlert({BuildContext? context}) {
 }
 
 checkVersion(String action, String baseUrl) async {
+  // 此接口仅处理 APK / IPA 分发，鸿蒙使用应用市场自己的更新流程。
+  if (isWeb || (!isAndroid && !isIOS)) return;
   await 3.delay();
   if (isPhone && isAppDebugFlag) {
     final result =

@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easy/utils/src/device_info_util.dart';
 import 'package:flutter_easy/utils/src/package_info_util.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
 import 'package:path/path.dart';
@@ -43,9 +41,12 @@ bool isLinux = kIsWeb ? false : Platform.isLinux;
 
 bool isAndroid = kIsWeb ? false : Platform.isAndroid;
 
+/// 鸿蒙原生平台。使用系统名称比较，兼容标准 Flutter SDK。
+bool isOhos = kIsWeb ? false : Platform.operatingSystem == 'ohos';
+
 bool get isTablet {
   if (kIsWeb) return false;
-  if (isIOS || isAndroid) {
+  if (isIOS || isAndroid || isOhos) {
     try {
       final view = WidgetsBinding.instance.platformDispatcher.views.first;
       final logicalSize = view.physicalSize / view.devicePixelRatio;
@@ -59,7 +60,7 @@ bool get isTablet {
 
 bool get isIPad => isIOS && isTablet;
 
-bool get isDesktop => !kIsWeb && !isPhone && !isTablet;
+bool get isDesktop => !kIsWeb && (isMacOS || isWindows || isLinux);
 
 bool isWeb = kIsWeb;
 
@@ -84,13 +85,20 @@ bool get isWebInIos => isWebInIPhone || isWebInIPad;
 
 bool get isWebInAndroid => userAgent.contains("android");
 
-bool get isWebInMobile => isWebInIos || isWebInAndroid;
+bool get isWebInOhos =>
+    userAgent.contains('openharmony') || userAgent.contains('harmonyos');
+
+bool get isWebInMobile =>
+    isWebInIos ||
+    isWebInAndroid ||
+    (isWebInOhos &&
+        (userAgent.contains('phone') || userAgent.contains('tablet')));
 
 bool get isWebInWeChat => userAgent.contains("Micro" + "Messenger");
 
 bool get isPhone {
   if (kIsWeb) return false;
-  if (isIOS || isAndroid) return !isTablet;
+  if (isIOS || isAndroid || isOhos) return !isTablet;
   return false;
 }
 
@@ -271,9 +279,15 @@ void hapticFeedbackHeavyImpact() {
   HapticFeedback.heavyImpact();
 }
 
-String appStoreUrl(String appId) => isIOS
-    ? "https://apps.apple.com/app/id$appId"
-    : "https://play.google.com/store/apps/details?id=$appPackageName";
+String appStoreUrl(String appId) {
+  if (isOhos) {
+    return Uri.https('appgallery.huawei.com', '/app/detail',
+        {'id': appPackageName}).toString();
+  }
+  return isIOS
+      ? "https://apps.apple.com/app/id$appId"
+      : "https://play.google.com/store/apps/details?id=$appPackageName";
+}
 
 String appStoreUserReviewsUrl(String appId) => isIOS
     ? "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&id=$appId"

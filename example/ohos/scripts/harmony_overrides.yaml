@@ -1,0 +1,9 @@
+# Only merged into example/.dart_tool/harmony_project/pubspec.yaml.
+environment:
+  flutter: ">=3.41.0-0"
+dependencies:
+  shared_preferences_ohos: 2.2.0
+  path_provider_ohos: 2.2.1
+  package_info_plus_harmonyos: 0.0.1
+  device_info_plus_harmonyos: 0.0.5
+  url_launcher_ohos: ^6.3.0

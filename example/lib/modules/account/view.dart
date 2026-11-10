@@ -23,7 +23,7 @@ class AccountPage extends StatelessWidget {
             return BaseSliverAppBar(
               systemOverlayStyle: SystemUiOverlayStyle.light,
               pinned: true,
-              expandedHeight: 211.0 + (isIPhoneX ? 0 : 24),
+              expandedHeight: 211.0 + (hasBottomSafeArea ? 0 : 24),
               tintColor: Colors.white,
               backgroundColor: appTheme(context).primaryColor,
               flexibleSpace: FlexibleSpaceBar(
