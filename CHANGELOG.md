@@ -1,3 +1,6 @@
+## 3.20.1
+* fix vertically center prefixes and suffixes in single-line text fields
+
 ## 3.20.0
 * add HarmonyOS platform detection, device information and system back support
 * support HarmonyOS URL launching and AppGallery links
