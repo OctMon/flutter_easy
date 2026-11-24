@@ -1313,7 +1313,9 @@ class BaseTextField extends StatelessWidget {
           ? Padding(
               padding: padding,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: maxLines == 1
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start,
                 children: [
                   if (prefix != null) prefix!,
                   Expanded(
